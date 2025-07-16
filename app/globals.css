@@ -400,13 +400,19 @@
     position: relative;
     background-color: #ffffff;
     border-radius: 1.5rem;
-    padding: 2rem 1.5rem;
+    padding: 1.5rem;
     border: 1px solid var(--gray-light);
     box-shadow: 0 20px 60px -20px rgba(0, 25, 255, 0.08);
     transition: all 0.8s cubic-bezier(0.4, 0, 0, 1);
   }
 
   @media (min-width: 768px) {
+    .invitation-card {
+      padding: 2rem 1.5rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
     .invitation-card {
       padding: 3rem;
     }
@@ -486,12 +492,37 @@
   }
 
   /* Clean guarantee cards match feature card aesthetic */
+  
+  /* Mobile-specific optimizations */
+  @media (max-width: 768px) {
+    .deliverable-card {
+      margin-bottom: 0.5rem;
+    }
+    
+    .invitation-card {
+      box-shadow: 0 10px 30px -10px rgba(0, 25, 255, 0.08);
+    }
+    
+    .guarantee-card {
+      margin-bottom: 0.5rem;
+    }
+    
+    /* Reduce spacing between sections on mobile */
+    .section-spacing {
+      padding-bottom: 3rem;
+    }
+  }
 
-
-
-
-
-
+  /* Compact FAQ items on mobile */
+  @media (max-width: 640px) {
+    .faq-item {
+      border-radius: 0.75rem;
+    }
+    
+    .faq-content {
+      line-height: 1.4;
+    }
+  }
 }
 
 @layer utilities {
@@ -568,4 +599,36 @@
   25% { transform: translate(40px, -40px) rotate(90deg) scale(1.1); }
   50% { transform: translate(-30px, -20px) rotate(180deg) scale(0.9); }
   75% { transform: translate(-40px, 30px) rotate(270deg) scale(1.05); }
+}
+
+@keyframes floatSlow {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(10px, -15px); }
+}
+
+@keyframes floatSlower {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(-8px, -12px); }
+}
+
+@keyframes floatFast {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(6px, -10px); }
+}
+
+.animate-float-slow {
+  animation: floatSlow 4s ease-in-out infinite;
+}
+
+.animate-float-slower {
+  animation: floatSlower 6s ease-in-out infinite;
+}
+
+.animate-float-fast {
+  animation: floatFast 3s ease-in-out infinite;
+}
+
+/* Radial gradient utility */
+.bg-gradient-radial {
+  background-image: radial-gradient(circle, var(--tw-gradient-stops));
 }
