@@ -180,8 +180,9 @@
     width: 600px;
     height: 600px;
     background: var(--blue-light);
-    top: -20%;
+    top: -30%;
     right: -10%;
+    filter: blur(120px);
   }
 
   .shape-2 {
@@ -401,7 +402,7 @@
     border-radius: 1.5rem;
     padding: 2rem 1.5rem;
     border: 1px solid var(--gray-light);
-    box-shadow: 0 10px 40px -10px rgba(0, 25, 255, 0.05);
+    box-shadow: 0 20px 60px -20px rgba(0, 25, 255, 0.08);
     transition: all 0.8s cubic-bezier(0.4, 0, 0, 1);
   }
 
@@ -427,11 +428,11 @@
   }
   
   .invitation-list-item {
-    background-color: var(--cream);
+    background-color: #f8f9fb;
   }
 
   .invitation-list-item:hover {
-    background-color: white;
+    background-color: #ffffff;
     border-color: var(--blue-light);
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(0, 25, 255, 0.08);
@@ -484,51 +485,13 @@
     transform: scale(1.1);
   }
 
-  /* EDITED: New Styles for Sophisticated Guarantee Cards */
-  .guarantee-card {
-    position: relative;
-    background: white;
-    padding: 2.5rem;
-    border-radius: 1.5rem;
-    overflow: hidden;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    border: 1px solid var(--gray-light);
-  }
+  /* Clean guarantee cards match feature card aesthetic */
 
-  .guarantee-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 20px 40px -10px rgba(0, 25, 255, 0.1);
-  }
 
-  .guarantee-card-border {
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%;
-    height: 100%;
-    border-radius: 1.5rem;
-    pointer-events: none;
-    background-image: radial-gradient(circle at var(--x, 50%) var(--y, 50%), var(--primary-blue), transparent 40%);
-    opacity: 0;
-    transition: opacity 0.5s ease;
-  }
-  
-  .guarantee-card:hover .guarantee-card-border {
-    opacity: 0.1;
-  }
 
-  .guarantee-icon-wrapper {
-    position: relative;
-    width: 4rem;
-    height: 4rem;
-    flex-shrink: 0;
-    background: var(--blue-light);
-    border-radius: 1rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 1px solid white;
-    box-shadow: 0 0 0 1px var(--gray-light);
-  }
+
+
+
 }
 
 @layer utilities {
