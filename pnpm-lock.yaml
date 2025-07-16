@@ -33,6 +33,12 @@ importers:
       '@eslint/eslintrc':
         specifier: ^3
         version: 3.3.1
+      '@stagewise-plugins/react':
+        specifier: ^0.6.0
+        version: 0.6.0(@stagewise/toolbar@0.6.0)
+      '@stagewise/toolbar-next':
+        specifier: ^0.6.0
+        version: 0.6.0(@types/react@19.1.8)(next@15.4.1(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react@19.1.0)
       '@tailwindcss/postcss':
         specifier: ^4
         version: 4.1.11
@@ -355,6 +361,27 @@ packages:
 
   '@rushstack/eslint-patch@1.12.0':
     resolution: {integrity: sha512-5EwMtOqvJMMa3HbmxLlF74e+3/HhwBTMcvt3nqVJgGCozO6hzIPOBlwm8mGVNR9SN2IJpxSnlxczyDjcn7qIyw==}
+
+  '@stagewise-plugins/react@0.6.0':
+    resolution: {integrity: sha512-tklOIju0GNvLF+3ArL/4GE7vFXQ+JSFVrcZh0vEW4CNihv5Z9XVnKp8AnWsoCcIEG7/oV6DDWCodFq7bIwzSNw==}
+    peerDependencies:
+      '@stagewise/toolbar': 0.6.0
+
+  '@stagewise/toolbar-next@0.6.0':
+    resolution: {integrity: sha512-h8O/SVz/hsOYbbLKmN7wRLsfJn1AYb604RXbNjz6SR/Mfhirm47gRanejzvsC9TW7YcTq2qL8kVk5LYZsmycjA==}
+    peerDependencies:
+      '@types/react': '>=18.0.0'
+      next: '>=14.0.0'
+      react: '>=18.0.0'
+
+  '@stagewise/toolbar-react@0.6.0':
+    resolution: {integrity: sha512-PKn28bfPP4h7hjveFPed2H9ukSiP/DQu/qFEzlFc87MGrEUkWxw25b5wdn7yQb/ljNq1GMyCb7LVYF1YACdUJQ==}
+    peerDependencies:
+      '@types/react': '>=18.0.0'
+      react: '>=18.0.0'
+
+  '@stagewise/toolbar@0.6.0':
+    resolution: {integrity: sha512-JZfAruOFZXu8aWY8jyuD01XJ55zhEnEEiNMSi9+fN9gR5SBx6+jX25CfI+ezTtfoo2/4eYXKtQFt1upJ2Jyg2Q==}
 
   '@swc/helpers@0.5.15':
     resolution: {integrity: sha512-JQ5TuMi45Owi4/BIMAJBoSQoOJu12oOk/gADqlcUL9JEdHB8vyjUSsxqeNXnmXHjYKMi2WcYtezGEEhqUI/E2g==}
@@ -2070,6 +2097,25 @@ snapshots:
   '@rtsao/scc@1.1.0': {}
 
   '@rushstack/eslint-patch@1.12.0': {}
+
+  '@stagewise-plugins/react@0.6.0(@stagewise/toolbar@0.6.0)':
+    dependencies:
+      '@stagewise/toolbar': 0.6.0
+
+  '@stagewise/toolbar-next@0.6.0(@types/react@19.1.8)(next@15.4.1(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react@19.1.0)':
+    dependencies:
+      '@stagewise/toolbar-react': 0.6.0(@types/react@19.1.8)(react@19.1.0)
+      '@types/react': 19.1.8
+      next: 15.4.1(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      react: 19.1.0
+
+  '@stagewise/toolbar-react@0.6.0(@types/react@19.1.8)(react@19.1.0)':
+    dependencies:
+      '@stagewise/toolbar': 0.6.0
+      '@types/react': 19.1.8
+      react: 19.1.0
+
+  '@stagewise/toolbar@0.6.0': {}
 
   '@swc/helpers@0.5.15':
     dependencies:

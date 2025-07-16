@@ -45,11 +45,11 @@
 
 :root {
   --radius: 0.625rem;
-  --background: oklch(1 0 0);
+  --background: #f1efe7;
   --foreground: oklch(0.129 0.042 264.695);
-  --card: oklch(1 0 0);
+  --card: #f1efe7;
   --card-foreground: oklch(0.129 0.042 264.695);
-  --popover: oklch(1 0 0);
+  --popover: #f1efe7;
   --popover-foreground: oklch(0.129 0.042 264.695);
   --primary: oklch(0.208 0.042 265.755);
   --primary-foreground: oklch(0.984 0.003 247.858);
@@ -76,6 +76,17 @@
   --sidebar-accent-foreground: oklch(0.208 0.042 265.755);
   --sidebar-border: oklch(0.929 0.013 255.508);
   --sidebar-ring: oklch(0.704 0.04 256.788);
+  
+  /* Custom colors for the application */
+  --primary-blue: #0019ff;
+  --blue-light: #E6E9FF;
+  --blue-dark: #000D66;
+  --cream: #f1efe7;
+  --black: #000000;
+  --gray-dark: #1A1A1A;
+  --gray-medium: #6B6B6B;
+  --gray-light: #F0F0F2;
+  --white: #f1efe7;
 }
 
 .dark {
@@ -118,5 +129,324 @@
   }
   body {
     @apply bg-background text-foreground;
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", Arial, sans-serif;
+    color: var(--black);
+    background: var(--cream);
+    overflow-x: hidden;
+    cursor: default;
   }
+  
+  ::selection {
+    background: var(--primary-blue);
+    color: var(--white);
+  }
+}
+
+@layer components {
+  /* Custom Cursor */
+  .cursor {
+    width: 40px;
+    height: 40px;
+    border: 2px solid var(--primary-blue);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    transition: all 0.1s ease;
+    mix-blend-mode: difference;
+  }
+
+  .cursor-dot {
+    width: 4px;
+    height: 4px;
+    background: var(--primary-blue);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+  }
+
+  /* Floating shapes animations */
+  .floating-shape {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(100px);
+    opacity: 0.6;
+    animation: float 20s infinite ease-in-out;
+  }
+
+  .shape-1 {
+    width: 600px;
+    height: 600px;
+    background: var(--blue-light);
+    top: -20%;
+    right: -10%;
+  }
+
+  .shape-2 {
+    width: 400px;
+    height: 400px;
+    background: var(--primary-blue);
+    bottom: -10%;
+    left: -5%;
+    animation-delay: -5s;
+  }
+
+  /* Scroll fade animations */
+  .scroll-fade {
+    opacity: 0;
+    transform: translateY(60px);
+    transition: all 0.8s cubic-bezier(0.4, 0, 0, 1);
+  }
+
+  .scroll-fade.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .scroll-fade:nth-child(1) { transition-delay: 0s; }
+  .scroll-fade:nth-child(2) { transition-delay: 0.1s; }
+  .scroll-fade:nth-child(3) { transition-delay: 0.2s; }
+  .scroll-fade:nth-child(4) { transition-delay: 0.3s; }
+
+  /* Marquee animation */
+  .marquee {
+    display: flex;
+    animation: marquee 30s linear infinite;
+  }
+
+  .marquee-content {
+    display: flex;
+    gap: 80px;
+    padding-right: 80px;
+    white-space: nowrap;
+  }
+
+  /* Feature list items with arrow */
+  .feature-list-item::before {
+    content: '→';
+    color: var(--primary-blue);
+    font-weight: 600;
+    flex-shrink: 0;
+  }
+
+  /* Deliverable Section Background */
+  .deliverable-bg-shape {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(100px);
+    opacity: 0.5;
+    animation: deliverableFloat 25s infinite ease-in-out;
+  }
+
+  .deliverable-shape-1 {
+    width: 900px;
+    height: 900px;
+    background: radial-gradient(circle, var(--blue-light) 0%, var(--primary-blue)/20 40%, transparent 70%);
+    top: -25%;
+    right: -20%;
+  }
+
+  .deliverable-shape-2 {
+    width: 700px;
+    height: 700px;
+    background: radial-gradient(circle, var(--primary-blue) 0%, var(--blue-light)/30 50%, transparent 70%);
+    bottom: -20%;
+    left: -15%;
+    animation-delay: -8s;
+  }
+
+  .deliverable-shape-3 {
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, var(--primary-blue)/40 0%, var(--blue-light)/20 60%, transparent 80%);
+    top: 40%;
+    left: 50%;
+    transform: translateX(-50%);
+    animation-delay: -15s;
+  }
+
+  /* Offer Section Background */
+  .offer-floating-shape {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.4;
+    animation: float 30s infinite ease-in-out;
+  }
+
+  .offer-shape-1 {
+    width: 600px;
+    height: 600px;
+    background: linear-gradient(135deg, var(--blue-light) 0%, var(--primary-blue)/30 100%);
+    top: -15%;
+    right: -10%;
+  }
+
+  .offer-shape-2 {
+    width: 400px;
+    height: 400px;
+    background: linear-gradient(225deg, var(--primary-blue)/20 0%, var(--blue-light)/40 100%);
+    bottom: -10%;
+    left: -5%;
+    animation-delay: -10s;
+  }
+
+  .offer-shape-3 {
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, var(--primary-blue)/15 0%, transparent 70%);
+    top: 50%;
+    right: 40%;
+    animation-delay: -20s;
+  }
+
+  /* Deliverable Cards */
+  .deliverable-hero {
+    position: relative;
+    background: linear-gradient(135deg, var(--primary-blue) 0%, var(--blue-dark) 100%);
+  }
+
+  .deliverable-hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    transition: left 0.8s ease;
+  }
+
+  .deliverable-hero:hover::before {
+    left: 100%;
+  }
+
+  .deliverable-card {
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 32px rgba(0, 25, 255, 0.1);
+  }
+
+  .deliverable-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(0, 25, 255, 0.08), transparent);
+    transition: left 0.6s ease;
+  }
+
+  .deliverable-card:hover::before {
+    left: 100%;
+  }
+
+  .deliverable-card:hover {
+    border-color: rgba(0, 25, 255, 0.3);
+    box-shadow: 0 12px 48px rgba(0, 25, 255, 0.2);
+  }
+
+  .premium-deliverable {
+    position: relative;
+    backdrop-filter: blur(10px);
+  }
+
+  .premium-deliverable::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(0, 25, 255, 0.08), transparent);
+    transition: left 0.7s ease;
+  }
+
+  .premium-deliverable:hover::before {
+    left: 100%;
+  }
+
+  .premium-badge {
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 12px rgba(0, 25, 255, 0.3);
+  }
+}
+
+@layer utilities {
+  /* Hero title responsive sizing */
+  .hero-title {
+    font-size: clamp(40px, 6vw, 72px);
+    line-height: 0.95;
+    font-weight: 300;
+    letter-spacing: -0.04em;
+  }
+  
+  @media (min-width: 768px) {
+    .hero-title {
+      line-height: 1;
+    }
+  }
+
+  /* Section title responsive sizing */
+  .section-title {
+    font-size: clamp(36px, 5.5vw, 68px);
+    line-height: 1;
+    font-weight: 300;
+    letter-spacing: -0.03em;
+  }
+
+  /* Animation delays */
+  .animate-fade-in-up {
+    opacity: 0;
+    animation: fadeInUp 0.8s ease-out forwards;
+  }
+
+  .animate-delay-100 {
+    animation-delay: 0.1s;
+  }
+
+  .animate-delay-200 {
+    animation-delay: 0.2s;
+  }
+
+  .animate-delay-300 {
+    animation-delay: 0.3s;
+  }
+
+  .animate-spin-slow {
+    animation: spin 20s linear infinite;
+  }
+}
+
+/* Custom animations */
+@keyframes float {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  33% { transform: translate(30px, -30px) rotate(120deg); }
+  66% { transform: translate(-20px, 20px) rotate(240deg); }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes deliverableFloat {
+  0%, 100% { transform: translate(0, 0) rotate(0deg) scale(1); }
+  25% { transform: translate(40px, -40px) rotate(90deg) scale(1.1); }
+  50% { transform: translate(-30px, -20px) rotate(180deg) scale(0.9); }
+  75% { transform: translate(-40px, 30px) rotate(270deg) scale(1.05); }
 }
