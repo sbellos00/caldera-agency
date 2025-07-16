@@ -2,6 +2,8 @@
 
 import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
+import Menu from '@/components/Menu'
+import Footer from '@/components/Footer'
 
 export default function Home() {
   const cursorRef = useRef<HTMLDivElement>(null)
@@ -10,6 +12,7 @@ export default function Home() {
   const [formData, setFormData] = useState({ name: '', email: '', linkedin: '', website: '' })
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle')
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   useEffect(() => {
     const cursor = cursorRef.current
@@ -98,10 +101,26 @@ export default function Home() {
       <div className="cursor-dot md:block hidden" ref={cursorDotRef}></div>
 
       {/* Navigation */}
-      <nav className="fixed top-0 w-full z-[100] px-6 md:px-12 py-6 mix-blend-difference">
+      <nav className={`fixed top-0 w-full z-[100] px-6 md:px-12 py-6 ${!isMenuOpen ? 'mix-blend-difference' : ''}`}>
         <div className="flex justify-between items-center max-w-screen-2xl mx-auto">
           <div className="text-2xl font-medium tracking-tight text-white">Studio</div>
-          <a href="#contact" className="text-white no-underline text-base tracking-tight">Contact</a>
+          <div className="flex items-center gap-8">
+            <button 
+              onClick={() => {
+                document.getElementById('contact')?.scrollIntoView({ 
+                  behavior: 'smooth',
+                  block: 'start'
+                })
+              }}
+              className="hidden md:block group relative overflow-hidden bg-white/10 backdrop-blur-sm border border-white/20 text-white px-6 py-3 rounded-full text-sm tracking-tight transition-all duration-300 hover:bg-white hover:text-black hover:border-white"
+            >
+              <span className="relative z-10 flex items-center gap-2">
+                Get Started
+                <span className="transition-transform duration-300 group-hover:translate-x-0.5">→</span>
+              </span>
+            </button>
+            <Menu onMenuToggle={setIsMenuOpen} />
+          </div>
         </div>
       </nav>
 
@@ -127,14 +146,19 @@ export default function Home() {
           </p>
 
           <div className="animate-fade-in-up animate-delay-300">
-            <a
-              href="#contact"
+            <button
+              onClick={() => {
+                document.getElementById('contact')?.scrollIntoView({ 
+                  behavior: 'smooth',
+                  block: 'start'
+                })
+              }}
               className="inline-flex items-center gap-3 bg-[var(--black)] text-white px-8 py-4 text-[15px] tracking-tight no-underline rounded-full relative overflow-hidden transition-all duration-300 ease-out hover:scale-105 group"
             >
               <div className="absolute inset-0 bg-[var(--primary-blue)] transform -translate-x-full transition-transform duration-300 ease-out group-hover:translate-x-0"></div>
               <span className="relative z-10">Start Your Project</span>
               <span className="relative z-10">→</span>
-            </a>
+            </button>
           </div>
         </div>
       </section>
@@ -1229,6 +1253,9 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* Footer */}
+      <Footer />
     </>
   )
 }
