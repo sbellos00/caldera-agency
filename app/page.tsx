@@ -13,14 +13,25 @@ export default function Home() {
 
     if (!cursor || !cursorDot) return
 
+    let mouseX = 0
+    let mouseY = 0
+    let animationId: number
+
     const handleMouseMove = (e: MouseEvent) => {
-      cursor.style.left = e.clientX - 20 + 'px'
-      cursor.style.top = e.clientY - 20 + 'px'
-      cursorDot.style.left = e.clientX + 'px'
-      cursorDot.style.top = e.clientY + 'px'
+      mouseX = e.clientX
+      mouseY = e.clientY
+    }
+
+    const updateCursor = () => {
+      cursor.style.left = mouseX - 20 + 'px'
+      cursor.style.top = mouseY - 20 + 'px'
+      cursorDot.style.left = mouseX + 'px'
+      cursorDot.style.top = mouseY + 'px'
+      animationId = requestAnimationFrame(updateCursor)
     }
 
     document.addEventListener('mousemove', handleMouseMove)
+    updateCursor()
 
     // Hover effects
     const hoverElements = document.querySelectorAll('a, button, .feature-card')
@@ -66,6 +77,7 @@ export default function Home() {
 
     return () => {
       document.removeEventListener('mousemove', handleMouseMove)
+      cancelAnimationFrame(animationId)
       hoverElements.forEach(el => {
         el.removeEventListener('mouseenter', handleMouseEnter)
         el.removeEventListener('mouseleave', handleMouseLeave)
@@ -163,7 +175,7 @@ export default function Home() {
           position: relative;
           display: flex;
           align-items: center;
-          padding: 0 48px;
+          padding: 0 32px;
           background: var(--cream);
           overflow: hidden;
         }
@@ -214,6 +226,10 @@ export default function Home() {
           max-width: 1400px;
           margin: 0 auto;
           width: 100%;
+          text-align: center;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
         }
 
         .eyebrow {
@@ -227,12 +243,12 @@ export default function Home() {
         }
 
         h1 {
-          font-size: clamp(48px, 8vw, 120px);
+          font-size: clamp(40px, 7vw, 96px);
           line-height: 0.9;
           font-weight: 300;
           letter-spacing: -0.04em;
-          margin-bottom: 48px;
-          max-width: 1000px;
+          margin-bottom: 32px;
+          max-width: 900px;
           opacity: 0;
           animation: fadeInUp 0.8s ease-out 0.1s forwards;
         }
@@ -245,11 +261,11 @@ export default function Home() {
         }
 
         .hero-description {
-          font-size: 20px;
+          font-size: 18px;
           line-height: 1.6;
           color: var(--gray-dark);
           max-width: 600px;
-          margin-bottom: 56px;
+          margin-bottom: 40px;
           opacity: 0;
           animation: fadeInUp 0.8s ease-out 0.2s forwards;
         }
@@ -265,8 +281,8 @@ export default function Home() {
           gap: 12px;
           background: var(--black);
           color: var(--white);
-          padding: 20px 40px;
-          font-size: 16px;
+          padding: 16px 32px;
+          font-size: 15px;
           letter-spacing: -0.01em;
           text-decoration: none;
           border-radius: 100px;
@@ -304,10 +320,10 @@ export default function Home() {
         .stats-section {
           background: var(--black);
           color: var(--white);
-          padding: 32px 0;
+          padding: 24px 0;
           position: relative;
           overflow: hidden;
-          margin-top: -1px;
+          margin-top: 80px;
         }
 
         .marquee {
@@ -330,12 +346,12 @@ export default function Home() {
         .stat-item {
           display: flex;
           align-items: baseline;
-          gap: 12px;
-          font-size: 18px;
+          gap: 10px;
+          font-size: 16px;
         }
 
         .stat-value {
-          font-size: 32px;
+          font-size: 28px;
           font-weight: 500;
           color: var(--white);
         }
@@ -351,26 +367,26 @@ export default function Home() {
         }
 
         .content-section {
-          padding: 160px 48px;
+          padding: 120px 32px;
           max-width: 1400px;
           margin: 0 auto;
         }
 
         h2 {
-          font-size: clamp(40px, 6vw, 80px);
+          font-size: clamp(36px, 5.5vw, 68px);
           line-height: 1;
           font-weight: 300;
           letter-spacing: -0.03em;
-          margin-bottom: 48px;
+          margin-bottom: 32px;
           max-width: 900px;
         }
 
         .section-intro {
-          font-size: 24px;
+          font-size: 20px;
           line-height: 1.5;
           color: var(--gray-dark);
-          max-width: 700px;
-          margin-bottom: 120px;
+          max-width: 640px;
+          margin-bottom: 80px;
           font-weight: 300;
         }
 
@@ -384,8 +400,8 @@ export default function Home() {
 
         .feature-card {
           background: var(--gray-light);
-          padding: 48px;
-          border-radius: 32px;
+          padding: 32px;
+          border-radius: 24px;
           position: relative;
           overflow: hidden;
           transition: all 0.4s cubic-bezier(0.4, 0, 0, 1);
@@ -435,11 +451,11 @@ export default function Home() {
         }
 
         .feature-icon {
-          width: 48px;
-          height: 48px;
+          width: 40px;
+          height: 40px;
           background: var(--primary-blue);
-          border-radius: 16px;
-          margin-bottom: 32px;
+          border-radius: 12px;
+          margin-bottom: 24px;
           position: relative;
           z-index: 1;
           transition: all 0.3s ease;
@@ -450,16 +466,16 @@ export default function Home() {
         }
 
         .feature-title {
-          font-size: 32px;
+          font-size: 24px;
           font-weight: 400;
           letter-spacing: -0.02em;
-          margin-bottom: 16px;
+          margin-bottom: 12px;
           position: relative;
           z-index: 1;
         }
 
         .feature-description {
-          font-size: 18px;
+          font-size: 16px;
           line-height: 1.6;
           color: var(--gray-medium);
           position: relative;
@@ -467,9 +483,9 @@ export default function Home() {
         }
 
         .feature-list {
-          margin-top: 32px;
+          margin-top: 24px;
           display: grid;
-          gap: 16px;
+          gap: 12px;
           position: relative;
           z-index: 1;
         }
@@ -477,8 +493,8 @@ export default function Home() {
         .feature-list-item {
           display: flex;
           align-items: flex-start;
-          gap: 16px;
-          font-size: 16px;
+          gap: 12px;
+          font-size: 15px;
           line-height: 1.5;
           color: var(--gray-medium);
         }
@@ -500,7 +516,7 @@ export default function Home() {
           align-items: center;
           gap: 8px;
           color: var(--black);
-          font-size: 20px;
+          font-size: 18px;
           text-decoration: none;
           position: relative;
           padding-bottom: 4px;
@@ -544,7 +560,7 @@ export default function Home() {
         /* Responsive */
         @media (max-width: 768px) {
           .hero, .content-section {
-            padding: 80px 24px;
+            padding: 60px 20px;
           }
 
           .features-grid {
@@ -598,7 +614,7 @@ export default function Home() {
         </div>
         
         <div className="hero-content">
-          <p className="eyebrow">For Solo Consultants</p>
+          <p className="eyebrow">50% Off Launch Special</p>
           
           <h1>
             Bespoke, <span className="serif">Authority-Building</span><br/>
@@ -684,10 +700,16 @@ export default function Home() {
           <div className="features-grid">
             <div className="feature-card scroll-fade">
               <div className="feature-icon"></div>
-              <h3 className="feature-title">Minimal Time Investment</h3>
+              <h3 className="feature-title">Fully Managed</h3>
               <p className="feature-description">
-                Most clients spend less than 2 hours total from start to launch. See the full process.
+                We take care of all the technical and admin work so that you never have to worry about things that don’t move your business forward.
               </p>
+              <ul className="feature-list">
+                <li className="feature-list-item">Domain Management</li>
+                <li className="feature-list-item">Analytics Integration</li>
+                <li className="feature-list-item">Web Hosting and Performance</li>
+                <li className="feature-list-item">Post Launch Tweaks</li>
+              </ul>
             </div>
 
             <div className="feature-card scroll-fade">
@@ -700,9 +722,9 @@ export default function Home() {
 
             <div className="feature-card scroll-fade">
               <div className="feature-icon"></div>
-              <h3 className="feature-title">Fully Managed</h3>
+              <h3 className="feature-title">Minimal Time Investment</h3>
               <p className="feature-description">
-                Domain and analytics integration, hosting, tech support, and post-launch tweaks are all taken care of.
+              Most clients spend less than 2 hours total from start to launch. See the full process.
               </p>
             </div>
 
