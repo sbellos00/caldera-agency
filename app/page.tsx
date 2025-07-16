@@ -34,7 +34,7 @@ export default function Home() {
     updateCursor()
 
     // Hover effects
-    const hoverElements = document.querySelectorAll('a, button, .feature-card, .deliverable-hero, .deliverable-card, .premium-deliverable')
+    const hoverElements = document.querySelectorAll('a, button, .feature-card, .deliverable-hero, .deliverable-card, .premium-deliverable, .invitation-card, .invitation-list-item, .invitation-bonus-item, .guarantee-card')
     
     const handleMouseEnter = () => {
       cursor.style.transform = 'scale(1.5)'
@@ -75,12 +75,32 @@ export default function Home() {
       cursorDot.style.display = 'none'
     }
 
+    // EDITED: Add Gradient Border effect for Guarantee Cards
+    const guaranteeCards = document.querySelectorAll('.guarantee-card');
+    const guaranteeCardHandlers: Array<{ card: Element, handler: EventListener }> = [];
+    
+    guaranteeCards.forEach(card => {
+      const handleMouseMove = (e: Event) => {
+        const mouseEvent = e as MouseEvent;
+        const rect = card.getBoundingClientRect();
+        const x = mouseEvent.clientX - rect.left;
+        const y = mouseEvent.clientY - rect.top;
+        (card as HTMLElement).style.setProperty('--x', `${x}px`);
+        (card as HTMLElement).style.setProperty('--y', `${y}px`);
+      };
+      card.addEventListener('mousemove', handleMouseMove);
+      guaranteeCardHandlers.push({ card, handler: handleMouseMove });
+    });
+
     return () => {
       document.removeEventListener('mousemove', handleMouseMove)
       cancelAnimationFrame(animationId)
       hoverElements.forEach(el => {
         el.removeEventListener('mouseenter', handleMouseEnter)
         el.removeEventListener('mouseleave', handleMouseLeave)
+      })
+      guaranteeCardHandlers.forEach(({ card, handler }) => {
+        card.removeEventListener('mousemove', handler)
       })
     }
   }, [])
@@ -313,7 +333,7 @@ export default function Home() {
           }}></div>
         </div>
         
-        <div className="relative z-10 pt-16 pb-32 px-8 md:px-16 max-w-screen-2xl mx-auto">
+        <div className="relative z-10 pt-16 pb-0 px-8 md:px-16 max-w-screen-2xl mx-auto">
           {/* Section Header */}
           <div className="text-center mb-20">
             <div className="inline-flex items-center gap-4 mb-6 scroll-fade">
@@ -448,174 +468,111 @@ export default function Home() {
               <span className="font-medium text-[var(--black)]">Need something extra?</span> Just ask. We'll always be clear about what's included, and quote any add-ons transparently.
             </p>
           </div>
-          {/* Launch Offer Section - Premium Invitation */}
-          <div className="relative mb-32 scroll-fade">
-            <div className="max-w-6xl mx-auto">
-              {/* Premium Invitation Card */}
-              <div className="relative bg-gradient-to-br from-[var(--primary-blue)]/5 via-[var(--cream)] to-[var(--primary-blue)]/5 p-0.5 rounded-3xl shadow-2xl">
-                {/* Inner card with sophisticated border */}
-                <div className="bg-gradient-to-br from-[var(--cream)] to-[var(--gray-light)]/30 rounded-[calc(1.5rem-1px)] p-16 relative overflow-hidden">
-                  
-                  {/* Elegant corner decorations */}
-                  <div className="absolute top-8 left-8 w-12 h-12 border-l-2 border-t-2 border-[var(--primary-blue)]/30 rounded-tl-xl"></div>
-                  <div className="absolute top-8 right-8 w-12 h-12 border-r-2 border-t-2 border-[var(--primary-blue)]/30 rounded-tr-xl"></div>
-                  <div className="absolute bottom-8 left-8 w-12 h-12 border-l-2 border-b-2 border-[var(--primary-blue)]/30 rounded-bl-xl"></div>
-                  <div className="absolute bottom-8 right-8 w-12 h-12 border-r-2 border-b-2 border-[var(--primary-blue)]/30 rounded-br-xl"></div>
-                  
-                  {/* Watermark pattern */}
-                  <div className="absolute inset-0 opacity-[0.02]">
-                    <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 border border-[var(--primary-blue)] rounded-full"></div>
-                    <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 border border-[var(--primary-blue)] rounded-full"></div>
-                  </div>
-                  
-                  {/* Header with elegant typography */}
-                  <div className="text-center mb-16">
-                    <div className="mb-6">
-                      <div className="inline-flex items-center gap-4 mb-4">
-                        <div className="w-16 h-px bg-gradient-to-r from-transparent via-[var(--primary-blue)] to-transparent"></div>
-                        <div className="text-[var(--primary-blue)] text-sm font-medium tracking-[0.3em] uppercase">Exclusive</div>
-                        <div className="w-16 h-px bg-gradient-to-r from-transparent via-[var(--primary-blue)] to-transparent"></div>
-                      </div>
-                      <h3 className="text-5xl md:text-6xl font-light text-[var(--black)] mb-4 tracking-tight">
-                        Founding Client
-                      </h3>
-                      <div className="text-4xl md:text-5xl italic font-serif text-[var(--primary-blue)] mb-8 tracking-wide">
-                        Invitation
-                      </div>
-                      
-                      {/* Elegant 50% presentation */}
-                      <div className="relative inline-block">
-                        <div className="text-8xl md:text-9xl font-extralight text-[var(--primary-blue)]/10 absolute -top-4 -left-4">50</div>
-                        <div className="relative bg-gradient-to-r from-[var(--primary-blue)] to-[var(--blue-dark)] bg-clip-text text-transparent">
-                          <span className="text-3xl md:text-4xl font-light">50% Launch Discount</span>
+                    </div>
+      </section>
+                    
+      {/* EDITED: Launch Offer Invitation Section */}
+<section className="bg-white pt-0 pb-12 md:pb-16 relative overflow-hidden">
+        <div className="absolute inset-0 opacity-[0.02]" style={{
+          backgroundImage: `radial-gradient(circle at 1px 1px, var(--primary-blue) 1px, transparent 0)`,
+          backgroundSize: '40px 40px'
+        }}></div>
+        <div className="relative z-10 max-w-7xl mx-auto px-8 md:px-16 scroll-fade">
+          <div className="invitation-card-container">
+            <div className="invitation-card-bg"></div>
+            <div className="invitation-card">
+              {/* Header */}
+              <div className="text-center mb-12">
+                <div className="inline-block bg-white border border-[var(--blue-light)] rounded-full px-4 py-2 mb-8">
+                  <span className="text-sm tracking-widest uppercase text-[var(--primary-blue)] font-medium">Exclusive Launch Offer</span>
                         </div>
-                        <div className="text-[var(--gray-medium)] text-sm mt-2 font-light tracking-wide">First 5 visionary consultants only</div>
+                <h3 className="text-3xl lg:text-4xl font-light text-[var(--black)] mb-4 tracking-tight">
+                          Founding Client <span className="italic font-serif text-[var(--primary-blue)]">Invitation</span>
+                        </h3>
+                <div className="flex items-center justify-center gap-3 mb-6">
+                  <span className="text-6xl lg:text-7xl font-light text-[var(--primary-blue)]">50% Off</span>
+                        </div>
+                <p className="text-[var(--gray-dark)] text-lg leading-relaxed max-w-3xl mx-auto font-light">
+                  Full website development at <span className="font-medium">half price</span> for the first 5 consultants, in exchange for feedback and a testimonial.
+                        </p>
+                      </div>
+
+              {/* Columns */}
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
+                {/* Left Column: Requirements */}
+                <div className="space-y-6">
+                  <h4 className="text-lg text-[var(--black)] text-center lg:text-left tracking-tight font-light">What we ask in return:</h4>
+                  <div className="invitation-list-item">
+                    <div className="invitation-list-icon">✓</div>
+                    <div>
+                      <h5 className="font-medium text-[var(--black)] mb-1 tracking-tight">Make this your primary website</h5>
+                      <p className="text-[var(--gray-medium)] text-sm leading-relaxed">Use this as your official link in your communications, proposals, and social media profiles.</p>
+                    </div>
+                  </div>
+                  <div className="invitation-list-item">
+                    <div className="invitation-list-icon">✓</div>
+                      <div>
+                      <h5 className="font-medium text-[var(--black)] mb-1 tracking-tight">Provide honest feedback</h5>
+                      <p className="text-[var(--gray-medium)] text-sm leading-relaxed">Help us refine our process and results for future clients.</p>
+                          </div>
+                        </div>
+                  <div className="invitation-list-item">
+                    <div className="invitation-list-icon">✓</div>
+                    <div>
+                      <h5 className="font-medium text-[var(--black)] mb-1 tracking-tight">Leave a testimonial</h5>
+                      <p className="text-[var(--gray-medium)] text-sm leading-relaxed">If, and only if, you believe the final result has earned it.</p>
+                          </div>
+                        </div>
+                      </div>
+
+                {/* Right Column: Bonuses */}
+                <div className="space-y-6">
+                  <h4 className="text-lg text-[var(--black)] text-center lg:text-left tracking-tight font-light">Exclusive Launch Bonuses:</h4>
+                  <div className="invitation-bonus-item">
+                    <div className="invitation-bonus-icon">+</div>
+                      <div>
+                      <h5 className="font-medium text-[var(--black)] mb-1 tracking-tight">LinkedIn Launch Toolkit</h5>
+                      <p className="text-[var(--gray-medium)] text-sm leading-relaxed">Custom LinkedIn banner and ready-to-use social post templates.</p>
+                            </div>
+                          </div>
+                  <div className="invitation-bonus-item">
+                    <div className="invitation-bonus-icon">+</div>
+                    <div>
+                      <h5 className="font-medium text-[var(--black)] mb-1 tracking-tight">Done-For-You Testimonial Kit</h5>
+                      <p className="text-[var(--gray-medium)] text-sm leading-relaxed">Plug-and-play testimonial outreach scripts and forms.</p>
+                        </div>
+                          </div>
+                  <div className="invitation-bonus-item">
+                    <div className="invitation-bonus-icon">+</div>
+                    <div>
+                      <h5 className="font-medium text-[var(--black)] mb-1 tracking-tight">Authority Bio & About Copy Polish</h5>
+                      <p className="text-[var(--gray-medium)] text-sm leading-relaxed">LinkedIn bio review and optimization for credibility.</p>
+                          </div>
+                        </div>
                       </div>
                     </div>
                     
-                    <div className="max-w-4xl mx-auto">
-                      <p className="text-[var(--gray-dark)] text-xl font-light leading-relaxed mb-8">
-                        For our official launch, we're offering our full website development services at <span className="font-medium text-[var(--black)]">half the price</span> for the first five solo consultants who join, <span className="font-medium text-[var(--black)]">in exchange for three things:</span>
-                      </p>
-                      
-                      <div className="flex items-center justify-center gap-4 mb-8">
-                        <div className="w-8 h-px bg-[var(--primary-blue)]/30"></div>
-                        <div className="w-2 h-2 bg-[var(--primary-blue)] rounded-full"></div>
-                        <div className="w-8 h-px bg-[var(--primary-blue)]/30"></div>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Sophisticated two-column content */}
-                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-20">
-                    {/* Requirements - Elegant List */}
-                    <div>
-                      <div className="text-center mb-12">
-                        <div className="inline-flex items-center gap-3 mb-6">
-                          <div className="w-12 h-px bg-[var(--primary-blue)]"></div>
-                          <h4 className="text-[var(--black)] font-medium text-xl tracking-tight">What we need in exchange</h4>
-                          <div className="w-12 h-px bg-[var(--primary-blue)]"></div>
-                        </div>
-                      </div>
-                      
-                      <div className="space-y-8">
-                        <div className="relative group">
-                          <div className="absolute left-0 top-0 w-px h-full bg-gradient-to-b from-[var(--primary-blue)] to-transparent"></div>
-                          <div className="pl-8">
-                            <h5 className="text-[var(--black)] font-medium text-lg mb-3 leading-tight">Make your Caldera website your primary web presence within 30 days of delivery</h5>
-                            <p className="text-[var(--gray-medium)] leading-relaxed italic">Use this as your official link in communications, proposals, or your LinkedIn profile</p>
-                          </div>
-                        </div>
-                        
-                        <div className="relative group">
-                          <div className="absolute left-0 top-0 w-px h-full bg-gradient-to-b from-[var(--primary-blue)] to-transparent"></div>
-                          <div className="pl-8">
-                            <h5 className="text-[var(--black)] font-medium text-lg mb-3 leading-tight">Give us honest, actionable feedback on the process and results</h5>
-                            <p className="text-[var(--gray-medium)] leading-relaxed">Help us refine the process for future clients</p>
-                          </div>
-                        </div>
-                        
-                        <div className="relative group">
-                          <div className="absolute left-0 top-0 w-px h-full bg-gradient-to-b from-[var(--primary-blue)] to-transparent"></div>
-                          <div className="pl-8">
-                            <h5 className="text-[var(--black)] font-medium text-lg mb-3 leading-tight">Leave a testimonial if (and only if) you believe the outcome deserves it</h5>
-                            <p className="text-[var(--gray-medium)] leading-relaxed">Only if you believe it deserves it</p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Exclusive Bonuses - Sophisticated List */}
-                    <div>
-                      <div className="text-center mb-12">
-                        <div className="inline-flex items-center gap-3 mb-6">
-                          <div className="w-12 h-px bg-[var(--primary-blue)]"></div>
-                          <h4 className="text-[var(--black)] font-medium text-xl tracking-tight">Exclusive Launch Bonuses</h4>
-                          <div className="w-12 h-px bg-[var(--primary-blue)]"></div>
-                        </div>
-                        <p className="text-[var(--gray-medium)] text-sm italic">Included for all new projects booked this month</p>
-                      </div>
-                      
-                      <div className="space-y-6">
-                        <div className="border-l-2 border-[var(--primary-blue)]/30 pl-6 hover:border-[var(--primary-blue)]/50 transition-colors">
-                          <h5 className="text-[var(--black)] font-medium text-lg mb-2">LinkedIn Launch Toolkit</h5>
-                          <p className="text-[var(--gray-medium)] text-sm leading-relaxed">Custom LinkedIn banner and ready-to-use social post templates, so you can announce your new website with authority and confidence.</p>
-                        </div>
-                        
-                        <div className="border-l-2 border-[var(--primary-blue)]/30 pl-6 hover:border-[var(--primary-blue)]/50 transition-colors">
-                          <h5 className="text-[var(--black)] font-medium text-lg mb-2">Done-For-You Testimonial Kit</h5>
-                          <p className="text-[var(--gray-medium)] text-sm leading-relaxed">Plug-and-play testimonial outreach scripts and forms. Collect credible client endorsements quickly, so your site launches with real social proof, not empty sections.</p>
-                        </div>
-                        
-                        <div className="border-l-2 border-[var(--primary-blue)]/30 pl-6 hover:border-[var(--primary-blue)]/50 transition-colors">
-                          <h5 className="text-[var(--black)] font-medium text-lg mb-2">Authority Bio & About Copy Polish</h5>
-                          <p className="text-[var(--gray-medium)] text-sm leading-relaxed">We'll review, edit, and sharpen your LinkedIn bio or About page copy to ensure every profile signals trust and credibility—on your website <em>and</em> beyond.</p>
-                        </div>
-                        
-                        <div className="border-l-2 border-[var(--primary-blue)]/30 pl-6 hover:border-[var(--primary-blue)]/50 transition-colors">
-                          <h5 className="text-[var(--black)] font-medium text-lg mb-2">Free First Year Hosting + Development Support</h5>
-                          <p className="text-[var(--gray-medium)] text-sm leading-relaxed">12 months of managed hosting, domain support, and up to 2 free development hours per month (4 for your first month) for updates and improvements.</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  {/* Elegant footer with key message */}
-                  <div className="text-center mt-20">
-                    <div className="inline-flex items-center gap-4 mb-8">
-                      <div className="w-24 h-px bg-gradient-to-r from-transparent via-[var(--primary-blue)]/30 to-transparent"></div>
-                      <div className="w-8 h-8 border border-[var(--primary-blue)]/30 rounded-full flex items-center justify-center">
-                        <div className="w-3 h-3 bg-[var(--primary-blue)] rounded-full"></div>
-                      </div>
-                      <div className="w-24 h-px bg-gradient-to-r from-transparent via-[var(--primary-blue)]/30 to-transparent"></div>
-                    </div>
-                    
-                    <div className="max-w-2xl mx-auto">
-                      <p className="text-[var(--black)] text-lg font-medium mb-3">
-                        This is the only time Caldera will be offered at this rate.
-                      </p>
-                      <p className="text-[var(--gray-medium)] leading-relaxed">
-                        Once these spots are filled, all new projects return to full price.
-                      </p>
-                    </div>
-                  </div>
-                </div>
+                    {/* Footer */}
+              <div className="text-center mt-12 pt-8 border-t border-[var(--gray-light)]">
+                <p className="text-[var(--black)] text-base font-medium mb-2 tracking-tight">
+                  This is the only time our service will be offered at this rate.
+                        </p>
+                <p className="text-[var(--gray-medium)] text-sm leading-relaxed font-light">
+                          Once these spots are filled, all new projects return to full price.
+                        </p>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Our Guarantees Section */}
-      <section className="bg-white relative overflow-hidden">
+      {/* EDITED: Our Guarantees Section */}
+      <section className="bg-[var(--cream)] relative overflow-hidden">
         <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute top-20 right-20 w-80 h-80 bg-gradient-to-br from-[var(--primary-blue)]/5 to-transparent rounded-full blur-3xl"></div>
-          <div className="absolute bottom-20 left-20 w-60 h-60 bg-gradient-to-tr from-[var(--blue-light)]/10 to-transparent rounded-full blur-2xl"></div>
-          <div className="absolute top-1/3 left-1/2 transform -translate-x-1/2 w-96 h-96 border border-[var(--primary-blue)]/5 rounded-full"></div>
-          <div className="absolute bottom-1/4 right-1/4 w-32 h-32 bg-[var(--primary-blue)]/5 rounded-full blur-xl"></div>
+          <div className="floating-shape shape-1"></div>
+          <div className="floating-shape shape-2"></div>
         </div>
-        
-        <div className="relative z-10 pt-32 pb-32 px-8 md:px-16 max-w-screen-2xl mx-auto">
+        <div className="relative z-10 pt-20 pb-32 px-8 md:px-16 max-w-screen-2xl mx-auto">
           {/* Section Header */}
           <div className="text-center mb-20">
             <div className="inline-flex items-center gap-6 mb-8 scroll-fade">
@@ -632,92 +589,79 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {/* Quality Commitment Guarantee */}
-            <div className="relative group scroll-fade">
-              <div className="absolute inset-0 bg-gradient-to-br from-[var(--primary-blue)]/10 to-[var(--blue-light)]/5 rounded-3xl blur-xl group-hover:blur-2xl transition-all duration-500"></div>
-              <div className="relative bg-white/95 backdrop-blur-sm p-10 rounded-3xl border border-[var(--primary-blue)]/20 shadow-xl hover:shadow-2xl transition-all duration-500 group-hover:border-[var(--primary-blue)]/30">
-                <div className="flex items-start gap-6 mb-8">
-                  <div className="relative">
-                    <div className="w-16 h-16 bg-gradient-to-br from-[var(--primary-blue)] to-[var(--blue-dark)] rounded-2xl flex items-center justify-center shadow-lg">
-                      <div className="w-8 h-8 border-2 border-white rounded-full"></div>
-                      <div className="w-4 h-4 bg-white rounded-full absolute"></div>
-                    </div>
-                    <div className="absolute -top-2 -right-2 w-6 h-6 bg-white rounded-full flex items-center justify-center shadow-lg">
-                      <div className="w-3 h-3 bg-[var(--primary-blue)] rounded-full"></div>
-                    </div>
+            <div className="guarantee-card scroll-fade">
+              <div className="guarantee-card-border"></div>
+              <div className="relative">
+                <div className="flex flex-col md:flex-row items-start gap-6 mb-8">
+                  <div className="guarantee-icon-wrapper">
+                    <svg className="w-10 h-10 text-[var(--primary-blue)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.745 3.745 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.745 3.745 0 013.296-1.043A3.745 3.745 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.745 3.745 0 013.296 1.043 3.745 3.745 0 011.043 3.296A3.745 3.745 0 0121 12z" />
+                    </svg>
                   </div>
-                  <div>
-                    <h3 className="text-2xl font-medium mb-2 tracking-tight">Quality Commitment Guarantee</h3>
-                    <p className="text-[var(--gray-medium)] leading-relaxed">
-                      Our process puts you in control at every stage, with milestone payments and full transparency.
+                  <div className="flex-1">
+                    <h3 className="text-2xl font-light mb-3 tracking-tight text-[var(--black)]">Quality Commitment</h3>
+                    <p className="text-[var(--gray-medium)] leading-relaxed font-light">
+                      You are in control at every stage. We proceed only when you give the green light.
                     </p>
                   </div>
                 </div>
-                
-                <div className="space-y-4">
-                  <div className="flex items-start gap-4 p-4 bg-[var(--gray-light)]/50 rounded-xl hover:bg-[var(--gray-light)]/80 transition-colors">
-                    <div className="w-6 h-6 bg-[var(--primary-blue)] rounded-full flex items-center justify-center flex-shrink-0">
-                      <span className="text-white text-xs font-bold">✓</span>
+                <div className="space-y-4 pl-0 md:pl-16">
+                  <div className="flex items-start gap-4 text-[var(--gray-dark)]">
+                    <div className="w-6 h-6 rounded-full bg-[var(--primary-blue)]/10 flex items-center justify-center mt-0.5 flex-shrink-0">
+                      <div className="w-2 h-2 rounded-full bg-[var(--primary-blue)]"></div>
                     </div>
-                    <span className="text-[var(--gray-dark)] leading-relaxed">Pay only for delivered work you've seen and approved</span>
+                    <span className="font-light">Pay only for delivered work you've seen and approved.</span>
                   </div>
-                  <div className="flex items-start gap-4 p-4 bg-[var(--gray-light)]/50 rounded-xl hover:bg-[var(--gray-light)]/80 transition-colors">
-                    <div className="w-6 h-6 bg-[var(--primary-blue)] rounded-full flex items-center justify-center flex-shrink-0">
-                      <span className="text-white text-xs font-bold">✓</span>
+                  <div className="flex items-start gap-4 text-[var(--gray-dark)]">
+                    <div className="w-6 h-6 rounded-full bg-[var(--primary-blue)]/10 flex items-center justify-center mt-0.5 flex-shrink-0">
+                      <div className="w-2 h-2 rounded-full bg-[var(--primary-blue)]"></div>
                     </div>
-                    <span className="text-[var(--gray-dark)] leading-relaxed">Review and sign off before moving to next phase</span>
+                    <span className="font-light">Review and sign off before we move to the next phase.</span>
                   </div>
-                  <div className="flex items-start gap-4 p-4 bg-[var(--gray-light)]/50 rounded-xl hover:bg-[var(--gray-light)]/80 transition-colors">
-                    <div className="w-6 h-6 bg-[var(--primary-blue)] rounded-full flex items-center justify-center flex-shrink-0">
-                      <span className="text-white text-xs font-bold">✓</span>
+                  <div className="flex items-start gap-4 text-[var(--gray-dark)]">
+                    <div className="w-6 h-6 rounded-full bg-[var(--primary-blue)]/10 flex items-center justify-center mt-0.5 flex-shrink-0">
+                      <div className="w-2 h-2 rounded-full bg-[var(--primary-blue)]"></div>
                     </div>
-                    <span className="text-[var(--gray-dark)] leading-relaxed">Final payment only when you're confident to launch</span>
-                  </div>
-                  <div className="flex items-start gap-4 p-4 bg-[var(--gray-light)]/50 rounded-xl hover:bg-[var(--gray-light)]/80 transition-colors">
-                    <div className="w-6 h-6 bg-[var(--primary-blue)] rounded-full flex items-center justify-center flex-shrink-0">
-                      <span className="text-white text-xs font-bold">✓</span>
-                    </div>
-                    <span className="text-[var(--gray-dark)] leading-relaxed">No fine print, no loopholes, no games</span>
+                    <span className="font-light">Final payment is only due when you're 100% confident to launch.</span>
                   </div>
                 </div>
               </div>
             </div>
 
             {/* 20-Day Launch Guarantee */}
-            <div className="relative group scroll-fade">
-              <div className="absolute inset-0 bg-gradient-to-br from-[var(--primary-blue)]/10 to-[var(--blue-light)]/5 rounded-3xl blur-xl group-hover:blur-2xl transition-all duration-500"></div>
-              <div className="relative bg-white/95 backdrop-blur-sm p-10 rounded-3xl border border-[var(--primary-blue)]/20 shadow-xl hover:shadow-2xl transition-all duration-500 group-hover:border-[var(--primary-blue)]/30">
-                <div className="flex items-start gap-6 mb-8">
-                  <div className="relative">
-                    <div className="w-16 h-16 bg-gradient-to-br from-[var(--primary-blue)] to-[var(--blue-dark)] rounded-2xl flex items-center justify-center shadow-lg">
-                      <div className="text-white font-bold text-xl">20</div>
-                    </div>
-                    <div className="absolute -top-2 -right-2 w-6 h-6 bg-white rounded-full flex items-center justify-center shadow-lg">
-                      <span className="text-[var(--primary-blue)] text-xs font-bold">D</span>
-                    </div>
+            <div className="guarantee-card scroll-fade">
+              <div className="guarantee-card-border"></div>
+              <div className="relative">
+                <div className="flex flex-col md:flex-row items-start gap-6 mb-8">
+                  <div className="guarantee-icon-wrapper">
+                    <svg className="w-10 h-10 text-[var(--primary-blue)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                      <circle cx="12" cy="12" r="10"/>
+                      <polyline points="12,6 12,12 16,14"/>
+                    </svg>
                   </div>
-                  <div>
-                    <h3 className="text-2xl font-medium mb-2 tracking-tight">20-Day Launch Guarantee</h3>
-                    <p className="text-[var(--gray-medium)] leading-relaxed">
-                      Speed and certainty, not agency delays or excuses. Your site goes live in 20 days or less.
+                  <div className="flex-1">
+                    <h3 className="text-2xl font-light mb-3 tracking-tight text-[var(--black)]">Launch Guarantee</h3>
+                    <p className="text-[var(--gray-medium)] leading-relaxed font-light">
+                      Speed and certainty, not agency delays. Your site goes live in 20 business days or less.
                     </p>
                   </div>
                 </div>
-                
-                <div className="bg-gradient-to-r from-[var(--blue-light)]/20 to-[var(--primary-blue)]/10 rounded-2xl p-6 mb-6 border border-[var(--primary-blue)]/20">
-                  <p className="text-[var(--gray-dark)] font-medium mb-2 text-lg">
-                    If we miss the deadline for reasons on our end, we'll pay you back <strong className="text-[var(--primary-blue)]">20% of your project fee for every business day we're late.</strong>
-                  </p>
-                  <p className="text-[var(--gray-medium)] leading-relaxed">
-                    No hassle, no excuses. You can plan your launch with total confidence.
-                  </p>
-                </div>
-                
-                <div className="bg-[var(--gray-light)]/30 rounded-xl p-4 border border-[var(--gray-light)]">
-                  <p className="text-[var(--gray-medium)] text-sm leading-relaxed">
-                    <span className="font-medium text-[var(--gray-dark)]">*Conditions:</span> Assumes prompt client responses, timely feedback, and on-time asset delivery. Full details provided in your onboarding pack.
-                  </p>
+                <div className="pl-0 md:pl-16">
+                  <div className="bg-gradient-to-r from-[var(--blue-light)]/20 to-transparent rounded-2xl p-8 border border-[var(--blue-light)]/30 backdrop-blur-sm">
+                    <div className="flex items-center gap-3 mb-4">
+                      <div className="w-8 h-8 rounded-full bg-[var(--primary-blue)]/10 flex items-center justify-center">
+                        <span className="text-[var(--primary-blue)] font-medium text-sm">20%</span>
+                      </div>
+                      <p className="text-[var(--gray-dark)] font-medium">
+                        Refund for every business day we're late
+                      </p>
+                    </div>
+                    <p className="text-[var(--gray-medium)] text-sm leading-relaxed font-light">
+                      *Assumes prompt client feedback. Full details are in your onboarding pack.
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>

@@ -373,6 +373,162 @@
     backdrop-filter: blur(10px);
     box-shadow: 0 4px 12px rgba(0, 25, 255, 0.3);
   }
+
+  /* EDITED: New Styles for Sophisticated Launch Offer Invitation */
+  .invitation-card-container {
+    position: relative;
+    padding: 2px;
+  }
+  
+  .invitation-card-bg {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 1.75rem; /* slightly larger than the card's border-radius */
+    background: linear-gradient(135deg, var(--blue-light), transparent, var(--blue-light));
+    filter: blur(12px);
+    transition: opacity 0.8s cubic-bezier(0.4, 0, 0, 1);
+    opacity: 0.6;
+  }
+
+  .invitation-card-container:hover .invitation-card-bg {
+    opacity: 1;
+  }
+
+  .invitation-card {
+    position: relative;
+    background-color: #ffffff;
+    border-radius: 1.5rem;
+    padding: 2rem 1.5rem;
+    border: 1px solid var(--gray-light);
+    box-shadow: 0 10px 40px -10px rgba(0, 25, 255, 0.05);
+    transition: all 0.8s cubic-bezier(0.4, 0, 0, 1);
+  }
+
+  @media (min-width: 768px) {
+    .invitation-card {
+      padding: 3rem;
+    }
+  }
+
+  .invitation-card:hover {
+    box-shadow: 0 20px 50px -15px rgba(0, 25, 255, 0.15);
+    transform: translateY(-6px);
+  }
+
+  .invitation-list-item, .invitation-bonus-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1.25rem;
+    border-radius: 0.875rem;
+    border: 1px solid transparent;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0, 1);
+  }
+  
+  .invitation-list-item {
+    background-color: var(--cream);
+  }
+
+  .invitation-list-item:hover {
+    background-color: white;
+    border-color: var(--blue-light);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 25, 255, 0.08);
+  }
+  
+  .invitation-bonus-item {
+    background-color: var(--blue-light);
+    border: 1px solid transparent;
+  }
+  
+  .invitation-bonus-item:hover {
+    background-color: #E0E4FF;
+    border-color: var(--primary-blue);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 25, 255, 0.12);
+  }
+
+  .invitation-list-icon, .invitation-bonus-icon {
+    flex-shrink: 0;
+    width: 1.5rem;
+    height: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 9999px;
+    font-weight: 600;
+    margin-top: 2px;
+    transition: all 0.3s ease;
+  }
+
+  .invitation-list-icon {
+    background-color: white;
+    color: var(--primary-blue);
+    border: 1px solid var(--blue-light);
+  }
+
+  .invitation-list-item:hover .invitation-list-icon {
+    background-color: var(--primary-blue);
+    color: white;
+    border-color: var(--primary-blue);
+  }
+  
+  .invitation-bonus-icon {
+    background-color: var(--primary-blue);
+    color: white;
+  }
+
+  .invitation-bonus-item:hover .invitation-bonus-icon {
+    background-color: var(--black);
+    transform: scale(1.1);
+  }
+
+  /* EDITED: New Styles for Sophisticated Guarantee Cards */
+  .guarantee-card {
+    position: relative;
+    background: white;
+    padding: 2.5rem;
+    border-radius: 1.5rem;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid var(--gray-light);
+  }
+
+  .guarantee-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px -10px rgba(0, 25, 255, 0.1);
+  }
+
+  .guarantee-card-border {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 1.5rem;
+    pointer-events: none;
+    background-image: radial-gradient(circle at var(--x, 50%) var(--y, 50%), var(--primary-blue), transparent 40%);
+    opacity: 0;
+    transition: opacity 0.5s ease;
+  }
+  
+  .guarantee-card:hover .guarantee-card-border {
+    opacity: 0.1;
+  }
+
+  .guarantee-icon-wrapper {
+    position: relative;
+    width: 4rem;
+    height: 4rem;
+    flex-shrink: 0;
+    background: var(--blue-light);
+    border-radius: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid white;
+    box-shadow: 0 0 0 1px var(--gray-light);
+  }
 }
 
 @layer utilities {
