@@ -243,7 +243,7 @@ export default function Home() {
         }
 
         h1 {
-          font-size: clamp(40px, 7vw, 96px);
+          font-size: clamp(32px, 6vw, 72px);
           line-height: 0.9;
           font-weight: 300;
           letter-spacing: -0.04em;
