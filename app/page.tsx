@@ -7,7 +7,7 @@ export default function Home() {
   const cursorRef = useRef<HTMLDivElement>(null)
   const cursorDotRef = useRef<HTMLDivElement>(null)
   const [openFAQ, setOpenFAQ] = useState<number | null>(null)
-  const [formData, setFormData] = useState({ name: '', email: '', linkedin: '' })
+  const [formData, setFormData] = useState({ name: '', email: '', linkedin: '', website: '' })
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle')
 
@@ -39,7 +39,7 @@ export default function Home() {
 
     // Hover effects
     const hoverElements = document.querySelectorAll('a, button, .feature-card, .deliverable-hero, .deliverable-card, .premium-deliverable, .invitation-card, .invitation-list-item, .invitation-bonus-item, .guarantee-card')
-    
+
     const handleMouseEnter = () => {
       cursor.style.transform = 'scale(1.5)'
       cursor.style.borderColor = 'var(--primary-blue)'
@@ -111,28 +111,28 @@ export default function Home() {
           <div className="floating-shape shape-1"></div>
           <div className="floating-shape shape-2"></div>
         </div>
-        
+
         <div className="relative z-10 max-w-screen-2xl mx-auto w-full text-center flex flex-col items-center">
           <p className="text-sm tracking-widest uppercase text-[var(--gray-medium)] mb-6 animate-fade-in-up">
             50% Off Launch Special
           </p>
-          
+
           <h1 className="hero-title mb-8 max-w-4xl animate-fade-in-up animate-delay-100">
-            Bespoke, <span className="font-serif italic font-normal text-[var(--primary-blue)] whitespace-nowrap">Authority-Building</span><br/>
+            Bespoke, <span className="font-serif italic font-normal text-[var(--primary-blue)] whitespace-nowrap">Authority-Building</span><br />
             Websites for Solo Consultants
           </h1>
-          
+
           <p className="text-lg leading-relaxed text-[var(--gray-dark)] max-w-2xl mb-10 animate-fade-in-up animate-delay-200">
             We combine deep research, strategic positioning, and hands-off delivery to create websites that demonstrate expertise, communicate credibility, and convert higher-value clients—with zero admin headache.
           </p>
-          
+
           <div className="animate-fade-in-up animate-delay-300">
-            <a 
-              href="#contact" 
+            <a
+              href="#contact"
               className="inline-flex items-center gap-3 bg-[var(--black)] text-white px-8 py-4 text-[15px] tracking-tight no-underline rounded-full relative overflow-hidden transition-all duration-300 ease-out hover:scale-105 group"
             >
               <div className="absolute inset-0 bg-[var(--primary-blue)] transform -translate-x-full transition-transform duration-300 ease-out group-hover:translate-x-0"></div>
-              <span className="relative z-10">Book Your Website</span>
+              <span className="relative z-10">Start Your Project</span>
               <span className="relative z-10">→</span>
             </a>
           </div>
@@ -193,10 +193,10 @@ export default function Home() {
       <section className="bg-white relative">
         <div className="pt-16 pb-12 px-8 md:px-16 max-w-screen-2xl mx-auto">
           <h2 className="section-title mb-8 max-w-4xl scroll-fade">
-            We handle everything,<br/>
+            We handle everything,<br />
             you focus on your business.
           </h2>
-          
+
           <p className="text-xl leading-relaxed text-[var(--gray-dark)] max-w-2xl mb-20 font-light scroll-fade">
             Most consultants will never prioritize "project managing" their own website. Our process is built so they never have to:
           </p>
@@ -237,7 +237,7 @@ export default function Home() {
               <div className="w-10 h-10 bg-[var(--primary-blue)] rounded-xl mb-6 relative z-10 transition-all duration-300 group-hover:bg-white"></div>
               <h3 className="text-2xl font-normal tracking-tight mb-3 relative z-10 group-hover:text-white">Minimal Time Investment</h3>
               <p className="text-base leading-relaxed text-[var(--gray-medium)] relative z-10 group-hover:text-white">
-              Most clients spend less than 2 hours total from start to launch. See the full process.
+                Most clients spend less than 2 hours total from start to launch. See the full process.
               </p>
             </div>
 
@@ -255,7 +255,7 @@ export default function Home() {
 
           {/* Process Link */}
           <div className="text-center scroll-fade">
-            <Link 
+            <Link
               href="/process"
               className="inline-flex items-center gap-2 text-[var(--black)] text-lg no-underline relative pb-1 group"
             >
@@ -273,25 +273,25 @@ export default function Home() {
           <div className="flex items-center justify-center">
             {/* Left line with gradient */}
             <div className="flex-1 h-px bg-gradient-to-r from-transparent via-[var(--gray-light)] to-[var(--primary-blue)]/30"></div>
-            
+
             {/* Center geometric element */}
             <div className="relative mx-8">
               {/* Outer subtle ring */}
               <div className="w-12 h-12 border border-[var(--gray-light)] rounded-full"></div>
-              
+
               {/* Inner diamond shape */}
               <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-4 h-4 bg-gradient-to-br from-[var(--primary-blue)] to-[var(--blue-dark)] rotate-45 rounded-sm"></div>
-              
+
               {/* Corner accent dots */}
               <div className="absolute -top-1 left-1/2 transform -translate-x-1/2 w-1 h-1 bg-[var(--primary-blue)]/40 rounded-full"></div>
               <div className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-1 h-1 bg-[var(--primary-blue)]/40 rounded-full"></div>
             </div>
-            
+
             {/* Right line with gradient */}
             <div className="flex-1 h-px bg-gradient-to-l from-transparent via-[var(--gray-light)] to-[var(--primary-blue)]/30"></div>
           </div>
         </div>
-        
+
         {/* Subtle background pattern */}
         <div className="absolute inset-0 opacity-[0.015]" style={{
           backgroundImage: `radial-gradient(circle at 2px 2px, var(--primary-blue) 1px, transparent 0)`,
@@ -305,20 +305,20 @@ export default function Home() {
           <div className="offer-floating-shape offer-shape-1"></div>
           <div className="offer-floating-shape offer-shape-2"></div>
           <div className="offer-floating-shape offer-shape-3"></div>
-          
+
           {/* Geometric patterns */}
           <div className="absolute top-20 left-20 w-32 h-32 border border-[var(--primary-blue)]/20 rounded-full animate-spin-slow"></div>
           <div className="absolute bottom-40 right-32 w-24 h-24 border border-[var(--blue-light)]/30 rounded-lg rotate-45 animate-pulse"></div>
           <div className="absolute top-1/3 right-1/4 w-16 h-16 bg-[var(--primary-blue)]/10 rounded-full"></div>
           <div className="absolute bottom-1/4 left-1/5 w-20 h-20 bg-[var(--blue-light)]/15 rounded-lg rotate-12"></div>
-          
+
           {/* Subtle grid pattern */}
           <div className="absolute inset-0 opacity-[0.02]" style={{
             backgroundImage: `radial-gradient(circle at 1px 1px, var(--primary-blue) 1px, transparent 0)`,
             backgroundSize: '40px 40px'
           }}></div>
         </div>
-        
+
         <div className="relative z-10 pt-8 pb-0 px-8 md:px-16 max-w-screen-2xl mx-auto">
           {/* Section Header */}
           <div className="text-center mb-20">
@@ -330,7 +330,7 @@ export default function Home() {
             <h2 className="section-title mb-6 scroll-fade">
               All-In-One Website Package
             </h2>
-            <p className="text-xl leading-relaxed text-[var(--gray-dark)] max-w-3xl mx-auto font-light scroll-fade">
+            <p className="text-xl leading-relaxed text-[var(--gray-dark)] max-w-3xl mx-auto font-light scroll-fade px-4">
               Everything you need to establish authority and attract premium clients, delivered as one complete package.
             </p>
           </div>
@@ -454,11 +454,11 @@ export default function Home() {
               <span className="font-medium text-[var(--black)]">Need something extra?</span> Just ask. We'll always be clear about what's included, and quote any add-ons transparently.
             </p>
           </div>
-                    </div>
+        </div>
       </section>
-                    
+
       {/* EDITED: Launch Offer Invitation Section */}
-<section className="bg-white pt-0 pb-12 md:pb-16 relative overflow-hidden">
+      <section className="bg-white pt-0 pb-12 md:pb-16 relative overflow-hidden">
         <div className="absolute inset-0 opacity-[0.02]" style={{
           backgroundImage: `radial-gradient(circle at 1px 1px, var(--primary-blue) 1px, transparent 0)`,
           backgroundSize: '40px 40px'
@@ -471,17 +471,17 @@ export default function Home() {
               <div className="text-center mb-8 md:mb-12">
                 <div className="inline-block bg-white border border-[var(--blue-light)] rounded-full px-3 py-1.5 md:px-4 md:py-2 mb-6 md:mb-8">
                   <span className="text-xs md:text-sm tracking-widest uppercase text-[var(--primary-blue)] font-medium">Exclusive Launch Offer</span>
-                        </div>
+                </div>
                 <h3 className="text-2xl md:text-3xl lg:text-4xl font-light text-[var(--black)] mb-3 md:mb-4 tracking-tight">
-                          Founding Client <span className="italic font-serif text-[var(--primary-blue)]">Invitation</span>
-                        </h3>
+                  Founding Client <span className="italic font-serif text-[var(--primary-blue)]">Invitation</span>
+                </h3>
                 <div className="flex items-center justify-center gap-3 mb-4 md:mb-6">
                   <span className="text-4xl md:text-6xl lg:text-7xl font-light text-[var(--primary-blue)]">50% Off</span>
-                        </div>
+                </div>
                 <p className="text-[var(--gray-dark)] text-base md:text-lg leading-relaxed max-w-3xl mx-auto font-light px-4">
                   Full website development at <span className="font-medium">half price</span> for the first 5 consultants, in exchange for feedback and a testimonial.
-                        </p>
-                      </div>
+                </p>
+              </div>
 
               {/* Columns */}
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8 lg:gap-12">
@@ -501,7 +501,7 @@ export default function Home() {
                           </span>
                         </div>
                       </div>
-                      
+
                       <div className="group">
                         <div className="flex items-start gap-3 text-sm leading-relaxed text-[var(--gray-medium)] feature-list-item">
                           <span className="font-medium text-[var(--black)] relative">
@@ -512,7 +512,7 @@ export default function Home() {
                           </span>
                         </div>
                       </div>
-                      
+
                       <div className="group">
                         <div className="flex items-start gap-3 text-sm leading-relaxed text-[var(--gray-medium)] feature-list-item">
                           <span className="font-medium text-[var(--black)] relative">
@@ -524,7 +524,7 @@ export default function Home() {
                         </div>
                       </div>
                     </div>
-                    
+
                     {/* Desktop: Keep original layout with subtext */}
                     <div className="hidden md:block space-y-5">
                       <div className="group">
@@ -538,7 +538,7 @@ export default function Home() {
                         </div>
                         <p className="text-sm text-[var(--gray-medium)] leading-relaxed ml-6 mt-2">Use this as your official link in your communications, proposals, and social media profiles.</p>
                       </div>
-                      
+
                       <div className="group">
                         <div className="flex items-start gap-3 text-[15px] leading-relaxed text-[var(--gray-medium)] feature-list-item">
                           <span className="font-medium text-[var(--black)] relative">
@@ -550,7 +550,7 @@ export default function Home() {
                         </div>
                         <p className="text-sm text-[var(--gray-medium)] leading-relaxed ml-6 mt-2">Help us refine our process and results for future clients.</p>
                       </div>
-                      
+
                       <div className="group">
                         <div className="flex items-start gap-3 text-[15px] leading-relaxed text-[var(--gray-medium)] feature-list-item">
                           <span className="font-medium text-[var(--black)] relative">
@@ -589,7 +589,7 @@ export default function Home() {
                           </span>
                         </div>
                       </div>
-                      
+
                       <div className="group">
                         <div className="flex items-start gap-3 text-sm leading-relaxed text-[var(--gray-medium)] feature-list-item">
                           <span className="font-medium text-[var(--black)] relative">
@@ -600,7 +600,7 @@ export default function Home() {
                           </span>
                         </div>
                       </div>
-                      
+
                       <div className="group">
                         <div className="flex items-start gap-3 text-sm leading-relaxed text-[var(--gray-medium)] feature-list-item">
                           <span className="font-medium text-[var(--black)] relative">
@@ -611,7 +611,7 @@ export default function Home() {
                           </span>
                         </div>
                       </div>
-                      
+
                       <div className="group">
                         <div className="flex items-start gap-3 text-sm leading-relaxed text-[var(--gray-medium)] feature-list-item">
                           <span className="font-medium text-[var(--black)] relative">
@@ -623,7 +623,7 @@ export default function Home() {
                         </div>
                       </div>
                     </div>
-                    
+
                     {/* Desktop: Keep original layout with subtext */}
                     <div className="hidden md:block space-y-5">
                       <div className="group">
@@ -639,7 +639,7 @@ export default function Home() {
                           Custom <span className="font-medium text-[var(--black)]">LinkedIn banner</span> and ready-to-use social post templates.
                         </p>
                       </div>
-                      
+
                       <div className="group">
                         <div className="flex items-start gap-3 text-[15px] leading-relaxed text-[var(--gray-medium)] feature-list-item">
                           <span className="font-medium text-[var(--black)] relative">
@@ -653,7 +653,7 @@ export default function Home() {
                           <span className="font-medium text-[var(--black)]">Plug-and-play</span> testimonial outreach scripts and forms.
                         </p>
                       </div>
-                      
+
                       <div className="group">
                         <div className="flex items-start gap-3 text-[15px] leading-relaxed text-[var(--gray-medium)] feature-list-item">
                           <span className="font-medium text-[var(--black)] relative">
@@ -670,16 +670,16 @@ export default function Home() {
                     </div>
                   </div>
                 </div>
-                    </div>
-                    
-                    {/* Footer */}
+              </div>
+
+              {/* Footer */}
               <div className="text-center mt-8 md:mt-12 pt-6 md:pt-8 border-t border-[var(--gray-light)]">
                 <p className="text-[var(--black)] text-sm md:text-base font-medium mb-2 tracking-tight px-4">
                   This is the only time our service will be offered at this rate.
-                        </p>
+                </p>
                 <p className="text-[var(--gray-medium)] text-xs md:text-sm leading-relaxed font-light px-4">
-                          Once these spots are filled, all new projects return to full price.
-                        </p>
+                  Once these spots are filled, all new projects return to full price.
+                </p>
               </div>
             </div>
           </div>
@@ -715,7 +715,7 @@ export default function Home() {
               <div className="w-8 md:w-16 h-px bg-gradient-to-r from-transparent via-[var(--primary-blue)] to-transparent"></div>
             </div>
             <h2 className="section-title mb-6 md:mb-8 scroll-fade">
-              Uncompromising Standards,<br/>
+              Uncompromising Standards,<br />
               <span className="italic font-serif text-[var(--primary-blue)]">Guaranteed</span>
             </h2>
             <p className="text-lg md:text-xl leading-relaxed text-[var(--gray-dark)] max-w-4xl mx-auto font-light scroll-fade px-4">
@@ -747,17 +747,17 @@ export default function Home() {
               <p className="text-sm md:text-base leading-relaxed text-[var(--gray-medium)] mb-4 md:mb-6 relative z-10 group-hover:text-white">
                 Speed and certainty, not agency delays. Your site goes live in 20 business days or less.
               </p>
-              
-                             {/* Clean guarantee detail */}
-               <div className="relative z-10 mt-4 md:mt-6 pt-4 md:pt-6 border-t border-[var(--gray-light)] group-hover:border-white/20 transition-colors duration-300">
-                 <div className="flex items-baseline gap-3 mb-2">
-                   <span className="text-2xl md:text-3xl font-light text-[var(--primary-blue)] group-hover:text-white transition-colors duration-300">20%</span>
-                   <span className="text-sm md:text-base font-medium text-[var(--gray-dark)] group-hover:text-white transition-colors duration-300">refund for every business day we're late</span>
-                 </div>
-                 <p className="text-xs md:text-sm text-[var(--gray-medium)] font-light group-hover:text-white/70 transition-colors duration-300">
-                   Assumes prompt client feedback. Full details in your onboarding pack.
-                 </p>
-               </div>
+
+              {/* Clean guarantee detail */}
+              <div className="relative z-10 mt-4 md:mt-6 pt-4 md:pt-6 border-t border-[var(--gray-light)] group-hover:border-white/20 transition-colors duration-300">
+                <div className="flex items-baseline gap-3 mb-2">
+                  <span className="text-2xl md:text-3xl font-light text-[var(--primary-blue)] group-hover:text-white transition-colors duration-300">20%</span>
+                  <span className="text-sm md:text-base font-medium text-[var(--gray-dark)] group-hover:text-white transition-colors duration-300">refund for every business day we're late</span>
+                </div>
+                <p className="text-xs md:text-sm text-[var(--gray-medium)] font-light group-hover:text-white/70 transition-colors duration-300">
+                  Assumes prompt client feedback. Full details in your onboarding pack.
+                </p>
+              </div>
             </div>
           </div>
         </div>
@@ -775,7 +775,7 @@ export default function Home() {
           backgroundImage: `radial-gradient(circle at 1px 1px, white 1px, transparent 0)`,
           backgroundSize: '60px 60px'
         }}></div>
-        
+
         <div className="relative z-10 pt-16 md:pt-20 pb-20 md:pb-32 px-6 md:px-8 lg:px-16 max-w-screen-2xl mx-auto">
           {/* Section Header */}
           <div className="text-center mb-12 md:mb-20">
@@ -796,7 +796,7 @@ export default function Home() {
           <div className="max-w-4xl mx-auto space-y-3 md:space-y-4">
             {/* FAQ Item 1 */}
             <div className="scroll-fade">
-              <button 
+              <button
                 onClick={() => setOpenFAQ(openFAQ === 1 ? null : 1)}
                 className="w-full bg-white/10 backdrop-blur-sm hover:bg-white border border-white/20 hover:border-white/40 rounded-xl md:rounded-2xl p-4 md:p-6 text-left transition-all duration-300 hover:shadow-2xl group"
               >
@@ -809,7 +809,7 @@ export default function Home() {
                   </div>
                 </div>
               </button>
-              
+
               <div className={`overflow-hidden transition-all duration-500 ease-out ${openFAQ === 1 ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}>
                 <div className="px-4 md:px-6 pb-4 md:pb-6 pt-3 md:pt-4">
                   <p className="text-white/80 leading-relaxed text-sm md:text-base">
@@ -821,7 +821,7 @@ export default function Home() {
 
             {/* FAQ Item 2 */}
             <div className="scroll-fade">
-              <button 
+              <button
                 onClick={() => setOpenFAQ(openFAQ === 2 ? null : 2)}
                 className="w-full bg-white/10 backdrop-blur-sm hover:bg-white border border-white/20 hover:border-white/40 rounded-xl md:rounded-2xl p-4 md:p-6 text-left transition-all duration-300 hover:shadow-2xl group"
               >
@@ -834,7 +834,7 @@ export default function Home() {
                   </div>
                 </div>
               </button>
-              
+
               <div className={`overflow-hidden transition-all duration-500 ease-out ${openFAQ === 2 ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}>
                 <div className="px-4 md:px-6 pb-4 md:pb-6 pt-3 md:pt-4">
                   <p className="text-white/80 leading-relaxed text-sm md:text-base">
@@ -846,7 +846,7 @@ export default function Home() {
 
             {/* FAQ Item 3 */}
             <div className="scroll-fade">
-              <button 
+              <button
                 onClick={() => setOpenFAQ(openFAQ === 3 ? null : 3)}
                 className="w-full bg-white/10 backdrop-blur-sm hover:bg-white border border-white/20 hover:border-white/40 rounded-xl md:rounded-2xl p-4 md:p-6 text-left transition-all duration-300 hover:shadow-2xl group"
               >
@@ -859,7 +859,7 @@ export default function Home() {
                   </div>
                 </div>
               </button>
-              
+
               <div className={`overflow-hidden transition-all duration-500 ease-out ${openFAQ === 3 ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}>
                 <div className="px-4 md:px-6 pb-4 md:pb-6 pt-3 md:pt-4">
                   <p className="text-white/80 leading-relaxed text-sm md:text-base">
@@ -871,7 +871,7 @@ export default function Home() {
 
             {/* FAQ Item 4 */}
             <div className="scroll-fade">
-              <button 
+              <button
                 onClick={() => setOpenFAQ(openFAQ === 4 ? null : 4)}
                 className="w-full bg-white/10 backdrop-blur-sm hover:bg-white border border-white/20 hover:border-white/40 rounded-xl md:rounded-2xl p-4 md:p-6 text-left transition-all duration-300 hover:shadow-2xl group"
               >
@@ -884,7 +884,7 @@ export default function Home() {
                   </div>
                 </div>
               </button>
-              
+
               <div className={`overflow-hidden transition-all duration-500 ease-out ${openFAQ === 4 ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}>
                 <div className="px-4 md:px-6 pb-4 md:pb-6 pt-3 md:pt-4">
                   <p className="text-white/80 leading-relaxed text-sm md:text-base">
@@ -896,7 +896,7 @@ export default function Home() {
 
             {/* FAQ Item 5 */}
             <div className="scroll-fade">
-              <button 
+              <button
                 onClick={() => setOpenFAQ(openFAQ === 5 ? null : 5)}
                 className="w-full bg-white/10 backdrop-blur-sm hover:bg-white border border-white/20 hover:border-white/40 rounded-xl md:rounded-2xl p-4 md:p-6 text-left transition-all duration-300 hover:shadow-2xl group"
               >
@@ -909,7 +909,7 @@ export default function Home() {
                   </div>
                 </div>
               </button>
-              
+
               <div className={`overflow-hidden transition-all duration-500 ease-out ${openFAQ === 5 ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}>
                 <div className="px-4 md:px-6 pb-4 md:pb-6 pt-3 md:pt-4">
                   <p className="text-white/80 leading-relaxed text-sm md:text-base">
@@ -921,7 +921,7 @@ export default function Home() {
 
             {/* FAQ Item 6 */}
             <div className="scroll-fade">
-              <button 
+              <button
                 onClick={() => setOpenFAQ(openFAQ === 6 ? null : 6)}
                 className="w-full bg-white/10 backdrop-blur-sm hover:bg-white border border-white/20 hover:border-white/40 rounded-xl md:rounded-2xl p-4 md:p-6 text-left transition-all duration-300 hover:shadow-2xl group"
               >
@@ -934,7 +934,7 @@ export default function Home() {
                   </div>
                 </div>
               </button>
-              
+
               <div className={`overflow-hidden transition-all duration-500 ease-out ${openFAQ === 6 ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}>
                 <div className="px-4 md:px-6 pb-4 md:pb-6 pt-3 md:pt-4">
                   <p className="text-white/80 leading-relaxed text-sm md:text-base">
@@ -946,7 +946,7 @@ export default function Home() {
 
             {/* FAQ Item 7 */}
             <div className="scroll-fade">
-              <button 
+              <button
                 onClick={() => setOpenFAQ(openFAQ === 7 ? null : 7)}
                 className="w-full bg-white/10 backdrop-blur-sm hover:bg-white border border-white/20 hover:border-white/40 rounded-xl md:rounded-2xl p-4 md:p-6 text-left transition-all duration-300 hover:shadow-2xl group"
               >
@@ -959,7 +959,7 @@ export default function Home() {
                   </div>
                 </div>
               </button>
-              
+
               <div className={`overflow-hidden transition-all duration-500 ease-out ${openFAQ === 7 ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}>
                 <div className="px-4 md:px-6 pb-4 md:pb-6 pt-3 md:pt-4">
                   <p className="text-white/80 leading-relaxed text-sm md:text-base">
@@ -971,7 +971,7 @@ export default function Home() {
 
             {/* FAQ Item 8 */}
             <div className="scroll-fade">
-              <button 
+              <button
                 onClick={() => setOpenFAQ(openFAQ === 8 ? null : 8)}
                 className="w-full bg-white/10 backdrop-blur-sm hover:bg-white border border-white/20 hover:border-white/40 rounded-xl md:rounded-2xl p-4 md:p-6 text-left transition-all duration-300 hover:shadow-2xl group"
               >
@@ -984,7 +984,7 @@ export default function Home() {
                   </div>
                 </div>
               </button>
-              
+
               <div className={`overflow-hidden transition-all duration-500 ease-out ${openFAQ === 8 ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}>
                 <div className="px-4 md:px-6 pb-4 md:pb-6 pt-3 md:pt-4">
                   <p className="text-white/80 leading-relaxed text-sm md:text-base">
@@ -996,7 +996,7 @@ export default function Home() {
 
             {/* FAQ Item 9 */}
             <div className="scroll-fade">
-              <button 
+              <button
                 onClick={() => setOpenFAQ(openFAQ === 9 ? null : 9)}
                 className="w-full bg-white/10 backdrop-blur-sm hover:bg-white border border-white/20 hover:border-white/40 rounded-xl md:rounded-2xl p-4 md:p-6 text-left transition-all duration-300 hover:shadow-2xl group"
               >
@@ -1009,7 +1009,7 @@ export default function Home() {
                   </div>
                 </div>
               </button>
-              
+
               <div className={`overflow-hidden transition-all duration-500 ease-out ${openFAQ === 9 ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}>
                 <div className="px-4 md:px-6 pb-4 md:pb-6 pt-3 md:pt-4">
                   <p className="text-white/80 leading-relaxed text-sm md:text-base">
@@ -1021,7 +1021,7 @@ export default function Home() {
 
             {/* FAQ Item 10 */}
             <div className="scroll-fade">
-              <button 
+              <button
                 onClick={() => setOpenFAQ(openFAQ === 10 ? null : 10)}
                 className="w-full bg-white/10 backdrop-blur-sm hover:bg-white border border-white/20 hover:border-white/40 rounded-xl md:rounded-2xl p-4 md:p-6 text-left transition-all duration-300 hover:shadow-2xl group"
               >
@@ -1034,7 +1034,7 @@ export default function Home() {
                   </div>
                 </div>
               </button>
-              
+
               <div className={`overflow-hidden transition-all duration-500 ease-out ${openFAQ === 10 ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}>
                 <div className="px-4 md:px-6 pb-4 md:pb-6 pt-3 md:pt-4">
                   <p className="text-white/80 leading-relaxed text-sm md:text-base">
@@ -1046,7 +1046,7 @@ export default function Home() {
 
             {/* FAQ Item 11 */}
             <div className="scroll-fade">
-              <button 
+              <button
                 onClick={() => setOpenFAQ(openFAQ === 11 ? null : 11)}
                 className="w-full bg-white/10 backdrop-blur-sm hover:bg-white border border-white/20 hover:border-white/40 rounded-xl md:rounded-2xl p-4 md:p-6 text-left transition-all duration-300 hover:shadow-2xl group"
               >
@@ -1059,7 +1059,7 @@ export default function Home() {
                   </div>
                 </div>
               </button>
-              
+
               <div className={`overflow-hidden transition-all duration-500 ease-out ${openFAQ === 11 ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}>
                 <div className="px-4 md:px-6 pb-4 md:pb-6 pt-3 md:pt-4">
                   <p className="text-white/80 leading-relaxed text-sm md:text-base">
@@ -1073,10 +1073,10 @@ export default function Home() {
           {/* Bottom CTA */}
           <div className="text-center mt-12 md:mt-20 scroll-fade">
             <p className="text-white/70 text-base md:text-lg mb-4 md:mb-6 px-4">
-              Have a different question? 
+              Have a different question?
             </p>
-            <a 
-              href="#contact" 
+            <a
+              href="#contact"
               className="inline-flex items-center gap-2 text-white text-base md:text-lg no-underline relative pb-1 group"
             >
               <span>Ask us directly</span>
@@ -1085,212 +1085,150 @@ export default function Home() {
             </a>
           </div>
         </div>
-      </section>
+        {/* Contact Section */}
+        <div className="mt-16 md:mt-20 lg:mt-24 scroll-fade" id="contact">
+          <div className="invitation-card-container">
+            <div className="invitation-card-bg"></div>
+            <div className="invitation-card">
+              {/* Card Header */}
+              <div className="text-center mb-8 md:mb-12">
+                <p className="text-sm tracking-widest uppercase text-[var(--gray-medium)] mb-6 md:mb-8">
+                  Get Started
+                </p>
+                <h3 className="text-2xl md:text-3xl lg:text-4xl font-light text-[var(--black)] mb-6 md:mb-8 tracking-tight">
+                  Ready to build your <span className="italic font-serif text-[var(--primary-blue)]">authority website?</span>
+                </h3>
+                <p className="text-[var(--gray-dark)] text-lg md:text-xl leading-relaxed max-w-3xl mx-auto font-light mb-8 md:mb-12">
+                  Fill in your details below and we'll get back to you within 24 hours.
+                </p>
+              </div>
 
-      {/* Contact Form Section */}
-      <section id="contact" className="bg-gradient-to-br from-[var(--black)] via-[var(--gray-dark)] to-[var(--black)] relative overflow-hidden">
-        <div className="absolute inset-0 overflow-hidden">
-          {/* Sophisticated geometric background elements */}
-          <div className="absolute top-20 left-20 w-72 h-72 border border-[var(--primary-blue)]/20 rounded-full animate-spin-slow"></div>
-          <div className="absolute top-40 right-32 w-48 h-48 border border-[var(--blue-light)]/30 rounded-lg rotate-45 animate-pulse"></div>
-          <div className="absolute bottom-40 left-1/4 w-32 h-32 bg-[var(--primary-blue)]/10 rounded-full"></div>
-          <div className="absolute bottom-20 right-20 w-40 h-40 bg-[var(--blue-light)]/15 rounded-lg rotate-12"></div>
-          
-          {/* Premium grid pattern */}
-          <div className="absolute inset-0 opacity-[0.03]" style={{
-            backgroundImage: `linear-gradient(var(--primary-blue) 1px, transparent 1px), linear-gradient(90deg, var(--primary-blue) 1px, transparent 1px)`,
-            backgroundSize: '50px 50px'
-          }}></div>
-          
-          {/* Subtle light rays */}
-          <div className="absolute top-0 left-1/2 w-96 h-96 bg-gradient-radial from-[var(--primary-blue)]/5 to-transparent transform -translate-x-1/2 -translate-y-1/2"></div>
-          <div className="absolute bottom-0 right-1/3 w-80 h-80 bg-gradient-radial from-[var(--blue-light)]/8 to-transparent"></div>
-        </div>
-        
-        <div className="relative z-10 pt-20 md:pt-32 pb-20 md:pb-32 px-6 md:px-8 lg:px-16 max-w-screen-2xl mx-auto">
-          {/* Section Header */}
-          <div className="text-center mb-12 md:mb-16">
-            <div className="inline-flex items-center gap-4 mb-6 scroll-fade">
-              <div className="w-12 h-px bg-gradient-to-r from-transparent via-[var(--primary-blue)] to-transparent"></div>
-              <span className="text-sm tracking-[0.2em] uppercase text-[var(--primary-blue)] font-medium">Let's Begin</span>
-              <div className="w-12 h-px bg-gradient-to-r from-transparent via-[var(--primary-blue)] to-transparent"></div>
-            </div>
-            <h2 className="section-title mb-6 md:mb-8 scroll-fade text-white">
-              Ready to <span className="italic font-serif text-[var(--primary-blue)]">Dominate</span><br className="hidden md:block"/> Your Market?
-            </h2>
-            <p className="text-lg md:text-xl leading-relaxed text-white/80 max-w-3xl mx-auto font-light scroll-fade px-4">
-              Join the consultants who've transformed their online presence and attracted premium clients.
-            </p>
-          </div>
-
-          {/* Contact Form */}
-          <div className="max-w-2xl mx-auto">
-            <div className="bg-white/95 backdrop-blur-xl rounded-3xl p-8 md:p-12 shadow-2xl border border-white/20 scroll-fade relative overflow-hidden">
-              {/* Premium card background */}
-              <div className="absolute inset-0 bg-gradient-to-br from-white/98 to-white/92"></div>
-              <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[var(--primary-blue)] via-[var(--blue-light)] to-[var(--primary-blue)]"></div>
-              
-              {/* Sophisticated pattern overlay */}
-              <div className="absolute inset-0 opacity-[0.015]" style={{
-                backgroundImage: `radial-gradient(circle at 1px 1px, var(--primary-blue) 1px, transparent 0)`,
-                backgroundSize: '60px 60px'
-              }}></div>
-              
-              <div className="relative z-10">
-              {submitStatus === 'success' ? (
-                <div className="text-center py-8">
-                  <div className="w-16 h-16 bg-gradient-to-r from-[var(--primary-blue)] to-[var(--blue-dark)] rounded-full flex items-center justify-center mx-auto mb-6">
-                    <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
-                  </div>
-                  <h3 className="text-2xl font-medium mb-4 text-[var(--black)]">Perfect! We'll be in touch soon.</h3>
-                  <p className="text-base text-[var(--gray-medium)] leading-relaxed mb-6">
-                    Expect your personalized project details and pricing within 24 hours.
-                  </p>
-                  <button 
-                    onClick={() => {
-                      setSubmitStatus('idle')
-                      setFormData({ name: '', email: '', linkedin: '' })
-                    }}
-                    className="text-[var(--primary-blue)] hover:underline font-medium"
-                  >
-                    Send another inquiry
-                  </button>
-                </div>
-              ) : (
-                <form 
-                  onSubmit={async (e) => {
-                    e.preventDefault()
-                    setIsSubmitting(true)
-                    
-                    try {
-                      const response = await fetch('/api/contact', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(formData)
-                      })
-                      
-                      if (response.ok) {
-                        setSubmitStatus('success')
-                      } else {
-                        setSubmitStatus('error')
-                      }
-                    } catch (error) {
-                      setSubmitStatus('error')
-                    } finally {
-                      setIsSubmitting(false)
-                    }
-                  }}
-                  className="space-y-6"
-                >
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div>
-                      <label className="block text-sm font-medium text-[var(--gray-dark)] mb-2">
-                        Name
-                      </label>
-                      <input
-                        type="text"
-                        required
-                        value={formData.name}
-                        onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
-                        className="w-full px-4 py-4 border border-[var(--gray-light)] rounded-xl focus:outline-none focus:ring-2 focus:ring-[var(--primary-blue)] focus:border-transparent transition-all duration-300 placeholder:text-[var(--gray-medium)] bg-white/50 hover:bg-white/80 focus:bg-white"
-                        placeholder="Your full name"
-                      />
+              <div className="max-w-2xl mx-auto">
+                {submitStatus === 'success' ? (
+                  <div className="text-center py-8 md:py-12">
+                    <div className="w-16 h-16 bg-[var(--primary-blue)] rounded-full flex items-center justify-center mx-auto mb-6">
+                      <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
                     </div>
+                    <h4 className="text-xl md:text-2xl font-medium mb-4 text-[var(--black)]">Perfect! We'll be in touch soon.</h4>
+                    <p className="text-[var(--gray-medium)] text-base leading-relaxed mb-6">
+                      We'll send you the project details and next steps within 24 hours.
+                    </p>
+                    <button
+                      onClick={() => {
+                        setSubmitStatus('idle')
+                        setFormData({ name: '', email: '', linkedin: '', website: '' })
+                      }}
+                      className="text-[var(--primary-blue)] hover:text-[var(--blue-dark)] underline font-medium"
+                    >
+                      Send another inquiry
+                    </button>
+                  </div>
+                ) : (
+                  <div className="space-y-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <div>
+                        <label className="block text-[var(--black)] text-sm font-medium mb-3">
+                          Your Name <span className="text-[var(--primary-blue)]">*</span>
+                        </label>
+                        <input
+                          type="text"
+                          required
+                          value={formData.name}
+                          onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
+                          className="w-full px-4 py-4 bg-[var(--gray-light)] border border-[var(--gray-light)] rounded-xl text-[var(--black)] placeholder:text-[var(--gray-medium)] focus:outline-none focus:ring-2 focus:ring-[var(--primary-blue)] focus:border-[var(--primary-blue)] transition-all duration-300"
+                          placeholder="John Smith"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="block text-[var(--black)] text-sm font-medium mb-3">
+                          LinkedIn Profile
+                        </label>
+                        <input
+                          type="url"
+                          value={formData.linkedin}
+                          onChange={(e) => setFormData(prev => ({ ...prev, linkedin: e.target.value }))}
+                          className="w-full px-4 py-4 bg-[var(--gray-light)] border border-[var(--gray-light)] rounded-xl text-[var(--black)] placeholder:text-[var(--gray-medium)] focus:outline-none focus:ring-2 focus:ring-[var(--primary-blue)] focus:border-[var(--primary-blue)] transition-all duration-300"
+                          placeholder="https://linkedin.com/in/yourprofile"
+                        />
+                      </div>
+                    </div>
+
                     <div>
-                      <label className="block text-sm font-medium text-[var(--gray-dark)] mb-2">
-                        Email
+                      <label className="block text-[var(--black)] text-sm font-medium mb-3">
+                        Email <span className="text-[var(--primary-blue)]">*</span>
                       </label>
                       <input
                         type="email"
                         required
                         value={formData.email}
                         onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
-                        className="w-full px-4 py-4 border border-[var(--gray-light)] rounded-xl focus:outline-none focus:ring-2 focus:ring-[var(--primary-blue)] focus:border-transparent transition-all duration-300 placeholder:text-[var(--gray-medium)] bg-white/50 hover:bg-white/80 focus:bg-white"
+                        className="w-full px-4 py-4 bg-[var(--gray-light)] border border-[var(--gray-light)] rounded-xl text-[var(--black)] placeholder:text-[var(--gray-medium)] focus:outline-none focus:ring-2 focus:ring-[var(--primary-blue)] focus:border-[var(--primary-blue)] transition-all duration-300"
                         placeholder="your@email.com"
                       />
                     </div>
-                  </div>
-                  
-                  <div>
-                    <label className="block text-sm font-medium text-[var(--gray-dark)] mb-2">
-                      LinkedIn Profile
-                    </label>
-                    <input
-                      type="url"
-                      value={formData.linkedin}
-                      onChange={(e) => setFormData(prev => ({ ...prev, linkedin: e.target.value }))}
-                      className="w-full px-4 py-4 border border-[var(--gray-light)] rounded-xl focus:outline-none focus:ring-2 focus:ring-[var(--primary-blue)] focus:border-transparent transition-all duration-300 placeholder:text-[var(--gray-medium)] bg-white/50 hover:bg-white/80 focus:bg-white"
-                      placeholder="linkedin.com/in/yourprofile"
-                    />
-                  </div>
-                  
-                  {submitStatus === 'error' && (
-                    <div className="bg-red-50 border border-red-200 rounded-xl p-4">
-                      <p className="text-red-800 text-sm">
-                        Something went wrong. Please try again or email us directly.
-                      </p>
+
+                    {submitStatus === 'error' && (
+                      <div className="bg-red-50 border border-red-200 rounded-xl p-4">
+                        <p className="text-red-600 text-sm">
+                          Something went wrong. Please try again or email us directly.
+                        </p>
+                      </div>
+                    )}
+
+                    <div className="pt-4">
+                      <button
+                        type="submit"
+                        disabled={isSubmitting}
+                        onClick={async (e) => {
+                          e.preventDefault()
+                          setIsSubmitting(true)
+
+                          try {
+                            const response = await fetch('/api/contact', {
+                              method: 'POST',
+                              headers: { 'Content-Type': 'application/json' },
+                              body: JSON.stringify(formData)
+                            })
+
+                            if (response.ok) {
+                              setSubmitStatus('success')
+                            } else {
+                              setSubmitStatus('error')
+                            }
+                          } catch (error) {
+                            setSubmitStatus('error')
+                          } finally {
+                            setIsSubmitting(false)
+                          }
+                        }}
+                        className="w-full inline-flex items-center justify-center gap-3 bg-[var(--black)] text-white px-8 py-4 text-[15px] tracking-tight no-underline rounded-full relative overflow-hidden transition-all duration-300 ease-out hover:scale-105 group disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+                      >
+                        <div className="absolute inset-0 bg-[var(--primary-blue)] transform -translate-x-full transition-transform duration-300 ease-out group-hover:translate-x-0"></div>
+                        <span className="relative z-10">{isSubmitting ? 'Sending...' : 'Get Pricing & Details'}</span>
+                        <span className="relative z-10">→</span>
+                      </button>
                     </div>
-                  )}
-                  
-                  <button
-                    type="submit"
-                    disabled={isSubmitting}
-                    className="w-full bg-gradient-to-r from-[var(--primary-blue)] to-[var(--blue-dark)] hover:from-[var(--black)] hover:to-[var(--gray-dark)] text-white px-8 py-5 rounded-xl font-medium text-lg transition-all duration-500 disabled:opacity-50 disabled:cursor-not-allowed relative overflow-hidden group shadow-lg hover:shadow-2xl transform hover:scale-[1.02]"
-                  >
-                    <div className="absolute inset-0 bg-gradient-to-r from-[var(--black)] to-[var(--gray-dark)] transform -translate-x-full transition-transform duration-500 ease-out group-hover:translate-x-0"></div>
-                    <span className="relative z-10 flex items-center justify-center gap-3">
-                      {isSubmitting ? (
-                        <>
-                          <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                          </svg>
-                          Sending...
-                        </>
-                      ) : (
-                        <>
-                          Claim Your Authority Website
-                          <svg className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                          </svg>
-                        </>
-                      )}
-                    </span>
-                  </button>
-                  
-                  <p className="text-sm text-[var(--gray-medium)] text-center leading-relaxed">
-                    We respect your privacy. No spam, ever.
-                  </p>
-                </form>
-              )}
+
+                    <div className="text-center pt-4 border-t border-[var(--gray-light)]">
+                      <p className="text-[var(--gray-medium)] text-sm mb-3">
+                        Or reach out directly:
+                      </p>
+                      <div className="flex items-center justify-center gap-2 text-[var(--gray-medium)]">
+                        <span className="text-base">stefanos.bellos</span>
+                        <span className="w-6 h-6 bg-[var(--primary-blue)] rounded-full flex items-center justify-center text-sm text-white">@</span>
+                        <span className="text-base">caldera.agency</span>
+                      </div>
+                    </div>
+                  </div>
+                )}
               </div>
-            </div>
-          </div>
-          
-          {/* Alternative Contact Methods */}
-          <div className="text-center mt-12 md:mt-16 scroll-fade">
-            <p className="text-white/60 mb-6 text-base">Prefer to reach out directly?</p>
-            <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
-              <a href="mailto:hello@calderaagency.com" className="text-white hover:text-[var(--primary-blue)] transition-colors duration-300 flex items-center gap-2 text-base">
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                </svg>
-                hello@calderaagency.com
-              </a>
-              <div className="w-px h-6 bg-white/20 hidden sm:block"></div>
-              <a href="tel:+1234567890" className="text-white hover:text-[var(--primary-blue)] transition-colors duration-300 flex items-center gap-2 text-base">
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                </svg>
-                +1 (234) 567-8890
-              </a>
             </div>
           </div>
         </div>
       </section>
-
     </>
   )
 }
