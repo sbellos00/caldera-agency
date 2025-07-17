@@ -102,7 +102,7 @@ export default function ProcessPage() {
           </Link>
           <div className="flex items-center gap-8">
             <Link
-              href="/contact"
+              href="/#contact"
               className="hidden md:block group relative overflow-hidden bg-white/10 backdrop-blur-sm border border-white/20 text-white px-6 py-3 rounded-full text-sm tracking-tight transition-all duration-300 hover:bg-white hover:text-black hover:border-white"
             >
               <span className="relative z-10 flex items-center gap-2">
@@ -218,10 +218,59 @@ export default function ProcessPage() {
               {/* Vertical Timeline Line */}
               <div className="absolute left-1/2 transform -translate-x-1/2 w-px h-full bg-gradient-to-b from-[var(--primary-blue)]/30 via-[var(--primary-blue)]/60 to-[var(--primary-blue)]/30 hidden lg:block"></div>
 
-              <div className="space-y-24 md:space-y-32">
+              <div className="space-y-16 lg:space-y-32">
                 {/* Step 1 - Research */}
                 <div className="timeline-step relative scroll-fade">
-                  <div className="lg:grid lg:grid-cols-12 lg:gap-8 items-center">
+                  {/* Mobile Layout */}
+                  <div className="lg:hidden">
+                    <div className="flex items-center gap-4 mb-6">
+                      <div className="w-12 h-12 bg-gradient-to-br from-[var(--primary-blue)] to-[var(--blue-dark)] rounded-full flex items-center justify-center text-white text-lg font-light shadow-lg">
+                        01
+                      </div>
+                      <div>
+                        <h4 className="text-3xl font-light text-[var(--primary-blue)]/60 mb-1">Research</h4>
+                        <p className="text-sm text-[var(--gray-medium)] font-light">
+                          Deep analysis of your existing presence
+                        </p>
+                      </div>
+                    </div>
+                    <div className="process-card invitation-card-container">
+                      <div className="invitation-card-bg"></div>
+                      <div className="invitation-card">
+                        <div className="mb-6">
+                          <div className="inline-block bg-[var(--blue-light)] border border-[var(--primary-blue)]/20 rounded-full px-3 py-1.5 mb-4">
+                            <span className="text-xs tracking-widest uppercase text-[var(--primary-blue)] font-medium">Step One</span>
+                          </div>
+                          <h3 className="text-xl font-light text-[var(--black)] tracking-tight mb-3">
+                            We do the research
+                          </h3>
+                          <p className="text-sm text-[var(--gray-medium)] font-light italic">Zero busywork for you</p>
+                        </div>
+                        <p className="text-sm text-[var(--gray-dark)] mb-6 leading-relaxed font-light">
+                          Before you see a single question, we research your LinkedIn, existing website, and published content to:
+                        </p>
+                        <div className="space-y-3">
+                          <div className="text-sm leading-relaxed text-[var(--black)] font-medium">
+                            • Prefill your details, saving you time
+                          </div>
+                          <div className="text-sm leading-relaxed text-[var(--black)] font-medium">
+                            • Craft precise, targeted questions for your unique positioning
+                          </div>
+                          <div className="text-sm leading-relaxed text-[var(--black)] font-medium">
+                            • Ensure maximum accuracy from day one
+                          </div>
+                        </div>
+                        <div className="mt-6 pt-6 border-t border-[var(--gray-light)]">
+                          <p className="text-sm font-light text-[var(--primary-blue)]">
+                            <span className="font-serif italic">Outcome:</span> Intake is fast, focused, and effortless.
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  {/* Desktop Layout */}
+                  <div className="hidden lg:grid lg:grid-cols-12 lg:gap-8 items-center">
                     <div className="lg:col-span-5 lg:pr-8">
                       <div className="process-card invitation-card-container">
                         <div className="invitation-card-bg"></div>
@@ -281,7 +330,56 @@ export default function ProcessPage() {
 
                 {/* Step 2 - Intake */}
                 <div className="timeline-step relative scroll-fade">
-                  <div className="lg:grid lg:grid-cols-12 lg:gap-8 items-center">
+                  {/* Mobile Layout */}
+                  <div className="lg:hidden">
+                    <div className="flex items-center gap-4 mb-6">
+                      <div className="w-12 h-12 bg-gradient-to-br from-[var(--primary-blue)] to-[var(--blue-dark)] rounded-full flex items-center justify-center text-white text-lg font-light shadow-lg">
+                        02
+                      </div>
+                      <div>
+                        <h4 className="text-3xl font-light text-[var(--primary-blue)]/60 mb-1">Intake</h4>
+                        <p className="text-sm text-[var(--gray-medium)] font-light">
+                          Streamlined form completion
+                        </p>
+                      </div>
+                    </div>
+                    <div className="process-card invitation-card-container">
+                      <div className="invitation-card-bg"></div>
+                      <div className="invitation-card">
+                        <div className="mb-6">
+                          <div className="inline-block bg-[var(--blue-light)] border border-[var(--primary-blue)]/20 rounded-full px-3 py-1.5 mb-4">
+                            <span className="text-xs tracking-widest uppercase text-[var(--primary-blue)] font-medium">Step Two</span>
+                          </div>
+                          <h3 className="text-xl font-light text-[var(--black)] tracking-tight mb-3">
+                            Quick, targeted intake form
+                          </h3>
+                          <p className="text-sm text-[var(--gray-medium)] font-light italic">~10 minutes</p>
+                        </div>
+                        <p className="text-sm text-[var(--gray-dark)] mb-6 leading-relaxed font-light">
+                          You complete a short, custom-built form:
+                        </p>
+                        <div className="space-y-3">
+                          <div className="text-sm leading-relaxed text-[var(--black)] font-medium">
+                            • Confirm pre-filled info (name, title, experience)
+                          </div>
+                          <div className="text-sm leading-relaxed text-[var(--black)] font-medium">
+                            • Choose from tailored options about services and differentiators
+                          </div>
+                          <div className="text-sm leading-relaxed text-[var(--black)] font-medium">
+                            • Select visual preferences from handpicked examples
+                          </div>
+                        </div>
+                        <div className="mt-6 pt-6 border-t border-[var(--gray-light)]">
+                          <p className="text-sm font-light text-[var(--primary-blue)]">
+                            <span className="font-serif italic">Outcome:</span> Foundation for all structure, copy, and design decisions.
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  {/* Desktop Layout */}
+                  <div className="hidden lg:grid lg:grid-cols-12 lg:gap-8 items-center">
                     <div className="lg:col-span-5 lg:pr-8 order-2 lg:order-1">
                       <div className="text-center lg:text-right">
                         <div className="text-6xl lg:text-8xl font-light text-[var(--primary-blue)]/20 mb-4">Intake</div>
@@ -341,7 +439,56 @@ export default function ProcessPage() {
 
                 {/* Step 3 - Recommendations */}
                 <div className="timeline-step relative scroll-fade">
-                  <div className="lg:grid lg:grid-cols-12 lg:gap-8 items-center">
+                  {/* Mobile Layout */}
+                  <div className="lg:hidden">
+                    <div className="flex items-center gap-4 mb-6">
+                      <div className="w-12 h-12 bg-gradient-to-br from-[var(--primary-blue)] to-[var(--blue-dark)] rounded-full flex items-center justify-center text-white text-lg font-light shadow-lg">
+                        03
+                      </div>
+                      <div>
+                        <h4 className="text-3xl font-light text-[var(--primary-blue)]/60 mb-1">Choice</h4>
+                        <p className="text-sm text-[var(--gray-medium)] font-light">
+                          Strategic options presentation
+                        </p>
+                      </div>
+                    </div>
+                    <div className="process-card invitation-card-container">
+                      <div className="invitation-card-bg"></div>
+                      <div className="invitation-card">
+                        <div className="mb-6">
+                          <div className="inline-block bg-[var(--blue-light)] border border-[var(--primary-blue)]/20 rounded-full px-3 py-1.5 mb-4">
+                            <span className="text-xs tracking-widest uppercase text-[var(--primary-blue)] font-medium">Step Three</span>
+                          </div>
+                          <h3 className="text-xl font-light text-[var(--black)] tracking-tight mb-3">
+                            Homepage recommendations
+                          </h3>
+                          <p className="text-sm text-[var(--gray-medium)] font-light italic">~5 minutes</p>
+                        </div>
+                        <p className="text-sm text-[var(--gray-dark)] mb-6 leading-relaxed font-light">
+                          We design a best-fit homepage structure plus two custom alternatives.
+                        </p>
+                        <div className="space-y-3">
+                          <div className="text-sm leading-relaxed text-[var(--black)] font-medium">
+                            • Review quick visual options and select your favorite
+                          </div>
+                          <div className="text-sm leading-relaxed text-[var(--black)] font-medium">
+                            • Add comments or minor adjustments
+                          </div>
+                          <div className="text-sm leading-relaxed text-[var(--black)] font-medium">
+                            • Provide remaining branding assets (optional)
+                          </div>
+                        </div>
+                        <div className="mt-6 pt-6 border-t border-[var(--gray-light)]">
+                          <p className="text-sm font-light text-[var(--primary-blue)]">
+                            <span className="font-serif italic">Outcome:</span> You retain control, we handle execution.
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  {/* Desktop Layout */}
+                  <div className="hidden lg:grid lg:grid-cols-12 lg:gap-8 items-center">
                     <div className="lg:col-span-5 lg:pr-8">
                       <div className="process-card invitation-card-container">
                         <div className="invitation-card-bg"></div>
@@ -401,7 +548,55 @@ export default function ProcessPage() {
 
                 {/* Step 4 - Homepage Demo */}
                 <div className="timeline-step relative scroll-fade">
-                  <div className="lg:grid lg:grid-cols-12 lg:gap-8 items-center">
+                  {/* Mobile Layout */}
+                  <div className="lg:hidden">
+                    <div className="flex items-center gap-4 mb-6">
+                      <div className="w-12 h-12 bg-gradient-to-br from-[var(--primary-blue)] to-[var(--blue-dark)] rounded-full flex items-center justify-center text-white text-lg font-light shadow-lg">
+                        04
+                      </div>
+                      <div>
+                        <h4 className="text-3xl font-light text-[var(--primary-blue)]/60 mb-1">Demo</h4>
+                        <p className="text-sm text-[var(--gray-medium)] font-light">
+                          Interactive homepage review
+                        </p>
+                      </div>
+                    </div>
+                    <div className="process-card invitation-card-container">
+                      <div className="invitation-card-bg"></div>
+                      <div className="invitation-card">
+                        <div className="mb-6">
+                          <div className="inline-block bg-[var(--blue-light)] border border-[var(--primary-blue)]/20 rounded-full px-3 py-1.5 mb-4">
+                            <span className="text-xs tracking-widest uppercase text-[var(--primary-blue)] font-medium">Step Four</span>
+                          </div>
+                          <h3 className="text-xl font-light text-[var(--black)] tracking-tight mb-3">
+                            Homepage demo & easy review
+                          </h3>
+                        </div>
+                        <p className="text-sm text-[var(--gray-dark)] mb-6 leading-relaxed font-light">
+                          We build your homepage with custom copy and design, then:
+                        </p>
+                        <div className="space-y-3">
+                          <div className="text-sm leading-relaxed text-[var(--black)] font-medium">
+                            • Provide a live, interactive demo (never a static PDF)
+                          </div>
+                          <div className="text-sm leading-relaxed text-[var(--black)] font-medium">
+                            • Include a clear Review Guide to simplify feedback
+                          </div>
+                          <div className="text-sm leading-relaxed text-[var(--black)] font-medium">
+                            • Send testimonials or use professional placeholders
+                          </div>
+                        </div>
+                        <div className="mt-6 pt-6 border-t border-[var(--gray-light)]">
+                          <p className="text-sm font-light text-[var(--primary-blue)]">
+                            <span className="font-serif italic">Outcome:</span> Easy review, no headaches.
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  {/* Desktop Layout */}
+                  <div className="hidden lg:grid lg:grid-cols-12 lg:gap-8 items-center">
                     <div className="lg:col-span-5 lg:pr-8 order-2 lg:order-1">
                       <div className="text-center lg:text-right">
                         <div className="text-6xl lg:text-8xl font-light text-[var(--primary-blue)]/20 mb-4">Demo</div>
@@ -460,7 +655,55 @@ export default function ProcessPage() {
 
                 {/* Step 5 - Complete Build */}
                 <div className="timeline-step relative scroll-fade">
-                  <div className="lg:grid lg:grid-cols-12 lg:gap-8 items-center">
+                  {/* Mobile Layout */}
+                  <div className="lg:hidden">
+                    <div className="flex items-center gap-4 mb-6">
+                      <div className="w-12 h-12 bg-gradient-to-br from-[var(--primary-blue)] to-[var(--blue-dark)] rounded-full flex items-center justify-center text-white text-lg font-light shadow-lg">
+                        05
+                      </div>
+                      <div>
+                        <h4 className="text-3xl font-light text-[var(--primary-blue)]/60 mb-1">Build</h4>
+                        <p className="text-sm text-[var(--gray-medium)] font-light">
+                          Complete website construction
+                        </p>
+                      </div>
+                    </div>
+                    <div className="process-card invitation-card-container">
+                      <div className="invitation-card-bg"></div>
+                      <div className="invitation-card">
+                        <div className="mb-6">
+                          <div className="inline-block bg-[var(--blue-light)] border border-[var(--primary-blue)]/20 rounded-full px-3 py-1.5 mb-4">
+                            <span className="text-xs tracking-widest uppercase text-[var(--primary-blue)] font-medium">Step Five</span>
+                          </div>
+                          <h3 className="text-xl font-light text-[var(--black)] tracking-tight mb-3">
+                            Complete website build & final review
+                          </h3>
+                        </div>
+                        <p className="text-sm text-[var(--gray-dark)] mb-6 leading-relaxed font-light">
+                          After your homepage approval, we quickly build out all core pages.
+                        </p>
+                        <div className="space-y-3">
+                          <div className="text-sm leading-relaxed text-[var(--black)] font-medium">
+                            • All pages built using your approved design system
+                          </div>
+                          <div className="text-sm leading-relaxed text-[var(--black)] font-medium">
+                            • Complete website demo for final approval
+                          </div>
+                          <div className="text-sm leading-relaxed text-[var(--black)] font-medium">
+                            • Minor tweaks and refinements as needed
+                          </div>
+                        </div>
+                        <div className="mt-6 pt-6 border-t border-[var(--gray-light)]">
+                          <p className="text-sm font-light text-[var(--primary-blue)]">
+                            <span className="font-serif italic">Outcome:</span> Complete website exactly as planned, edits are fast and structured.
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  {/* Desktop Layout */}
+                  <div className="hidden lg:grid lg:grid-cols-12 lg:gap-8 items-center">
                     <div className="lg:col-span-5 lg:pr-8">
                       <div className="process-card invitation-card-container">
                         <div className="invitation-card-bg"></div>
@@ -519,7 +762,56 @@ export default function ProcessPage() {
 
                 {/* Step 6 - Pre-Launch */}
                 <div className="timeline-step relative scroll-fade">
-                  <div className="lg:grid lg:grid-cols-12 lg:gap-8 items-center">
+                  {/* Mobile Layout */}
+                  <div className="lg:hidden">
+                    <div className="flex items-center gap-4 mb-6">
+                      <div className="w-12 h-12 bg-gradient-to-br from-[var(--primary-blue)] to-[var(--blue-dark)] rounded-full flex items-center justify-center text-white text-lg font-light shadow-lg">
+                        06
+                      </div>
+                      <div>
+                        <h4 className="text-3xl font-light text-[var(--primary-blue)]/60 mb-1">Ready</h4>
+                        <p className="text-sm text-[var(--gray-medium)] font-light">
+                          Technical setup and optimization
+                        </p>
+                      </div>
+                    </div>
+                    <div className="process-card invitation-card-container">
+                      <div className="invitation-card-bg"></div>
+                      <div className="invitation-card">
+                        <div className="mb-6">
+                          <div className="inline-block bg-[var(--blue-light)] border border-[var(--primary-blue)]/20 rounded-full px-3 py-1.5 mb-4">
+                            <span className="text-xs tracking-widest uppercase text-[var(--primary-blue)] font-medium">Step Six</span>
+                          </div>
+                          <h3 className="text-xl font-light text-[var(--black)] tracking-tight mb-3">
+                            Pre-launch final checklist
+                          </h3>
+                          <p className="text-sm text-[var(--gray-medium)] font-light italic">~10 minutes</p>
+                        </div>
+                        <p className="text-sm text-[var(--gray-dark)] mb-6 leading-relaxed font-light">
+                          We implement final refinements and handle all technical setup:
+                        </p>
+                        <div className="space-y-3">
+                          <div className="text-sm leading-relaxed text-[var(--black)] font-medium">
+                            • Connect your domain and configure DNS
+                          </div>
+                          <div className="text-sm leading-relaxed text-[var(--black)] font-medium">
+                            • Set up analytics, Search Console, and SEO optimization
+                          </div>
+                          <div className="text-sm leading-relaxed text-[var(--black)] font-medium">
+                            • Quick call to confirm you're ready to launch
+                          </div>
+                        </div>
+                        <div className="mt-6 pt-6 border-t border-[var(--gray-light)]">
+                          <p className="text-sm font-light text-[var(--primary-blue)]">
+                            <span className="font-serif italic">Outcome:</span> Everything is launch-ready, optimized, and aligned with your goals.
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  {/* Desktop Layout */}
+                  <div className="hidden lg:grid lg:grid-cols-12 lg:gap-8 items-center">
                     <div className="lg:col-span-5 lg:pr-8 order-2 lg:order-1">
                       <div className="text-center lg:text-right">
                         <div className="text-6xl lg:text-8xl font-light text-[var(--primary-blue)]/20 mb-4">Ready</div>
@@ -579,7 +871,55 @@ export default function ProcessPage() {
 
                 {/* Step 7 - Launch */}
                 <div className="timeline-step relative scroll-fade">
-                  <div className="lg:grid lg:grid-cols-12 lg:gap-8 items-center">
+                  {/* Mobile Layout */}
+                  <div className="lg:hidden">
+                    <div className="flex items-center gap-4 mb-6">
+                      <div className="w-12 h-12 bg-gradient-to-br from-[var(--primary-blue)] to-[var(--blue-dark)] rounded-full flex items-center justify-center text-white text-lg font-light shadow-lg">
+                        07
+                      </div>
+                      <div>
+                        <h4 className="text-3xl font-light text-[var(--primary-blue)]/60 mb-1">Live</h4>
+                        <p className="text-sm text-[var(--gray-medium)] font-light">
+                          Official launch with brand assets
+                        </p>
+                      </div>
+                    </div>
+                    <div className="process-card invitation-card-container">
+                      <div className="invitation-card-bg"></div>
+                      <div className="invitation-card">
+                        <div className="mb-6">
+                          <div className="inline-block bg-[var(--blue-light)] border border-[var(--primary-blue)]/20 rounded-full px-3 py-1.5 mb-4">
+                            <span className="text-xs tracking-widest uppercase text-[var(--primary-blue)] font-medium">Step Seven</span>
+                          </div>
+                          <h3 className="text-xl font-light text-[var(--black)] tracking-tight mb-3">
+                            Launch & announce
+                          </h3>
+                        </div>
+                        <p className="text-sm text-[var(--gray-dark)] mb-6 leading-relaxed font-light">
+                          Your new, bespoke website goes live with immediate credibility assets:
+                        </p>
+                        <div className="space-y-3">
+                          <div className="text-sm leading-relaxed text-[var(--black)] font-medium">
+                            • Website goes live at your domain
+                          </div>
+                          <div className="text-sm leading-relaxed text-[var(--black)] font-medium">
+                            • Custom LinkedIn banner designed for your brand
+                          </div>
+                          <div className="text-sm leading-relaxed text-[var(--black)] font-medium">
+                            • Social media launch assets and templates
+                          </div>
+                        </div>
+                        <div className="mt-6 pt-6 border-t border-[var(--gray-light)]">
+                          <p className="text-sm font-light text-[var(--primary-blue)]">
+                            <span className="font-serif italic">Outcome:</span> Immediate visibility, credibility, and authority.
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  {/* Desktop Layout */}
+                  <div className="hidden lg:grid lg:grid-cols-12 lg:gap-8 items-center">
                     <div className="lg:col-span-5 lg:pr-8">
                       <div className="process-card invitation-card-container">
                         <div className="invitation-card-bg"></div>
@@ -638,7 +978,56 @@ export default function ProcessPage() {
 
                 {/* Step 8 - Ongoing Support */}
                 <div className="timeline-step relative scroll-fade">
-                  <div className="lg:grid lg:grid-cols-12 lg:gap-8 items-center">
+                  {/* Mobile Layout */}
+                  <div className="lg:hidden">
+                    <div className="flex items-center gap-4 mb-6">
+                      <div className="w-12 h-12 bg-gradient-to-br from-[var(--primary-blue)] to-[var(--blue-dark)] rounded-full flex items-center justify-center text-white text-lg font-light shadow-lg">
+                        08
+                      </div>
+                      <div>
+                        <h4 className="text-3xl font-light text-[var(--primary-blue)]/60 mb-1">Support</h4>
+                        <p className="text-sm text-[var(--gray-medium)] font-light">
+                          Comprehensive ongoing maintenance
+                        </p>
+                      </div>
+                    </div>
+                    <div className="process-card invitation-card-container">
+                      <div className="invitation-card-bg"></div>
+                      <div className="invitation-card">
+                        <div className="mb-6">
+                          <div className="inline-block bg-[var(--blue-light)] border border-[var(--primary-blue)]/20 rounded-full px-3 py-1.5 mb-4">
+                            <span className="text-xs tracking-widest uppercase text-[var(--primary-blue)] font-medium">Step Eight</span>
+                          </div>
+                          <h3 className="text-xl font-light text-[var(--black)] tracking-tight mb-3">
+                            Ongoing support
+                          </h3>
+                          <p className="text-sm text-[var(--gray-medium)] font-light italic">1-year included</p>
+                        </div>
+                        <p className="text-sm text-[var(--gray-dark)] mb-6 leading-relaxed font-light">
+                          Comprehensive support package to keep your website running perfectly:
+                        </p>
+                        <div className="space-y-3">
+                          <div className="text-sm leading-relaxed text-[var(--black)] font-medium">
+                            • Hosting, domain management, and email support
+                          </div>
+                          <div className="text-sm leading-relaxed text-[var(--black)] font-medium">
+                            • Up to 2 hours/month development support (4 hours first month)
+                          </div>
+                          <div className="text-sm leading-relaxed text-[var(--black)] font-medium">
+                            • Quick updates and improvements as needed
+                          </div>
+                        </div>
+                        <div className="mt-6 pt-6 border-t border-[var(--gray-light)]">
+                          <p className="text-sm font-light text-[var(--primary-blue)]">
+                            <span className="font-serif italic">Outcome:</span> Zero technical worries, ongoing flexibility.
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  {/* Desktop Layout */}
+                  <div className="hidden lg:grid lg:grid-cols-12 lg:gap-8 items-center">
                     <div className="lg:col-span-5 lg:pr-8 order-2 lg:order-1">
                       <div className="text-center lg:text-right">
                         <div className="text-6xl lg:text-8xl font-light text-[var(--primary-blue)]/20 mb-4">Support</div>
