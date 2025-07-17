@@ -4,6 +4,44 @@ import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import Menu from '@/components/Menu'
 import Footer from '@/components/Footer'
+import { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: "Contact Us - Start Your Authority Website Project",
+  description: "Ready to build your authority website? Get in touch with Caldera Agency to discuss your consultant website project. We'll respond within 24 hours with pricing and next steps.",
+  keywords: [
+    "contact caldera agency",
+    "consultant website quote",
+    "get started consultant website",
+    "consultant website pricing",
+    "consultant web design contact",
+    "authority website consultation",
+    "consultant website project",
+    "website development consultation"
+  ],
+  openGraph: {
+    title: "Contact Us - Start Your Authority Website Project | Caldera Agency",
+    description: "Ready to build your authority website? Get in touch with Caldera Agency to discuss your consultant website project. We'll respond within 24 hours with pricing and next steps.",
+    url: "https://caldera.agency/contact",
+    images: [
+      {
+        url: "/og-image-contact.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Contact Caldera Agency - Start Your Website Project",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Contact Us - Start Your Authority Website Project | Caldera Agency",
+    description: "Ready to build your authority website? Get in touch with Caldera Agency to discuss your consultant website project. We'll respond within 24 hours with pricing and next steps.",
+    images: ["/og-image-contact.jpg"],
+  },
+  alternates: {
+    canonical: "https://caldera.agency/contact",
+  },
+}
 
 export default function ContactPage() {
   const cursorRef = useRef<HTMLDivElement>(null)

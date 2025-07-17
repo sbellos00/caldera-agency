@@ -143,10 +143,11 @@ export default function Menu({ onMenuToggle }: MenuProps) {
                     })
                   }, 300)
                 }}
-                className="inline-flex items-center gap-3 bg-[var(--primary-blue)] text-white px-8 py-4 text-lg font-medium tracking-tight no-underline rounded-full hover:bg-[var(--blue-dark)] transition-all duration-300 hover:scale-105"
+                className="inline-flex items-center gap-3 bg-[var(--primary-blue)] text-white px-8 py-4 text-lg font-medium tracking-tight no-underline rounded-full relative overflow-hidden transition-all duration-300 ease-out hover:scale-105 group"
               >
-                <span>Start Your Project</span>
-                <span>→</span>
+                <div className="absolute inset-0 bg-white transform -translate-x-full transition-transform duration-300 ease-out group-hover:translate-x-0"></div>
+                <span className="relative z-10 group-hover:text-[var(--primary-blue)] transition-colors duration-300">Start Your Project</span>
+                <span className="relative z-10 group-hover:text-[var(--primary-blue)] transition-colors duration-300">→</span>
               </button>
             </div>
             

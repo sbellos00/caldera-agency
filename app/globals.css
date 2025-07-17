@@ -225,6 +225,13 @@
     animation: marquee 30s linear infinite;
   }
 
+  /* Faster marquee on mobile */
+  @media (max-width: 768px) {
+    .marquee {
+      animation: marquee 10s linear infinite;
+    }
+  }
+
   .marquee-content {
     display: flex;
     gap: 80px;
