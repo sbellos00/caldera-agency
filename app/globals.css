@@ -89,6 +89,14 @@
   --white: #f1efe7;
 }
 
+/* Caldera Agency logo styling */
+.caldera-logo {
+  font-family: "Times New Roman", Times, serif;
+  font-stretch: condensed;
+  letter-spacing: -0.05em;
+  font-weight: 400;
+}
+
 .dark {
   --background: oklch(0.129 0.042 264.695);
   --foreground: oklch(0.984 0.003 247.858);
@@ -501,6 +509,7 @@
     
     .invitation-card {
       box-shadow: 0 10px 30px -10px rgba(0, 25, 255, 0.08);
+      padding: 1.25rem;
     }
     
     .guarantee-card {
@@ -510,6 +519,20 @@
     /* Reduce spacing between sections on mobile */
     .section-spacing {
       padding-bottom: 3rem;
+    }
+
+    /* Process page mobile optimizations */
+    .timeline-step {
+      margin-bottom: 1rem;
+    }
+
+    .process-card .invitation-card {
+      padding: 1.5rem 1.25rem;
+    }
+
+    /* Hide vertical timeline line on mobile */
+    .timeline-step .absolute.left-1\/2 {
+      display: none;
     }
   }
 
@@ -631,4 +654,43 @@
 /* Radial gradient utility */
 .bg-gradient-radial {
   background-image: radial-gradient(circle, var(--tw-gradient-stops));
+}
+
+/* Process Hero Section Floating Shapes */
+.process-hero-shape {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(100px);
+  opacity: 0.7;
+  animation: float 25s infinite ease-in-out;
+  z-index: 1;
+}
+
+.process-shape-1 {
+  width: 700px;
+  height: 700px;
+  background: var(--blue-light);
+  top: -15%;
+  left: -10%;
+}
+
+.process-shape-2 {
+  width: 600px;
+  height: 600px;
+  background: var(--primary-blue);
+  opacity: 0.3;
+  top: -10%;
+  right: -8%;
+  animation-delay: -8s;
+}
+
+.process-shape-3 {
+  width: 500px;
+  height: 500px;
+  background: var(--blue-light);
+  opacity: 0.5;
+  top: 5%;
+  left: 50%;
+  transform: translateX(-50%);
+  animation-delay: -15s;
 }

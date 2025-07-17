@@ -103,7 +103,7 @@ export default function Home() {
       {/* Navigation */}
       <nav className={`fixed top-0 w-full z-[100] px-6 md:px-12 py-6 ${!isMenuOpen ? 'mix-blend-difference' : ''}`}>
         <div className="flex justify-between items-center max-w-screen-2xl mx-auto">
-          <div className="text-2xl font-medium tracking-tight text-white">Studio</div>
+          <div className="text-3xl font-medium tracking-tight text-white caldera-logo">caldera.agency</div>
           <div className="flex items-center gap-8">
             <button 
               onClick={() => {
@@ -789,7 +789,7 @@ export default function Home() {
 
 
       {/* FAQ Section */}
-      <section className="bg-gradient-to-b from-[var(--primary-blue)] to-[var(--blue-dark)] relative overflow-hidden">
+      <section id="faq" className="bg-gradient-to-b from-[var(--primary-blue)] to-[var(--blue-dark)] relative overflow-hidden">
         {/* Background elements */}
         <div className="absolute inset-0 overflow-hidden">
           <div className="floating-shape shape-1 opacity-10"></div>
@@ -1100,7 +1100,7 @@ export default function Home() {
               Have a different question?
             </p>
             <a
-              href="#contact"
+              href="/contact"
               className="inline-flex items-center gap-2 text-white text-base md:text-lg no-underline relative pb-1 group"
             >
               <span>Ask us directly</span>
@@ -1241,7 +1241,7 @@ export default function Home() {
                         Or reach out directly:
                       </p>
                       <div className="flex items-center justify-center gap-2 text-[var(--gray-medium)]">
-                        <span className="text-base">stefanos.bellos</span>
+                        <span className="text-base">contact</span>
                         <span className="w-6 h-6 bg-[var(--primary-blue)] rounded-full flex items-center justify-center text-sm text-white">@</span>
                         <span className="text-base">caldera.agency</span>
                       </div>

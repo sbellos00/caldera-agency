@@ -45,7 +45,7 @@ export default function Menu({ onMenuToggle }: MenuProps) {
           {/* Top line */}
           <span 
             className={`block h-0.5 w-5 bg-white rounded-full transition-all duration-300 transform origin-center group-hover:bg-black ${
-              isOpen ? 'rotate-45 translate-y-0.5' : ''
+              isOpen ? 'rotate-45 translate-y-[1px]' : ''
             }`}
           />
           {/* Middle line */}
@@ -57,7 +57,7 @@ export default function Menu({ onMenuToggle }: MenuProps) {
           {/* Bottom line */}
           <span 
             className={`block h-0.5 w-5 bg-white rounded-full transition-all duration-300 transform origin-center mt-1 group-hover:bg-black ${
-              isOpen ? '-rotate-45 -translate-y-1.5' : ''
+              isOpen ? '-rotate-45 -translate-y-[6px]' : ''
             }`}
           />
         </div>
@@ -120,12 +120,12 @@ export default function Menu({ onMenuToggle }: MenuProps) {
               </Link>
               
               <Link
-                href="/blog"
+                href="/contact"
                 onClick={closeMenu}
                 className="block text-white text-4xl md:text-6xl lg:text-7xl font-light tracking-tight no-underline relative group transition-all duration-300 hover:text-[var(--blue-light)]"
               >
                 <span className="relative">
-                  Blog
+                  Contact
                   <div className="absolute bottom-0 left-0 w-0 h-0.5 bg-[var(--primary-blue)] transition-[width] duration-500 group-hover:w-full" />
                 </span>
               </Link>
@@ -152,8 +152,8 @@ export default function Menu({ onMenuToggle }: MenuProps) {
             
             {/* Studio branding */}
             <div className="mt-8 md:mt-12 mb-8">
-              <div className="text-white/40 text-sm tracking-widest uppercase">
-                Caldera Agency
+              <div className="text-white/40 tracking-widest caldera-logo text-2xl">
+                caldera.agency
               </div>
             </div>
           </nav>
