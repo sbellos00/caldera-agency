@@ -61,6 +61,24 @@ export default function ContactPage() {
       el.addEventListener('mouseleave', handleMouseLeave)
     })
 
+    // Intersection Observer for scroll-fade animations
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -100px 0px'
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible')
+        }
+      })
+    }, observerOptions)
+
+    document.querySelectorAll('.scroll-fade').forEach(el => {
+      observer.observe(el)
+    })
+
     // Hide cursor on mobile
     if (window.innerWidth <= 768) {
       cursor.style.display = 'none'
@@ -74,6 +92,7 @@ export default function ContactPage() {
         el.removeEventListener('mouseenter', handleMouseEnter)
         el.removeEventListener('mouseleave', handleMouseLeave)
       })
+      observer.disconnect()
     }
   }, [])
 
@@ -134,118 +153,139 @@ export default function ContactPage() {
       </nav>
 
       {/* Main Contact Section */}
-      <section className="min-h-screen bg-[var(--cream)] px-8 py-32">
-        <div className="max-w-4xl mx-auto">
-          <div className="text-center mb-16">
-            <p className="text-sm tracking-widest uppercase text-[var(--gray-medium)] mb-6">
-              Get In Touch
-            </p>
-            <h1 className="hero-title mb-8">
-              Let&apos;s <span className="font-serif italic font-normal text-[var(--primary-blue)]">talk</span>
-            </h1>
-            <p className="text-xl text-[var(--gray-dark)] max-w-2xl mx-auto">
-              Have questions about our services or want to discuss a project? Send us a message and we&apos;ll get back to you within 24 hours.
-            </p>
-          </div>
+      <section className="min-h-screen bg-gradient-to-b from-[var(--cream)] to-white relative overflow-hidden">
+        {/* Background elements */}
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="floating-shape shape-1"></div>
+          <div className="floating-shape shape-2"></div>
+          <div className="absolute top-1/4 left-1/6 w-96 h-96 bg-gradient-to-br from-[var(--primary-blue)]/8 to-[var(--blue-light)]/12 rounded-full blur-3xl"></div>
+          <div className="absolute top-2/3 right-1/5 w-80 h-80 bg-gradient-to-tl from-[var(--blue-light)]/10 to-[var(--primary-blue)]/6 rounded-full blur-2xl"></div>
+        </div>
 
-          {submitStatus === 'success' ? (
-            <div className="text-center py-16">
-              <div className="w-20 h-20 bg-[var(--primary-blue)] rounded-full flex items-center justify-center mx-auto mb-8">
-                <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                </svg>
+        {/* Subtle dot pattern overlay */}
+        <div className="absolute inset-0 opacity-[0.015]" style={{
+          backgroundImage: `radial-gradient(circle at 2px 2px, var(--primary-blue) 1px, transparent 0)`,
+          backgroundSize: '60px 60px'
+        }}></div>
+
+        <div className="relative z-10 px-8 md:px-16 py-32 max-w-screen-2xl mx-auto">
+          <div className="max-w-4xl mx-auto">
+            <div className="text-center mb-16 scroll-fade">
+              <div className="inline-flex items-center gap-4 mb-6">
+                <div className="w-12 h-px bg-gradient-to-r from-transparent via-[var(--primary-blue)] to-transparent"></div>
+                <span className="text-sm tracking-widest uppercase text-[var(--primary-blue)] font-medium">Get In Touch</span>
+                <div className="w-12 h-px bg-gradient-to-r from-transparent via-[var(--primary-blue)] to-transparent"></div>
               </div>
-              <h2 className="text-4xl font-light mb-6 text-[var(--black)]">Thank you!</h2>
-              <p className="text-xl text-[var(--gray-dark)] mb-8 max-w-2xl mx-auto">
-                We&apos;ve received your message and will get back to you within 24 hours.
+              <h1 className="hero-title mb-8">
+                Let&apos;s <span className="font-serif italic font-normal text-[var(--primary-blue)]">talk</span>
+              </h1>
+              <p className="text-xl text-[var(--gray-dark)] max-w-2xl mx-auto font-light">
+                Have questions about our services or want to discuss a project? Send us a message and we&apos;ll get back to you within 24 hours.
               </p>
-              <button
-                onClick={() => setSubmitStatus('idle')}
-                className="text-[var(--primary-blue)] hover:text-[var(--blue-dark)] font-medium"
+            </div>
+
+            {submitStatus === 'success' ? (
+              <div className="text-center py-16 scroll-fade">
+                <div className="w-20 h-20 bg-[var(--primary-blue)] rounded-full flex items-center justify-center mx-auto mb-8">
+                  <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                </div>
+                <h2 className="text-4xl font-light mb-6 text-[var(--black)]">Thank you!</h2>
+                <p className="text-xl text-[var(--gray-dark)] mb-8 max-w-2xl mx-auto">
+                  We&apos;ve received your message and will get back to you within 24 hours.
+                </p>
+                <button
+                  onClick={() => setSubmitStatus('idle')}
+                  className="text-[var(--primary-blue)] hover:text-[var(--blue-dark)] font-medium"
+                >
+                  Send another message
+                </button>
+              </div>
+            ) : (
+              <div className="invitation-card-container scroll-fade">
+                <div className="invitation-card-bg"></div>
+                <div className="invitation-card">
+                  <form onSubmit={handleSubmit} className="space-y-8">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                      <div>
+                        <label className="block text-[var(--black)] text-sm font-medium mb-3">
+                          Your Name <span className="text-[var(--primary-blue)]">*</span>
+                        </label>
+                        <input
+                          type="text"
+                          required
+                          value={formData.name}
+                          onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
+                          className="w-full px-6 py-4 bg-[var(--gray-light)] border border-[var(--gray-light)] rounded-xl text-[var(--black)] placeholder:text-[var(--gray-medium)] focus:outline-none focus:ring-2 focus:ring-[var(--primary-blue)] focus:border-[var(--primary-blue)] transition-all duration-300"
+                          placeholder="John Smith"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="block text-[var(--black)] text-sm font-medium mb-3">
+                          Email Address <span className="text-[var(--primary-blue)]">*</span>
+                        </label>
+                        <input
+                          type="email"
+                          required
+                          value={formData.email}
+                          onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
+                          className="w-full px-6 py-4 bg-[var(--gray-light)] border border-[var(--gray-light)] rounded-xl text-[var(--black)] placeholder:text-[var(--gray-medium)] focus:outline-none focus:ring-2 focus:ring-[var(--primary-blue)] focus:border-[var(--primary-blue)] transition-all duration-300"
+                          placeholder="john@company.com"
+                        />
+                      </div>
+                    </div>
+
+                    <div>
+                      <label className="block text-[var(--black)] text-sm font-medium mb-3">
+                        Your Message <span className="text-[var(--primary-blue)]">*</span>
+                      </label>
+                      <textarea
+                        required
+                        rows={6}
+                        value={formData.message}
+                        onChange={(e) => setFormData(prev => ({ ...prev, message: e.target.value }))}
+                        className="w-full px-6 py-4 bg-[var(--gray-light)] border border-[var(--gray-light)] rounded-xl text-[var(--black)] placeholder:text-[var(--gray-medium)] focus:outline-none focus:ring-2 focus:ring-[var(--primary-blue)] focus:border-[var(--primary-blue)] transition-all duration-300 resize-none"
+                        placeholder="Tell us about your project or question..."
+                      />
+                    </div>
+
+                    {submitStatus === 'error' && (
+                      <div className="bg-red-50 border border-red-200 rounded-xl p-6">
+                        <p className="text-red-600">
+                          Something went wrong. Please try again or email us directly at contact@caldera.agency
+                        </p>
+                      </div>
+                    )}
+
+                    <div className="text-center pt-4">
+                      <button
+                        type="submit"
+                        disabled={isSubmitting}
+                        className="inline-flex items-center justify-center gap-3 bg-[var(--black)] text-white px-12 py-4 text-[15px] tracking-tight rounded-full relative overflow-hidden transition-all duration-300 ease-out hover:scale-105 group disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+                      >
+                        <div className="absolute inset-0 bg-[var(--primary-blue)] transform -translate-x-full transition-transform duration-300 ease-out group-hover:translate-x-0"></div>
+                        <span className="relative z-10">{isSubmitting ? 'Sending...' : 'Send Message'}</span>
+                        <span className="relative z-10">→</span>
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            )}
+
+            <div className="text-center mt-12 scroll-fade">
+              <p className="text-[var(--gray-medium)] mb-4">
+                Or email us directly at
+              </p>
+              <a 
+                href="mailto:contact@caldera.agency" 
+                className="text-[var(--primary-blue)] hover:text-[var(--blue-dark)] font-medium text-lg"
               >
-                Send another message
-              </button>
+                contact@caldera.agency
+              </a>
             </div>
-          ) : (
-            <div className="bg-white rounded-2xl p-8 md:p-12 shadow-lg">
-              <form onSubmit={handleSubmit} className="space-y-8">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                  <div>
-                    <label className="block text-[var(--black)] text-sm font-medium mb-3">
-                      Your Name <span className="text-[var(--primary-blue)]">*</span>
-                    </label>
-                    <input
-                      type="text"
-                      required
-                      value={formData.name}
-                      onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
-                      className="w-full px-6 py-4 bg-[var(--gray-light)] border border-[var(--gray-light)] rounded-xl text-[var(--black)] placeholder:text-[var(--gray-medium)] focus:outline-none focus:ring-2 focus:ring-[var(--primary-blue)] focus:border-[var(--primary-blue)] transition-all duration-300"
-                      placeholder="John Smith"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-[var(--black)] text-sm font-medium mb-3">
-                      Email Address <span className="text-[var(--primary-blue)]">*</span>
-                    </label>
-                    <input
-                      type="email"
-                      required
-                      value={formData.email}
-                      onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
-                      className="w-full px-6 py-4 bg-[var(--gray-light)] border border-[var(--gray-light)] rounded-xl text-[var(--black)] placeholder:text-[var(--gray-medium)] focus:outline-none focus:ring-2 focus:ring-[var(--primary-blue)] focus:border-[var(--primary-blue)] transition-all duration-300"
-                      placeholder="john@company.com"
-                    />
-                  </div>
-                </div>
-
-                <div>
-                  <label className="block text-[var(--black)] text-sm font-medium mb-3">
-                    Your Message <span className="text-[var(--primary-blue)]">*</span>
-                  </label>
-                  <textarea
-                    required
-                    rows={6}
-                    value={formData.message}
-                    onChange={(e) => setFormData(prev => ({ ...prev, message: e.target.value }))}
-                    className="w-full px-6 py-4 bg-[var(--gray-light)] border border-[var(--gray-light)] rounded-xl text-[var(--black)] placeholder:text-[var(--gray-medium)] focus:outline-none focus:ring-2 focus:ring-[var(--primary-blue)] focus:border-[var(--primary-blue)] transition-all duration-300 resize-none"
-                    placeholder="Tell us about your project or question..."
-                  />
-                </div>
-
-                {submitStatus === 'error' && (
-                  <div className="bg-red-50 border border-red-200 rounded-xl p-6">
-                    <p className="text-red-600">
-                      Something went wrong. Please try again or email us directly at contact@caldera.agency
-                    </p>
-                  </div>
-                )}
-
-                <div className="text-center pt-4">
-                  <button
-                    type="submit"
-                    disabled={isSubmitting}
-                    className="inline-flex items-center justify-center gap-3 bg-[var(--black)] text-white px-12 py-4 text-[15px] tracking-tight rounded-full relative overflow-hidden transition-all duration-300 ease-out hover:scale-105 group disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
-                  >
-                    <div className="absolute inset-0 bg-[var(--primary-blue)] transform -translate-x-full transition-transform duration-300 ease-out group-hover:translate-x-0"></div>
-                    <span className="relative z-10">{isSubmitting ? 'Sending...' : 'Send Message'}</span>
-                    <span className="relative z-10">→</span>
-                  </button>
-                </div>
-              </form>
-            </div>
-          )}
-
-          <div className="text-center mt-12">
-            <p className="text-[var(--gray-medium)] mb-4">
-              Or email us directly at
-            </p>
-            <a 
-              href="mailto:contact@caldera.agency" 
-              className="text-[var(--primary-blue)] hover:text-[var(--blue-dark)] font-medium text-lg"
-            >
-              contact@caldera.agency
-            </a>
           </div>
         </div>
       </section>
