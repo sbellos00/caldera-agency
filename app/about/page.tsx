@@ -202,7 +202,7 @@ export default function AboutPage() {
                     </h3>
                   </div>
                   <p className="text-sm text-[var(--gray-dark)] leading-relaxed font-light">
-                    We don't take on projects for agencies, local businesses, or e-commerce. Everything we do is built around what matters most for solo consultants: establishing credibility, driving high-value inbound, and freeing you from project headaches and admin bloat.
+                    We don&apos;t take on projects for agencies, local businesses, or e-commerce. Everything we do is built around what matters most for solo consultants: establishing credibility, driving high-value inbound, and freeing you from project headaches and admin bloat.
                   </p>
                 </div>
               </div>
@@ -320,7 +320,7 @@ export default function AboutPage() {
                         <div>
                           <h3 className="text-lg font-medium text-[var(--black)] mb-2">Instant Clarity</h3>
                           <p className="text-sm text-[var(--gray-dark)] leading-relaxed font-light">
-                            In 5 seconds, any visitor knows who you help, what you do, and why you're legit.
+                            In 5 seconds, any visitor knows who you help, what you do, and why you&apos;re legit.
                           </p>
                         </div>
                       </div>
@@ -388,7 +388,7 @@ export default function AboutPage() {
               Ready to Get <span className="font-serif italic">Started?</span>
             </h2>
             <p className="text-xl text-white/80 mb-12 leading-relaxed font-light">
-              Let's discuss your project and show you exactly how our process works for your specific situation.
+              Let&apos;s discuss your project and show you exactly how our process works for your specific situation.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link

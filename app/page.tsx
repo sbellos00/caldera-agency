@@ -222,7 +222,7 @@ export default function Home() {
           </h2>
 
           <p className="text-xl leading-relaxed text-[var(--gray-dark)] max-w-2xl mb-20 font-light scroll-fade">
-            Most consultants will never prioritize "project managing" their own website. Our process is built so they never have to:
+            Most consultants will never prioritize &ldquo;project managing&rdquo; their own website. Our process is built so they never have to:
           </p>
 
           {/* Features Bento Grid */}
@@ -233,7 +233,7 @@ export default function Home() {
               <h3 className="text-2xl font-normal tracking-tight mb-3 relative z-10 group-hover:text-white">Fully Managed</h3>
               <div className="md:block hidden">
                 <p className="text-base leading-relaxed text-[var(--gray-medium)] relative z-10 group-hover:text-white">
-                  We take care of all the technical and admin work so that you never have to worry about things that don't move your business forward.
+                  We take care of all the technical and admin work so that you never have to worry about things that don&apos;t move your business forward.
                 </p>
                 <ul className="mt-6 grid gap-3 relative z-10">
                   <li className="flex items-start gap-3 text-[15px] leading-relaxed text-[var(--gray-medium)] feature-list-item group-hover:text-white">Domain Management</li>
@@ -252,7 +252,7 @@ export default function Home() {
               <div className="w-10 h-10 bg-[var(--primary-blue)] rounded-xl mb-6 relative z-10 transition-all duration-300 group-hover:bg-white"></div>
               <h3 className="text-2xl font-normal tracking-tight mb-3 relative z-10 group-hover:text-white">Guaranteed Speed</h3>
               <p className="text-base leading-relaxed text-[var(--gray-medium)] relative z-10 group-hover:text-white">
-                Launched in 20 days or less, guaranteed. If we're late, you get a 20% refund for every day missed.
+                Launched in 20 days or less, guaranteed. If we&apos;re late, you get a 20% refund for every day missed.
               </p>
             </div>
 
@@ -271,7 +271,7 @@ export default function Home() {
               <div className="mt-6 grid gap-3 relative z-10">
                 <p className="flex items-start gap-3 text-[15px] leading-relaxed text-[var(--gray-medium)] feature-list-item group-hover:text-white">You never fill out a long, generic form or get asked for things we can research.</p>
                 <p className="flex items-start gap-3 text-[15px] leading-relaxed text-[var(--gray-medium)] feature-list-item group-hover:text-white">You see concrete options, not abstract requests.</p>
-                <p className="flex items-start gap-3 text-[15px] leading-relaxed text-[var(--gray-medium)] feature-list-item group-hover:text-white">Every question/request is targeted and explained ("We need this for your credibility").</p>
+                <p className="flex items-start gap-3 text-[15px] leading-relaxed text-[var(--gray-medium)] feature-list-item group-hover:text-white">Every question/request is targeted and explained (&ldquo;We need this for your credibility&rdquo;).</p>
                 <p className="flex items-start gap-3 text-[15px] leading-relaxed text-[var(--gray-medium)] feature-list-item group-hover:text-white">You spend less than 2 hours total on throughout the whole project cycle.</p>
               </div>
             </div>
@@ -393,7 +393,7 @@ export default function Home() {
               </div>
               <h3 className="text-xl md:text-2xl font-medium mb-3 md:mb-4 text-[var(--black)]">Analytics integration</h3>
               <p className="text-sm md:text-base text-[var(--gray-medium)] leading-relaxed">
-                We set up Google Analytics and Search Console for you, so you always know who's visiting and how your site is performing from day one.
+                We set up Google Analytics and Search Console for you, so you always know who&apos;s visiting and how your site is performing from day one.
               </p>
             </div>
 
@@ -475,7 +475,7 @@ export default function Home() {
           {/* Extra Services Note */}
           <div className="text-center mb-16 md:mb-20 scroll-fade">
             <p className="text-sm text-[var(--gray-medium)] leading-relaxed max-w-xl mx-auto px-4">
-              <span className="font-medium text-[var(--black)]">Need something extra?</span> Just ask. We'll always be clear about what's included, and quote any add-ons transparently.
+              <span className="font-medium text-[var(--black)]">Need something extra?</span> Just ask. We&apos;ll always be clear about what&apos;s included, and quote any add-ons transparently.
             </p>
           </div>
         </div>
@@ -743,7 +743,7 @@ export default function Home() {
               <span className="italic font-serif text-[var(--primary-blue)]">Guaranteed</span>
             </h2>
             <p className="text-lg md:text-xl leading-relaxed text-[var(--gray-dark)] max-w-4xl mx-auto font-light scroll-fade px-4">
-              We believe you should only pay for work you're genuinely proud to launch, delivered exactly when promised. No exceptions, no fine print, no games.
+              We believe you should only pay for work you&apos;re genuinely proud to launch, delivered exactly when promised. No exceptions, no fine print, no games.
             </p>
           </div>
 
@@ -757,9 +757,9 @@ export default function Home() {
                 You are in control at every stage. We proceed only when you give the green light.
               </p>
               <ul className="grid gap-2 md:gap-3 relative z-10">
-                <li className="flex items-start gap-3 text-sm md:text-[15px] leading-relaxed text-[var(--gray-medium)] feature-list-item group-hover:text-white">Pay only for delivered work you've seen and approved</li>
+                <li className="flex items-start gap-3 text-sm md:text-[15px] leading-relaxed text-[var(--gray-medium)] feature-list-item group-hover:text-white">Pay only for delivered work you&apos;ve seen and approved</li>
                 <li className="flex items-start gap-3 text-sm md:text-[15px] leading-relaxed text-[var(--gray-medium)] feature-list-item group-hover:text-white">Review and sign off before we move to the next phase</li>
-                <li className="flex items-start gap-3 text-sm md:text-[15px] leading-relaxed text-[var(--gray-medium)] feature-list-item group-hover:text-white">Final payment only due when you're 100% confident to launch</li>
+                <li className="flex items-start gap-3 text-sm md:text-[15px] leading-relaxed text-[var(--gray-medium)] feature-list-item group-hover:text-white">Final payment only due when you&apos;re 100% confident to launch</li>
               </ul>
             </div>
 
@@ -776,7 +776,7 @@ export default function Home() {
               <div className="relative z-10 mt-4 md:mt-6 pt-4 md:pt-6 border-t border-[var(--gray-light)] group-hover:border-white/20 transition-colors duration-300">
                 <div className="flex items-baseline gap-3 mb-2">
                   <span className="text-2xl md:text-3xl font-light text-[var(--primary-blue)] group-hover:text-white transition-colors duration-300">20%</span>
-                  <span className="text-sm md:text-base font-medium text-[var(--gray-dark)] group-hover:text-white transition-colors duration-300">refund for every business day we're late</span>
+                  <span className="text-sm md:text-base font-medium text-[var(--gray-dark)] group-hover:text-white transition-colors duration-300">refund for every business day we&apos;re late</span>
                 </div>
                 <p className="text-xs md:text-sm text-[var(--gray-medium)] font-light group-hover:text-white/70 transition-colors duration-300">
                   Assumes prompt client feedback. Full details in your onboarding pack.
@@ -826,7 +826,7 @@ export default function Home() {
               >
                 <div className="flex items-center justify-between">
                   <h3 className="text-base md:text-lg lg:text-xl font-normal text-white group-hover:text-[var(--black)] transition-colors duration-300 pr-6">
-                    What if I don't have time for a big project?
+                    What if I don&apos;t have time for a big project?
                   </h3>
                   <div className={`w-5 h-5 flex items-center justify-center transition-transform duration-300 ${openFAQ === 1 ? 'rotate-45' : ''}`}>
                     <span className="text-white group-hover:text-[var(--black)] text-xl font-light leading-none transition-colors duration-300">+</span>
@@ -837,7 +837,7 @@ export default function Home() {
               <div className={`overflow-hidden transition-all duration-500 ease-out ${openFAQ === 1 ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}>
                 <div className="px-4 md:px-6 pb-4 md:pb-6 pt-3 md:pt-4">
                   <p className="text-white/80 leading-relaxed text-sm md:text-base">
-                    We've designed our process to be incredibly efficient. We handle all the technical and creative work, requiring less than two hours of your time to get everything launched.
+                    We&apos;ve designed our process to be incredibly efficient. We handle all the technical and creative work, requiring less than two hours of your time to get everything launched.
                   </p>
                 </div>
               </div>
@@ -851,7 +851,7 @@ export default function Home() {
               >
                 <div className="flex items-center justify-between">
                   <h3 className="text-base md:text-lg lg:text-xl font-normal text-white group-hover:text-[var(--black)] transition-colors duration-300 pr-6">
-                    What if you're late?
+                    What if you&apos;re late?
                   </h3>
                   <div className={`w-5 h-5 flex items-center justify-center transition-transform duration-300 ${openFAQ === 2 ? 'rotate-45' : ''}`}>
                     <span className="text-white group-hover:text-[var(--black)] text-xl font-light leading-none transition-colors duration-300">+</span>
@@ -862,7 +862,7 @@ export default function Home() {
               <div className={`overflow-hidden transition-all duration-500 ease-out ${openFAQ === 2 ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}>
                 <div className="px-4 md:px-6 pb-4 md:pb-6 pt-3 md:pt-4">
                   <p className="text-white/80 leading-relaxed text-sm md:text-base">
-                    If your site isn't live in 20 days (assuming you provide what's needed), we pay you back 20% per business day late. Guaranteed.
+                    If your site isn&apos;t live in 20 days (assuming you provide what&apos;s needed), we pay you back 20% per business day late. Guaranteed.
                   </p>
                 </div>
               </div>
@@ -876,7 +876,7 @@ export default function Home() {
               >
                 <div className="flex items-center justify-between">
                   <h3 className="text-base md:text-lg lg:text-xl font-normal text-white group-hover:text-[var(--black)] transition-colors duration-300 pr-6">
-                    What if I'm not happy at launch?
+                    What if I&apos;m not happy at launch?
                   </h3>
                   <div className={`w-5 h-5 flex items-center justify-center transition-transform duration-300 ${openFAQ === 3 ? 'rotate-45' : ''}`}>
                     <span className="text-white group-hover:text-[var(--black)] text-xl font-light leading-none transition-colors duration-300">+</span>
@@ -887,7 +887,7 @@ export default function Home() {
               <div className={`overflow-hidden transition-all duration-500 ease-out ${openFAQ === 3 ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}>
                 <div className="px-4 md:px-6 pb-4 md:pb-6 pt-3 md:pt-4">
                   <p className="text-white/80 leading-relaxed text-sm md:text-base">
-                    You only pay for each phase after you approve it. Final payment is only due if you're proud to launch—no risk of paying for something you can't use.
+                    You only pay for each phase after you approve it. Final payment is only due if you&apos;re proud to launch—no risk of paying for something you can&apos;t use.
                   </p>
                 </div>
               </div>
@@ -901,7 +901,7 @@ export default function Home() {
               >
                 <div className="flex items-center justify-between">
                   <h3 className="text-base md:text-lg lg:text-xl font-normal text-white group-hover:text-[var(--black)] transition-colors duration-300 pr-6">
-                    Isn't this just another template site?
+                    Isn&apos;t this just another template site?
                   </h3>
                   <div className={`w-5 h-5 flex items-center justify-center transition-transform duration-300 ${openFAQ === 4 ? 'rotate-45' : ''}`}>
                     <span className="text-white group-hover:text-[var(--black)] text-xl font-light leading-none transition-colors duration-300">+</span>
@@ -937,7 +937,7 @@ export default function Home() {
               <div className={`overflow-hidden transition-all duration-500 ease-out ${openFAQ === 5 ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}>
                 <div className="px-4 md:px-6 pb-4 md:pb-6 pt-3 md:pt-4">
                   <p className="text-white/80 leading-relaxed text-sm md:text-base">
-                    We do all the heavy lifting so you don't waste weeks of your time. One new client covers your investment.
+                    We do all the heavy lifting so you don&apos;t waste weeks of your time. One new client covers your investment.
                   </p>
                 </div>
               </div>
@@ -962,7 +962,7 @@ export default function Home() {
               <div className={`overflow-hidden transition-all duration-500 ease-out ${openFAQ === 6 ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}>
                 <div className="px-4 md:px-6 pb-4 md:pb-6 pt-3 md:pt-4">
                   <p className="text-white/80 leading-relaxed text-sm md:text-base">
-                    No. Consultants only. That's why our sites work.
+                    No. Consultants only. That&apos;s why our sites work.
                   </p>
                 </div>
               </div>
@@ -1012,7 +1012,7 @@ export default function Home() {
               <div className={`overflow-hidden transition-all duration-500 ease-out ${openFAQ === 8 ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}>
                 <div className="px-4 md:px-6 pb-4 md:pb-6 pt-3 md:pt-4">
                   <p className="text-white/80 leading-relaxed text-sm md:text-base">
-                    LinkedIn is just one platform. A professional website gives you full control over your digital presence, establishes deeper credibility, and positions you at a higher tier than competitors who rely solely on social media. Don't risk being at the mercy of algorithms and sudden policy changes.
+                    LinkedIn is just one platform. A professional website gives you full control over your digital presence, establishes deeper credibility, and positions you at a higher tier than competitors who rely solely on social media. Don&apos;t risk being at the mercy of algorithms and sudden policy changes.
                   </p>
                 </div>
               </div>
@@ -1087,7 +1087,7 @@ export default function Home() {
               <div className={`overflow-hidden transition-all duration-500 ease-out ${openFAQ === 11 ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}>
                 <div className="px-4 md:px-6 pb-4 md:pb-6 pt-3 md:pt-4">
                   <p className="text-white/80 leading-relaxed text-sm md:text-base">
-                    We understand your hesitation. That's why we operate with complete transparency. Our process is broken down into clear milestones, and you only pay for each stage after you have reviewed and approved the work.
+                    We understand your hesitation. That&apos;s why we operate with complete transparency. Our process is broken down into clear milestones, and you only pay for each stage after you have reviewed and approved the work.
                   </p>
                 </div>
               </div>
@@ -1123,7 +1123,7 @@ export default function Home() {
                   Ready to build your <span className="italic font-serif text-[var(--primary-blue)]">authority website?</span>
                 </h3>
                 <p className="text-[var(--gray-dark)] text-lg md:text-xl leading-relaxed max-w-3xl mx-auto font-light mb-8 md:mb-12">
-                  Fill in your details below and we'll get back to you within 24 hours.
+                  Fill in your details below and we&apos;ll get back to you within 24 hours.
                 </p>
               </div>
 
@@ -1135,9 +1135,9 @@ export default function Home() {
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                       </svg>
                     </div>
-                    <h4 className="text-xl md:text-2xl font-medium mb-4 text-[var(--black)]">Perfect! We'll be in touch soon.</h4>
+                    <h4 className="text-xl md:text-2xl font-medium mb-4 text-[var(--black)]">Perfect! We&apos;ll be in touch soon.</h4>
                     <p className="text-[var(--gray-medium)] text-base leading-relaxed mb-6">
-                      We'll send you the project details and next steps within 24 hours.
+                      We&apos;ll send you the project details and next steps within 24 hours.
                     </p>
                     <button
                       onClick={() => {
@@ -1222,7 +1222,7 @@ export default function Home() {
                             } else {
                               setSubmitStatus('error')
                             }
-                          } catch (error) {
+                          } catch {
                             setSubmitStatus('error')
                           } finally {
                             setIsSubmitting(false)

@@ -100,6 +100,7 @@ export default function ContactPage() {
       }
     } catch (error) {
       setSubmitStatus('error')
+      console.error(error)
     } finally {
       setIsSubmitting(false)
     }
@@ -140,10 +141,10 @@ export default function ContactPage() {
               Get In Touch
             </p>
             <h1 className="hero-title mb-8">
-              Let's <span className="font-serif italic font-normal text-[var(--primary-blue)]">talk</span>
+              Let&apos;s <span className="font-serif italic font-normal text-[var(--primary-blue)]">talk</span>
             </h1>
             <p className="text-xl text-[var(--gray-dark)] max-w-2xl mx-auto">
-              Have questions about our services or want to discuss a project? Send us a message and we'll get back to you within 24 hours.
+              Have questions about our services or want to discuss a project? Send us a message and we&apos;ll get back to you within 24 hours.
             </p>
           </div>
 
@@ -156,7 +157,7 @@ export default function ContactPage() {
               </div>
               <h2 className="text-4xl font-light mb-6 text-[var(--black)]">Thank you!</h2>
               <p className="text-xl text-[var(--gray-dark)] mb-8 max-w-2xl mx-auto">
-                We've received your message and will get back to you within 24 hours.
+                We&apos;ve received your message and will get back to you within 24 hours.
               </p>
               <button
                 onClick={() => setSubmitStatus('idle')}

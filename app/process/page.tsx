@@ -135,7 +135,7 @@ export default function ProcessPage() {
           </h1>
 
           <p className="text-xl leading-relaxed text-[var(--gray-dark)] max-w-3xl mb-12 font-light animate-fade-in-up animate-delay-200">
-            Here's exactly how your custom website project unfolds, clear, predictable, and designed to deliver maximum impact with minimal effort from you.
+            Here&apos;s exactly how your custom website project unfolds, clear, predictable, and designed to deliver maximum impact with minimal effort from you.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 animate-fade-in-up animate-delay-300">
@@ -638,7 +638,7 @@ export default function ProcessPage() {
                             </div>
                             <div className="group">
                               <div className="flex items-start gap-3 text-sm leading-relaxed text-[var(--gray-medium)] feature-list-item">
-                                <span className="font-medium text-[var(--black)]">Send testimonials or we'll use professional placeholders</span>
+                                <span className="font-medium text-[var(--black)]">Send testimonials or we&apos;ll use professional placeholders</span>
                               </div>
                             </div>
                           </div>
@@ -798,7 +798,7 @@ export default function ProcessPage() {
                             • Set up analytics, Search Console, and SEO optimization
                           </div>
                           <div className="text-sm leading-relaxed text-[var(--black)] font-medium">
-                            • Quick call to confirm you're ready to launch
+                            • Quick call to confirm you&apos;re ready to launch
                           </div>
                         </div>
                         <div className="mt-6 pt-6 border-t border-[var(--gray-light)]">
@@ -854,7 +854,8 @@ export default function ProcessPage() {
                             </div>
                             <div className="group">
                               <div className="flex items-start gap-3 text-sm leading-relaxed text-[var(--gray-medium)] feature-list-item">
-                                <span className="font-medium text-[var(--black)]">Quick call to confirm you're ready to launch</span>
+                    LinkedIn is just one platform. A professional website gives you full control over your digital presence, establishes deeper credibility, and positions you at a higher tier than competitors who rely solely on social media. Don&apos;t risk being at the mercy of algorithms and sudden policy changes.
+                                <span className="font-medium text-[var(--black)]">Quick call to confirm you&apos;re ready to launch</span>
                               </div>
                             </div>
                           </div>
@@ -1156,8 +1157,7 @@ export default function ProcessPage() {
                       <h2 className="text-3xl md:text-4xl lg:text-5xl font-light text-[var(--black)] tracking-tight mb-6">
                         Want It Even <span className="font-serif italic text-[var(--primary-blue)]">Faster?</span>
                       </h2>
-                      <p className="text-lg md:text-xl text-[var(--gray-dark)] mb-8 leading-relaxed font-light max-w-3xl mx-auto">
-                        For consultants who need results <em>yesterday</em>, we offer an <strong>Ultra Speed Process</strong> that's even more streamlined—minimizing reviews and approvals for the absolute fastest possible launch.
+                      <p className="text-lg md:text-xl text-[var(--gray-dark)] mb-8 leading-relaxed font-light max-w-3xl mx-auto">For consultants who need results <em>yesterday</em>, we offer an <strong>Ultra Speed Process</strong> that&apos;s even more streamlined—minimizing reviews and approvals for the absolute fastest possible launch.
                       </p>
                       <p className="text-base text-[var(--gray-medium)] mb-12 leading-relaxed font-light max-w-2xl mx-auto">
                         With Ultra Speed, your website goes from onboarding to live in days, not weeks. Same custom research, hands-off setup, and authority-building design but condensed to just two quick feedback rounds.
@@ -1191,8 +1191,7 @@ export default function ProcessPage() {
             <h2 className="section-title mb-8 text-white">
               Ready to Start Your <span className="font-serif italic">Authority</span> Website?
             </h2>
-            <p className="text-xl text-white/80 mb-12 leading-relaxed font-light">
-              Let's discuss your project and show you exactly how this process works for your specific situation.
+            <p className="text-xl text-white/80 mb-12 leading-relaxed font-light">Let&apos;s discuss your project and show you exactly how this process works for your specific situation.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
