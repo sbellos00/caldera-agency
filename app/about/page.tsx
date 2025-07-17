@@ -4,44 +4,6 @@ import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import Menu from '@/components/Menu'
 import Footer from '@/components/Footer'
-import { Metadata } from 'next'
-
-export const metadata: Metadata = {
-  title: "About Us - Why We Exist & What Makes Us Different",
-  description: "Learn why Caldera Agency exists exclusively for solo consultants. We cut out the chaos, admin, and generic agency playbook to build high-quality websites that win higher-value clients.",
-  keywords: [
-    "consultant website agency",
-    "about caldera agency",
-    "consultant-only web design",
-    "consultant website process",
-    "consultant marketing agency",
-    "solo consultant branding",
-    "custom consultant websites",
-    "consultant web development"
-  ],
-  openGraph: {
-    title: "About Us - Why We Exist & What Makes Us Different | Caldera Agency",
-    description: "Learn why Caldera Agency exists exclusively for solo consultants. We cut out the chaos, admin, and generic agency playbook to build high-quality websites that win higher-value clients.",
-    url: "https://caldera.agency/about",
-    images: [
-      {
-        url: "/og-image-about.jpg",
-        width: 1200,
-        height: 630,
-        alt: "About Caldera Agency - Consultant Website Specialists",
-      },
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "About Us - Why We Exist & What Makes Us Different | Caldera Agency",
-    description: "Learn why Caldera Agency exists exclusively for solo consultants. We cut out the chaos, admin, and generic agency playbook to build high-quality websites that win higher-value clients.",
-    images: ["/og-image-about.jpg"],
-  },
-  alternates: {
-    canonical: "https://caldera.agency/about",
-  },
-}
 
 export default function AboutPage() {
   const cursorRef = useRef<HTMLDivElement>(null)

@@ -4,44 +4,6 @@ import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import Menu from '@/components/Menu'
 import Footer from '@/components/Footer'
-import { Metadata } from 'next'
-
-export const metadata: Metadata = {
-  title: "Our Process - How We Build Authority Websites for Consultants",
-  description: "See our step-by-step process for building consultant websites. No homework, no chaos, no agency runaround. Just approve, launch, done. 20 days or less with 2 hours of your time.",
-  keywords: [
-    "consultant website process",
-    "web design process",
-    "consultant website development",
-    "consultant website timeline",
-    "web development process",
-    "consultant branding process",
-    "website launch process",
-    "consultant marketing process"
-  ],
-  openGraph: {
-    title: "Our Process - How We Build Authority Websites for Consultants | Caldera Agency",
-    description: "See our step-by-step process for building consultant websites. No homework, no chaos, no agency runaround. Just approve, launch, done. 20 days or less with 2 hours of your time.",
-    url: "https://caldera.agency/process",
-    images: [
-      {
-        url: "/og-image-process.jpg",
-        width: 1200,
-        height: 630,
-        alt: "Caldera Agency Process - Website Development for Consultants",
-      },
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Our Process - How We Build Authority Websites for Consultants | Caldera Agency",
-    description: "See our step-by-step process for building consultant websites. No homework, no chaos, no agency runaround. Just approve, launch, done. 20 days or less with 2 hours of your time.",
-    images: ["/og-image-process.jpg"],
-  },
-  alternates: {
-    canonical: "https://caldera.agency/process",
-  },
-}
 
 export default function ProcessPage() {
   const cursorRef = useRef<HTMLDivElement>(null)
