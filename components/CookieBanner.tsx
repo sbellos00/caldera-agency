@@ -3,6 +3,20 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 
+// Extend the Window interface to include gtag
+declare global {
+  interface Window {
+    gtag?: (
+      command: 'consent',
+      action: 'update',
+      parameters: {
+        analytics_storage: 'granted' | 'denied'
+        ad_storage: 'granted' | 'denied'
+      }
+    ) => void
+  }
+}
+
 export default function CookieBanner() {
   const [isVisible, setIsVisible] = useState(false)
   const [isClosing, setIsClosing] = useState(false)
@@ -23,8 +37,8 @@ export default function CookieBanner() {
     closeBanner()
     
     // Enable tracking
-    if (typeof window !== 'undefined' && (window as any).gtag) {
-      (window as any).gtag('consent', 'update', {
+    if (typeof window !== 'undefined' && window.gtag) {
+      window.gtag('consent', 'update', {
         analytics_storage: 'granted',
         ad_storage: 'granted'
       })
@@ -37,8 +51,8 @@ export default function CookieBanner() {
     closeBanner()
     
     // Disable tracking
-    if (typeof window !== 'undefined' && (window as any).gtag) {
-      (window as any).gtag('consent', 'update', {
+    if (typeof window !== 'undefined' && window.gtag) {
+      window.gtag('consent', 'update', {
         analytics_storage: 'denied',
         ad_storage: 'denied'
       })
@@ -78,7 +92,7 @@ export default function CookieBanner() {
               </div>
               <p className="text-[var(--gray-medium)] leading-relaxed text-sm lg:text-base">
                 We use cookies to enhance your browsing experience, analyze site traffic, and personalize content. 
-                By clicking "Accept All", you consent to our use of cookies. You can customize your preferences or learn more in our{' '}
+                By clicking &quot;Accept All&quot;, you consent to our use of cookies. You can customize your preferences or learn more in our{' '}
                 <Link 
                   href="https://www.iubenda.com/privacy-policy/68538498" 
                   target="_blank"
