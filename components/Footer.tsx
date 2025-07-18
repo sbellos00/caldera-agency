@@ -82,10 +82,17 @@ export default function Footer() {
               <li>
                 <button
                   onClick={() => {
-                    document.getElementById('faq')?.scrollIntoView({ 
-                      behavior: 'smooth',
-                      block: 'start'
-                    })
+                    const faqElement = document.getElementById('faq')
+                    if (faqElement) {
+                      // We're on homepage, scroll to FAQ
+                      faqElement.scrollIntoView({ 
+                        behavior: 'smooth',
+                        block: 'start'
+                      })
+                    } else {
+                      // We're on another page, navigate to homepage with FAQ anchor
+                      window.location.href = '/#faq'
+                    }
                   }}
                   className="text-white/70 hover:text-white text-sm md:text-base transition-colors duration-300 group text-left"
                 >
@@ -175,10 +182,17 @@ export default function Footer() {
           <div className="flex items-center space-x-4">
             <button
               onClick={() => {
-                document.getElementById('contact')?.scrollIntoView({ 
-                  behavior: 'smooth',
-                  block: 'start'
-                })
+                const contactElement = document.getElementById('contact')
+                if (contactElement) {
+                  // We're on homepage, scroll to contact section
+                  contactElement.scrollIntoView({ 
+                    behavior: 'smooth',
+                    block: 'start'
+                  })
+                } else {
+                  // We're on another page, navigate to homepage with contact anchor
+                  window.location.href = '/#contact'
+                }
               }}
               className="inline-flex items-center text-white/70 hover:text-[var(--primary-blue)] text-sm transition-colors duration-300 font-medium group"
             >

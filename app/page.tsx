@@ -40,6 +40,25 @@ export default function Home() {
     document.addEventListener('mousemove', handleMouseMove)
     updateCursor()
 
+    // Handle hash anchors on page load
+    const handleHashScroll = () => {
+      const hash = window.location.hash.slice(1) // Remove the # character
+      if (hash) {
+        setTimeout(() => {
+          const element = document.getElementById(hash)
+          if (element) {
+            element.scrollIntoView({ 
+              behavior: 'smooth',
+              block: 'start'
+            })
+          }
+        }, 500) // Small delay to ensure page is fully loaded
+      }
+    }
+
+    // Check for hash on initial load
+    handleHashScroll()
+
     // Hover effects
     const hoverElements = document.querySelectorAll('a, button, .feature-card, .deliverable-hero, .deliverable-card, .premium-deliverable, .invitation-card, .invitation-list-item, .invitation-bonus-item, .guarantee-card')
 
