@@ -854,7 +854,6 @@ export default function ProcessPage() {
                             </div>
                             <div className="group">
                               <div className="flex items-start gap-3 text-sm leading-relaxed text-[var(--gray-medium)] feature-list-item">
-                    LinkedIn is just one platform. A professional website gives you full control over your digital presence, establishes deeper credibility, and positions you at a higher tier than competitors who rely solely on social media. Don&apos;t risk being at the mercy of algorithms and sudden policy changes.
                                 <span className="font-medium text-[var(--black)]">Quick call to confirm you&apos;re ready to launch</span>
                               </div>
                             </div>
