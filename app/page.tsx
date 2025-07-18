@@ -627,6 +627,17 @@ export default function Home() {
                           <span className="font-medium text-[var(--black)] relative">
                             <span className="inline-flex items-center gap-2">
                               <span className="w-1.5 h-1.5 bg-[var(--primary-blue)] rounded-full group-hover:scale-125 transition-transform duration-200"></span>
+                              First Year of Hosting & Support
+                            </span>
+                          </span>
+                        </div>
+                      </div>
+
+                      <div className="group">
+                        <div className="flex items-start gap-3 text-sm leading-relaxed text-[var(--gray-medium)] feature-list-item">
+                          <span className="font-medium text-[var(--black)] relative">
+                            <span className="inline-flex items-center gap-2">
+                              <span className="w-1.5 h-1.5 bg-[var(--primary-blue)] rounded-full group-hover:scale-125 transition-transform duration-200"></span>
                               Custom LinkedIn banner
                             </span>
                           </span>
@@ -639,17 +650,6 @@ export default function Home() {
                             <span className="inline-flex items-center gap-2">
                               <span className="w-1.5 h-1.5 bg-[var(--primary-blue)] rounded-full group-hover:scale-125 transition-transform duration-200"></span>
                               Social media post templates
-                            </span>
-                          </span>
-                        </div>
-                      </div>
-
-                      <div className="group">
-                        <div className="flex items-start gap-3 text-sm leading-relaxed text-[var(--gray-medium)] feature-list-item">
-                          <span className="font-medium text-[var(--black)] relative">
-                            <span className="inline-flex items-center gap-2">
-                              <span className="w-1.5 h-1.5 bg-[var(--primary-blue)] rounded-full group-hover:scale-125 transition-transform duration-200"></span>
-                              Testimonial outreach scripts
                             </span>
                           </span>
                         </div>
@@ -674,12 +674,12 @@ export default function Home() {
                           <span className="font-medium text-[var(--black)] relative">
                             <span className="inline-flex items-center gap-2">
                               <span className="w-1.5 h-1.5 bg-[var(--primary-blue)] rounded-full group-hover:scale-125 transition-transform duration-200"></span>
-                              LinkedIn Launch Toolkit
+                              12 Months Free Hosting & Management
                             </span>
                           </span>
                         </div>
                         <p className="text-sm text-[var(--gray-medium)] leading-relaxed ml-6 mt-2">
-                          Custom <span className="font-medium text-[var(--black)]">LinkedIn banner</span> and ready-to-use social post templates.
+                          Fully managed hosting, domain support, and up to <span className="font-medium text-[var(--black)]">2 hours of monthly development support</span> (4 in your first month) for post launch tweaks.
                         </p>
                       </div>
 
@@ -688,12 +688,12 @@ export default function Home() {
                           <span className="font-medium text-[var(--black)] relative">
                             <span className="inline-flex items-center gap-2">
                               <span className="w-1.5 h-1.5 bg-[var(--primary-blue)] rounded-full group-hover:scale-125 transition-transform duration-200"></span>
-                              Done-For-You Testimonial Kit
+                              LinkedIn Launch Toolkit
                             </span>
                           </span>
                         </div>
                         <p className="text-sm text-[var(--gray-medium)] leading-relaxed ml-6 mt-2">
-                          <span className="font-medium text-[var(--black)]">Plug-and-play</span> testimonial outreach scripts and forms.
+                          Custom <span className="font-medium text-[var(--black)]">LinkedIn banner</span> and ready-to-use social post templates.
                         </p>
                       </div>
 
