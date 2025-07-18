@@ -1135,7 +1135,7 @@ export default function Home() {
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                       </svg>
                     </div>
-                    <h4 className="text-xl md:text-2xl font-medium mb-4 text-[var(--black)]">Perfect! We&apos;ll be in touch soon.</h4>
+                    <h4 className="text-xl md:text-2xl font-serif italic font-normal mb-4 text-[var(--black)]">Perfect!</h4>
                     <p className="text-[var(--gray-medium)] text-base leading-relaxed mb-6">
                       We&apos;ll send you the project details and next steps within 24 hours.
                     </p>
