@@ -135,7 +135,7 @@ export default function AboutPage() {
           </h1>
 
           <p className="text-xl leading-relaxed text-[var(--gray-dark)] max-w-3xl mb-12 font-light animate-fade-in-up animate-delay-200">
-            Nothing else. We cut out the chaos, the admin, and the generic agency playbook. Every part of our process is designed so that clients get a site that wins higher-value clients with zero wasted time.
+            Nothing else. We cut out the chaos, the admin, and the generic agency playbook. Every part of our process is designed so that consultants get a site that wins higher-value clients with zero wasted time.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 animate-fade-in-up animate-delay-300">
