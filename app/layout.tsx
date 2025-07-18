@@ -4,8 +4,10 @@ import "./globals.css";
 import { StagewiseToolbar } from "@stagewise/toolbar-next";
 import ReactPlugin from "@stagewise-plugins/react";
 import GoogleAnalytics from "@/components/GoogleAnalytics";
+import CookieBanner from "@/components/CookieBanner";
 import { Analytics } from "@vercel/analytics/next"
 import { SpeedInsights } from "@vercel/speed-insights/next"
+import Script from "next/script"
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -91,6 +93,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <GoogleAnalytics />
+        <CookieBanner />
        
         {children}
         <Analytics />

@@ -107,15 +107,32 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link
-                  href="/privacy"
-                  className="text-white/70 hover:text-white text-sm md:text-base transition-colors duration-300 group"
+                <a 
+                  href="https://www.iubenda.com/privacy-policy/68538498" 
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-white/70 hover:text-white text-sm md:text-base transition-colors duration-300 group" 
+                  title="Privacy Policy"
                 >
                   <span className="relative">
                     Privacy Policy
                     <div className="absolute bottom-0 left-0 w-0 h-0.5 bg-[var(--primary-blue)] transition-[width] duration-300 group-hover:w-full"></div>
                   </span>
-                </Link>
+                </a>
+              </li>
+              <li>
+                <a 
+                  href="https://www.iubenda.com/privacy-policy/68538498/cookie-policy" 
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-white/70 hover:text-white text-sm md:text-base transition-colors duration-300 group" 
+                  title="Cookie Policy"
+                >
+                  <span className="relative">
+                    Cookie Policy
+                    <div className="absolute bottom-0 left-0 w-0 h-0.5 bg-[var(--primary-blue)] transition-[width] duration-300 group-hover:w-full"></div>
+                  </span>
+                </a>
               </li>
               <li>
                 <Link
