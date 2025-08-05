@@ -567,7 +567,7 @@ export default function WhyConsultantsNeedWebsitesBlogClient() {
                   What's More: The Additional Benefits a Website <span className="italic font-serif text-[var(--primary-blue)]">Delivers</span> (That LinkedIn Never Will)
                 </h2>
                 <p className="text-lg leading-relaxed text-[var(--gray-dark)] font-light mb-6">
-                  Everything above is about credibility and positioning, and, make no mistake, this is the <em>core</em> reason your website exists. But here's what else happens when you build your own platform:
+                  Everything above is about credibility and positioning, and, make no mistake, this is the <em>core</em> reason your website exists. But here&apos;s what else happens when you build your own platform:
                 </p>
               </div>
 
@@ -589,7 +589,7 @@ export default function WhyConsultantsNeedWebsitesBlogClient() {
                   <div>
                     <h4 className="text-lg font-medium text-[var(--black)] mb-2">Personal Brand Building:</h4>
                     <p className="text-[var(--gray-dark)] leading-relaxed">
-                      Your site gives you complete creative freedom. Design, messaging, content, and proof all reflect your unique approach. You shape the narrative, the visual style, and the tone. LinkedIn simply can't offer this level of customization.
+                      Your site gives you complete creative freedom. Design, messaging, content, and proof all reflect your unique approach. You shape the narrative, the visual style, and the tone. LinkedIn simply can&apos;t offer this level of customization.
                     </p>
                   </div>
                   <div>
@@ -601,13 +601,13 @@ export default function WhyConsultantsNeedWebsitesBlogClient() {
                   <div>
                     <h4 className="text-lg font-medium text-[var(--black)] mb-2">A Linkable Asset for Media and Referrers:</h4>
                     <p className="text-[var(--gray-dark)] leading-relaxed">
-                      When podcasters, journalists, or referral partners want to feature you, they need somewhere to send their audience. A website gives them (and you) a professional destination to link to, complete with your bio, credentials, and best work. LinkedIn profiles just don't carry the same weight in show notes or article bylines.
+                      When podcasters, journalists, or referral partners want to feature you, they need somewhere to send their audience. A website gives them (and you) a professional destination to link to, complete with your bio, credentials, and best work. LinkedIn profiles just don&apos;t carry the same weight in show notes or article bylines.
                     </p>
                   </div>
                   <div>
                     <h4 className="text-lg font-medium text-[var(--black)] mb-2">Ready for Scale When You Need It:</h4>
                     <p className="text-[var(--gray-dark)] leading-relaxed">
-                      While your website's primary job is credibility, not lead generation, it keeps you ready for growth. Unlike LinkedIn, a website opens up your entire digital marketing toolkit when you're ready, SEO for the specific problems you solve, targeted campaigns that land on pages you control, and inbound funnels for scaling beyond referrals. You may not need these today, but having the infrastructure means you can scale on your terms, not LinkedIn's.
+                      While your website&apos;s primary job is credibility, not lead generation, it keeps you ready for growth. Unlike LinkedIn, a website opens up your entire digital marketing toolkit when you&apos;re ready, SEO for the specific problems you solve, targeted campaigns that land on pages you control, and inbound funnels for scaling beyond referrals. You may not need these today, but having the infrastructure means you can scale on your terms, not LinkedIn&apos;s.
                     </p>
                   </div>
                 </div>
@@ -625,7 +625,7 @@ export default function WhyConsultantsNeedWebsitesBlogClient() {
                   The <span className="italic font-serif text-[var(--primary-blue)]">Path</span> Forward
                 </h2>
                 <p className="text-lg leading-relaxed text-[var(--gray-dark)] font-light">
-                  In a market where every consultant has a LinkedIn profile, standing out isn't about abandoning what works, it's about amplifying it. A professional website that clearly communicates your expertise isn't a nice-to-have. It's the difference between being considered and being chosen.
+                  In a market where every consultant has a LinkedIn profile, standing out isn&apos;t about abandoning what works, it&apos;s about amplifying it. A professional website that clearly communicates your expertise isn&apos;t a nice-to-have. It&apos;s the difference between being considered and being chosen.
                 </p>
               </div>
 
@@ -635,7 +635,7 @@ export default function WhyConsultantsNeedWebsitesBlogClient() {
                   How <span className="italic font-serif text-[var(--primary-blue)]">Caldera</span> Can Help
                 </h2>
                 <p className="text-lg leading-relaxed text-[var(--gray-dark)] font-light mb-6">
-                  If you're ready to move beyond LinkedIn and want a website that actually proves your expertise, Caldera specializes in building professional, research-driven consultant websites.
+                  If you&apos;re ready to move beyond LinkedIn and want a website that actually proves your expertise, Caldera specializes in building professional, research-driven consultant websites.
                 </p>
               </div>
 
@@ -665,7 +665,7 @@ export default function WhyConsultantsNeedWebsitesBlogClient() {
 
               <div className="scroll-fade mb-12">
                 <p className="text-lg leading-relaxed text-[var(--gray-dark)] font-light mb-6">
-                  You don't need to start from scratch, and you don't need another digital marketing pitch. If your priority is clear positioning and professional credibility, this is what we do.
+                  You don&apos;t need to start from scratch, and you don&apos;t need another digital marketing pitch. If your priority is clear positioning and professional credibility, this is what we do.
                 </p>
                 <p className="text-lg leading-relaxed text-[var(--gray-dark)] font-light">
                   <Link href="/" className="text-[var(--primary-blue)] hover:underline font-medium">Learn more about Caldera</Link> or <Link href="/#contact" className="text-[var(--primary-blue)] hover:underline font-medium">book a short call</Link> if you want to see exactly how the process works.
@@ -690,7 +690,7 @@ export default function WhyConsultantsNeedWebsitesBlogClient() {
               Ready to Build Your <span className="font-serif italic">Authority?</span>
             </h2>
             <p className="text-xl text-white/80 mb-12 leading-relaxed font-light">
-              Don't let your expertise go unrecognized. We specialize in building credibility websites for consultants who are ready to command premium rates.
+              Don&apos;t let your expertise go unrecognized. We specialize in building credibility websites for consultants who are ready to command premium rates.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link

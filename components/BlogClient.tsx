@@ -134,7 +134,7 @@ export default function BlogClient() {
 
             <h1 className="hero-title mb-8 max-w-5xl animate-fade-in-up animate-delay-100">
               The Authority <span className="font-serif italic font-normal text-[var(--primary-blue)]">Paradox</span>:<br />
-              Why Technical Expertise Alone Won't Win Premium Clients
+              Why Technical Expertise Alone Won&apos;t Win Premium Clients
             </h1>
 
             <div className="flex flex-wrap items-center justify-center gap-4 md:gap-6 text-sm text-[var(--gray-medium)] mb-10 animate-fade-in-up animate-delay-200">
@@ -151,7 +151,7 @@ export default function BlogClient() {
             </div>
 
             <p className="text-xl leading-relaxed text-[var(--gray-dark)] max-w-3xl mx-auto mb-12 font-light animate-fade-in-up animate-delay-300">
-              Discover why being the smartest person in the room isn't enough to attract high-value consulting clients, and learn the counterintuitive approach that actually works.
+              Discover why being the smartest person in the room isn&apos;t enough to attract high-value consulting clients, and learn the counterintuitive approach that actually works.
             </p>
           </div>
         </div>
@@ -181,13 +181,13 @@ export default function BlogClient() {
               {/* Opening */}
               <div className="scroll-fade mb-12">
                 <p className="text-lg leading-relaxed text-[var(--gray-dark)] font-light mb-6">
-                  Last week, I had coffee with a brilliant consultant who'd been struggling to land the premium clients he deserved. He had two decades of experience, multiple certifications, and could solve problems that stumped entire teams.
+                  Last week, I had coffee with a brilliant consultant who&apos;d been struggling to land the premium clients he deserved. He had two decades of experience, multiple certifications, and could solve problems that stumped entire teams.
                 </p>
                 <p className="text-lg leading-relaxed text-[var(--gray-dark)] font-light mb-6">
                   Yet he was competing on price with consultants half his age and charging a fraction of what his expertise was worth.
                 </p>
                 <p className="text-lg leading-relaxed text-[var(--gray-dark)] font-light">
-                  His story isn't unique. It's the authority paradox that plagues thousands of exceptional consultants worldwide.
+                  His story isn&apos;t unique. It&apos;s the authority paradox that plagues thousands of exceptional consultants worldwide.
                 </p>
               </div>
 
@@ -196,7 +196,7 @@ export default function BlogClient() {
                 <div className="absolute inset-0 bg-gradient-to-r from-[var(--primary-blue)]/5 to-transparent"></div>
                 <div className="relative z-10">
                   <p className="text-xl font-light text-[var(--black)] mb-4 italic">
-                    "Being the smartest person in the room means nothing if the room doesn't know you're there."
+                    &quot;Being the smartest person in the room means nothing if the room doesn&apos;t know you&apos;re there.&quot;
                   </p>
                   <cite className="text-sm text-[var(--gray-medium)] not-italic">— The Authority Paradox</cite>
                 </div>
@@ -208,7 +208,7 @@ export default function BlogClient() {
                   The Expertise <span className="italic font-serif text-[var(--primary-blue)]">Trap</span>
                 </h2>
                 <p className="text-lg leading-relaxed text-[var(--gray-dark)] font-light mb-6">
-                  Here's what most consultants believe: if you're really good at what you do, clients will naturally find you and pay premium rates for your expertise.
+                  Here&apos;s what most consultants believe: if you&apos;re really good at what you do, clients will naturally find you and pay premium rates for your expertise.
                 </p>
                 <p className="text-lg leading-relaxed text-[var(--gray-dark)] font-light mb-6">
                   This belief is not just wrong—it's backwards.
