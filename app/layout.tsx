@@ -8,6 +8,7 @@ import CookieBanner from "@/components/CookieBanner";
 import { Analytics } from "@vercel/analytics/next"
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import Script from "next/script"
+import StructuredData from "@/components/StructuredData"
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -27,8 +28,17 @@ export const metadata: Metadata = {
   description: "Custom website development for solo consultants. We combine deep research, strategic positioning, and hands-off delivery to create websites that demonstrate expertise and convert higher-value clients.",
   keywords: [
     "consultant website design",
+    "Caldera Agency",
+    "Caldera",
+    "Caldera Agency - Bespoke Authority-Building Websites for Solo Consultants",
     "authority website",
     "consultant marketing",
+    "website development for consultants",
+    "consultant website development",
+    "consultant website design",
+    "caldera process",
+    "caldera agency process",
+    "caldera agency process",
     "professional website development",
     "solo consultant branding",
     "custom web design",
@@ -89,6 +99,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <StructuredData />
         <GoogleAnalytics />
         <CookieBanner />
        
