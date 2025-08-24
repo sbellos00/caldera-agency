@@ -11,6 +11,8 @@ export default function WhyConsultantsNeedWebsitesBlogClient() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   useEffect(() => {
+    document.documentElement.classList.add('js')
+
     const cursor = cursorRef.current
     const cursorDot = cursorDotRef.current
 
@@ -54,10 +56,16 @@ export default function WhyConsultantsNeedWebsitesBlogClient() {
       el.addEventListener('mouseleave', handleMouseLeave)
     })
 
+    // Immediately reveal elements already in the viewport
+    document.querySelectorAll('.scroll-fade').forEach(el => {
+      const r = (el as HTMLElement).getBoundingClientRect()
+      if (r.top < window.innerHeight && r.bottom > 0) el.classList.add('visible')
+    })
+
     // Intersection Observer for scroll animations
     const observerOptions = {
-      threshold: 0.1,
-      rootMargin: '0px 0px -100px 0px'
+      threshold: 0.01,
+      rootMargin: '0px 0px -10% 0px'
     }
 
     const observer = new IntersectionObserver((entries) => {
@@ -95,7 +103,7 @@ export default function WhyConsultantsNeedWebsitesBlogClient() {
       <div className="cursor-dot md:block hidden" ref={cursorDotRef}></div>
 
       {/* Navigation */}
-      <nav className={`fixed top-0 w-full z-[100] px-6 md:px-12 py-6 ${!isMenuOpen ? 'mix-blend-difference' : ''}`}>
+      <nav className={`fixed top-0 w-full z-[100] px-6 md:px-12 py-6 ${!isMenuOpen ? 'md:mix-blend-difference' : ''}`}>
         <div className="flex justify-between items-center max-w-screen-2xl mx-auto">
           <Link href="/" className="text-3xl font-medium tracking-tight text-white caldera-logo hover:text-[var(--primary-blue)] transition-colors duration-300">
             caldera.agency
@@ -126,7 +134,7 @@ export default function WhyConsultantsNeedWebsitesBlogClient() {
 
           {/* Article Header */}
           <div className="mb-12">
-            <div className="inline-flex items-center gap-4 mb-6 scroll-fade animate-fade-in-up">
+            <div className="inline-flex items-center gap-4 mb-6 animate-fade-in-up">
               <div className="w-12 h-px bg-gradient-to-r from-transparent via-[var(--primary-blue)] to-transparent"></div>
               <span className="text-sm tracking-widest uppercase text-[var(--primary-blue)] font-medium">Consultant Positioning</span>
               <div className="w-12 h-px bg-gradient-to-r from-transparent via-[var(--primary-blue)] to-transparent"></div>

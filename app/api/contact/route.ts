@@ -42,7 +42,6 @@ export async function POST(request: NextRequest) {
 
     // Determine form type based on which fields are present
     const isContactPageForm = message !== undefined
-    const isHomepageForm = linkedin !== undefined || website !== undefined
 
     // Build the email content based on form type
     let emailContent = `

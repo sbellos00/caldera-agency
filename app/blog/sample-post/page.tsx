@@ -1,7 +1,4 @@
 import type { Metadata } from "next"
-import Link from "next/link"
-import Menu from "@/components/Menu"
-import Footer from "@/components/Footer"
 import BlogClient from "@/components/BlogClient"
 
 export const metadata: Metadata = {

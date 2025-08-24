@@ -7,7 +7,6 @@ import GoogleAnalytics from "@/components/GoogleAnalytics";
 import CookieBanner from "@/components/CookieBanner";
 import { Analytics } from "@vercel/analytics/next"
 import { SpeedInsights } from "@vercel/speed-insights/next"
-import Script from "next/script"
 import StructuredData from "@/components/StructuredData"
 
 const geistSans = Geist({
@@ -50,9 +49,6 @@ export const metadata: Metadata = {
   creator: "Caldera Agency",
   publisher: "Caldera Agency",
   metadataBase: new URL("https://caldera.agency"),
-  alternates: {
-    canonical: "/",
-  },
   openGraph: {
     type: "website",
     locale: "en_US",

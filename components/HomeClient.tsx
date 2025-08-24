@@ -15,6 +15,8 @@ export default function Home() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   useEffect(() => {
+    document.documentElement.classList.add('js')
+
     const cursor = cursorRef.current
     const cursorDot = cursorDotRef.current
 
@@ -77,10 +79,16 @@ export default function Home() {
       el.addEventListener('mouseleave', handleMouseLeave)
     })
 
+    // Immediately reveal elements already in the viewport
+    document.querySelectorAll('.scroll-fade').forEach(el => {
+      const r = (el as HTMLElement).getBoundingClientRect()
+      if (r.top < window.innerHeight && r.bottom > 0) el.classList.add('visible')
+    })
+
     // Intersection Observer
     const observerOptions = {
-      threshold: 0.1,
-      rootMargin: '0px 0px -100px 0px'
+      threshold: 0.01,
+      rootMargin: '0px 0px -10% 0px'
     }
 
     const observer = new IntersectionObserver((entries) => {
@@ -120,7 +128,7 @@ export default function Home() {
       <div className="cursor-dot md:block hidden" ref={cursorDotRef}></div>
 
       {/* Navigation */}
-      <nav className={`fixed top-0 w-full z-[100] px-6 md:px-12 py-6 ${!isMenuOpen ? 'mix-blend-difference' : ''}`}>
+      <nav className={`fixed top-0 w-full z-[100] px-6 md:px-12 py-6 ${!isMenuOpen ? 'md:mix-blend-difference' : ''}`}>
         <div className="flex justify-between items-center max-w-screen-2xl mx-auto">
           <div className="text-3xl font-medium tracking-tight text-white caldera-logo">caldera.agency</div>
           <div className="flex items-center gap-8">
