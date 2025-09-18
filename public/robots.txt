@@ -1,4 +1,7 @@
 User-agent: *
 Allow: /
 
+User-agent: PerplexityBot
+Allow: /
+
 Sitemap: https://caldera.agency/sitemap.xml
