@@ -204,7 +204,7 @@ export default function WhyConsultantsNeedWebsitesBlogClient() {
                 <div className="flex items-start gap-3">
                   <div className="w-2 h-2 bg-[var(--primary-blue)] rounded-full flex-shrink-0 mt-3"></div>
                   <p className="text-[var(--gray-dark)] leading-relaxed">
-                    <strong>Your website is your only chance to control the narrative:</strong> clearly showcasing your unique approach, detailed results, and depth of expertise—exactly what high-value clients need to see to trust you and say "yes."
+                    <strong>Your website is your only chance to control the narrative:</strong> clearly showcasing your unique approach, detailed results, and depth of expertise - exactly what high-value clients need to see to trust you and say "yes."
                   </p>
                 </div>
                 <div className="flex items-start gap-3">
@@ -296,7 +296,7 @@ export default function WhyConsultantsNeedWebsitesBlogClient() {
               {/* Key Insight */}
               <div className="scroll-fade mb-12">
                 <p className="text-lg leading-relaxed text-[var(--gray-dark)] font-light mb-6">
-                  The key insight here isn't about websites—it's about positioning. Specialists who can clearly communicate their expertise command premium rates.
+                  The key insight here isn't about websites - it's about positioning. Specialists who can clearly communicate their expertise command premium rates.
                 </p>
                 <p className="text-lg leading-relaxed text-[var(--gray-dark)] font-light">
                   The question then becomes: <strong>are you doing your best to prove to clients that you're the person they are looking for?</strong>
@@ -417,7 +417,7 @@ export default function WhyConsultantsNeedWebsitesBlogClient() {
                   <div className="flex items-start gap-3">
                     <div className="w-2 h-2 bg-[var(--primary-blue)] rounded-full flex-shrink-0 mt-3"></div>
                     <p className="text-[var(--gray-dark)] leading-relaxed">
-                      <strong>Your website is your only chance to control the narrative:</strong> clearly showcasing your unique approach, detailed results, and depth of expertise—exactly what high-value clients need to see to trust you and say "yes."
+                      <strong>Your website is your only chance to control the narrative:</strong> clearly showcasing your unique approach, detailed results, and depth of expertise - exactly what high-value clients need to see to trust you and say "yes."
                     </p>
                   </div>
                   <div className="flex items-start gap-3">

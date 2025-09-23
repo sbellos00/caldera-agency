@@ -1164,7 +1164,7 @@ export default function ProcessPage() {
                       <h2 className="text-3xl md:text-4xl lg:text-5xl font-light text-[var(--black)] tracking-tight mb-6">
                         Want It Even <span className="font-serif italic text-[var(--primary-blue)]">Faster?</span>
                       </h2>
-                      <p className="text-lg md:text-xl text-[var(--gray-dark)] mb-8 leading-relaxed font-light max-w-3xl mx-auto">For consultants who need results <em>yesterday</em>, we offer an <strong>Ultra Speed Process</strong> that&apos;s even more streamlined—minimizing reviews and approvals for the absolute fastest possible launch.
+                      <p className="text-lg md:text-xl text-[var(--gray-dark)] mb-8 leading-relaxed font-light max-w-3xl mx-auto">For consultants who need results <em>yesterday</em>, we offer an <strong>Ultra Speed Process</strong> that&apos;s even more streamlined - minimizing reviews and approvals for the absolute fastest possible launch.
                       </p>
                       <p className="text-base text-[var(--gray-medium)] mb-12 leading-relaxed font-light max-w-2xl mx-auto">
                         With Ultra Speed, your website goes from onboarding to live in days, not weeks. Same custom research, hands-off setup, and authority-building design but condensed to just two quick feedback rounds.

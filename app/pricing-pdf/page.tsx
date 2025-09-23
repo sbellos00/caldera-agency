@@ -103,16 +103,16 @@ export default function PricingPdfPage() {
               {/* Blog/Content Hub */}
               <div className="grid grid-cols-4 gap-4 p-6 items-center">
                 <div className="font-normal tracking-tight text-[var(--black)] text-lg">Blog/Content Hub</div>
-                <div className="text-center text-[var(--gray-medium)] text-base">—</div>
-                <div className="text-center text-[var(--gray-medium)] text-base">—</div>
+                <div className="text-center text-[var(--gray-medium)] text-base"> - </div>
+                <div className="text-center text-[var(--gray-medium)] text-base"> - </div>
                 <div className="text-center font-normal text-[var(--primary-blue)] text-base">✓ Included</div>
               </div>
 
               {/* Case Studies */}
               <div className="grid grid-cols-4 gap-4 p-6 items-center">
                 <div className="font-normal tracking-tight text-[var(--black)] text-lg">Case Studies</div>
-                <div className="text-center text-[var(--gray-medium)] text-base">—</div>
-                <div className="text-center text-[var(--gray-medium)] text-base">—</div>
+                <div className="text-center text-[var(--gray-medium)] text-base"> - </div>
+                <div className="text-center text-[var(--gray-medium)] text-base"> - </div>
                 <div className="text-center text-[var(--gray-medium)] text-base">2 ghostwritten</div>
               </div>
 

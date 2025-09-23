@@ -8,7 +8,7 @@ Q: “What if you’re late?”
 A: “If your site isn’t live in 20 days (assuming you provide what’s needed), we pay you back 20% per business day late. Guaranteed.”
 
 Q: “What if I’m not happy at launch?”
-A: “You only pay for each phase after you approve it. Final payment is only due if you’re proud to launch—no risk of paying for something you can’t use.”
+A: “You only pay for each phase after you approve it. Final payment is only due if you’re proud to launch - no risk of paying for something you can’t use.”
 
 Q: “Who owns the site?”
 A: “You own it, fully. No platform risk, no lock-in. We provide hosting, support, and maintenance to make your life easier, but you can take the full code and self-host anytime you wish."
@@ -20,7 +20,7 @@ Q: “Do you build for other industries?”
 A: “No. Consultants only. That’s why our sites work.”
 
 Q: “Isn’t this just another template site?”
-A: "No. Every step is research-based and guides us towards designing the perfect website for you from scratch. All design and copy is consultant-specific and tailored to your positioning, built for consulting credibility—never generic."
+A: "No. Every step is research-based and guides us towards designing the perfect website for you from scratch. All design and copy is consultant-specific and tailored to your positioning, built for consulting credibility - never generic."
 
 Q: “Why not just do it myself?”
 A: “We do all the heavy lifting so you don’t waste weeks of your time. One new client covers your investment.”

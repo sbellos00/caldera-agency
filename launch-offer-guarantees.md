@@ -33,7 +33,7 @@ For our official launch, we’re offering our full website development services 
     
 - **Authority Bio & About Copy Polish:**
     
-    We’ll review, edit, and sharpen your LinkedIn bio or About page copy to ensure every profile signals trust and credibility—on your website *and* beyond.
+    We’ll review, edit, and sharpen your LinkedIn bio or About page copy to ensure every profile signals trust and credibility - on your website *and* beyond.
     
 - **Free First Year Hosting + Development Support:**
     
@@ -58,7 +58,7 @@ We believe you should only pay for work you’re genuinely proud to launch. Here
     
 - **No fine print, no loopholes, no games.**
     
-    Our guarantee is built into our process: total clarity, milestone payments, and real, reviewable results—every step of the way.
+    Our guarantee is built into our process: total clarity, milestone payments, and real, reviewable results - every step of the way.
     
 
 ## **20-Day Launch Guarantee**

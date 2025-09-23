@@ -19,7 +19,7 @@ export default function WhatYouGet() {
                   A complete website that positions you as the obvious choice
                 </h3>
                 <p className="text-xl text-white/80 font-light max-w-3xl leading-relaxed">
-                  Custom-built from scratch to showcase your expertise, attract premium clients, and work flawlessly across all devices—delivered in 20 days with minimal time from you.
+                  Custom-built from scratch to showcase your expertise, attract premium clients, and work flawlessly across all devices - delivered in 20 days with minimal time from you.
                 </p>
               </div>
               <div className="hidden lg:block ml-8">
@@ -118,7 +118,7 @@ export default function WhatYouGet() {
               </div>
               <h3 className="text-xl font-medium mb-4 group-hover:text-white transition-colors duration-500">Domain & Hosting</h3>
               <p className="text-[var(--gray-medium)] leading-relaxed group-hover:text-white/90 transition-colors duration-500">
-                Complete technical setup and 12 months of premium hosting included—zero admin for you.
+                Complete technical setup and 12 months of premium hosting included - zero admin for you.
               </p>
             </div>
 
@@ -129,7 +129,7 @@ export default function WhatYouGet() {
               </div>
               <h3 className="text-xl font-medium mb-4 group-hover:text-white transition-colors duration-500">Custom Design</h3>
               <p className="text-[var(--gray-medium)] leading-relaxed group-hover:text-white/90 transition-colors duration-500">
-                Tailored visual identity that reflects your expertise—never a template or theme.
+                Tailored visual identity that reflects your expertise - never a template or theme.
               </p>
             </div>
           </div>
@@ -152,7 +152,7 @@ export default function WhatYouGet() {
               <div>
                 <h4 className="text-xl font-medium mb-3">Monthly Support Hours</h4>
                 <p className="text-[var(--gray-medium)] leading-relaxed">
-                  Quick updates, content changes, or small tweaks—handled within 48 hours, no extra billing.
+                  Quick updates, content changes, or small tweaks - handled within 48 hours, no extra billing.
                 </p>
               </div>
             </div>

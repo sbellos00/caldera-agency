@@ -206,7 +206,7 @@ export default function BlogClient() {
                   <p className="text-xl font-light text-[var(--black)] mb-4 italic">
                     &quot;Being the smartest person in the room means nothing if the room doesn&apos;t know you&apos;re there.&quot;
                   </p>
-                  <cite className="text-sm text-[var(--gray-medium)] not-italic">— The Authority Paradox</cite>
+                  <cite className="text-sm text-[var(--gray-medium)] not-italic"> -  The Authority Paradox</cite>
                 </div>
               </blockquote>
 
@@ -219,7 +219,7 @@ export default function BlogClient() {
                   Here&apos;s what most consultants believe: if you&apos;re really good at what you do, clients will naturally find you and pay premium rates for your expertise.
                 </p>
                 <p className="text-lg leading-relaxed text-[var(--gray-dark)] font-light mb-6">
-                  This belief is not just wrong—it's backwards.
+                  This belief is not just wrong - it's backwards.
                 </p>
                 <p className="text-lg leading-relaxed text-[var(--gray-dark)] font-light">
                   The marketplace doesn't reward the most knowledgeable consultant. It rewards the consultant who best communicates their knowledge, builds trust before the first meeting, and positions themselves as the obvious choice for high-stakes projects.
@@ -245,7 +245,7 @@ export default function BlogClient() {
                       <span className="text-white text-sm">2</span>
                     </div>
                     <p className="text-[var(--gray-dark)] leading-relaxed">
-                      <strong>Authority is borrowed, not earned.</strong> You build credibility by association, positioning, and social proof—not just results.
+                      <strong>Authority is borrowed, not earned.</strong> You build credibility by association, positioning, and social proof - not just results.
                     </p>
                   </div>
                   <div className="flex items-start gap-3">
@@ -268,7 +268,7 @@ export default function BlogClient() {
                   Authority isn't about being the smartest person in the room. It's about being the most <em>obvious</em> choice when that room needs to solve a specific problem.
                 </p>
                 <p className="text-lg leading-relaxed text-[var(--gray-dark)] font-light mb-6">
-                  The consultants who command premium rates understand this distinction. They don't just have expertise—they have <strong>positioned expertise</strong>.
+                  The consultants who command premium rates understand this distinction. They don't just have expertise - they have <strong>positioned expertise</strong>.
                 </p>
                 <p className="text-lg leading-relaxed text-[var(--gray-dark)] font-light">
                   This means three things: clarity about who they serve, proof that they've solved similar problems before, and a professional presence that signals premium quality before a word is spoken.
@@ -284,7 +284,7 @@ export default function BlogClient() {
                   Your website isn't a digital business card. It's your credibility filter.
                 </p>
                 <p className="text-lg leading-relaxed text-[var(--gray-dark)] font-light mb-6">
-                  Every potential client will visit your website before they decide to take your call. They're not just looking for information—they're making a snap judgment about whether you operate at their level.
+                  Every potential client will visit your website before they decide to take your call. They're not just looking for information - they're making a snap judgment about whether you operate at their level.
                 </p>
                 <p className="text-lg leading-relaxed text-[var(--gray-dark)] font-light">
                   A poorly designed website signals that you don't understand the importance of first impressions. A generic website suggests you serve everyone (which means you specialize in nothing). A professional, tailored website communicates that you operate at the same level as your premium clients.

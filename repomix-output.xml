@@ -772,7 +772,7 @@ Q: “What if you’re late?”
 A: “If your site isn’t live in 20 days (assuming you provide what’s needed), we pay you back 20% per business day late. Guaranteed.”
 
 Q: “What if I’m not happy at launch?”
-A: “You only pay for each phase after you approve it. Final payment is only due if you’re proud to launch—no risk of paying for something you can’t use.”
+A: “You only pay for each phase after you approve it. Final payment is only due if you’re proud to launch - no risk of paying for something you can’t use.”
 
 Q: “Who owns the site?”
 A: “You own it, fully. No platform risk, no lock-in. We provide hosting, support, and maintenance to make your life easier, but you can take the full code and self-host anytime you wish."
@@ -784,7 +784,7 @@ Q: “Do you build for other industries?”
 A: “No. Consultants only. That’s why our sites work.”
 
 Q: “Isn’t this just another template site?”
-A: "No. Every step is research-based and guides us towards designing the perfect website for you from scratch. All design and copy is consultant-specific and tailored to your positioning, built for consulting credibility—never generic."
+A: "No. Every step is research-based and guides us towards designing the perfect website for you from scratch. All design and copy is consultant-specific and tailored to your positioning, built for consulting credibility - never generic."
 
 Q: “Why not just do it myself?”
 A: “We do all the heavy lifting so you don’t waste weeks of your time. One new client covers your investment.”
@@ -832,7 +832,7 @@ For our official launch, we’re offering our full website development services 
     
 - **Authority Bio & About Copy Polish:**
     
-    We’ll review, edit, and sharpen your LinkedIn bio or About page copy to ensure every profile signals trust and credibility—on your website *and* beyond.
+    We’ll review, edit, and sharpen your LinkedIn bio or About page copy to ensure every profile signals trust and credibility - on your website *and* beyond.
     
 - **Free First Year Hosting + Development Support:**
     
@@ -857,7 +857,7 @@ We believe you should only pay for work you’re genuinely proud to launch. Here
     
 - **No fine print, no loopholes, no games.**
     
-    Our guarantee is built into our process: total clarity, milestone payments, and real, reviewable results—every step of the way.
+    Our guarantee is built into our process: total clarity, milestone payments, and real, reviewable results - every step of the way.
     
 
 ## **20-Day Launch Guarantee**
@@ -909,7 +909,7 @@ export default nextConfig;
     
 - **Domain integration**
     
-    We handle all technical steps to connect your domain—whether you already own it or need a new one—so your site is live at your address, hassle-free.
+    We handle all technical steps to connect your domain - whether you already own it or need a new one - so your site is live at your address, hassle-free.
     
 - **Mobile friendly, accessibility**
     
@@ -925,11 +925,11 @@ export default nextConfig;
     
 - **Free hosting and domain management for first year**
     
-    Your site is fully managed for the first 12 months—no surprise fees, no technical maintenance, and zero admin for you.
+    Your site is fully managed for the first 12 months - no surprise fees, no technical maintenance, and zero admin for you.
     
 - **Up to 2 development support hours per month (4 for the first month)**
     
-    Quick edits, updates, or small changes handled fast and included in your plan—so your website always stays current without extra cost or waiting weeks.
+    Quick edits, updates, or small changes handled fast and included in your plan - so your website always stays current without extra cost or waiting weeks.
     
 
 > Need something extra? Just ask. We’ll always be clear about what’s included, and quote any add-ons transparently.
@@ -947,7 +947,7 @@ export default config;
 <file path="process.md">
 ## **Our Process: Step-by-Step**
 
-Here's exactly how your custom website project unfolds—clear, easy, and fully guided at every step:
+Here's exactly how your custom website project unfolds - clear, easy, and fully guided at every step:
 
 ### **1. We do the research (Zero busywork for you)**
 
@@ -1041,7 +1041,7 @@ You get a market-leading website, built for authority, live in 20 days or less, 
 
 ## **Want It Even Faster?**
 
-For consultants who need results *yesterday*, we offer an **Ultra Speed Process** that’s even more streamlined—minimizing reviews and approvals for the absolute fastest possible launch.
+For consultants who need results *yesterday*, we offer an **Ultra Speed Process** that’s even more streamlined - minimizing reviews and approvals for the absolute fastest possible launch.
 
 With Ultra Speed, your website goes from onboarding to live in days, not weeks. You still get the same custom research, hands-off setup, and authority-building design but the process is condensed to just two quick feedback rounds and launch.
 </file>
@@ -1473,7 +1473,7 @@ export default function WhatYouGet() {
                   A complete website that positions you as the obvious choice
                 </h3>
                 <p className="text-xl text-white/80 font-light max-w-3xl leading-relaxed">
-                  Custom-built from scratch to showcase your expertise, attract premium clients, and work flawlessly across all devices—delivered in 20 days with minimal time from you.
+                  Custom-built from scratch to showcase your expertise, attract premium clients, and work flawlessly across all devices - delivered in 20 days with minimal time from you.
                 </p>
               </div>
               <div className="hidden lg:block ml-8">
@@ -1572,7 +1572,7 @@ export default function WhatYouGet() {
               </div>
               <h3 className="text-xl font-medium mb-4 group-hover:text-white transition-colors duration-500">Domain & Hosting</h3>
               <p className="text-[var(--gray-medium)] leading-relaxed group-hover:text-white/90 transition-colors duration-500">
-                Complete technical setup and 12 months of premium hosting included—zero admin for you.
+                Complete technical setup and 12 months of premium hosting included - zero admin for you.
               </p>
             </div>
 
@@ -1583,7 +1583,7 @@ export default function WhatYouGet() {
               </div>
               <h3 className="text-xl font-medium mb-4 group-hover:text-white transition-colors duration-500">Custom Design</h3>
               <p className="text-[var(--gray-medium)] leading-relaxed group-hover:text-white/90 transition-colors duration-500">
-                Tailored visual identity that reflects your expertise—never a template or theme.
+                Tailored visual identity that reflects your expertise - never a template or theme.
               </p>
             </div>
           </div>
@@ -1606,7 +1606,7 @@ export default function WhatYouGet() {
               <div>
                 <h4 className="text-xl font-medium mb-3">Monthly Support Hours</h4>
                 <p className="text-[var(--gray-medium)] leading-relaxed">
-                  Quick updates, content changes, or small tweaks—handled within 48 hours, no extra billing.
+                  Quick updates, content changes, or small tweaks - handled within 48 hours, no extra billing.
                 </p>
               </div>
             </div>
@@ -3764,7 +3764,7 @@ export default function ProcessPage() {
                       <h2 className="text-3xl md:text-4xl lg:text-5xl font-light text-[var(--black)] tracking-tight mb-6">
                         Want It Even <span className="font-serif italic text-[var(--primary-blue)]">Faster?</span>
                       </h2>
-                      <p className="text-lg md:text-xl text-[var(--gray-dark)] mb-8 leading-relaxed font-light max-w-3xl mx-auto">For consultants who need results <em>yesterday</em>, we offer an <strong>Ultra Speed Process</strong> that&apos;s even more streamlined—minimizing reviews and approvals for the absolute fastest possible launch.
+                      <p className="text-lg md:text-xl text-[var(--gray-dark)] mb-8 leading-relaxed font-light max-w-3xl mx-auto">For consultants who need results <em>yesterday</em>, we offer an <strong>Ultra Speed Process</strong> that&apos;s even more streamlined - minimizing reviews and approvals for the absolute fastest possible launch.
                       </p>
                       <p className="text-base text-[var(--gray-medium)] mb-12 leading-relaxed font-light max-w-2xl mx-auto">
                         With Ultra Speed, your website goes from onboarding to live in days, not weeks. Same custom research, hands-off setup, and authority-building design but condensed to just two quick feedback rounds.
@@ -5001,7 +5001,7 @@ export default function Home() {
           </h1>
 
           <p className="text-lg leading-relaxed text-[var(--gray-dark)] max-w-2xl mb-10 animate-fade-in-up animate-delay-200">
-            We combine deep research, strategic positioning, and hands-off delivery to create websites that demonstrate expertise, communicate credibility, and convert higher-value clients—with zero admin headache.
+            We combine deep research, strategic positioning, and hands-off delivery to create websites that demonstrate expertise, communicate credibility, and convert higher-value clients - with zero admin headache.
           </p>
 
           <div className="animate-fade-in-up animate-delay-300">
@@ -5326,7 +5326,7 @@ export default function Home() {
               </div>
               <h3 className="text-xl md:text-2xl font-medium mb-3 md:mb-4 text-[var(--black)]">Up to 2 development support hours per month (4 for the first month)</h3>
               <p className="text-sm md:text-base text-[var(--gray-medium)] leading-relaxed">
-                Quick edits, updates, or small changes handled fast and included in your plan—so your website always stays current without extra cost or waiting weeks.
+                Quick edits, updates, or small changes handled fast and included in your plan - so your website always stays current without extra cost or waiting weeks.
               </p>
             </div>
           </div>
@@ -5746,7 +5746,7 @@ export default function Home() {
               <div className={`overflow-hidden transition-all duration-500 ease-out ${openFAQ === 3 ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}>
                 <div className="px-4 md:px-6 pb-4 md:pb-6 pt-3 md:pt-4">
                   <p className="text-white/80 leading-relaxed text-sm md:text-base">
-                    You only pay for each phase after you approve it. Final payment is only due if you&apos;re proud to launch—no risk of paying for something you can&apos;t use.
+                    You only pay for each phase after you approve it. Final payment is only due if you&apos;re proud to launch - no risk of paying for something you can&apos;t use.
                   </p>
                 </div>
               </div>
@@ -5771,7 +5771,7 @@ export default function Home() {
               <div className={`overflow-hidden transition-all duration-500 ease-out ${openFAQ === 4 ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}>
                 <div className="px-4 md:px-6 pb-4 md:pb-6 pt-3 md:pt-4">
                   <p className="text-white/80 leading-relaxed text-sm md:text-base">
-                    No. Every step is research-based and guides us towards designing the perfect website for you from scratch. All design and copy is consultant-specific and tailored to your positioning, built for consulting credibility—never generic.
+                    No. Every step is research-based and guides us towards designing the perfect website for you from scratch. All design and copy is consultant-specific and tailored to your positioning, built for consulting credibility - never generic.
                   </p>
                 </div>
               </div>

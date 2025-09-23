@@ -4,7 +4,7 @@
 
 - **Clients are looking for specialized expertise, clarity, and proof.** LinkedIn's rigid templates and fleeting updates make it hard for prospects to see exactly why you're different and better.
 - **LinkedIn makes you visible, but your website makes you credible.** Consultants relying solely on LinkedIn risk blending in, underselling their expertise, and losing deals without ever knowing.
-- **Your website is your only chance to control the narrative:** clearly showcasing your unique approach, detailed results, and depth of expertise—exactly what high-value clients need to see to trust you and say "yes."
+- **Your website is your only chance to control the narrative:** clearly showcasing your unique approach, detailed results, and depth of expertise - exactly what high-value clients need to see to trust you and say "yes."
 - **A professional website isn't about generating leads, it's about converting them.** It complements LinkedIn by communicating your value clearly and reinforcing your authority, helping you turn interested prospects into paying clients.
 
 ---
@@ -31,7 +31,7 @@ The 2023 Consulting Fees Study by Consulting Success, surveying nearly 1,000 con
 - **81% of consultants charging $20,000–$50,000 per project were specialists**
 - **Consultants with value-driven branding and clear positioning command 40–60% higher fees** than those who rely on generalist profiles or have weak digital presence.
 
-The key insight here isn't about websites—it's about positioning. Specialists who can clearly communicate their expertise command premium rates.
+The key insight here isn't about websites - it's about positioning. Specialists who can clearly communicate their expertise command premium rates.
 
 The question then becomes: **are you doing your best to prove to clients that you're the person they are looking for?**
 

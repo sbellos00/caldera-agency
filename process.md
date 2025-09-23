@@ -1,6 +1,6 @@
 ## **Our Process: Step-by-Step**
 
-Here's exactly how your custom website project unfolds—clear, easy, and fully guided at every step:
+Here's exactly how your custom website project unfolds - clear, easy, and fully guided at every step:
 
 ### **1. We do the research (Zero busywork for you)**
 
@@ -94,6 +94,6 @@ You get a market-leading website, built for authority, live in 20 days or less, 
 
 ## **Want It Even Faster?**
 
-For consultants who need results *yesterday*, we offer an **Ultra Speed Process** that’s even more streamlined—minimizing reviews and approvals for the absolute fastest possible launch.
+For consultants who need results *yesterday*, we offer an **Ultra Speed Process** that’s even more streamlined - minimizing reviews and approvals for the absolute fastest possible launch.
 
 With Ultra Speed, your website goes from onboarding to live in days, not weeks. You still get the same custom research, hands-off setup, and authority-building design but the process is condensed to just two quick feedback rounds and launch.

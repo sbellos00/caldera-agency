@@ -12,7 +12,7 @@
     
 - **Domain integration**
     
-    We handle all technical steps to connect your domain—whether you already own it or need a new one—so your site is live at your address, hassle-free.
+    We handle all technical steps to connect your domain - whether you already own it or need a new one - so your site is live at your address, hassle-free.
     
 - **Mobile friendly, accessibility**
     
@@ -28,11 +28,11 @@
     
 - **Free hosting and domain management for first year**
     
-    Your site is fully managed for the first 12 months—no surprise fees, no technical maintenance, and zero admin for you.
+    Your site is fully managed for the first 12 months - no surprise fees, no technical maintenance, and zero admin for you.
     
 - **Up to 2 development support hours per month (4 for the first month)**
     
-    Quick edits, updates, or small changes handled fast and included in your plan—so your website always stays current without extra cost or waiting weeks.
+    Quick edits, updates, or small changes handled fast and included in your plan - so your website always stays current without extra cost or waiting weeks.
     
 
 > Need something extra? Just ask. We’ll always be clear about what’s included, and quote any add-ons transparently.

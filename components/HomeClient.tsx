@@ -169,7 +169,7 @@ export default function Home() {
           </h1>
 
           <p className="text-lg leading-relaxed text-[var(--gray-dark)] max-w-2xl mb-10 animate-fade-in-up animate-delay-200">
-            We combine deep research, strategic positioning, and hands-off delivery to create websites that demonstrate expertise, communicate credibility, and convert higher-value clients—with zero admin headache.
+            We combine deep research, strategic positioning, and hands-off delivery to create websites that demonstrate expertise, communicate credibility, and convert higher-value clients - with zero admin headache.
           </p>
 
           <div className="animate-fade-in-up animate-delay-300">
@@ -494,7 +494,7 @@ export default function Home() {
               </div>
               <h3 className="text-xl md:text-2xl font-medium mb-3 md:mb-4 text-[var(--black)]">Up to 2 development support hours per month (4 for the first month)</h3>
               <p className="text-sm md:text-base text-[var(--gray-medium)] leading-relaxed">
-                Quick edits, updates, or small changes handled fast and included in your plan—so your website always stays current without extra cost or waiting weeks.
+                Quick edits, updates, or small changes handled fast and included in your plan - so your website always stays current without extra cost or waiting weeks.
               </p>
             </div>
           </div>
@@ -914,7 +914,7 @@ export default function Home() {
               <div className={`overflow-hidden transition-all duration-500 ease-out ${openFAQ === 3 ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}>
                 <div className="px-4 md:px-6 pb-4 md:pb-6 pt-3 md:pt-4">
                   <p className="text-white/80 leading-relaxed text-sm md:text-base">
-                    You only pay for each phase after you approve it. Final payment is only due if you&apos;re proud to launch—no risk of paying for something you can&apos;t use.
+                    You only pay for each phase after you approve it. Final payment is only due if you&apos;re proud to launch - no risk of paying for something you can&apos;t use.
                   </p>
                 </div>
               </div>
@@ -939,7 +939,7 @@ export default function Home() {
               <div className={`overflow-hidden transition-all duration-500 ease-out ${openFAQ === 4 ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}>
                 <div className="px-4 md:px-6 pb-4 md:pb-6 pt-3 md:pt-4">
                   <p className="text-white/80 leading-relaxed text-sm md:text-base">
-                    No. Every step is research-based and guides us towards designing the perfect website for you from scratch. All design and copy is consultant-specific and tailored to your positioning, built for consulting credibility—never generic.
+                    No. Every step is research-based and guides us towards designing the perfect website for you from scratch. All design and copy is consultant-specific and tailored to your positioning, built for consulting credibility - never generic.
                   </p>
                 </div>
               </div>
