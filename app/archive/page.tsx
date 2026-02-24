@@ -535,7 +535,7 @@ const CaseStudyCard = ({
   return (
     <div className="flex flex-col">
       {/* Main image card */}
-      <div className="group relative h-[360px] cursor-pointer overflow-hidden rounded-t-2xl sm:h-[400px] md:h-[440px]">
+      <div className="group relative h-[360px] cursor-pointer overflow-hidden rounded-2xl sm:h-[400px] md:h-[440px]">
         {/* Background Image */}
         <Image
           src={study.image}
@@ -603,21 +603,26 @@ const CaseStudyCard = ({
         </div>
       </div>
 
-      {/* Testimonial extension card */}
-      <div className="flex items-start gap-5 rounded-b-2xl border border-t-0 border-neutral-100 bg-neutral-50 px-5 py-5 sm:gap-6 sm:px-6 sm:py-6">
-        {/* Left: name + role */}
-        <div className="flex-shrink-0">
-          <p className="text-sm font-medium text-[#0a0a0a]">
-            {study.testimonial.author}
-          </p>
-          <p className="text-xs text-neutral-500">
-            {study.testimonial.role}
-          </p>
+      {/* Testimonial extension card — Caldera invitation-card style */}
+      <div className="invitation-card-container !p-0 mt-3">
+        <div className="invitation-card-bg !rounded-2xl"></div>
+        <div className="invitation-card !rounded-2xl !p-5 sm:!p-6">
+          <div className="flex items-start gap-5 sm:gap-6">
+            {/* Left: name + role */}
+            <div className="flex-shrink-0 min-w-[100px]">
+              <p className="text-sm font-medium text-[var(--black)]">
+                {study.testimonial.author}
+              </p>
+              <p className="text-xs text-[var(--gray-medium)] mt-0.5">
+                {study.testimonial.role}
+              </p>
+            </div>
+            {/* Right: quote */}
+            <p className="text-sm leading-relaxed text-[var(--gray-dark)] italic">
+              &ldquo;{study.testimonial.quote}&rdquo;
+            </p>
+          </div>
         </div>
-        {/* Right: quote */}
-        <p className="text-sm leading-relaxed text-neutral-600 italic">
-          &ldquo;{study.testimonial.quote}&rdquo;
-        </p>
       </div>
     </div>
   );
