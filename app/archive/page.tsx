@@ -535,7 +535,7 @@ const CaseStudyCard = ({
   return (
     <div className="flex flex-col">
       {/* Main image card */}
-      <div className="group relative h-[500px] cursor-pointer overflow-hidden rounded-t-2xl sm:h-[560px] md:h-[620px]">
+      <div className="group relative h-[360px] cursor-pointer overflow-hidden rounded-t-2xl sm:h-[400px] md:h-[440px]">
         {/* Background Image */}
         <Image
           src={study.image}
@@ -565,8 +565,8 @@ const CaseStudyCard = ({
           </svg>
         </div>
 
-        {/* Logo - centered, visible by default */}
-        <div className="absolute inset-0 z-10 flex items-center justify-center transition-opacity duration-300 group-hover:opacity-0">
+        {/* Logo - centered, fades upward on hover */}
+        <div className="absolute inset-0 z-10 flex items-center justify-center transition-all duration-500 group-hover:-translate-y-6 group-hover:opacity-0">
           <span className="font-[family-name:var(--font-bebas)] text-3xl tracking-wider text-white sm:text-4xl">
             {study.logo}
           </span>
@@ -604,38 +604,20 @@ const CaseStudyCard = ({
       </div>
 
       {/* Testimonial extension card */}
-      <div className="rounded-b-2xl border border-t-0 border-neutral-100 bg-neutral-50 px-5 py-5 sm:px-6 sm:py-6">
-        <div className="mb-3 flex items-center gap-1.5">
-          {[...Array(5)].map((_, i) => (
-            <svg
-              key={i}
-              className="h-3.5 w-3.5 text-[#1400ff]"
-              fill="currentColor"
-              viewBox="0 0 20 20"
-            >
-              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-            </svg>
-          ))}
+      <div className="flex items-start gap-5 rounded-b-2xl border border-t-0 border-neutral-100 bg-neutral-50 px-5 py-5 sm:gap-6 sm:px-6 sm:py-6">
+        {/* Left: name + role */}
+        <div className="flex-shrink-0">
+          <p className="text-sm font-medium text-[#0a0a0a]">
+            {study.testimonial.author}
+          </p>
+          <p className="text-xs text-neutral-500">
+            {study.testimonial.role}
+          </p>
         </div>
+        {/* Right: quote */}
         <p className="text-sm leading-relaxed text-neutral-600 italic">
           &ldquo;{study.testimonial.quote}&rdquo;
         </p>
-        <div className="mt-3 flex items-center gap-3">
-          <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#1400ff]/10 text-xs font-semibold text-[#1400ff]">
-            {study.testimonial.author
-              .split(" ")
-              .map((n) => n[0])
-              .join("")}
-          </div>
-          <div>
-            <p className="text-sm font-medium text-[#0a0a0a]">
-              {study.testimonial.author}
-            </p>
-            <p className="text-xs text-neutral-500">
-              {study.testimonial.role}
-            </p>
-          </div>
-        </div>
       </div>
     </div>
   );
@@ -643,8 +625,8 @@ const CaseStudyCard = ({
 
 const CaseStudiesSection = () => {
   return (
-    <section className="bg-white px-4 py-16 sm:px-6 sm:py-20 md:py-24">
-      <div className="mx-auto max-w-7xl">
+    <section className="bg-white px-4 pt-6 pb-16 sm:px-6 sm:pt-8 sm:pb-20 md:pt-10 md:pb-24">
+      <div className="mx-auto max-w-[1600px]">
         {/* Cards grid */}
         <div className="grid grid-cols-1 gap-5 sm:gap-6 md:grid-cols-3 md:gap-6">
           {caseStudies.map((study) => (
