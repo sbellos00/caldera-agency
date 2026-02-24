@@ -2,6 +2,7 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import { gsap } from "gsap";
+import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useRef, useState } from "react";
 
@@ -480,6 +481,175 @@ const HeroSection = () => {
 };
 
 // ============================================
+// CASE STUDIES SECTION
+// ============================================
+
+const caseStudies = [
+  {
+    id: 1,
+    title: "Peak Athletics",
+    description: "Transformed their digital presence with a modern rebrand.",
+    stats: ["45% More Leads", "3x Site Traffic"],
+    image: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=800&q=80",
+    logo: "Logoipsum",
+  },
+  {
+    id: 2,
+    title: "Vertex Outdoors",
+    description: "Achieved a 60% boost in conversion rates.",
+    stats: ["60% Conversion Increase", "20% Revenue Growth"],
+    image: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800&q=80",
+    logo: "IPSUM",
+  },
+  {
+    id: 3,
+    title: "Aura Wellness",
+    description: "Built a premium brand identity from the ground up.",
+    stats: ["80% Brand Recall", "2x Client Retention"],
+    image: "https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?w=800&q=80",
+    logo: "LOQO",
+  },
+];
+
+const CaseStudyCard = ({
+  study,
+}: {
+  study: (typeof caseStudies)[number];
+}) => {
+  return (
+    <div className="group relative h-[420px] cursor-pointer overflow-hidden rounded-2xl sm:h-[480px] md:h-[520px]">
+      {/* Background Image */}
+      <Image
+        src={study.image}
+        alt={study.title}
+        fill
+        className="object-cover transition-transform duration-700 group-hover:scale-110"
+        sizes="(max-width: 768px) 100vw, 33vw"
+      />
+
+      {/* Dark overlay */}
+      <div className="absolute inset-0 bg-black/30 transition-all duration-500 group-hover:bg-black/60" />
+
+      {/* Arrow icon - top right */}
+      <div className="absolute right-4 top-4 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-white/90 opacity-0 transition-all duration-300 group-hover:opacity-100">
+        <svg
+          className="h-4 w-4 text-[#0a0a0a]"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M7 17L17 7M17 7H7M17 7v10"
+          />
+        </svg>
+      </div>
+
+      {/* Logo - centered, visible by default */}
+      <div className="absolute inset-0 z-10 flex items-center justify-center transition-opacity duration-300 group-hover:opacity-0">
+        <span className="font-[family-name:var(--font-bebas)] text-3xl tracking-wider text-white sm:text-4xl">
+          {study.logo}
+        </span>
+      </div>
+
+      {/* Hover overlay content */}
+      <div className="absolute inset-x-0 bottom-0 z-10 translate-y-4 p-5 opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100 sm:p-6">
+        {/* Explore badge */}
+        <span className="mb-3 inline-block rounded-full bg-white/20 px-3 py-1 text-xs font-medium uppercase tracking-wider text-white backdrop-blur-sm">
+          Explore 👀
+        </span>
+
+        {/* Title */}
+        <h3 className="font-[family-name:var(--font-bebas)] text-2xl tracking-wide text-white sm:text-3xl">
+          {study.title}
+        </h3>
+
+        {/* Description */}
+        <p className="mt-1 text-sm leading-relaxed text-white/80">
+          {study.description}
+        </p>
+
+        {/* Stat pills */}
+        <div className="mt-3 flex flex-wrap gap-2">
+          {study.stats.map((stat) => (
+            <span
+              key={stat}
+              className="rounded-full bg-white/15 px-3 py-1.5 text-xs font-medium text-white backdrop-blur-sm"
+            >
+              {stat}
+            </span>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const CaseStudiesSection = () => {
+  return (
+    <section className="bg-white px-4 py-16 sm:px-6 sm:py-20 md:py-24">
+      <div className="mx-auto max-w-7xl">
+        {/* Cards grid */}
+        <div className="grid grid-cols-1 gap-4 sm:gap-5 md:grid-cols-3 md:gap-6">
+          {caseStudies.map((study) => (
+            <CaseStudyCard key={study.id} study={study} />
+          ))}
+        </div>
+
+        {/* Bottom bar */}
+        <div className="mt-6 flex flex-col items-stretch gap-4 sm:flex-row sm:items-center sm:gap-5 md:mt-8">
+          {/* Gradient CTA */}
+          <Link
+            href="#"
+            className="group flex flex-1 items-center justify-between overflow-hidden rounded-2xl px-6 py-5 text-white transition-all duration-300 hover:shadow-lg sm:px-8"
+            style={{
+              background:
+                "linear-gradient(135deg, #6B21F8 0%, #A855F7 40%, #EC4899 100%)",
+            }}
+          >
+            <span className="font-[family-name:var(--font-bebas)] text-xl tracking-wider sm:text-2xl">
+              EXPLORE ALL PROJECTS
+            </span>
+            <svg
+              className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M17 8l4 4m0 0l-4 4m4-4H3"
+              />
+            </svg>
+          </Link>
+
+          {/* Right side info */}
+          <div className="flex items-center gap-4 sm:gap-6">
+            <span className="text-sm font-medium tracking-wide text-neutral-500">
+              TOTAL:{" "}
+              <span className="text-[#0a0a0a]">21 CASE STUDIES</span>
+            </span>
+            <div className="hidden h-4 w-px bg-neutral-200 sm:block" />
+            <Link
+              href="#"
+              className="text-sm font-medium text-neutral-500 transition-colors hover:text-[#0a0a0a]"
+            >
+              More Templates
+            </Link>
+            <div className="hidden h-4 w-px bg-neutral-200 sm:block" />
+            <span className="text-sm text-neutral-400">Made in Framer</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+// ============================================
 // MAIN PAGE COMPONENT
 // ============================================
 
@@ -499,6 +669,7 @@ export default function ArchiveHome() {
         {showPreloader && <Preloader />}
       </AnimatePresence>
       <HeroSection />
+      <CaseStudiesSection />
     </main>
   );
 }
