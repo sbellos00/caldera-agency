@@ -366,68 +366,6 @@ export default function Home({ variant = 'v1' }: { variant?: CopyVariant }) {
         </div>
       </section>
 
-      {/* ==================== 3 FEATURE BLOCKS ==================== */}
-      <section className="bg-white relative">
-        <div className="pt-16 pb-12 px-8 md:px-16 max-w-screen-2xl mx-auto">
-          <h2 className="section-title mb-8 max-w-4xl scroll-fade">
-            Everything handled.<br />
-            Zero hassle for you.
-          </h2>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
-            {/* Feature 1: Research */}
-            <div className="feature-card bg-[var(--gray-light)] p-8 rounded-3xl relative overflow-hidden transition-all duration-400 cursor-pointer hover:scale-[1.02] hover:shadow-2xl scroll-fade group">
-              <div className="absolute inset-0 bg-gradient-to-br from-[var(--primary-blue)] to-[var(--blue-dark)] opacity-0 transition-opacity duration-400 group-hover:opacity-100"></div>
-              <div className="w-10 h-10 bg-[var(--primary-blue)] rounded-xl mb-6 relative z-10 transition-all duration-300 group-hover:bg-white"></div>
-              <h3 className="text-2xl font-normal tracking-tight mb-4 relative z-10 group-hover:text-white">
-                We do the research so you don&apos;t have to.
-              </h3>
-              <p className="text-base leading-relaxed text-[var(--gray-medium)] relative z-10 group-hover:text-white">
-                We study your LinkedIn, your positioning, your competitors, and your market. You don&apos;t fill out
-                discovery forms. You don&apos;t sit through briefing calls. We come to you with a prototype, not a questionnaire.
-              </p>
-            </div>
-
-            {/* Feature 2: Speed */}
-            <div className="feature-card bg-[var(--gray-light)] p-8 rounded-3xl relative overflow-hidden transition-all duration-400 cursor-pointer hover:scale-[1.02] hover:shadow-2xl scroll-fade group">
-              <div className="absolute inset-0 bg-gradient-to-br from-[var(--primary-blue)] to-[var(--blue-dark)] opacity-0 transition-opacity duration-400 group-hover:opacity-100"></div>
-              <div className="w-10 h-10 bg-[var(--primary-blue)] rounded-xl mb-6 relative z-10 transition-all duration-300 group-hover:bg-white"></div>
-              <h3 className="text-2xl font-normal tracking-tight mb-4 relative z-10 group-hover:text-white">
-                Fast turnaround. Minimal time from you.
-              </h3>
-              <p className="text-base leading-relaxed text-[var(--gray-medium)] relative z-10 group-hover:text-white">
-                From prototype to launch, the entire process takes less time than most agency discovery calls. We handle
-                copywriting, design, development, domain setup, analytics - everything. You just give feedback.
-              </p>
-            </div>
-
-            {/* Feature 3: Ownership */}
-            <div className="feature-card bg-[var(--gray-light)] p-8 rounded-3xl relative overflow-hidden transition-all duration-400 cursor-pointer hover:scale-[1.02] hover:shadow-2xl scroll-fade group">
-              <div className="absolute inset-0 bg-gradient-to-br from-[var(--primary-blue)] to-[var(--blue-dark)] opacity-0 transition-opacity duration-400 group-hover:opacity-100"></div>
-              <div className="w-10 h-10 bg-[var(--primary-blue)] rounded-xl mb-6 relative z-10 transition-all duration-300 group-hover:bg-white"></div>
-              <h3 className="text-2xl font-normal tracking-tight mb-4 relative z-10 group-hover:text-white">
-                You own everything. No lock-in.
-              </h3>
-              <p className="text-base leading-relaxed text-[var(--gray-medium)] relative z-10 group-hover:text-white">
-                Your code. Your domain. Your site. We host it for a year for free and handle maintenance, but you can
-                take the full codebase and leave anytime. No proprietary platforms. No hostage situations.
-              </p>
-            </div>
-          </div>
-
-          {/* Objection Handling Callout */}
-          <div className="bg-[var(--gray-light)] rounded-3xl p-8 md:p-12 text-center scroll-fade">
-            <h3 className="text-2xl md:text-3xl font-light tracking-tight mb-4 text-[var(--black)]">
-              &ldquo;What if I don&apos;t like what you build?&rdquo;
-            </h3>
-            <p className="text-base md:text-lg leading-relaxed text-[var(--gray-medium)] max-w-3xl mx-auto">
-              You see a free prototype before you pay anything. After that, you approve each phase before we move on.
-              You only pay for work you&apos;ve reviewed and approved. Final payment is due only when you&apos;re ready to launch.
-            </p>
-          </div>
-        </div>
-      </section>
-
       {/* ==================== HOW IT WORKS ==================== */}
       <section className="bg-[var(--black)] relative overflow-hidden">
         {/* Subtle grid pattern */}
@@ -599,6 +537,68 @@ export default function Home({ variant = 'v1' }: { variant?: CopyVariant }) {
                 </p>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ==================== 3 FEATURE BLOCKS ==================== */}
+      <section className="bg-white relative">
+        <div className="pt-16 pb-12 px-8 md:px-16 max-w-screen-2xl mx-auto">
+          <h2 className="section-title mb-8 max-w-4xl scroll-fade">
+            Everything handled.<br />
+            Zero hassle for you.
+          </h2>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+            {/* Feature 1: Research */}
+            <div className="feature-card bg-[var(--gray-light)] p-8 rounded-3xl relative overflow-hidden transition-all duration-400 cursor-pointer hover:scale-[1.02] hover:shadow-2xl scroll-fade group">
+              <div className="absolute inset-0 bg-gradient-to-br from-[var(--primary-blue)] to-[var(--blue-dark)] opacity-0 transition-opacity duration-400 group-hover:opacity-100"></div>
+              <div className="w-10 h-10 bg-[var(--primary-blue)] rounded-xl mb-6 relative z-10 transition-all duration-300 group-hover:bg-white"></div>
+              <h3 className="text-2xl font-normal tracking-tight mb-4 relative z-10 group-hover:text-white">
+                We do the research so you don&apos;t have to.
+              </h3>
+              <p className="text-base leading-relaxed text-[var(--gray-medium)] relative z-10 group-hover:text-white">
+                We study your LinkedIn, your positioning, your competitors, and your market. You don&apos;t fill out
+                discovery forms. You don&apos;t sit through briefing calls. We come to you with a prototype, not a questionnaire.
+              </p>
+            </div>
+
+            {/* Feature 2: Speed */}
+            <div className="feature-card bg-[var(--gray-light)] p-8 rounded-3xl relative overflow-hidden transition-all duration-400 cursor-pointer hover:scale-[1.02] hover:shadow-2xl scroll-fade group">
+              <div className="absolute inset-0 bg-gradient-to-br from-[var(--primary-blue)] to-[var(--blue-dark)] opacity-0 transition-opacity duration-400 group-hover:opacity-100"></div>
+              <div className="w-10 h-10 bg-[var(--primary-blue)] rounded-xl mb-6 relative z-10 transition-all duration-300 group-hover:bg-white"></div>
+              <h3 className="text-2xl font-normal tracking-tight mb-4 relative z-10 group-hover:text-white">
+                Fast turnaround. Minimal time from you.
+              </h3>
+              <p className="text-base leading-relaxed text-[var(--gray-medium)] relative z-10 group-hover:text-white">
+                From prototype to launch, the entire process takes less time than most agency discovery calls. We handle
+                copywriting, design, development, domain setup, analytics - everything. You just give feedback.
+              </p>
+            </div>
+
+            {/* Feature 3: Ownership */}
+            <div className="feature-card bg-[var(--gray-light)] p-8 rounded-3xl relative overflow-hidden transition-all duration-400 cursor-pointer hover:scale-[1.02] hover:shadow-2xl scroll-fade group">
+              <div className="absolute inset-0 bg-gradient-to-br from-[var(--primary-blue)] to-[var(--blue-dark)] opacity-0 transition-opacity duration-400 group-hover:opacity-100"></div>
+              <div className="w-10 h-10 bg-[var(--primary-blue)] rounded-xl mb-6 relative z-10 transition-all duration-300 group-hover:bg-white"></div>
+              <h3 className="text-2xl font-normal tracking-tight mb-4 relative z-10 group-hover:text-white">
+                You own everything. No lock-in.
+              </h3>
+              <p className="text-base leading-relaxed text-[var(--gray-medium)] relative z-10 group-hover:text-white">
+                Your code. Your domain. Your site. We host it for a year for free and handle maintenance, but you can
+                take the full codebase and leave anytime. No proprietary platforms. No hostage situations.
+              </p>
+            </div>
+          </div>
+
+          {/* Objection Handling Callout */}
+          <div className="bg-[var(--gray-light)] rounded-3xl p-8 md:p-12 text-center scroll-fade">
+            <h3 className="text-2xl md:text-3xl font-light tracking-tight mb-4 text-[var(--black)]">
+              &ldquo;What if I don&apos;t like what you build?&rdquo;
+            </h3>
+            <p className="text-base md:text-lg leading-relaxed text-[var(--gray-medium)] max-w-3xl mx-auto">
+              You see a free prototype before you pay anything. After that, you approve each phase before we move on.
+              You only pay for work you&apos;ve reviewed and approved. Final payment is due only when you&apos;re ready to launch.
+            </p>
           </div>
         </div>
       </section>
