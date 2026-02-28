@@ -169,7 +169,7 @@ function PrototypeForm({ id, inputBg = 'bg-white' }: { id: string; inputBg?: str
             </button>
           </div>
           {error && <p className="text-red-500 text-sm text-center">{error}</p>}
-          <p className="text-xs text-[var(--gray-medium)] text-center">Share your LinkedIn URL, takes 30 seconds, and we&apos;ll handle research, copy, design, and development. You get a free prototype before you spend a cent.</p>
+          <p className="text-xs text-[var(--gray-medium)] text-center">You Do Nothing. We Build Everything.</p>
         </div>
       )}
     </div>
@@ -312,9 +312,8 @@ export default function Home({ variant = 'v1' }: { variant?: CopyVariant }) {
             For <span className="font-serif italic font-normal text-[var(--primary-blue)]">Solo Consultants.</span>
           </h1>
 
-          <p className="text-xl md:text-2xl font-light text-[var(--black)] mb-5 animate-fade-in-up animate-delay-100 whitespace-nowrap">
-            You Do <span className="font-serif italic font-normal text-[var(--primary-blue)]">Nothing.</span>{' '}
-            We Build <span className="font-serif italic font-normal text-[var(--primary-blue)]">Everything.</span>
+          <p className="text-xl md:text-2xl font-light text-[var(--black)] mb-5 animate-fade-in-up animate-delay-100">
+            Share your LinkedIn URL, takes 30 seconds, and we&apos;ll handle research, copy, design, and development. You get a free prototype before you spend a cent.
           </p>
 
           <div className="w-full max-w-xl animate-fade-in-up animate-delay-200">
