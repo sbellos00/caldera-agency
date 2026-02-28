@@ -367,126 +367,49 @@ export default function Home({ variant = 'v1' }: { variant?: CopyVariant }) {
       </section>
 
       {/* ==================== HOW IT WORKS ==================== */}
-      <section className="bg-[var(--black)] relative overflow-hidden">
-        {/* Subtle grid pattern */}
-        <div className="absolute inset-0 opacity-[0.04]" style={{
-          backgroundImage: `radial-gradient(circle at 1px 1px, white 1px, transparent 0)`,
-          backgroundSize: '48px 48px'
-        }}></div>
-
+      <section className="bg-white relative overflow-hidden">
         <div className="relative z-10 pt-20 pb-24 md:pb-32 px-8 md:px-16 max-w-screen-2xl mx-auto">
-          <div className="mb-16 md:mb-24 scroll-fade">
+          <div className="text-center mb-16 md:mb-20 scroll-fade">
             <span className="text-sm tracking-widest uppercase text-[var(--primary-blue)] font-medium">How It Works</span>
-            <h2 className="section-title mt-4 text-white">
+            <h2 className="section-title mt-4 text-[var(--black)]">
               Three steps. That&apos;s it.
             </h2>
           </div>
 
-          {/* Step 1 */}
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-12 items-center mb-16 md:mb-24 scroll-fade">
-            <div className="md:col-span-1">
-              <span className="text-[80px] md:text-[120px] font-extralight leading-none text-white/10">1</span>
-            </div>
-            <div className="md:col-span-4">
-              <h3 className="text-2xl md:text-3xl font-light text-white tracking-tight mb-4">Drop your LinkedIn URL</h3>
-              <p className="text-white/60 leading-relaxed text-base">
-                That&apos;s all we need to start. We research your expertise, positioning, and market.
+          {/* Steps row */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 mb-16 md:mb-20">
+            {/* Step 1 */}
+            <div className="text-center scroll-fade">
+              <div className="text-[var(--primary-blue)] text-sm font-semibold tracking-widest uppercase mb-4">01</div>
+              <h3 className="text-xl md:text-2xl font-light text-[var(--black)] tracking-tight mb-3">Drop your LinkedIn URL</h3>
+              <p className="text-[var(--gray-medium)] leading-relaxed text-base">
+                That&apos;s all we need. We research your expertise, positioning, and market.
               </p>
             </div>
-            <div className="md:col-span-7">
-              <div className="bg-white/5 border border-white/10 rounded-2xl p-8 md:p-10 backdrop-blur-sm">
-                <div className="flex items-center gap-3 bg-white/10 rounded-xl px-5 py-4">
-                  <svg className="w-5 h-5 text-[var(--primary-blue)] flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-                  </svg>
-                  <span className="text-white/40 text-sm">linkedin.com/in/yourprofile</span>
-                  <div className="ml-auto w-3 h-3 rounded-full bg-[var(--primary-blue)] animate-pulse"></div>
-                </div>
-              </div>
-            </div>
-          </div>
 
-          {/* Connector line */}
-          <div className="hidden md:flex justify-start pl-[4.5%] mb-16 md:mb-24">
-            <div className="w-px h-16 bg-gradient-to-b from-white/20 to-transparent"></div>
-          </div>
-
-          {/* Step 2 */}
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-12 items-center mb-16 md:mb-24 scroll-fade">
-            <div className="md:col-span-1">
-              <span className="text-[80px] md:text-[120px] font-extralight leading-none text-white/10">2</span>
-            </div>
-            <div className="md:col-span-4">
-              <h3 className="text-2xl md:text-3xl font-light text-white tracking-tight mb-4">Review your free prototype</h3>
-              <p className="text-white/60 leading-relaxed text-base">
-                We send you a working prototype of your website. No commitment. If you like what you see, we move forward.
+            {/* Step 2 */}
+            <div className="text-center scroll-fade">
+              <div className="text-[var(--primary-blue)] text-sm font-semibold tracking-widest uppercase mb-4">02</div>
+              <h3 className="text-xl md:text-2xl font-light text-[var(--black)] tracking-tight mb-3">Review your free prototype</h3>
+              <p className="text-[var(--gray-medium)] leading-relaxed text-base">
+                We send you a working website prototype. No commitment — if you like it, we move forward.
               </p>
             </div>
-            <div className="md:col-span-7">
-              <div className="bg-white/5 border border-white/10 rounded-2xl p-6 md:p-8 backdrop-blur-sm">
-                {/* Mini browser mockup */}
-                <div className="flex items-center gap-2 mb-4 pb-4 border-b border-white/10">
-                  <div className="flex gap-1.5">
-                    <div className="w-2.5 h-2.5 rounded-full bg-white/20"></div>
-                    <div className="w-2.5 h-2.5 rounded-full bg-white/20"></div>
-                    <div className="w-2.5 h-2.5 rounded-full bg-white/20"></div>
-                  </div>
-                  <div className="flex-1 bg-white/10 rounded-md px-3 py-1 mx-4">
-                    <span className="text-white/30 text-xs">yourname.com</span>
-                  </div>
-                </div>
-                <div className="space-y-3">
-                  <div className="h-4 bg-white/10 rounded w-2/3"></div>
-                  <div className="h-3 bg-white/5 rounded w-full"></div>
-                  <div className="h-3 bg-white/5 rounded w-5/6"></div>
-                  <div className="h-8 bg-[var(--primary-blue)]/20 rounded-lg w-1/3 mt-4"></div>
-                </div>
-              </div>
-            </div>
-          </div>
 
-          {/* Connector line */}
-          <div className="hidden md:flex justify-start pl-[4.5%] mb-16 md:mb-24">
-            <div className="w-px h-16 bg-gradient-to-b from-white/20 to-transparent"></div>
-          </div>
-
-          {/* Step 3 */}
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-12 items-center scroll-fade">
-            <div className="md:col-span-1">
-              <span className="text-[80px] md:text-[120px] font-extralight leading-none text-white/10">3</span>
-            </div>
-            <div className="md:col-span-4">
-              <h3 className="text-2xl md:text-3xl font-light text-white tracking-tight mb-4">Launch your site</h3>
-              <p className="text-white/60 leading-relaxed text-base">
-                We refine based on your feedback, write all copy, and launch your site. Minimal time investment from you.
+            {/* Step 3 */}
+            <div className="text-center scroll-fade">
+              <div className="text-[var(--primary-blue)] text-sm font-semibold tracking-widest uppercase mb-4">03</div>
+              <h3 className="text-xl md:text-2xl font-light text-[var(--black)] tracking-tight mb-3">Launch your site</h3>
+              <p className="text-[var(--gray-medium)] leading-relaxed text-base">
+                We refine, write all copy, and launch. Minimal time investment from you.
               </p>
             </div>
-            <div className="md:col-span-7">
-              <div className="bg-gradient-to-br from-[var(--primary-blue)] to-[var(--blue-dark)] rounded-2xl p-8 md:p-10">
-                <div className="flex items-center gap-4 mb-6">
-                  <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
-                    <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
-                  </div>
-                  <span className="text-white font-medium text-lg">Your site is live</span>
-                </div>
-                <div className="grid grid-cols-3 gap-4">
-                  <div className="text-center">
-                    <div className="text-white/40 text-xs uppercase tracking-wider mb-1">Design</div>
-                    <div className="text-white text-sm font-medium">Done</div>
-                  </div>
-                  <div className="text-center">
-                    <div className="text-white/40 text-xs uppercase tracking-wider mb-1">Copy</div>
-                    <div className="text-white text-sm font-medium">Done</div>
-                  </div>
-                  <div className="text-center">
-                    <div className="text-white/40 text-xs uppercase tracking-wider mb-1">Hosting</div>
-                    <div className="text-white text-sm font-medium">Live</div>
-                  </div>
-                </div>
-              </div>
-            </div>
+          </div>
+
+          {/* LinkedIn CTA */}
+          <div className="max-w-xl mx-auto scroll-fade">
+            <PrototypeForm id="how-it-works-linkedin" inputBg="bg-[var(--gray-light)]" />
+            <p className="text-xs text-[var(--gray-medium)] text-center mt-4">No calls. No commitment. Just paste your URL and we&apos;ll get to work.</p>
           </div>
         </div>
       </section>
