@@ -169,7 +169,7 @@ function PrototypeForm({ id, inputBg = 'bg-white' }: { id: string; inputBg?: str
             </button>
           </div>
           {error && <p className="text-red-500 text-sm text-center">{error}</p>}
-          <p className="text-xs text-[var(--gray-medium)] text-center">Just your LinkedIn URL. Takes 30 seconds.</p>
+          <p className="text-xs text-[var(--gray-medium)] text-center">Share your LinkedIn URL, takes 30 seconds, and we&apos;ll handle research, copy, design, and development. You get a free prototype before you spend a cent.</p>
         </div>
       )}
     </div>
@@ -307,7 +307,7 @@ export default function Home({ variant = 'v1' }: { variant?: CopyVariant }) {
         </div>
 
         <div className="relative z-10 max-w-screen-2xl mx-auto w-full text-center flex flex-col items-center">
-          <h1 className="hero-title mb-6 max-w-5xl animate-fade-in-up">
+          <h1 className="hero-title mb-10 max-w-5xl animate-fade-in-up">
             The Website Agency<br />
             For <span className="font-serif italic font-normal text-[var(--primary-blue)]">Solo Consultants.</span>
           </h1>
@@ -321,9 +321,6 @@ export default function Home({ variant = 'v1' }: { variant?: CopyVariant }) {
             <PrototypeForm id="hero-linkedin" />
           </div>
 
-          <p className="text-base leading-relaxed text-[var(--gray-medium)] max-w-xl mt-6 animate-fade-in-up animate-delay-300">
-            Share your LinkedIn and we&apos;ll handle research, copy, design, and development. You get a free prototype before you spend a cent.
-          </p>
         </div>
       </section>
 
