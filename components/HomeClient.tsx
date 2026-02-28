@@ -307,14 +307,23 @@ export default function Home({ variant = 'v1' }: { variant?: CopyVariant }) {
         </div>
 
         <div className="relative z-10 max-w-screen-2xl mx-auto w-full text-center flex flex-col items-center">
-          <h1 className="text-2xl md:text-3xl font-light text-[var(--black)] mb-5 animate-fade-in-up max-w-sm md:max-w-md">
-            You Do <span className="font-serif italic font-normal text-[var(--primary-blue)]">Nothing.</span>{' '}
-            We Build <span className="font-serif italic font-normal text-[var(--primary-blue)]">Everything.</span>
+          <h1 className="hero-title mb-6 max-w-5xl animate-fade-in-up">
+            The Website Agency<br />
+            For <span className="font-serif italic font-normal text-[var(--primary-blue)]">Solo Consultants.</span>
           </h1>
 
-          <div className="w-full max-w-xl animate-fade-in-up animate-delay-100">
+          <p className="text-xl md:text-2xl font-light text-[var(--black)] mb-5 animate-fade-in-up animate-delay-100 whitespace-nowrap">
+            You Do <span className="font-serif italic font-normal text-[var(--primary-blue)]">Nothing.</span>{' '}
+            We Build <span className="font-serif italic font-normal text-[var(--primary-blue)]">Everything.</span>
+          </p>
+
+          <div className="w-full max-w-xl animate-fade-in-up animate-delay-200">
             <PrototypeForm id="hero-linkedin" />
           </div>
+
+          <p className="text-base leading-relaxed text-[var(--gray-medium)] max-w-xl mt-6 animate-fade-in-up animate-delay-300">
+            Share your LinkedIn and we&apos;ll handle research, copy, design, and development. You get a free prototype before you spend a cent.
+          </p>
         </div>
       </section>
 
