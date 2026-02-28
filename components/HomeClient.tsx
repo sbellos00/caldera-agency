@@ -306,23 +306,62 @@ export default function Home({ variant = 'v1' }: { variant?: CopyVariant }) {
         </div>
 
         <div className="relative z-10 max-w-screen-2xl mx-auto w-full text-center flex flex-col items-center">
-          <div className="bg-[var(--gray-light)] rounded-2xl px-5 py-3 mb-8 inline-flex items-center gap-4 animate-fade-in-up">
-            <div className="w-8 h-8 bg-[var(--primary-blue)] rounded-lg flex-shrink-0"></div>
-            <p className="text-sm font-medium text-[var(--black)]">You Do Nothing. We Build Everything.</p>
-          </div>
-
-          <h1 className="hero-title mb-10 max-w-5xl animate-fade-in-up">
+          <h1 className="hero-title mb-6 max-w-5xl animate-fade-in-up">
             The Website Agency<br />
-            For <span className="font-serif italic font-normal text-[var(--primary-blue)]">Solo Consultants.</span>
+            Designed For <span className="font-serif italic font-normal text-[var(--primary-blue)]">Solo Consultants.</span>
           </h1>
 
-          <div className="w-full max-w-xl animate-fade-in-up animate-delay-100">
-            <PrototypeForm id="hero-linkedin" />
-          </div>
-
-          <p className="text-xs text-[var(--gray-medium)] mt-5 animate-fade-in-up animate-delay-200">
-            Share your LinkedIn URL, takes 30 seconds, and we&apos;ll handle research, copy, design, and development. You get a free prototype before you spend a cent.
+          <p className="text-xl md:text-2xl font-light text-[var(--black)] mb-16 animate-fade-in-up animate-delay-100">
+            You Do <span className="font-serif italic font-normal text-[var(--primary-blue)]">Nothing.</span>{' '}We Build <span className="font-serif italic font-normal text-[var(--primary-blue)]">Everything.</span>
           </p>
+
+          {/* Testimonial Placeholders */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-4xl animate-fade-in-up animate-delay-200">
+            <div className="bg-white/60 backdrop-blur-sm border border-[var(--gray-light)] rounded-2xl p-6 text-left">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-10 h-10 rounded-full bg-[var(--gray-light)]"></div>
+                <div>
+                  <div className="h-3 w-24 bg-[var(--gray-light)] rounded-full"></div>
+                  <div className="h-2 w-16 bg-[var(--gray-light)] rounded-full mt-2"></div>
+                </div>
+              </div>
+              <div className="space-y-2">
+                <div className="h-2 w-full bg-[var(--gray-light)] rounded-full"></div>
+                <div className="h-2 w-4/5 bg-[var(--gray-light)] rounded-full"></div>
+                <div className="h-2 w-3/5 bg-[var(--gray-light)] rounded-full"></div>
+              </div>
+            </div>
+
+            <div className="bg-white/60 backdrop-blur-sm border border-[var(--gray-light)] rounded-2xl p-6 text-left">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-10 h-10 rounded-full bg-[var(--gray-light)]"></div>
+                <div>
+                  <div className="h-3 w-24 bg-[var(--gray-light)] rounded-full"></div>
+                  <div className="h-2 w-16 bg-[var(--gray-light)] rounded-full mt-2"></div>
+                </div>
+              </div>
+              <div className="space-y-2">
+                <div className="h-2 w-full bg-[var(--gray-light)] rounded-full"></div>
+                <div className="h-2 w-4/5 bg-[var(--gray-light)] rounded-full"></div>
+                <div className="h-2 w-3/5 bg-[var(--gray-light)] rounded-full"></div>
+              </div>
+            </div>
+
+            <div className="bg-white/60 backdrop-blur-sm border border-[var(--gray-light)] rounded-2xl p-6 text-left">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-10 h-10 rounded-full bg-[var(--gray-light)]"></div>
+                <div>
+                  <div className="h-3 w-24 bg-[var(--gray-light)] rounded-full"></div>
+                  <div className="h-2 w-16 bg-[var(--gray-light)] rounded-full mt-2"></div>
+                </div>
+              </div>
+              <div className="space-y-2">
+                <div className="h-2 w-full bg-[var(--gray-light)] rounded-full"></div>
+                <div className="h-2 w-4/5 bg-[var(--gray-light)] rounded-full"></div>
+                <div className="h-2 w-3/5 bg-[var(--gray-light)] rounded-full"></div>
+              </div>
+            </div>
+          </div>
 
         </div>
       </section>
