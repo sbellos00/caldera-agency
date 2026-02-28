@@ -554,6 +554,25 @@
     }
   }
 
+  /* Edit mode styles */
+  .edit-mode [contenteditable] {
+    outline: 1px dashed transparent;
+    border-radius: 4px;
+    transition: outline-color 0.15s ease, background-color 0.15s ease;
+    cursor: text;
+  }
+
+  .edit-mode [contenteditable]:hover {
+    outline-color: var(--primary-blue);
+    background-color: rgba(0, 25, 255, 0.03);
+  }
+
+  .edit-mode [contenteditable]:focus {
+    outline: 2px solid var(--primary-blue);
+    background-color: rgba(0, 25, 255, 0.05);
+    outline-offset: 2px;
+  }
+
   /* Compact FAQ items on mobile */
   @media (max-width: 640px) {
     .faq-item {

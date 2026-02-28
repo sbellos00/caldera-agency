@@ -1,17 +1,188 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
-import Link from 'next/link'
+import ReCAPTCHA from 'react-google-recaptcha'
 import Menu from '@/components/Menu'
 import Footer from '@/components/Footer'
 
-export default function Home() {
+const RECAPTCHA_SITE_KEY = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI' // Test key fallback
+
+// ─── Two-step prototype form ────────────────────────────────────────────────
+function PrototypeForm({ id, inputBg = 'bg-white' }: { id: string; inputBg?: string }) {
+  const [step, setStep] = useState<'linkedin' | 'email' | 'success'>('linkedin')
+  const [animating, setAnimating] = useState(false)
+  const [linkedin, setLinkedin] = useState('')
+  const [email, setEmail] = useState('')
+  const [captchaToken, setCaptchaToken] = useState<string | null>(null)
+  const [error, setError] = useState('')
+  const recaptchaRef = useRef<ReCAPTCHA>(null)
+  const emailInputRef = useRef<HTMLInputElement>(null)
+  const [hp, setHp] = useState('')
+
+  const goToStep = (next: 'linkedin' | 'email' | 'success') => {
+    setAnimating(true)
+    // Brief fade out, then switch step and fade in
+    setTimeout(() => {
+      setStep(next)
+      // Focus email input after transition
+      if (next === 'email') {
+        setTimeout(() => emailInputRef.current?.focus(), 100)
+      }
+      // Small delay before removing animating to trigger fade-in
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => setAnimating(false))
+      })
+    }, 250)
+  }
+
+  const handleLinkedinSubmit = () => {
+    setError('')
+    if (!linkedin.trim()) {
+      setError('Please enter your LinkedIn URL.')
+      return
+    }
+    goToStep('email')
+  }
+
+  const handleFinalSubmit = () => {
+    setError('')
+    if (hp) { goToStep('success'); return }
+    if (!email.trim()) { setError('Please enter your email.'); return }
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    if (!emailRegex.test(email)) { setError('Please enter a valid email address.'); return }
+    if (!captchaToken) { setError('Please complete the captcha.'); return }
+
+    // TODO: Wire up to /api/prototype endpoint
+    console.log('Prototype request:', { linkedin, email, captchaToken })
+    goToStep('success')
+  }
+
+  return (
+    <div
+      className="transition-all duration-300 ease-out"
+      style={{
+        opacity: animating ? 0 : 1,
+        transform: animating ? 'translateY(8px)' : 'translateY(0)',
+      }}
+    >
+      {/* ── Success ── */}
+      {step === 'success' && (
+        <div className="bg-white rounded-2xl p-8 shadow-lg text-center">
+          <div className="w-14 h-14 bg-[var(--primary-blue)] rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+            </svg>
+          </div>
+          <h3 className="text-xl font-medium mb-2">We&apos;re on it.</h3>
+          <p className="text-[var(--gray-medium)]">
+            We&apos;ll send your website preview and a full report of our design choices and strategy to your inbox within 24 hours.
+          </p>
+        </div>
+      )}
+
+      {/* ── Step 2: Email + Captcha ── */}
+      {step === 'email' && (
+        <div className="space-y-4">
+          {/* Locked-in LinkedIn */}
+          <div className={`flex items-center gap-3 px-5 py-3 ${inputBg} border border-[var(--gray-light)] rounded-xl transition-all duration-300`}>
+            <svg className="w-5 h-5 text-[var(--primary-blue)] flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+            </svg>
+            <span className="text-[var(--gray-dark)] text-sm truncate">{linkedin}</span>
+            <button
+              onClick={() => { goToStep('linkedin'); setError('') }}
+              className="ml-auto text-[var(--primary-blue)] text-xs font-medium hover:underline flex-shrink-0"
+            >
+              Edit
+            </button>
+          </div>
+
+          <p className="text-base text-[var(--gray-dark)] text-center font-light">
+            Where should we send your website preview and our full design strategy report?
+          </p>
+
+          <input
+            ref={emailInputRef}
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            onKeyDown={(e) => { if (e.key === 'Enter') handleFinalSubmit() }}
+            className={`w-full px-5 py-4 ${inputBg} border border-[var(--gray-light)] rounded-xl text-[var(--black)] placeholder:text-[var(--gray-medium)] focus:outline-none focus:ring-2 focus:ring-[var(--primary-blue)] transition-all duration-300 text-base`}
+            placeholder="Your email address"
+          />
+
+          {/* Honeypot */}
+          <input
+            type="text"
+            value={hp}
+            onChange={(e) => setHp(e.target.value)}
+            className="absolute opacity-0 pointer-events-none h-0 w-0"
+            tabIndex={-1}
+            autoComplete="off"
+            aria-hidden="true"
+          />
+
+          {/* reCAPTCHA */}
+          <div className="flex justify-center">
+            <ReCAPTCHA
+              ref={recaptchaRef}
+              sitekey={RECAPTCHA_SITE_KEY}
+              onChange={(token) => setCaptchaToken(token)}
+              onExpired={() => setCaptchaToken(null)}
+            />
+          </div>
+
+          <button
+            onClick={handleFinalSubmit}
+            className="w-full inline-flex items-center justify-center gap-3 bg-[var(--black)] text-white px-8 py-4 text-[15px] tracking-tight rounded-xl relative overflow-hidden transition-all duration-300 ease-out hover:scale-105 group"
+          >
+            <div className="absolute inset-0 bg-[var(--primary-blue)] transform -translate-x-full transition-transform duration-300 ease-out group-hover:translate-x-0"></div>
+            <span className="relative z-10">Send My Free Prototype</span>
+            <span className="relative z-10">&rarr;</span>
+          </button>
+
+          {error && <p className="text-red-500 text-sm text-center">{error}</p>}
+          <p className="text-xs text-[var(--gray-medium)] text-center">You&apos;ll hear from us within 24 hours.</p>
+        </div>
+      )}
+
+      {/* ── Step 1: LinkedIn only ── */}
+      {step === 'linkedin' && (
+        <div className="space-y-3">
+          <div className="flex gap-3">
+            <input
+              id={id}
+              type="url"
+              value={linkedin}
+              onChange={(e) => setLinkedin(e.target.value)}
+              onKeyDown={(e) => { if (e.key === 'Enter') handleLinkedinSubmit() }}
+              className={`flex-1 px-5 py-4 ${inputBg} border border-[var(--gray-light)] rounded-xl text-[var(--black)] placeholder:text-[var(--gray-medium)] focus:outline-none focus:ring-2 focus:ring-[var(--primary-blue)] transition-all duration-300 text-base`}
+              placeholder="Paste your LinkedIn URL"
+            />
+            <button
+              onClick={handleLinkedinSubmit}
+              className="inline-flex items-center justify-center gap-2 bg-[var(--black)] text-white px-6 md:px-8 py-4 text-[15px] tracking-tight rounded-xl relative overflow-hidden transition-all duration-300 ease-out hover:scale-105 group whitespace-nowrap"
+            >
+              <div className="absolute inset-0 bg-[var(--primary-blue)] transform -translate-x-full transition-transform duration-300 ease-out group-hover:translate-x-0"></div>
+              <span className="relative z-10">Get Your Free Prototype</span>
+              <span className="relative z-10">&rarr;</span>
+            </button>
+          </div>
+          {error && <p className="text-red-500 text-sm text-center">{error}</p>}
+          <p className="text-xs text-[var(--gray-medium)] text-center">Just your LinkedIn URL. Takes 30 seconds.</p>
+        </div>
+      )}
+    </div>
+  )
+}
+
+// ─── Main page component ────────────────────────────────────────────────────
+export type CopyVariant = 'v1' | 'v2' | 'v3'
+
+export default function Home({ variant = 'v1' }: { variant?: CopyVariant }) {
   const cursorRef = useRef<HTMLDivElement>(null)
   const cursorDotRef = useRef<HTMLDivElement>(null)
   const [openFAQ, setOpenFAQ] = useState<number | null>(null)
-  const [formData, setFormData] = useState({ name: '', email: '', linkedin: '', website: '' })
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle')
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   useEffect(() => {
@@ -43,26 +214,15 @@ export default function Home() {
     updateCursor()
 
     // Handle hash anchors on page load
-    const handleHashScroll = () => {
-      const hash = window.location.hash.slice(1) // Remove the # character
-      if (hash) {
-        setTimeout(() => {
-          const element = document.getElementById(hash)
-          if (element) {
-            element.scrollIntoView({ 
-              behavior: 'smooth',
-              block: 'start'
-            })
-          }
-        }, 500) // Small delay to ensure page is fully loaded
-      }
+    const hash = window.location.hash.slice(1)
+    if (hash) {
+      setTimeout(() => {
+        document.getElementById(hash)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      }, 500)
     }
 
-    // Check for hash on initial load
-    handleHashScroll()
-
     // Hover effects
-    const hoverElements = document.querySelectorAll('a, button, .feature-card, .deliverable-hero, .deliverable-card, .premium-deliverable, .invitation-card, .invitation-list-item, .invitation-bonus-item, .guarantee-card')
+    const hoverElements = document.querySelectorAll('a, button, .feature-card, .deliverable-card, .invitation-card, .invitation-list-item')
 
     const handleMouseEnter = () => {
       cursor.style.transform = 'scale(1.5)'
@@ -86,30 +246,21 @@ export default function Home() {
     })
 
     // Intersection Observer
-    const observerOptions = {
-      threshold: 0.01,
-      rootMargin: '0px 0px -10% 0px'
-    }
-
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           entry.target.classList.add('visible')
         }
       })
-    }, observerOptions)
+    }, { threshold: 0.01, rootMargin: '0px 0px -10% 0px' })
 
-    document.querySelectorAll('.scroll-fade').forEach(el => {
-      observer.observe(el)
-    })
+    document.querySelectorAll('.scroll-fade').forEach(el => observer.observe(el))
 
     // Hide cursor on mobile
     if (window.innerWidth <= 768) {
       cursor.style.display = 'none'
       cursorDot.style.display = 'none'
     }
-
-
 
     return () => {
       document.removeEventListener('mousemove', handleMouseMove)
@@ -132,18 +283,15 @@ export default function Home() {
         <div className="flex justify-between items-center max-w-screen-2xl mx-auto">
           <div className="text-3xl font-medium tracking-tight text-white caldera-logo">caldera.agency</div>
           <div className="flex items-center gap-8">
-            <button 
+            <button
               onClick={() => {
-                document.getElementById('contact')?.scrollIntoView({ 
-                  behavior: 'smooth',
-                  block: 'start'
-                })
+                document.getElementById('get-prototype')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
               }}
               className="hidden md:block group relative overflow-hidden bg-white/10 backdrop-blur-sm border border-white/20 text-white px-6 py-3 rounded-full text-sm tracking-tight transition-all duration-300 hover:bg-white hover:text-black hover:border-white"
             >
               <span className="relative z-10 flex items-center gap-2">
-                Get Started
-                <span className="transition-transform duration-300 group-hover:translate-x-0.5">→</span>
+                Get Your Free Prototype
+                <span className="transition-transform duration-300 group-hover:translate-x-0.5">&rarr;</span>
               </span>
             </button>
             <Menu onMenuToggle={setIsMenuOpen} />
@@ -151,7 +299,7 @@ export default function Home() {
         </div>
       </nav>
 
-      {/* Hero Section */}
+      {/* ==================== HERO SECTION ==================== */}
       <section className="min-h-screen relative flex items-center px-8 bg-[var(--cream)] overflow-hidden">
         <div className="absolute inset-0 overflow-hidden">
           <div className="floating-shape shape-1"></div>
@@ -159,421 +307,270 @@ export default function Home() {
         </div>
 
         <div className="relative z-10 max-w-screen-2xl mx-auto w-full text-center flex flex-col items-center">
-          <h1 className="hero-title mb-8 max-w-4xl animate-fade-in-up">
-            Bespoke, <span className="font-serif italic font-normal text-[var(--primary-blue)] whitespace-nowrap">Authority-Building</span><br />
-            Websites for Solo Consultants
+          <h1 className="hero-title mb-6 max-w-5xl animate-fade-in-up">
+            {variant === 'v3' ? (
+              <>
+                We build your website<br />
+                <span className="font-serif italic font-normal text-[var(--primary-blue)]">before you pay a cent.</span>
+              </>
+            ) : (
+              <>
+                The Website Agency<br />
+                For <span className="font-serif italic font-normal text-[var(--primary-blue)]">Solo Consultants.</span>
+              </>
+            )}
           </h1>
 
-          <p className="text-lg leading-relaxed text-[var(--gray-dark)] max-w-2xl mb-10 animate-fade-in-up animate-delay-200">
-            We combine deep research, strategic positioning, and hands-off delivery to create websites that demonstrate expertise, communicate credibility, and convert higher-value clients - with zero admin headache.
+          <p className="text-xl md:text-2xl font-light text-[var(--black)] mb-4 animate-fade-in-up animate-delay-100">
+            {variant === 'v3'
+              ? "You do nothing. We build everything."
+              : "You do nothing. We build everything."
+            }
           </p>
 
-          <div className="animate-fade-in-up animate-delay-300">
-            <button
-              onClick={() => {
-                document.getElementById('contact')?.scrollIntoView({ 
-                  behavior: 'smooth',
-                  block: 'start'
-                })
-              }}
-              className="inline-flex items-center gap-3 bg-[var(--black)] text-white px-8 py-4 text-[15px] tracking-tight no-underline rounded-full relative overflow-hidden transition-all duration-300 ease-out hover:scale-105 group"
-            >
-              <div className="absolute inset-0 bg-[var(--primary-blue)] transform -translate-x-full transition-transform duration-300 ease-out group-hover:translate-x-0"></div>
-              <span className="relative z-10">Start Your Project</span>
-              <span className="relative z-10">→</span>
-            </button>
+          <p className="text-base leading-relaxed text-[var(--gray-medium)] max-w-xl mb-10 animate-fade-in-up animate-delay-200">
+            {variant === 'v3'
+              ? "Share your LinkedIn and we'll handle research, copy, design, and development. You get a free prototype before you spend a cent. Don't like it? Walk away."
+              : "Share your LinkedIn and we'll handle research, copy, design, and development. You get a free prototype before you spend a cent."
+            }
+          </p>
+
+          <div className="w-full max-w-xl animate-fade-in-up animate-delay-300">
+            <PrototypeForm id="hero-linkedin" />
           </div>
         </div>
       </section>
 
-      {/* Stats Marquee */}
-      <section className="bg-[var(--black)] text-white py-6 relative overflow-hidden">
-        <div className="marquee">
-          <div className="marquee-content">
-            <div className="flex items-baseline gap-2.5 text-base">
-              <span className="text-7xl font-medium text-white">20</span>
-              <span className="text-[var(--gray-medium)]">days or less</span>
-            </div>
-            <div className="flex items-baseline gap-2.5 text-base">
-              <span className="text-7xl font-medium text-white">2</span>
-              <span className="text-[var(--gray-medium)]">hours of your involvement</span>
-            </div>
-            <div className="flex items-baseline gap-2.5 text-base">
-              <span className="text-7xl font-medium text-white">1</span>
-              <span className="text-[var(--gray-medium)]">year of free hosting</span>
-            </div>
-            <div className="flex items-baseline gap-2.5 text-base">
-              <span className="text-7xl font-medium text-white">100%</span>
-              <span className="text-[var(--gray-medium)]">tailored to you</span>
-            </div>
-            <div className="flex items-baseline gap-2.5 text-base">
-              <span className="text-7xl font-medium text-white">0%</span>
-              <span className="text-[var(--gray-medium)]">platform lock in</span>
-            </div>
-          </div>
-          <div className="marquee-content" aria-hidden="true">
-            <div className="flex items-baseline gap-2.5 text-base">
-              <span className="text-7xl font-medium text-white">20</span>
-              <span className="text-[var(--gray-medium)]">days or less</span>
-            </div>
-            <div className="flex items-baseline gap-2.5 text-base">
-              <span className="text-7xl font-medium text-white">2</span>
-              <span className="text-[var(--gray-medium)]">hours of your involvement</span>
-            </div>
-            <div className="flex items-baseline gap-2.5 text-base">
-              <span className="text-7xl font-medium text-white">1</span>
-              <span className="text-[var(--gray-medium)]">year of free hosting</span>
-            </div>
-            <div className="flex items-baseline gap-2.5 text-base">
-              <span className="text-7xl font-medium text-white">100%</span>
-              <span className="text-[var(--gray-medium)]">tailored to you</span>
-            </div>
-            <div className="flex items-baseline gap-2.5 text-base">
-              <span className="text-7xl font-medium text-white">0%</span>
-              <span className="text-[var(--gray-medium)]">platform lock in</span>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Main Content */}
+      {/* ==================== 3 FEATURE BLOCKS ==================== */}
       <section className="bg-white relative">
         <div className="pt-16 pb-12 px-8 md:px-16 max-w-screen-2xl mx-auto">
           <h2 className="section-title mb-8 max-w-4xl scroll-fade">
-            We handle everything,<br />
-            you focus on your business.
+            Everything handled.<br />
+            Zero hassle for you.
           </h2>
 
-          <p className="text-xl leading-relaxed text-[var(--gray-dark)] max-w-2xl mb-20 font-light scroll-fade">
-            Most consultants will never prioritize &ldquo;project managing&rdquo; their own website. Our process is built so they never have to:
-          </p>
-
-          {/* Features Bento Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-6 gap-6 mb-[7.5rem]">
-            <div className="feature-card bg-[var(--gray-light)] p-8 rounded-3xl relative overflow-hidden transition-all duration-400 cursor-pointer hover:scale-[1.02] hover:shadow-2xl md:col-span-3 md:row-span-2 scroll-fade group">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+            {/* Feature 1: Research */}
+            <div className="feature-card bg-[var(--gray-light)] p-8 rounded-3xl relative overflow-hidden transition-all duration-400 cursor-pointer hover:scale-[1.02] hover:shadow-2xl scroll-fade group">
               <div className="absolute inset-0 bg-gradient-to-br from-[var(--primary-blue)] to-[var(--blue-dark)] opacity-0 transition-opacity duration-400 group-hover:opacity-100"></div>
               <div className="w-10 h-10 bg-[var(--primary-blue)] rounded-xl mb-6 relative z-10 transition-all duration-300 group-hover:bg-white"></div>
-              <h3 className="text-2xl font-normal tracking-tight mb-3 relative z-10 group-hover:text-white">Fully Managed</h3>
-              <div className="md:block hidden">
-                <p className="text-base leading-relaxed text-[var(--gray-medium)] relative z-10 group-hover:text-white">
-                  We take care of all the technical and admin work so that you never have to worry about things that don&apos;t move your business forward.
-                </p>
-                <ul className="mt-6 grid gap-3 relative z-10">
-                  <li className="flex items-start gap-3 text-[15px] leading-relaxed text-[var(--gray-medium)] feature-list-item group-hover:text-white">Domain Management</li>
-                  <li className="flex items-start gap-3 text-[15px] leading-relaxed text-[var(--gray-medium)] feature-list-item group-hover:text-white">Analytics Integration</li>
-                  <li className="flex items-start gap-3 text-[15px] leading-relaxed text-[var(--gray-medium)] feature-list-item group-hover:text-white">Web Hosting and Performance</li>
-                  <li className="flex items-start gap-3 text-[15px] leading-relaxed text-[var(--gray-medium)] feature-list-item group-hover:text-white">Post Launch Tweaks</li>
-                </ul>
-              </div>
-              <p className="md:hidden block text-base leading-relaxed text-[var(--gray-medium)] relative z-10 group-hover:text-white">
-                We take care of domain and analytics integration, hosting, tech support, and post-launch tweaks.
-              </p>
-            </div>
-
-            <div className="feature-card bg-[var(--gray-light)] p-8 rounded-3xl relative overflow-hidden transition-all duration-400 cursor-pointer hover:scale-[1.02] hover:shadow-2xl md:col-span-3 scroll-fade group">
-              <div className="absolute inset-0 bg-gradient-to-br from-[var(--primary-blue)] to-[var(--blue-dark)] opacity-0 transition-opacity duration-400 group-hover:opacity-100"></div>
-              <div className="w-10 h-10 bg-[var(--primary-blue)] rounded-xl mb-6 relative z-10 transition-all duration-300 group-hover:bg-white"></div>
-              <h3 className="text-2xl font-normal tracking-tight mb-3 relative z-10 group-hover:text-white">Guaranteed Speed</h3>
+              <h3 className="text-2xl font-normal tracking-tight mb-4 relative z-10 group-hover:text-white">
+                We do the research so you don&apos;t have to.
+              </h3>
               <p className="text-base leading-relaxed text-[var(--gray-medium)] relative z-10 group-hover:text-white">
-                Launched in 20 days or less, guaranteed. If we&apos;re late, you get a 20% refund for every day missed.
+                We study your LinkedIn, your positioning, your competitors, and your market. You don&apos;t fill out
+                discovery forms. You don&apos;t sit through briefing calls. We come to you with a prototype, not a questionnaire.
               </p>
             </div>
 
-            <div className="feature-card bg-[var(--gray-light)] p-8 rounded-3xl relative overflow-hidden transition-all duration-400 cursor-pointer hover:scale-[1.02] hover:shadow-2xl md:col-span-3 scroll-fade group">
+            {/* Feature 2: Speed */}
+            <div className="feature-card bg-[var(--gray-light)] p-8 rounded-3xl relative overflow-hidden transition-all duration-400 cursor-pointer hover:scale-[1.02] hover:shadow-2xl scroll-fade group">
               <div className="absolute inset-0 bg-gradient-to-br from-[var(--primary-blue)] to-[var(--blue-dark)] opacity-0 transition-opacity duration-400 group-hover:opacity-100"></div>
               <div className="w-10 h-10 bg-[var(--primary-blue)] rounded-xl mb-6 relative z-10 transition-all duration-300 group-hover:bg-white"></div>
-              <h3 className="text-2xl font-normal tracking-tight mb-3 relative z-10 group-hover:text-white">Minimal Time Investment</h3>
+              <h3 className="text-2xl font-normal tracking-tight mb-4 relative z-10 group-hover:text-white">
+                Fast turnaround. Minimal time from you.
+              </h3>
               <p className="text-base leading-relaxed text-[var(--gray-medium)] relative z-10 group-hover:text-white">
-                Most clients spend less than 2 hours total from start to launch. See the full process.
+                From prototype to launch, the entire process takes less time than most agency discovery calls. We handle
+                copywriting, design, development, domain setup, analytics - everything. You just give feedback.
               </p>
             </div>
 
-            <div className="feature-card bg-[var(--gray-light)] p-8 rounded-3xl relative overflow-hidden transition-all duration-400 cursor-pointer hover:scale-[1.02] hover:shadow-2xl md:col-span-6 scroll-fade group">
+            {/* Feature 3: Ownership */}
+            <div className="feature-card bg-[var(--gray-light)] p-8 rounded-3xl relative overflow-hidden transition-all duration-400 cursor-pointer hover:scale-[1.02] hover:shadow-2xl scroll-fade group">
               <div className="absolute inset-0 bg-gradient-to-br from-[var(--primary-blue)] to-[var(--blue-dark)] opacity-0 transition-opacity duration-400 group-hover:opacity-100"></div>
-              <h3 className="text-2xl font-normal tracking-tight mb-3 relative z-10 group-hover:text-white">No Homework, No Endless Meetings, No Agency Runaround</h3>
-              <div className="mt-6 grid gap-3 relative z-10">
-                <p className="flex items-start gap-3 text-[15px] leading-relaxed text-[var(--gray-medium)] feature-list-item group-hover:text-white">You never fill out a long, generic form or get asked for things we can research.</p>
-                <p className="flex items-start gap-3 text-[15px] leading-relaxed text-[var(--gray-medium)] feature-list-item group-hover:text-white">You see concrete options, not abstract requests.</p>
-                <p className="flex items-start gap-3 text-[15px] leading-relaxed text-[var(--gray-medium)] feature-list-item group-hover:text-white">Every question/request is targeted and explained (&ldquo;We need this for your credibility&rdquo;).</p>
-                <p className="flex items-start gap-3 text-[15px] leading-relaxed text-[var(--gray-medium)] feature-list-item group-hover:text-white">You spend less than 2 hours total on throughout the whole project cycle.</p>
-              </div>
+              <div className="w-10 h-10 bg-[var(--primary-blue)] rounded-xl mb-6 relative z-10 transition-all duration-300 group-hover:bg-white"></div>
+              <h3 className="text-2xl font-normal tracking-tight mb-4 relative z-10 group-hover:text-white">
+                You own everything. No lock-in.
+              </h3>
+              <p className="text-base leading-relaxed text-[var(--gray-medium)] relative z-10 group-hover:text-white">
+                Your code. Your domain. Your site. We host it for a year for free and handle maintenance, but you can
+                take the full codebase and leave anytime. No proprietary platforms. No hostage situations.
+              </p>
             </div>
           </div>
 
-          {/* Process Link */}
-          <div className="text-center scroll-fade">
-            <Link
-              href="/process"
-              className="inline-flex items-center gap-2 text-[var(--black)] text-lg no-underline relative pb-1 group"
-            >
-              <span>See the full step by step process?</span>
-              <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
-              <div className="absolute bottom-0 left-0 w-0 h-0.5 bg-[var(--primary-blue)] transition-[width] duration-300 group-hover:w-full"></div>
-            </Link>
+          {/* Objection Handling Callout */}
+          <div className="bg-[var(--gray-light)] rounded-3xl p-8 md:p-12 text-center scroll-fade">
+            <h3 className="text-2xl md:text-3xl font-light tracking-tight mb-4 text-[var(--black)]">
+              &ldquo;What if I don&apos;t like what you build?&rdquo;
+            </h3>
+            <p className="text-base md:text-lg leading-relaxed text-[var(--gray-medium)] max-w-3xl mx-auto">
+              You see a free prototype before you pay anything. After that, you approve each phase before we move on.
+              You only pay for work you&apos;ve reviewed and approved. Final payment is due only when you&apos;re ready to launch.
+            </p>
           </div>
         </div>
       </section>
 
-      {/* Sophisticated Separator */}
-      <section className="bg-white py-5 relative overflow-hidden">
-        <div className="relative z-10 max-w-screen-2xl mx-auto px-8 md:px-16">
-          <div className="flex items-center justify-center">
-            {/* Left line with gradient */}
-            <div className="flex-1 h-px bg-gradient-to-r from-transparent via-[var(--gray-light)] to-[var(--primary-blue)]/30"></div>
-
-            {/* Center geometric element */}
-            <div className="relative mx-8">
-              {/* Outer subtle ring */}
-              <div className="w-12 h-12 border border-[var(--gray-light)] rounded-full"></div>
-
-              {/* Inner diamond shape */}
-              <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-4 h-4 bg-gradient-to-br from-[var(--primary-blue)] to-[var(--blue-dark)] rotate-45 rounded-sm"></div>
-
-              {/* Corner accent dots */}
-              <div className="absolute -top-1 left-1/2 transform -translate-x-1/2 w-1 h-1 bg-[var(--primary-blue)]/40 rounded-full"></div>
-              <div className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-1 h-1 bg-[var(--primary-blue)]/40 rounded-full"></div>
-            </div>
-
-            {/* Right line with gradient */}
-            <div className="flex-1 h-px bg-gradient-to-l from-transparent via-[var(--gray-light)] to-[var(--primary-blue)]/30"></div>
-          </div>
-        </div>
-
-        {/* Subtle background pattern */}
-        <div className="absolute inset-0 opacity-[0.015]" style={{
-          backgroundImage: `radial-gradient(circle at 2px 2px, var(--primary-blue) 1px, transparent 0)`,
-          backgroundSize: '60px 60px'
+      {/* ==================== HOW IT WORKS ==================== */}
+      <section className="bg-[var(--black)] relative overflow-hidden">
+        {/* Subtle grid pattern */}
+        <div className="absolute inset-0 opacity-[0.04]" style={{
+          backgroundImage: `radial-gradient(circle at 1px 1px, white 1px, transparent 0)`,
+          backgroundSize: '48px 48px'
         }}></div>
-      </section>
 
-      {/* What's Included Section */}
-      <section className="bg-white relative overflow-hidden">
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="offer-floating-shape offer-shape-1"></div>
-          <div className="offer-floating-shape offer-shape-2"></div>
-          <div className="offer-floating-shape offer-shape-3"></div>
-
-          {/* Geometric patterns */}
-          <div className="absolute top-20 left-20 w-32 h-32 border border-[var(--primary-blue)]/20 rounded-full animate-spin-slow"></div>
-          <div className="absolute bottom-40 right-32 w-24 h-24 border border-[var(--blue-light)]/30 rounded-lg rotate-45 animate-pulse"></div>
-          <div className="absolute top-1/3 right-1/4 w-16 h-16 bg-[var(--primary-blue)]/10 rounded-full"></div>
-          <div className="absolute bottom-1/4 left-1/5 w-20 h-20 bg-[var(--blue-light)]/15 rounded-lg rotate-12"></div>
-
-          {/* Subtle grid pattern */}
-          <div className="absolute inset-0 opacity-[0.02]" style={{
-            backgroundImage: `radial-gradient(circle at 1px 1px, var(--primary-blue) 1px, transparent 0)`,
-            backgroundSize: '40px 40px'
-          }}></div>
-        </div>
-
-        <div className="relative z-10 pt-8 pb-0 px-8 md:px-16 max-w-screen-2xl mx-auto">
-          {/* Section Header */}
-          <div className="text-center mb-20">
-            <div className="inline-flex items-center gap-4 mb-6 scroll-fade">
-              <div className="w-12 h-px bg-gradient-to-r from-transparent via-[var(--primary-blue)] to-transparent"></div>
-              <span className="text-sm tracking-widest uppercase text-[var(--primary-blue)] font-medium">Our Offer</span>
-              <div className="w-12 h-px bg-gradient-to-r from-transparent via-[var(--primary-blue)] to-transparent"></div>
-            </div>
-            <h2 className="section-title mb-6 scroll-fade">
-              All-In-One Website Package
+        <div className="relative z-10 pt-20 pb-24 md:pb-32 px-8 md:px-16 max-w-screen-2xl mx-auto">
+          <div className="mb-16 md:mb-24 scroll-fade">
+            <span className="text-sm tracking-widest uppercase text-[var(--primary-blue)] font-medium">How It Works</span>
+            <h2 className="section-title mt-4 text-white">
+              Three steps. That&apos;s it.
             </h2>
-            <p className="text-xl leading-relaxed text-[var(--gray-dark)] max-w-3xl mx-auto font-light scroll-fade px-4">
-              Everything you need to establish authority and attract premium clients, delivered as one complete package.
-            </p>
           </div>
 
-          {/* Included Features Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 mb-16 md:mb-20">
-            {/* Custom Website */}
-            <div className="deliverable-card bg-white/80 backdrop-blur-sm p-6 md:p-8 rounded-2xl md:rounded-3xl relative overflow-hidden transition-all duration-400 hover:scale-[1.02] hover:shadow-2xl scroll-fade group">
-              <div className="w-12 h-12 md:w-16 md:h-16 bg-[var(--primary-blue)] rounded-xl md:rounded-2xl mb-4 md:mb-6 flex items-center justify-center">
-                <div className="w-8 h-8 border-2 border-white rounded-lg"></div>
-              </div>
-              <h3 className="text-xl md:text-2xl font-medium mb-3 md:mb-4 text-[var(--black)]">A fully custom, authority-building website</h3>
-              <p className="text-sm md:text-base text-[var(--gray-medium)] leading-relaxed">
-                Built from scratch to match your positioning, highlight your expertise and help you win high-value clients
+          {/* Step 1 */}
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-12 items-center mb-16 md:mb-24 scroll-fade">
+            <div className="md:col-span-1">
+              <span className="text-[80px] md:text-[120px] font-extralight leading-none text-white/10">1</span>
+            </div>
+            <div className="md:col-span-4">
+              <h3 className="text-2xl md:text-3xl font-light text-white tracking-tight mb-4">Drop your LinkedIn URL</h3>
+              <p className="text-white/60 leading-relaxed text-base">
+                That&apos;s all we need to start. We research your expertise, positioning, and market.
               </p>
             </div>
-
-            {/* Custom Copywriting */}
-            <div className="deliverable-card bg-white/80 backdrop-blur-sm p-6 md:p-8 rounded-2xl md:rounded-3xl relative overflow-hidden transition-all duration-400 hover:scale-[1.02] hover:shadow-2xl scroll-fade group">
-              <div className="w-12 h-12 md:w-16 md:h-16 bg-[var(--primary-blue)] rounded-xl md:rounded-2xl mb-4 md:mb-6 flex items-center justify-center">
-                <div className="w-8 h-6 border-2 border-white rounded-sm"></div>
-                <div className="w-6 h-1 bg-white rounded-full absolute"></div>
+            <div className="md:col-span-7">
+              <div className="bg-white/5 border border-white/10 rounded-2xl p-8 md:p-10 backdrop-blur-sm">
+                <div className="flex items-center gap-3 bg-white/10 rounded-xl px-5 py-4">
+                  <svg className="w-5 h-5 text-[var(--primary-blue)] flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                  </svg>
+                  <span className="text-white/40 text-sm">linkedin.com/in/yourprofile</span>
+                  <div className="ml-auto w-3 h-3 rounded-full bg-[var(--primary-blue)] animate-pulse"></div>
+                </div>
               </div>
-              <h3 className="text-xl md:text-2xl font-medium mb-3 md:mb-4 text-[var(--black)]">Custom copywriting for your website</h3>
-              <p className="text-sm md:text-base text-[var(--gray-medium)] leading-relaxed">
-                We write every word for you utilizing consultant-specific copywriting principles to ensure your expertise and positioning come across clearly to potential clients
-              </p>
-            </div>
-
-            {/* Analytics Integration */}
-            <div className="deliverable-card bg-white/80 backdrop-blur-sm p-6 md:p-8 rounded-2xl md:rounded-3xl relative overflow-hidden transition-all duration-400 hover:scale-[1.02] hover:shadow-2xl scroll-fade group">
-              <div className="w-12 h-12 md:w-16 md:h-16 bg-[var(--primary-blue)] rounded-xl md:rounded-2xl mb-4 md:mb-6 flex items-center justify-center">
-                <div className="w-8 h-6 border-2 border-white rounded-sm"></div>
-                <div className="w-2 h-2 bg-white rounded-full absolute top-2 left-2"></div>
-                <div className="w-2 h-2 bg-white rounded-full absolute bottom-2 right-2"></div>
-              </div>
-              <h3 className="text-xl md:text-2xl font-medium mb-3 md:mb-4 text-[var(--black)]">Analytics integration</h3>
-              <p className="text-sm md:text-base text-[var(--gray-medium)] leading-relaxed">
-                We set up Google Analytics and Search Console for you, so you always know who&apos;s visiting and how your site is performing from day one.
-              </p>
-            </div>
-
-            {/* Domain Integration */}
-            <div className="deliverable-card bg-white/80 backdrop-blur-sm p-6 md:p-8 rounded-2xl md:rounded-3xl relative overflow-hidden transition-all duration-400 hover:scale-[1.02] hover:shadow-2xl scroll-fade group">
-              <div className="w-12 h-12 md:w-16 md:h-16 bg-[var(--primary-blue)] rounded-xl md:rounded-2xl mb-4 md:mb-6 flex items-center justify-center">
-                <div className="w-8 h-2 bg-white rounded-full"></div>
-                <div className="w-2 h-8 bg-white rounded-full absolute"></div>
-              </div>
-              <h3 className="text-xl md:text-2xl font-medium mb-3 md:mb-4 text-[var(--black)]">Domain integration</h3>
-              <p className="text-sm md:text-base text-[var(--gray-medium)] leading-relaxed">
-                We handle all technical steps to connect your domain (whether you already own it or need a new one), so your site is live at your address, stress-free.
-              </p>
-            </div>
-
-            {/* Mobile & Accessibility */}
-            <div className="deliverable-card bg-white/80 backdrop-blur-sm p-6 md:p-8 rounded-2xl md:rounded-3xl relative overflow-hidden transition-all duration-400 hover:scale-[1.02] hover:shadow-2xl scroll-fade group">
-              <div className="w-12 h-12 md:w-16 md:h-16 bg-[var(--primary-blue)] rounded-xl md:rounded-2xl mb-4 md:mb-6 flex items-center justify-center">
-                <div className="w-6 h-10 border-2 border-white rounded-lg"></div>
-                <div className="w-4 h-6 border-2 border-white rounded-sm absolute"></div>
-              </div>
-              <h3 className="text-xl md:text-2xl font-medium mb-3 md:mb-4 text-[var(--black)]">Mobile friendly, accessibility</h3>
-              <p className="text-sm md:text-base text-[var(--gray-medium)] leading-relaxed">
-                Your website works flawlessly on every device and meets modern accessibility standards, so you never miss a client due to technical or usability issues.
-              </p>
-            </div>
-
-            {/* Modern Design */}
-            <div className="deliverable-card bg-white/80 backdrop-blur-sm p-6 md:p-8 rounded-2xl md:rounded-3xl relative overflow-hidden transition-all duration-400 hover:scale-[1.02] hover:shadow-2xl scroll-fade group">
-              <div className="w-12 h-12 md:w-16 md:h-16 bg-[var(--primary-blue)] rounded-xl md:rounded-2xl mb-4 md:mb-6 flex items-center justify-center">
-                <div className="w-8 h-8 border-2 border-white rounded-full"></div>
-                <div className="w-4 h-4 bg-white rounded-full absolute"></div>
-              </div>
-              <h3 className="text-xl md:text-2xl font-medium mb-3 md:mb-4 text-[var(--black)]">Modern design and styling that fits your positioning and aesthetic</h3>
-              <p className="text-sm md:text-base text-[var(--gray-medium)] leading-relaxed">
-                Every visual element is chosen to reflect your field and brand (not recycled themes or ancient WordPress templates) so you stand out for the right reasons.
-              </p>
-            </div>
-
-            {/* NextJS Performance */}
-            <div className="deliverable-card bg-white/80 backdrop-blur-sm p-6 md:p-8 rounded-2xl md:rounded-3xl relative overflow-hidden transition-all duration-400 hover:scale-[1.02] hover:shadow-2xl scroll-fade group">
-              <div className="w-12 h-12 md:w-16 md:h-16 bg-[var(--primary-blue)] rounded-xl md:rounded-2xl mb-4 md:mb-6 flex items-center justify-center">
-                <div className="w-8 h-8 border-2 border-white rounded-full"></div>
-                <div className="w-4 h-1 bg-white rounded-full absolute"></div>
-                <div className="w-1 h-4 bg-white rounded-full absolute"></div>
-              </div>
-              <h3 className="text-xl md:text-2xl font-medium mb-3 md:mb-4 text-[var(--black)]">Elite website performance with NextJS</h3>
-              <p className="text-sm md:text-base text-[var(--gray-medium)] leading-relaxed">
-                Fast load times, rock-solid security, and future-proof infrastructure ensure your website works perfectly, every time.
-              </p>
-            </div>
-
-            {/* Free Hosting */}
-            <div className="deliverable-card bg-white/80 backdrop-blur-sm p-6 md:p-8 rounded-2xl md:rounded-3xl relative overflow-hidden transition-all duration-400 hover:scale-[1.02] hover:shadow-2xl scroll-fade group">
-              <div className="w-12 h-12 md:w-16 md:h-16 bg-[var(--primary-blue)] rounded-xl md:rounded-2xl mb-4 md:mb-6 flex items-center justify-center">
-                <div className="w-8 h-6 bg-white rounded-xl"></div>
-                <div className="w-2 h-2 bg-white rounded-full absolute"></div>
-              </div>
-              <h3 className="text-xl md:text-2xl font-medium mb-3 md:mb-4 text-[var(--black)]">Free hosting and domain management for first year</h3>
-              <p className="text-sm md:text-base text-[var(--gray-medium)] leading-relaxed">
-                Your site is fully managed for the first 12 months. No surprise fees, no technical maintenance, and zero admin for you.
-              </p>
-            </div>
-
-            {/* Development Support */}
-            <div className="deliverable-card bg-white/80 backdrop-blur-sm p-6 md:p-8 rounded-2xl md:rounded-3xl relative overflow-hidden transition-all duration-400 hover:scale-[1.02] hover:shadow-2xl scroll-fade group">
-              <div className="w-12 h-12 md:w-16 md:h-16 bg-[var(--primary-blue)] rounded-xl md:rounded-2xl mb-4 md:mb-6 flex items-center justify-center">
-                <div className="w-8 h-8 border-2 border-white rounded-lg"></div>
-                <div className="w-3 h-3 bg-white rounded-full absolute top-2 left-2"></div>
-                <div className="w-3 h-3 bg-white rounded-full absolute bottom-2 right-2"></div>
-              </div>
-              <h3 className="text-xl md:text-2xl font-medium mb-3 md:mb-4 text-[var(--black)]">Up to 2 development support hours per month (4 for the first month)</h3>
-              <p className="text-sm md:text-base text-[var(--gray-medium)] leading-relaxed">
-                Quick edits, updates, or small changes handled fast and included in your plan - so your website always stays current without extra cost or waiting weeks.
-              </p>
             </div>
           </div>
 
-          {/* Extra Services Note */}
-          <div className="text-center mb-16 md:mb-20 scroll-fade">
-            <p className="text-sm text-[var(--gray-medium)] leading-relaxed max-w-xl mx-auto px-4">
-              <span className="font-medium text-[var(--black)]">Need something extra?</span> Just ask. We&apos;ll always be clear about what&apos;s included, and quote any add-ons transparently.
-            </p>
+          {/* Connector line */}
+          <div className="hidden md:flex justify-start pl-[4.5%] mb-16 md:mb-24">
+            <div className="w-px h-16 bg-gradient-to-b from-white/20 to-transparent"></div>
           </div>
-        </div>
-      </section>
 
-      {/* Elegant Transition */}
-      <section className="relative overflow-hidden">
-        <div className="h-32 bg-gradient-to-b from-white via-white/95 to-[var(--cream)] relative">
-          {/* Subtle geometric accent */}
-          <div className="absolute inset-0 flex items-center justify-center">
-            <div className="flex items-center gap-8 opacity-30">
-              <div className="w-16 h-px bg-gradient-to-r from-transparent via-[var(--primary-blue)]/20 to-transparent"></div>
-              <div className="w-3 h-3 border border-[var(--primary-blue)]/20 rounded-full bg-white/50"></div>
-              <div className="w-16 h-px bg-gradient-to-r from-transparent via-[var(--primary-blue)]/20 to-transparent"></div>
+          {/* Step 2 */}
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-12 items-center mb-16 md:mb-24 scroll-fade">
+            <div className="md:col-span-1">
+              <span className="text-[80px] md:text-[120px] font-extralight leading-none text-white/10">2</span>
+            </div>
+            <div className="md:col-span-4">
+              <h3 className="text-2xl md:text-3xl font-light text-white tracking-tight mb-4">Review your free prototype</h3>
+              <p className="text-white/60 leading-relaxed text-base">
+                We send you a working prototype of your website. No commitment. If you like what you see, we move forward.
+              </p>
+            </div>
+            <div className="md:col-span-7">
+              <div className="bg-white/5 border border-white/10 rounded-2xl p-6 md:p-8 backdrop-blur-sm">
+                {/* Mini browser mockup */}
+                <div className="flex items-center gap-2 mb-4 pb-4 border-b border-white/10">
+                  <div className="flex gap-1.5">
+                    <div className="w-2.5 h-2.5 rounded-full bg-white/20"></div>
+                    <div className="w-2.5 h-2.5 rounded-full bg-white/20"></div>
+                    <div className="w-2.5 h-2.5 rounded-full bg-white/20"></div>
+                  </div>
+                  <div className="flex-1 bg-white/10 rounded-md px-3 py-1 mx-4">
+                    <span className="text-white/30 text-xs">yourname.com</span>
+                  </div>
+                </div>
+                <div className="space-y-3">
+                  <div className="h-4 bg-white/10 rounded w-2/3"></div>
+                  <div className="h-3 bg-white/5 rounded w-full"></div>
+                  <div className="h-3 bg-white/5 rounded w-5/6"></div>
+                  <div className="h-8 bg-[var(--primary-blue)]/20 rounded-lg w-1/3 mt-4"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Connector line */}
+          <div className="hidden md:flex justify-start pl-[4.5%] mb-16 md:mb-24">
+            <div className="w-px h-16 bg-gradient-to-b from-white/20 to-transparent"></div>
+          </div>
+
+          {/* Step 3 */}
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-12 items-center scroll-fade">
+            <div className="md:col-span-1">
+              <span className="text-[80px] md:text-[120px] font-extralight leading-none text-white/10">3</span>
+            </div>
+            <div className="md:col-span-4">
+              <h3 className="text-2xl md:text-3xl font-light text-white tracking-tight mb-4">Launch your site</h3>
+              <p className="text-white/60 leading-relaxed text-base">
+                We refine based on your feedback, write all copy, and launch your site. Minimal time investment from you.
+              </p>
+            </div>
+            <div className="md:col-span-7">
+              <div className="bg-gradient-to-br from-[var(--primary-blue)] to-[var(--blue-dark)] rounded-2xl p-8 md:p-10">
+                <div className="flex items-center gap-4 mb-6">
+                  <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
+                    <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    </svg>
+                  </div>
+                  <span className="text-white font-medium text-lg">Your site is live</span>
+                </div>
+                <div className="grid grid-cols-3 gap-4">
+                  <div className="text-center">
+                    <div className="text-white/40 text-xs uppercase tracking-wider mb-1">Design</div>
+                    <div className="text-white text-sm font-medium">Done</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-white/40 text-xs uppercase tracking-wider mb-1">Copy</div>
+                    <div className="text-white text-sm font-medium">Done</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-white/40 text-xs uppercase tracking-wider mb-1">Hosting</div>
+                    <div className="text-white text-sm font-medium">Live</div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* EDITED: Our Guarantees Section */}
+      {/* ==================== CASE STUDIES ==================== */}
       <section className="bg-[var(--cream)] relative overflow-hidden">
         <div className="absolute inset-0 overflow-hidden">
           <div className="floating-shape shape-1"></div>
           <div className="floating-shape shape-2"></div>
         </div>
-        <div className="relative z-10 pt-6 pb-20 md:pb-32 px-6 md:px-8 lg:px-16 max-w-screen-2xl mx-auto">
-          {/* Section Header */}
+
+        <div className="relative z-10 pt-16 pb-20 md:pb-32 px-6 md:px-8 lg:px-16 max-w-screen-2xl mx-auto">
           <div className="text-center mb-12 md:mb-20">
             <div className="inline-flex items-center gap-3 md:gap-6 mb-6 md:mb-8 scroll-fade">
               <div className="w-8 md:w-16 h-px bg-gradient-to-r from-transparent via-[var(--primary-blue)] to-transparent"></div>
-              <span className="text-xs md:text-sm tracking-widest uppercase text-[var(--primary-blue)] font-medium">Our Commitment</span>
+              <span className="text-xs md:text-sm tracking-widest uppercase text-[var(--primary-blue)] font-medium">Our Work</span>
               <div className="w-8 md:w-16 h-px bg-gradient-to-r from-transparent via-[var(--primary-blue)] to-transparent"></div>
             </div>
-            <h2 className="section-title mb-6 md:mb-8 scroll-fade">
-              Uncompromising Standards,<br />
-              <span className="italic font-serif text-[var(--primary-blue)]">Guaranteed</span>
+            <h2 className="section-title mb-6 scroll-fade">
+              Real consultants.<br />
+              <span className="italic font-serif text-[var(--primary-blue)]">Real results.</span>
             </h2>
-            <p className="text-lg md:text-xl leading-relaxed text-[var(--gray-dark)] max-w-4xl mx-auto font-light scroll-fade px-4">
-              We believe you should only pay for work you&apos;re genuinely proud to launch, delivered exactly when promised. No exceptions, no fine print, no games.
-            </p>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8">
-            {/* Quality Commitment Guarantee */}
-            <div className="guarantee-card bg-white p-6 md:p-8 rounded-2xl md:rounded-3xl relative overflow-hidden transition-all duration-400 cursor-pointer hover:scale-[1.02] hover:shadow-2xl scroll-fade group">
-              <div className="absolute inset-0 bg-gradient-to-br from-[var(--primary-blue)] to-[var(--blue-dark)] opacity-0 transition-opacity duration-400 group-hover:opacity-100"></div>
-              <div className="w-8 h-8 md:w-10 md:h-10 bg-[var(--primary-blue)] rounded-lg md:rounded-xl mb-4 md:mb-6 relative z-10 transition-all duration-300 group-hover:bg-white"></div>
-              <h3 className="text-xl md:text-2xl font-normal tracking-tight mb-3 relative z-10 group-hover:text-white">Quality Commitment</h3>
-              <p className="text-sm md:text-base leading-relaxed text-[var(--gray-medium)] mb-4 md:mb-6 relative z-10 group-hover:text-white">
-                You are in control at every stage. We proceed only when you give the green light.
-              </p>
-              <ul className="grid gap-2 md:gap-3 relative z-10">
-                <li className="flex items-start gap-3 text-sm md:text-[15px] leading-relaxed text-[var(--gray-medium)] feature-list-item group-hover:text-white">Pay only for delivered work you&apos;ve seen and approved</li>
-                <li className="flex items-start gap-3 text-sm md:text-[15px] leading-relaxed text-[var(--gray-medium)] feature-list-item group-hover:text-white">Review and sign off before we move to the next phase</li>
-                <li className="flex items-start gap-3 text-sm md:text-[15px] leading-relaxed text-[var(--gray-medium)] feature-list-item group-hover:text-white">Final payment only due when you&apos;re 100% confident to launch</li>
-              </ul>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <div className="bg-white rounded-3xl overflow-hidden scroll-fade group hover:shadow-2xl transition-all duration-400">
+              <div className="aspect-video bg-[var(--gray-light)] flex items-center justify-center">
+                <span className="text-[var(--gray-medium)] text-sm tracking-widest uppercase">Client site screenshot</span>
+              </div>
+              <div className="p-8">
+                <p className="text-sm text-[var(--primary-blue)] font-medium mb-2">Before: No website</p>
+                <h3 className="text-xl font-medium mb-3 text-[var(--black)]">[Client Name], [Field]</h3>
+                <p className="text-[var(--gray-medium)] italic leading-relaxed">
+                  &ldquo;Testimonial placeholder - client feedback will go here.&rdquo;
+                </p>
+              </div>
             </div>
 
-            {/* 20-Day Launch Guarantee */}
-            <div className="guarantee-card bg-white p-6 md:p-8 rounded-2xl md:rounded-3xl relative overflow-hidden transition-all duration-400 cursor-pointer hover:scale-[1.02] hover:shadow-2xl scroll-fade group">
-              <div className="absolute inset-0 bg-gradient-to-br from-[var(--primary-blue)] to-[var(--blue-dark)] opacity-0 transition-opacity duration-400 group-hover:opacity-100"></div>
-              <div className="w-8 h-8 md:w-10 md:h-10 bg-[var(--primary-blue)] rounded-lg md:rounded-xl mb-4 md:mb-6 relative z-10 transition-all duration-300 group-hover:bg-white"></div>
-              <h3 className="text-xl md:text-2xl font-normal tracking-tight mb-3 relative z-10 group-hover:text-white">Launch Guarantee</h3>
-              <p className="text-sm md:text-base leading-relaxed text-[var(--gray-medium)] mb-4 md:mb-6 relative z-10 group-hover:text-white">
-                Speed and certainty, not agency delays. Your site goes live in 20 business days or less.
-              </p>
-
-              {/* Clean guarantee detail */}
-              <div className="relative z-10 mt-4 md:mt-6 pt-4 md:pt-6 border-t border-[var(--gray-light)] group-hover:border-white/20 transition-colors duration-300">
-                <div className="flex items-baseline gap-3 mb-2">
-                  <span className="text-2xl md:text-3xl font-light text-[var(--primary-blue)] group-hover:text-white transition-colors duration-300">20%</span>
-                  <span className="text-sm md:text-base font-medium text-[var(--gray-dark)] group-hover:text-white transition-colors duration-300">refund for every business day we&apos;re late</span>
-                </div>
-                <p className="text-xs md:text-sm text-[var(--gray-medium)] font-light group-hover:text-white/70 transition-colors duration-300">
-                  Assumes prompt client feedback. Full details in your onboarding pack.
+            <div className="bg-white rounded-3xl overflow-hidden scroll-fade group hover:shadow-2xl transition-all duration-400">
+              <div className="aspect-video bg-[var(--gray-light)] flex items-center justify-center">
+                <span className="text-[var(--gray-medium)] text-sm tracking-widest uppercase">Client site screenshot</span>
+              </div>
+              <div className="p-8">
+                <p className="text-sm text-[var(--primary-blue)] font-medium mb-2">Before: No website</p>
+                <h3 className="text-xl font-medium mb-3 text-[var(--black)]">[Client Name], [Field]</h3>
+                <p className="text-[var(--gray-medium)] italic leading-relaxed">
+                  &ldquo;Testimonial placeholder - client feedback will go here.&rdquo;
                 </p>
               </div>
             </div>
@@ -581,10 +578,8 @@ export default function Home() {
         </div>
       </section>
 
-
-      {/* FAQ Section */}
+      {/* ==================== FAQ SECTION ==================== */}
       <section id="faq" className="bg-gradient-to-b from-[var(--primary-blue)] to-[var(--blue-dark)] relative overflow-hidden">
-        {/* Background elements */}
         <div className="absolute inset-0 overflow-hidden">
           <div className="floating-shape shape-1 opacity-10"></div>
           <div className="floating-shape shape-2 opacity-10"></div>
@@ -595,7 +590,6 @@ export default function Home() {
         }}></div>
 
         <div className="relative z-10 pt-16 md:pt-20 pb-20 md:pb-32 px-6 md:px-8 lg:px-16 max-w-screen-2xl mx-auto">
-          {/* Section Header */}
           <div className="text-center mb-12 md:mb-20">
             <div className="inline-flex items-center gap-3 md:gap-4 mb-4 md:mb-6 scroll-fade">
               <div className="w-8 md:w-12 h-px bg-gradient-to-r from-transparent via-white/40 to-transparent"></div>
@@ -605,443 +599,134 @@ export default function Home() {
             <h2 className="section-title mb-4 md:mb-6 scroll-fade text-white">
               Frequently Asked Questions
             </h2>
-            <p className="text-lg md:text-xl leading-relaxed text-white/80 max-w-3xl mx-auto font-light scroll-fade px-4">
-              Clear answers to the questions most consultants ask before booking.
-            </p>
           </div>
 
-          {/* FAQ List */}
           <div className="max-w-4xl mx-auto space-y-3 md:space-y-4">
-            {/* FAQ Item 1 */}
-            <div className="scroll-fade">
-              <button
-                onClick={() => setOpenFAQ(openFAQ === 1 ? null : 1)}
-                className="w-full bg-white/10 backdrop-blur-sm hover:bg-white border border-white/20 hover:border-white/40 rounded-xl md:rounded-2xl p-4 md:p-6 text-left transition-all duration-300 hover:shadow-2xl group"
-              >
-                <div className="flex items-center justify-between">
-                  <h3 className="text-base md:text-lg lg:text-xl font-normal text-white group-hover:text-[var(--black)] transition-colors duration-300 pr-6">
-                    What if I don&apos;t have time for a big project?
-                  </h3>
-                  <div className={`w-5 h-5 flex items-center justify-center transition-transform duration-300 ${openFAQ === 1 ? 'rotate-45' : ''}`}>
-                    <span className="text-white group-hover:text-[var(--black)] text-xl font-light leading-none transition-colors duration-300">+</span>
+            {[
+              {
+                q: "What if I already have a website?",
+                a: "We'll still send you a free prototype. If what we build is better, great. If not, you've lost nothing."
+              },
+              {
+                q: "What do I need to provide?",
+                a: "Your LinkedIn URL. That's it. We handle all research, writing, and design. You just review and give feedback."
+              },
+              {
+                q: "What if I'm not happy with the result?",
+                a: "You approve every phase before we move forward. Final payment is only due when you're confident enough to launch. If at any point you're not satisfied, you stop and only pay for what's been completed."
+              },
+              {
+                q: "Who owns the site?",
+                a: "You do. Fully. No lock-in, no proprietary platforms. We provide hosting and support, but you can take your code and self-host anytime."
+              },
+              {
+                q: "Do you only build for consultants?",
+                a: "Yes. That's why our sites work. Everything we do - research, copy, design - is built around how consultants win clients."
+              },
+              {
+                q: "How long does the whole process take?",
+                a: "We move fast. From prototype approval to launch, we handle everything so the process is as quick and painless as possible for you."
+              }
+            ].map((item, i) => (
+              <div key={i} className="scroll-fade">
+                <button
+                  onClick={() => setOpenFAQ(openFAQ === i ? null : i)}
+                  className="w-full bg-white/10 backdrop-blur-sm hover:bg-white border border-white/20 hover:border-white/40 rounded-xl md:rounded-2xl p-4 md:p-6 text-left transition-all duration-300 hover:shadow-2xl group"
+                >
+                  <div className="flex items-center justify-between">
+                    <h3 className="text-base md:text-lg lg:text-xl font-normal text-white group-hover:text-[var(--black)] transition-colors duration-300 pr-6">
+                      {item.q}
+                    </h3>
+                    <div className={`w-5 h-5 flex items-center justify-center transition-transform duration-300 ${openFAQ === i ? 'rotate-45' : ''}`}>
+                      <span className="text-white group-hover:text-[var(--black)] text-xl font-light leading-none transition-colors duration-300">+</span>
+                    </div>
+                  </div>
+                </button>
+                <div className={`overflow-hidden transition-all duration-500 ease-out ${openFAQ === i ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}>
+                  <div className="px-4 md:px-6 pb-4 md:pb-6 pt-3 md:pt-4">
+                    <p className="text-white/80 leading-relaxed text-sm md:text-base">{item.a}</p>
                   </div>
                 </div>
-              </button>
-
-              <div className={`overflow-hidden transition-all duration-500 ease-out ${openFAQ === 1 ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}>
-                <div className="px-4 md:px-6 pb-4 md:pb-6 pt-3 md:pt-4">
-                  <p className="text-white/80 leading-relaxed text-sm md:text-base">
-                    We&apos;ve designed our process to be incredibly efficient. We handle all the technical and creative work, requiring less than two hours of your time to get everything launched.
-                  </p>
-                </div>
               </div>
-            </div>
-
-            {/* FAQ Item 2 */}
-            <div className="scroll-fade">
-              <button
-                onClick={() => setOpenFAQ(openFAQ === 2 ? null : 2)}
-                className="w-full bg-white/10 backdrop-blur-sm hover:bg-white border border-white/20 hover:border-white/40 rounded-xl md:rounded-2xl p-4 md:p-6 text-left transition-all duration-300 hover:shadow-2xl group"
-              >
-                <div className="flex items-center justify-between">
-                  <h3 className="text-base md:text-lg lg:text-xl font-normal text-white group-hover:text-[var(--black)] transition-colors duration-300 pr-6">
-                    What if you&apos;re late?
-                  </h3>
-                  <div className={`w-5 h-5 flex items-center justify-center transition-transform duration-300 ${openFAQ === 2 ? 'rotate-45' : ''}`}>
-                    <span className="text-white group-hover:text-[var(--black)] text-xl font-light leading-none transition-colors duration-300">+</span>
-                  </div>
-                </div>
-              </button>
-
-              <div className={`overflow-hidden transition-all duration-500 ease-out ${openFAQ === 2 ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}>
-                <div className="px-4 md:px-6 pb-4 md:pb-6 pt-3 md:pt-4">
-                  <p className="text-white/80 leading-relaxed text-sm md:text-base">
-                    If your site isn&apos;t live in 20 days (assuming you provide what&apos;s needed), we pay you back 20% per business day late. Guaranteed.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* FAQ Item 3 */}
-            <div className="scroll-fade">
-              <button
-                onClick={() => setOpenFAQ(openFAQ === 3 ? null : 3)}
-                className="w-full bg-white/10 backdrop-blur-sm hover:bg-white border border-white/20 hover:border-white/40 rounded-xl md:rounded-2xl p-4 md:p-6 text-left transition-all duration-300 hover:shadow-2xl group"
-              >
-                <div className="flex items-center justify-between">
-                  <h3 className="text-base md:text-lg lg:text-xl font-normal text-white group-hover:text-[var(--black)] transition-colors duration-300 pr-6">
-                    What if I&apos;m not happy at launch?
-                  </h3>
-                  <div className={`w-5 h-5 flex items-center justify-center transition-transform duration-300 ${openFAQ === 3 ? 'rotate-45' : ''}`}>
-                    <span className="text-white group-hover:text-[var(--black)] text-xl font-light leading-none transition-colors duration-300">+</span>
-                  </div>
-                </div>
-              </button>
-
-              <div className={`overflow-hidden transition-all duration-500 ease-out ${openFAQ === 3 ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}>
-                <div className="px-4 md:px-6 pb-4 md:pb-6 pt-3 md:pt-4">
-                  <p className="text-white/80 leading-relaxed text-sm md:text-base">
-                    You only pay for each phase after you approve it. Final payment is only due if you&apos;re proud to launch - no risk of paying for something you can&apos;t use.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* FAQ Item 4 */}
-            <div className="scroll-fade">
-              <button
-                onClick={() => setOpenFAQ(openFAQ === 4 ? null : 4)}
-                className="w-full bg-white/10 backdrop-blur-sm hover:bg-white border border-white/20 hover:border-white/40 rounded-xl md:rounded-2xl p-4 md:p-6 text-left transition-all duration-300 hover:shadow-2xl group"
-              >
-                <div className="flex items-center justify-between">
-                  <h3 className="text-base md:text-lg lg:text-xl font-normal text-white group-hover:text-[var(--black)] transition-colors duration-300 pr-6">
-                    Isn&apos;t this just another template site?
-                  </h3>
-                  <div className={`w-5 h-5 flex items-center justify-center transition-transform duration-300 ${openFAQ === 4 ? 'rotate-45' : ''}`}>
-                    <span className="text-white group-hover:text-[var(--black)] text-xl font-light leading-none transition-colors duration-300">+</span>
-                  </div>
-                </div>
-              </button>
-
-              <div className={`overflow-hidden transition-all duration-500 ease-out ${openFAQ === 4 ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}>
-                <div className="px-4 md:px-6 pb-4 md:pb-6 pt-3 md:pt-4">
-                  <p className="text-white/80 leading-relaxed text-sm md:text-base">
-                    No. Every step is research-based and guides us towards designing the perfect website for you from scratch. All design and copy is consultant-specific and tailored to your positioning, built for consulting credibility - never generic.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* FAQ Item 5 */}
-            <div className="scroll-fade">
-              <button
-                onClick={() => setOpenFAQ(openFAQ === 5 ? null : 5)}
-                className="w-full bg-white/10 backdrop-blur-sm hover:bg-white border border-white/20 hover:border-white/40 rounded-xl md:rounded-2xl p-4 md:p-6 text-left transition-all duration-300 hover:shadow-2xl group"
-              >
-                <div className="flex items-center justify-between">
-                  <h3 className="text-base md:text-lg lg:text-xl font-normal text-white group-hover:text-[var(--black)] transition-colors duration-300 pr-6">
-                    Why not just do it myself?
-                  </h3>
-                  <div className={`w-5 h-5 flex items-center justify-center transition-transform duration-300 ${openFAQ === 5 ? 'rotate-45' : ''}`}>
-                    <span className="text-white group-hover:text-[var(--black)] text-xl font-light leading-none transition-colors duration-300">+</span>
-                  </div>
-                </div>
-              </button>
-
-              <div className={`overflow-hidden transition-all duration-500 ease-out ${openFAQ === 5 ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}>
-                <div className="px-4 md:px-6 pb-4 md:pb-6 pt-3 md:pt-4">
-                  <p className="text-white/80 leading-relaxed text-sm md:text-base">
-                    We do all the heavy lifting so you don&apos;t waste weeks of your time. One new client covers your investment.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* FAQ Item 6 */}
-            <div className="scroll-fade">
-              <button
-                onClick={() => setOpenFAQ(openFAQ === 6 ? null : 6)}
-                className="w-full bg-white/10 backdrop-blur-sm hover:bg-white border border-white/20 hover:border-white/40 rounded-xl md:rounded-2xl p-4 md:p-6 text-left transition-all duration-300 hover:shadow-2xl group"
-              >
-                <div className="flex items-center justify-between">
-                  <h3 className="text-base md:text-lg lg:text-xl font-normal text-white group-hover:text-[var(--black)] transition-colors duration-300 pr-6">
-                    Do you build for other industries?
-                  </h3>
-                  <div className={`w-5 h-5 flex items-center justify-center transition-transform duration-300 ${openFAQ === 6 ? 'rotate-45' : ''}`}>
-                    <span className="text-white group-hover:text-[var(--black)] text-xl font-light leading-none transition-colors duration-300">+</span>
-                  </div>
-                </div>
-              </button>
-
-              <div className={`overflow-hidden transition-all duration-500 ease-out ${openFAQ === 6 ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}>
-                <div className="px-4 md:px-6 pb-4 md:pb-6 pt-3 md:pt-4">
-                  <p className="text-white/80 leading-relaxed text-sm md:text-base">
-                    No. Consultants only. That&apos;s why our sites work.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* FAQ Item 7 */}
-            <div className="scroll-fade">
-              <button
-                onClick={() => setOpenFAQ(openFAQ === 7 ? null : 7)}
-                className="w-full bg-white/10 backdrop-blur-sm hover:bg-white border border-white/20 hover:border-white/40 rounded-xl md:rounded-2xl p-4 md:p-6 text-left transition-all duration-300 hover:shadow-2xl group"
-              >
-                <div className="flex items-center justify-between">
-                  <h3 className="text-base md:text-lg lg:text-xl font-normal text-white group-hover:text-[var(--black)] transition-colors duration-300 pr-6">
-                    Will this bring leads?
-                  </h3>
-                  <div className={`w-5 h-5 flex items-center justify-center transition-transform duration-300 ${openFAQ === 7 ? 'rotate-45' : ''}`}>
-                    <span className="text-white group-hover:text-[var(--black)] text-xl font-light leading-none transition-colors duration-300">+</span>
-                  </div>
-                </div>
-              </button>
-
-              <div className={`overflow-hidden transition-all duration-500 ease-out ${openFAQ === 7 ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}>
-                <div className="px-4 md:px-6 pb-4 md:pb-6 pt-3 md:pt-4">
-                  <p className="text-white/80 leading-relaxed text-sm md:text-base">
-                    No site guarantees leads. But without credibility, you lose by default. This site is built to open doors to RFPs, partnerships, and high-value deals.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* FAQ Item 8 */}
-            <div className="scroll-fade">
-              <button
-                onClick={() => setOpenFAQ(openFAQ === 8 ? null : 8)}
-                className="w-full bg-white/10 backdrop-blur-sm hover:bg-white border border-white/20 hover:border-white/40 rounded-xl md:rounded-2xl p-4 md:p-6 text-left transition-all duration-300 hover:shadow-2xl group"
-              >
-                <div className="flex items-center justify-between">
-                  <h3 className="text-base md:text-lg lg:text-xl font-normal text-white group-hover:text-[var(--black)] transition-colors duration-300 pr-6">
-                    LinkedIn works for me now.
-                  </h3>
-                  <div className={`w-5 h-5 flex items-center justify-center transition-transform duration-300 ${openFAQ === 8 ? 'rotate-45' : ''}`}>
-                    <span className="text-white group-hover:text-[var(--black)] text-xl font-light leading-none transition-colors duration-300">+</span>
-                  </div>
-                </div>
-              </button>
-
-              <div className={`overflow-hidden transition-all duration-500 ease-out ${openFAQ === 8 ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}>
-                <div className="px-4 md:px-6 pb-4 md:pb-6 pt-3 md:pt-4">
-                  <p className="text-white/80 leading-relaxed text-sm md:text-base">
-                    LinkedIn is just one platform. A professional website gives you full control over your digital presence, establishes deeper credibility, and positions you at a higher tier than competitors who rely solely on social media. Don&apos;t risk being at the mercy of algorithms and sudden policy changes.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* FAQ Item 9 */}
-            <div className="scroll-fade">
-              <button
-                onClick={() => setOpenFAQ(openFAQ === 9 ? null : 9)}
-                className="w-full bg-white/10 backdrop-blur-sm hover:bg-white border border-white/20 hover:border-white/40 rounded-xl md:rounded-2xl p-4 md:p-6 text-left transition-all duration-300 hover:shadow-2xl group"
-              >
-                <div className="flex items-center justify-between">
-                  <h3 className="text-base md:text-lg lg:text-xl font-normal text-white group-hover:text-[var(--black)] transition-colors duration-300 pr-6">
-                    Who owns the site?
-                  </h3>
-                  <div className={`w-5 h-5 flex items-center justify-center transition-transform duration-300 ${openFAQ === 9 ? 'rotate-45' : ''}`}>
-                    <span className="text-white group-hover:text-[var(--black)] text-xl font-light leading-none transition-colors duration-300">+</span>
-                  </div>
-                </div>
-              </button>
-
-              <div className={`overflow-hidden transition-all duration-500 ease-out ${openFAQ === 9 ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}>
-                <div className="px-4 md:px-6 pb-4 md:pb-6 pt-3 md:pt-4">
-                  <p className="text-white/80 leading-relaxed text-sm md:text-base">
-                    You own it, fully. No platform risk, no lock-in. We provide hosting, support, and maintenance to make your life easier, but you can take the full code and self-host anytime you wish.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* FAQ Item 10 */}
-            <div className="scroll-fade">
-              <button
-                onClick={() => setOpenFAQ(openFAQ === 10 ? null : 10)}
-                className="w-full bg-white/10 backdrop-blur-sm hover:bg-white border border-white/20 hover:border-white/40 rounded-xl md:rounded-2xl p-4 md:p-6 text-left transition-all duration-300 hover:shadow-2xl group"
-              >
-                <div className="flex items-center justify-between">
-                  <h3 className="text-base md:text-lg lg:text-xl font-normal text-white group-hover:text-[var(--black)] transition-colors duration-300 pr-6">
-                    What if I need updates later?
-                  </h3>
-                  <div className={`w-5 h-5 flex items-center justify-center transition-transform duration-300 ${openFAQ === 10 ? 'rotate-45' : ''}`}>
-                    <span className="text-white group-hover:text-[var(--black)] text-xl font-light leading-none transition-colors duration-300">+</span>
-                  </div>
-                </div>
-              </button>
-
-              <div className={`overflow-hidden transition-all duration-500 ease-out ${openFAQ === 10 ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}>
-                <div className="px-4 md:px-6 pb-4 md:pb-6 pt-3 md:pt-4">
-                  <p className="text-white/80 leading-relaxed text-sm md:text-base">
-                    Up to 4 post-launch development hours are included for free during the first month with your hosting plan, then 2 hours per month thereafter. Anything more is handled quickly by us at our standard rate.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* FAQ Item 11 */}
-            <div className="scroll-fade">
-              <button
-                onClick={() => setOpenFAQ(openFAQ === 11 ? null : 11)}
-                className="w-full bg-white/10 backdrop-blur-sm hover:bg-white border border-white/20 hover:border-white/40 rounded-xl md:rounded-2xl p-4 md:p-6 text-left transition-all duration-300 hover:shadow-2xl group"
-              >
-                <div className="flex items-center justify-between">
-                  <h3 className="text-base md:text-lg lg:text-xl font-normal text-white group-hover:text-[var(--black)] transition-colors duration-300 pr-6">
-                    I was burned by agencies/freelancers before.
-                  </h3>
-                  <div className={`w-5 h-5 flex items-center justify-center transition-transform duration-300 ${openFAQ === 11 ? 'rotate-45' : ''}`}>
-                    <span className="text-white group-hover:text-[var(--black)] text-xl font-light leading-none transition-colors duration-300">+</span>
-                  </div>
-                </div>
-              </button>
-
-              <div className={`overflow-hidden transition-all duration-500 ease-out ${openFAQ === 11 ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}>
-                <div className="px-4 md:px-6 pb-4 md:pb-6 pt-3 md:pt-4">
-                  <p className="text-white/80 leading-relaxed text-sm md:text-base">
-                    We understand your hesitation. That&apos;s why we operate with complete transparency. Our process is broken down into clear milestones, and you only pay for each stage after you have reviewed and approved the work.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Bottom CTA */}
-          <div className="text-center mt-12 md:mt-20 scroll-fade">
-            <p className="text-white/70 text-base md:text-lg mb-4 md:mb-6 px-4">
-              Have a different question?
-            </p>
-            <a
-              href="/contact"
-              className="inline-flex items-center gap-2 text-white text-base md:text-lg no-underline relative pb-1 group"
-            >
-              <span>Ask us directly</span>
-              <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
-              <div className="absolute bottom-0 left-0 w-0 h-0.5 bg-white transition-[width] duration-300 group-hover:w-full"></div>
-            </a>
+            ))}
           </div>
         </div>
-        {/* Contact Section */}
-        <div className="mt-16 md:mt-20 lg:mt-24 scroll-fade" id="contact">
+      </section>
+
+      {/* ==================== FOUNDER'S NOTE ==================== */}
+      <section className="bg-white relative overflow-hidden">
+        <div className="relative z-10 pt-16 pb-20 md:pb-32 px-6 md:px-8 lg:px-16 max-w-screen-2xl mx-auto">
+          <div className="max-w-3xl mx-auto">
+            <div className="inline-flex items-center gap-4 mb-8 scroll-fade">
+              <div className="w-12 h-px bg-gradient-to-r from-transparent via-[var(--primary-blue)] to-transparent"></div>
+              <span className="text-sm tracking-widest uppercase text-[var(--primary-blue)] font-medium">From the Founder</span>
+              <div className="w-12 h-px bg-gradient-to-r from-transparent via-[var(--primary-blue)] to-transparent"></div>
+            </div>
+
+            <div className="flex flex-col md:flex-row gap-8 md:gap-12 items-start">
+              <div className="w-24 h-24 md:w-32 md:h-32 rounded-full bg-[var(--gray-light)] flex-shrink-0 flex items-center justify-center scroll-fade">
+                <span className="text-[var(--gray-medium)] text-xs tracking-widest uppercase">Photo</span>
+              </div>
+
+              <div className="scroll-fade">
+                <p className="text-lg leading-relaxed text-[var(--gray-dark)] mb-6">
+                  I spent years at Dialectica connecting consultants with investors and Fortune 500 companies. I talked to hundreds of experts - brilliant people who shaped decisions worth millions.
+                </p>
+                <p className="text-lg leading-relaxed text-[var(--gray-dark)] mb-6">
+                  Most of them had no website. Or worse, they had one that looked like it was built in 2012.
+                </p>
+                <p className="text-lg leading-relaxed text-[var(--gray-dark)] mb-6">
+                  They&apos;d lose RFPs to competitors who simply looked more credible online. They&apos;d get passed over for speaking gigs because there was nowhere to send a link. They&apos;d rely entirely on LinkedIn and hope the algorithm was kind.
+                </p>
+                <p className="text-lg leading-relaxed text-[var(--gray-dark)] mb-6">
+                  That&apos;s why I started Caldera. Because consultants shouldn&apos;t have to become web designers, copywriters, or project managers just to look professional online.
+                </p>
+                {variant === 'v1' ? (
+                  <p className="text-lg leading-relaxed text-[var(--gray-dark)] mb-8">
+                    You drop your LinkedIn URL. We do everything else. And we send you a prototype before you spend a cent, because we&apos;d rather earn your trust than ask for it.
+                  </p>
+                ) : (
+                  <p className="text-lg leading-relaxed text-[var(--gray-dark)] mb-8">
+                    We&apos;re so confident in what we build that we take all the risk upfront. We do the work first. You pay nothing until you&apos;ve seen your site and love it. That&apos;s not a marketing gimmick - it&apos;s how we think every agency should operate.
+                  </p>
+                )}
+                <p className="text-[var(--black)] font-medium">
+                  - Stef, Founder of Caldera Agency
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ==================== SECOND CTA ==================== */}
+      <section id="get-prototype" className="bg-[var(--cream)] relative overflow-hidden">
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="floating-shape shape-1"></div>
+          <div className="floating-shape shape-2"></div>
+        </div>
+
+        <div className="relative z-10 pt-16 pb-20 md:pb-32 px-6 md:px-8 lg:px-16 max-w-screen-2xl mx-auto">
           <div className="invitation-card-container">
             <div className="invitation-card-bg"></div>
             <div className="invitation-card">
-              {/* Card Header */}
               <div className="text-center mb-8 md:mb-12">
-                <p className="text-sm tracking-widest uppercase text-[var(--gray-medium)] mb-6 md:mb-8">
-                  Get Started
-                </p>
                 <h3 className="text-2xl md:text-3xl lg:text-4xl font-light text-[var(--black)] mb-6 md:mb-8 tracking-tight">
-                  Ready to build your <span className="italic font-serif text-[var(--primary-blue)]">authority website?</span>
+                  {variant === 'v1'
+                    ? 'Ready to see what your website could look like?'
+                    : 'We bet on ourselves so you don\'t have to.'
+                  }
                 </h3>
-                <p className="text-[var(--gray-dark)] text-lg md:text-xl leading-relaxed max-w-3xl mx-auto font-light mb-8 md:mb-12">
-                  Fill in your details below and we&apos;ll get back to you within 24 hours.
+                <p className="text-[var(--gray-dark)] text-lg md:text-xl leading-relaxed max-w-3xl mx-auto font-light">
+                  {variant === 'v1'
+                    ? "Drop your LinkedIn URL and we'll send you a free prototype. No calls. No commitment. No homework."
+                    : "We'll research, write, design, and build your website prototype - completely free. If you love it, we move forward. If not, you've lost nothing. Drop your LinkedIn URL and see for yourself."
+                  }
                 </p>
               </div>
 
-              <div className="max-w-2xl mx-auto">
-                {submitStatus === 'success' ? (
-                  <div className="text-center py-8 md:py-12">
-                    <div className="w-16 h-16 bg-[var(--primary-blue)] rounded-full flex items-center justify-center mx-auto mb-6">
-                      <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                      </svg>
-                    </div>
-                    <h4 className="text-xl md:text-2xl font-serif italic font-normal mb-4 text-[var(--black)]">Perfect!</h4>
-                    <p className="text-[var(--gray-medium)] text-base leading-relaxed mb-6">
-                      We&apos;ll send you the project details and next steps within 24 hours.
-                    </p>
-                    <button
-                      onClick={() => {
-                        setSubmitStatus('idle')
-                        setFormData({ name: '', email: '', linkedin: '', website: '' })
-                      }}
-                      className="text-[var(--primary-blue)] hover:text-[var(--blue-dark)] underline font-medium"
-                    >
-                      Send another inquiry
-                    </button>
-                  </div>
-                ) : (
-                  <div className="space-y-6">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                      <div>
-                        <label className="block text-[var(--black)] text-sm font-medium mb-3">
-                          Your Name <span className="text-[var(--primary-blue)]">*</span>
-                        </label>
-                        <input
-                          type="text"
-                          required
-                          value={formData.name}
-                          onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
-                          className="w-full px-4 py-4 bg-[var(--gray-light)] border border-[var(--gray-light)] rounded-xl text-[var(--black)] placeholder:text-[var(--gray-medium)] focus:outline-none focus:ring-2 focus:ring-[var(--primary-blue)] focus:border-[var(--primary-blue)] transition-all duration-300"
-                          placeholder="John Smith"
-                        />
-                      </div>
-
-                      <div>
-                        <label className="block text-[var(--black)] text-sm font-medium mb-3">
-                          LinkedIn Profile
-                        </label>
-                        <input
-                          type="url"
-                          value={formData.linkedin}
-                          onChange={(e) => setFormData(prev => ({ ...prev, linkedin: e.target.value }))}
-                          className="w-full px-4 py-4 bg-[var(--gray-light)] border border-[var(--gray-light)] rounded-xl text-[var(--black)] placeholder:text-[var(--gray-medium)] focus:outline-none focus:ring-2 focus:ring-[var(--primary-blue)] focus:border-[var(--primary-blue)] transition-all duration-300"
-                          placeholder="https://linkedin.com/in/yourprofile"
-                        />
-                      </div>
-                    </div>
-
-                    <div>
-                      <label className="block text-[var(--black)] text-sm font-medium mb-3">
-                        Email <span className="text-[var(--primary-blue)]">*</span>
-                      </label>
-                      <input
-                        type="email"
-                        required
-                        value={formData.email}
-                        onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
-                        className="w-full px-4 py-4 bg-[var(--gray-light)] border border-[var(--gray-light)] rounded-xl text-[var(--black)] placeholder:text-[var(--gray-medium)] focus:outline-none focus:ring-2 focus:ring-[var(--primary-blue)] focus:border-[var(--primary-blue)] transition-all duration-300"
-                        placeholder="your@email.com"
-                      />
-                    </div>
-
-                    {submitStatus === 'error' && (
-                      <div className="bg-red-50 border border-red-200 rounded-xl p-4">
-                        <p className="text-red-600 text-sm">
-                          Something went wrong. Please try again or email us directly.
-                        </p>
-                      </div>
-                    )}
-
-                    <div className="pt-4">
-                      <button
-                        type="submit"
-                        disabled={isSubmitting}
-                        onClick={async (e) => {
-                          e.preventDefault()
-                          setIsSubmitting(true)
-
-                          try {
-                            const response = await fetch('/api/contact', {
-                              method: 'POST',
-                              headers: { 'Content-Type': 'application/json' },
-                              body: JSON.stringify(formData)
-                            })
-
-                            if (response.ok) {
-                              setSubmitStatus('success')
-                            } else {
-                              setSubmitStatus('error')
-                            }
-                          } catch {
-                            setSubmitStatus('error')
-                          } finally {
-                            setIsSubmitting(false)
-                          }
-                        }}
-                        className="w-full inline-flex items-center justify-center gap-3 bg-[var(--black)] text-white px-8 py-4 text-[15px] tracking-tight no-underline rounded-full relative overflow-hidden transition-all duration-300 ease-out hover:scale-105 group disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
-                      >
-                        <div className="absolute inset-0 bg-[var(--primary-blue)] transform -translate-x-full transition-transform duration-300 ease-out group-hover:translate-x-0"></div>
-                        <span className="relative z-10">{isSubmitting ? 'Sending...' : 'Get Pricing & Details'}</span>
-                        <span className="relative z-10">→</span>
-                      </button>
-                    </div>
-
-                    <div className="text-center pt-4 border-t border-[var(--gray-light)]">
-                      <p className="text-[var(--gray-medium)] text-sm mb-3">
-                        Or reach out directly:
-                      </p>
-                      <div className="flex items-center justify-center gap-2 text-[var(--gray-medium)]">
-                        <span className="text-base">contact</span>
-                        <span className="w-6 h-6 bg-[var(--primary-blue)] rounded-full flex items-center justify-center text-sm text-white">@</span>
-                        <span className="text-base">caldera.agency</span>
-                      </div>
-                    </div>
-                  </div>
-                )}
+              <div className="max-w-xl mx-auto">
+                <PrototypeForm id="bottom-linkedin" inputBg="bg-[var(--gray-light)]" />
               </div>
             </div>
           </div>
