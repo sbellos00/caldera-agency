@@ -1,0 +1,626 @@
+{
+  "_meta": {
+    "description": "All user-facing copy from Caldera Agency v1 website",
+    "exportedAt": "2026-03-01",
+    "notes": "Organized by page and section. Includes SEO metadata, UI labels, form text, error messages, and blog content."
+  },
+
+  "global": {
+    "seo": {
+      "defaultTitle": "Caldera Agency - Bespoke Authority-Building Websites for Solo Consultants",
+      "titleTemplate": "%s | Caldera Agency",
+      "defaultDescription": "Custom website development for solo consultants. We combine deep research, strategic positioning, and hands-off delivery to create websites that demonstrate expertise and convert higher-value clients.",
+      "creator": "Caldera Agency",
+      "publisher": "Caldera Agency",
+      "twitterHandle": "@caldera_agency",
+      "keywords": [
+        "consultant website design",
+        "Caldera Agency",
+        "Caldera",
+        "authority website",
+        "consultant marketing",
+        "website development for consultants",
+        "consultant website development",
+        "consultant website design",
+        "caldera process",
+        "caldera agency process",
+        "professional website development",
+        "solo consultant branding",
+        "custom web design",
+        "consultant lead generation",
+        "business website",
+        "professional consulting services"
+      ]
+    },
+    "structuredData": {
+      "organizationName": "Caldera Agency",
+      "organizationUrl": "https://caldera.agency",
+      "organizationDescription": "Custom website development for solo consultants. We combine deep research, strategic positioning, and hands-off delivery to create websites that demonstrate expertise and convert higher-value clients.",
+      "founded": "2024",
+      "contactEmail": "contact@caldera.agency",
+      "addressCountry": "US",
+      "serviceName": "Bespoke Authority-Building Websites for Solo Consultants",
+      "serviceType": "Website Development",
+      "areServed": "Worldwide",
+      "audienceType": "Solo Consultants",
+      "offerDescription": "All-In-One Website Package including custom website, copywriting, analytics integration, domain integration, mobile optimization, and hosting"
+    },
+    "navigation": {
+      "logo": "caldera.agency",
+      "links": ["Home", "About Us", "Process", "Contact"],
+      "ctaButton": "Get Your Free Prototype",
+      "menuCtaButton": "Start Your Project",
+      "menuAriaLabel": "Toggle navigation menu"
+    },
+    "footer": {
+      "logo": "caldera.agency",
+      "description": "Bespoke, authority-building websites for solo consultants. We handle everything so you can focus on your business.",
+      "contactEmail": "contact@caldera.agency",
+      "location": "Based in Athens, Greece",
+      "companyLinks": ["Our Process", "About Us", "FAQ", "Contact", "Privacy Policy", "Cookie Policy", "LinkedIn"],
+      "copyright": "© {year} Caldera Agency. All rights reserved.",
+      "tagline": "Designed & built with care in Athens",
+      "ctaButton": "Get Started"
+    },
+    "cookieBanner": {
+      "title": "Cookie Preferences",
+      "body": "We use cookies to enhance your browsing experience, analyze site traffic, and personalize content. By clicking 'Accept All', you consent to our use of cookies. You can customize your preferences or learn more in our Privacy Policy and Cookie Policy.",
+      "rejectButton": "Reject All",
+      "acceptButton": "Accept All"
+    }
+  },
+
+  "pages": {
+    "home": {
+      "seo": {
+        "title": "Caldera Agency - The Website Agency For Solo Consultants",
+        "description": "You do nothing. We build everything. Share your LinkedIn and we handle research, copy, design, and development. Free prototype before you spend a cent.",
+        "keywords": [
+          "consultant website design",
+          "authority website",
+          "consultant marketing",
+          "professional website development",
+          "solo consultant branding",
+          "custom web design",
+          "consultant lead generation",
+          "free website prototype",
+          "linkedin website builder",
+          "caldera agency"
+        ],
+        "ogImageAlt": "Caldera Agency - Professional Websites for Consultants"
+      },
+      "hero": {
+        "v1": {
+          "heading": "The Website Agency For Solo Consultants.",
+          "headingEmphasis": "Solo Consultants.",
+          "subheading": "You do nothing. We build everything.",
+          "body": "Share your LinkedIn and we'll handle research, copy, design, and development. You get a free prototype before you spend a cent."
+        },
+        "v3": {
+          "heading": "We build your website before you pay a cent.",
+          "headingEmphasis": "before you pay a cent.",
+          "body": "Share your LinkedIn and we'll handle research, copy, design, and development. You get a free prototype before you spend a cent. Don't like it? Walk away."
+        }
+      },
+      "prototypeForm": {
+        "step1_linkedin": {
+          "inputPlaceholder": "Paste your LinkedIn URL",
+          "submitButton": "Get Your Free Prototype",
+          "helperText": "Just your LinkedIn URL. Takes 30 seconds.",
+          "errorEmpty": "Please enter your LinkedIn URL."
+        },
+        "step2_email": {
+          "contextQuestion": "Where should we send your website preview and our full design strategy report?",
+          "inputPlaceholder": "Your email address",
+          "submitButton": "Send My Free Prototype",
+          "helperText": "You'll hear from us within 24 hours.",
+          "errorEmpty": "Please enter your email.",
+          "errorInvalid": "Please enter a valid email address.",
+          "errorCaptcha": "Please complete the captcha."
+        },
+        "success": {
+          "heading": "We're on it.",
+          "message": "We'll send your website preview and a full report of our design choices and strategy to your inbox within 24 hours."
+        }
+      },
+      "featureCards": {
+        "sectionHeading": "Everything handled. Zero hassle for you.",
+        "cards": [
+          {
+            "title": "We do the research so you don't have to.",
+            "body": "We study your LinkedIn, your positioning, your competitors, and your market. You don't fill out discovery forms. You don't sit through briefing calls. We come to you with a prototype, not a questionnaire."
+          },
+          {
+            "title": "Fast turnaround. Minimal time from you.",
+            "body": "From prototype to launch, the entire process takes less time than most agency discovery calls. We handle copywriting, design, development, domain setup, analytics - everything. You just give feedback."
+          },
+          {
+            "title": "You own everything. No lock-in.",
+            "body": "Your code. Your domain. Your site. We host it for a year for free and handle maintenance, but you can take the full codebase and leave anytime. No proprietary platforms. No hostage situations."
+          }
+        ]
+      },
+      "objectionCallout": {
+        "question": "What if I don't like what you build?",
+        "answer": "You see a free prototype before you pay anything. After that, you approve each phase before we move on. You only pay for work you've reviewed and approved. Final payment is due only when you're ready to launch."
+      },
+      "howItWorks": {
+        "sectionLabel": "How It Works",
+        "sectionTitle": "Three steps. That's it.",
+        "steps": [
+          {
+            "heading": "Drop your LinkedIn URL",
+            "body": "That's all we need to start. We research your expertise, positioning, and market.",
+            "placeholderUi": "linkedin.com/in/yourprofile"
+          },
+          {
+            "heading": "Review your free prototype",
+            "body": "We send you a working prototype of your website. No commitment. If you like what you see, we move forward.",
+            "placeholderUi": "yourname.com"
+          },
+          {
+            "heading": "Launch your site",
+            "body": "We refine based on your feedback, write all copy, and launch your site. Minimal time investment from you.",
+            "statusItems": ["Design: Done", "Copy: Done", "Hosting: Live"]
+          }
+        ]
+      },
+      "caseStudies": {
+        "sectionLabel": "Our Work",
+        "sectionTitle": "Real consultants. Real results.",
+        "sectionTitleEmphasis": "Real results.",
+        "placeholderAlt": "Client site screenshot",
+        "statusLabel": "Before: No website",
+        "testimonialPlaceholder": "Testimonial placeholder - client feedback will go here."
+      },
+      "faq": {
+        "sectionLabel": "Common Questions",
+        "sectionTitle": "Frequently Asked Questions",
+        "items": [
+          {
+            "question": "What if I already have a website?",
+            "answer": "We'll still send you a free prototype. If what we build is better, great. If not, you've lost nothing."
+          },
+          {
+            "question": "What do I need to provide?",
+            "answer": "Your LinkedIn URL. That's it. We handle all research, writing, and design. You just review and give feedback."
+          },
+          {
+            "question": "What if I'm not happy with the result?",
+            "answer": "You approve every phase before we move forward. Final payment is only due when you're confident enough to launch. If at any point you're not satisfied, you stop and only pay for what's been completed."
+          },
+          {
+            "question": "Who owns the site?",
+            "answer": "You do. Fully. No lock-in, no proprietary platforms. We provide hosting and support, but you can take your code and self-host anytime."
+          },
+          {
+            "question": "Do you only build for consultants?",
+            "answer": "Yes. That's why our sites work. Everything we do - research, copy, design - is built around how consultants win clients."
+          },
+          {
+            "question": "How long does the whole process take?",
+            "answer": "We move fast. From prototype approval to launch, we handle everything so the process is as quick and painless as possible for you."
+          }
+        ]
+      },
+      "foundersNote": {
+        "sectionLabel": "From the Founder",
+        "photoLabel": "Photo",
+        "paragraphs": [
+          "I spent years at Dialectica connecting consultants with investors and Fortune 500 companies. I talked to hundreds of experts - brilliant people who shaped decisions worth millions.",
+          "Most of them had no website. Or worse, they had one that looked like it was built in 2012.",
+          "They'd lose RFPs to competitors who simply looked more credible online. They'd get passed over for speaking gigs because there was nowhere to send a link. They'd rely entirely on LinkedIn and hope the algorithm was kind.",
+          "That's why I started Caldera. Because consultants shouldn't have to become web designers, copywriters, or project managers just to look professional online."
+        ],
+        "closingV1": "You drop your LinkedIn URL. We do everything else. And we send you a prototype before you spend a cent, because we'd rather earn your trust than ask for it.",
+        "closingV2V3": "We're so confident in what we build that we take all the risk upfront. We do the work first. You pay nothing until you've seen your site and love it. That's not a marketing gimmick - it's how we think every agency should operate.",
+        "signature": "- Stef, Founder of Caldera Agency"
+      },
+      "secondCta": {
+        "v1": {
+          "heading": "Ready to see what your website could look like?",
+          "body": "Drop your LinkedIn URL and we'll send you a free prototype. No calls. No commitment. No homework."
+        },
+        "v2v3": {
+          "heading": "We bet on ourselves so you don't have to.",
+          "body": "We'll research, write, design, and build your website prototype - completely free. If you love it, we move forward. If not, you've lost nothing. Drop your LinkedIn URL and see for yourself."
+        }
+      }
+    },
+
+    "about": {
+      "navigation": {
+        "ctaButton": "Get Started"
+      },
+      "hero": {
+        "sectionLabel": "About Us",
+        "heading": "We exist for one reason: to build high quality websites for consultants that need them.",
+        "headingEmphasis": "to build high quality websites for consultants that need them.",
+        "body": "Nothing else. We cut out the chaos, the admin, and the generic agency playbook. Every part of our process is designed so that consultants get a site that wins higher-value clients with zero wasted time.",
+        "ctaButton": "Start Your Project",
+        "secondaryButton": "Learn More"
+      },
+      "whatMakesUsDifferent": {
+        "sectionTitle": "What Makes Our Process Different",
+        "sectionTitleEmphasis": "Different",
+        "cards": [
+          {
+            "title": "Consultants only. No distractions, no dilution.",
+            "body": "We don't take on projects for agencies, local businesses, or e-commerce. Everything we do is built around what matters most for solo consultants: establishing credibility, driving high-value inbound, and freeing you from project headaches and admin bloat."
+          },
+          {
+            "title": "No busywork, ever.",
+            "body": "We research your background and consulting market before you see a single question. No generic forms or open-ended guesswork."
+          },
+          {
+            "title": "Clear, structured feedback.",
+            "body": "Each review round is focused, with our guidance on what to check and how to comment."
+          },
+          {
+            "title": "Milestone payments, always in your control.",
+            "body": "You approve each phase before paying. You never risk being left with a half-finished website."
+          },
+          {
+            "title": "We handle everything after.",
+            "body": "Launch, domain, analytics, hosting, tech support, and post-launch tweaks are all managed by us so you can stay focused on your work."
+          },
+          {
+            "title": "Full ownership, zero lock-in.",
+            "body": "You own your website, domain, and content 100%. Move, host, or upgrade anytime."
+          }
+        ]
+      },
+      "whatEveryCalderaSiteMustDeliver": {
+        "sectionTitle": "What Every Caldera Site Must Deliver",
+        "sectionTitleEmphasis": "Deliver",
+        "items": [
+          {
+            "title": "Instant Clarity",
+            "body": "In 5 seconds, any visitor knows who you help, what you do, and why you're legit."
+          },
+          {
+            "title": "Authority on Display",
+            "body": "Results, track record, methods, and credentials are front and center and expertise is communicated clearly."
+          },
+          {
+            "title": "Professional Impression",
+            "body": "Modern, tasteful, and credible. Not forced, not bland."
+          },
+          {
+            "title": "Referral Ready",
+            "body": "Every client should be proud to link it, and every referrer confident to send someone there."
+          },
+          {
+            "title": "No Admin Headache",
+            "body": "Consultants only do what they must. Everything else is handled."
+          }
+        ]
+      },
+      "cta": {
+        "heading": "Ready to Get Started?",
+        "headingEmphasis": "Started?",
+        "body": "Let's discuss your project and show you exactly how our process works for your specific situation.",
+        "button": "Start Your Project"
+      }
+    },
+
+    "contact": {
+      "navigation": {
+        "backButton": "Back to Home"
+      },
+      "hero": {
+        "sectionLabel": "Get In Touch",
+        "heading": "Let's talk",
+        "headingEmphasis": "talk",
+        "body": "Have questions about our services or want to discuss a project? Send us a message and we'll get back to you within 24 hours."
+      },
+      "form": {
+        "nameLabel": "Your Name *",
+        "namePlaceholder": "John Smith",
+        "emailLabel": "Email Address *",
+        "emailPlaceholder": "john@company.com",
+        "messageLabel": "Your Message *",
+        "messagePlaceholder": "Tell us about your project or question...",
+        "submitButton": "Send Message",
+        "sendingState": "Sending...",
+        "errorMessage": "Something went wrong. Please try again or email us directly at contact@caldera.agency"
+      },
+      "success": {
+        "heading": "Thank you!",
+        "message": "We've received your message and will get back to you within 24 hours.",
+        "button": "Send Another Message"
+      },
+      "contactInfo": {
+        "text": "Or email us directly at",
+        "email": "contact@caldera.agency"
+      }
+    },
+
+    "pricing": {
+      "header": {
+        "badge": "50% Off Launch Special",
+        "title": "Caldera Agency Pricing",
+        "subtitle": "Bespoke Authority-Building Websites for Solo Consultants",
+        "subtitleEmphasis": "Authority-Building"
+      },
+      "bonuses": {
+        "sectionHeading": "Bonuses",
+        "items": [
+          {
+            "title": "12 Months Free Hosting & Management",
+            "description": "Fully managed hosting, domain support, and up to 2 hours of monthly development support (4 in your first month) for post launch tweaks, completely free for your first year."
+          },
+          {
+            "title": "LinkedIn Launch Toolkit",
+            "description": "Custom banner + ready-to-post website announcement templates for your LinkedIn."
+          },
+          {
+            "title": "Authority Bio Polish",
+            "description": "We'll sharpen your LinkedIn About copy for credibility to match your site."
+          }
+        ]
+      },
+      "pricingTable": {
+        "heading": "What's Included",
+        "columnHeaders": ["Feature", "Starter", "Core", "Advanced"],
+        "rows": [
+          { "feature": "Pages", "starter": "1 (Homepage)", "core": "Up to 5", "advanced": "Up to 8" },
+          { "feature": "Blog/Content Hub", "starter": "-", "core": "-", "advanced": "Included" },
+          { "feature": "Case Studies", "starter": "-", "core": "-", "advanced": "2 ghostwritten" },
+          { "feature": "Copywriting", "starter": "All pages", "core": "All pages", "advanced": "All pages" },
+          { "feature": "Revision Rounds", "starter": "2", "core": "3", "advanced": "3" },
+          { "feature": "SEO & Analytics Setup", "starter": "Yes", "core": "Yes", "advanced": "Yes" },
+          { "feature": "Legal Pages", "starter": "Templates", "core": "Templates", "advanced": "Templates" },
+          { "feature": "Domain Setup", "starter": "Yes", "core": "Yes", "advanced": "Yes" },
+          { "feature": "First Year Hosting", "starter": "Free", "core": "Free", "advanced": "Free" },
+          { "feature": "Monthly Support", "starter": "2h/mo (4h first mo)", "core": "2h/mo (4h first mo)", "advanced": "2h/mo (4h first mo)" }
+        ],
+        "pricing": {
+          "starter": { "current": "$2,500", "original": "$5,000", "discount": "50% OFF" },
+          "core": { "current": "$3,750", "original": "$7,500", "discount": "50% OFF" },
+          "advanced": { "current": "$5,000", "original": "$10,000", "discount": "50% OFF" }
+        }
+      },
+      "footerNotes": [
+        "All packages include our comprehensive research phase and strategic positioning.",
+        "Launch offer pricing valid for new clients only."
+      ]
+    }
+  },
+
+  "components": {
+    "whatYouGet": {
+      "sectionHeading": "What You Get",
+      "heroCard": {
+        "title": "A complete website that positions you as the obvious choice",
+        "body": "Custom-built from scratch to showcase your expertise, attract premium clients, and work flawlessly across all devices - delivered in 20 days with minimal time from you."
+      },
+      "statsGrid": [
+        "20 Days Max",
+        "2 Hours Total",
+        "100% Custom",
+        "1 Year Hosting"
+      ],
+      "featureCards": [
+        {
+          "title": "Expert Copywriting",
+          "body": "Every word crafted using consultant-specific principles to position you as the authority in your field."
+        },
+        {
+          "title": "Analytics & Tracking",
+          "body": "Google Analytics and Search Console configured so you understand your audience from day one."
+        },
+        {
+          "title": "NextJS Performance",
+          "body": "Lightning-fast load times, bulletproof security, and enterprise-grade infrastructure that never lets you down.",
+          "benefits": ["99.9% Uptime", "Mobile First", "SEO Optimized", "Accessible"]
+        },
+        {
+          "title": "Domain & Hosting",
+          "body": "Complete technical setup and 12 months of premium hosting included - zero admin for you."
+        },
+        {
+          "title": "Custom Design",
+          "body": "Tailored visual identity that reflects your expertise - never a template or theme."
+        }
+      ],
+      "ongoingSupport": {
+        "heading": "Plus, ongoing support that actually supports",
+        "subheading": "Most agencies disappear after launch. We stick around to make sure you succeed.",
+        "items": [
+          {
+            "title": "Monthly Support Hours",
+            "body": "Quick updates, content changes, or small tweaks - handled within 48 hours, no extra billing."
+          },
+          {
+            "title": "First Month Bonus",
+            "body": "Double support hours in your first month for any post-launch adjustments or refinements."
+          }
+        ]
+      },
+      "cta": {
+        "heading": "Ready to stand out from the competition?",
+        "body": "Join consultants who've transformed their online presence and attracted higher-value clients.",
+        "primaryButton": "Book Your Website",
+        "secondaryButton": "See Process"
+      }
+    },
+    "finalCta": {
+      "heading": "One complete package, zero stress",
+      "body": "Everything you need to establish online authority and win premium clients, delivered as one seamless experience.",
+      "primaryButton": "Book Your Website",
+      "secondaryButton": "See Our Process"
+    }
+  },
+
+  "blog": {
+    "whyConsultantsNeedWebsites": {
+      "metadata": {
+        "title": "Why Every Consultant Needs a Website (Even When LinkedIn Is Working)",
+        "description": "Discover why LinkedIn alone isn't enough for consultants who want to command premium rates and win high-value clients."
+      },
+      "header": {
+        "category": "Consultant Positioning",
+        "title": "Why Every Consultant Needs a Website",
+        "byline": "Caldera Agency • August 5, 2025 • 8 min read",
+        "subtitle": "Discover why LinkedIn alone isn't enough for consultants who want to command premium rates and win high-value clients."
+      },
+      "coreSummary": {
+        "heading": "Core Summary",
+        "points": [
+          "Client positioning and perceived credibility directly determine the fees consultants can command and the clients they attract.",
+          "LinkedIn provides visibility but not credibility. It forces consultants into a standardized template that limits differentiation and scatters proof.",
+          "A professional website gives consultants full control over their narrative, proof display, and client journey in a way LinkedIn structurally cannot.",
+          "The website's job isn't lead generation - it's credibility validation. LinkedIn makes you visible; your website makes you credible."
+        ]
+      },
+      "content": {
+        "opening": [
+          "You're getting steady referrals through LinkedIn. Your DMs are active. So why would you need a website?",
+          "Here's what you might not realize: For every client who reaches out, there's another who researched you, compared you to competitors, and quietly chose someone else.",
+          "You'll never hear about these lost opportunities."
+        ],
+        "keyQuestion": "As a consultant, your business lives and dies by your perceived credibility. When a potential client researches you (and they always do), they're asking themselves one thing:",
+        "highlightedQuote": "Can I trust this person to solve my problem?",
+        "valueCommunication": [
+          "The more effectively you can communicate that you meet the project's requirements and deliver the value your client seeks, the better opportunities you'll secure and the higher fees you can command.",
+          "This is where positioning becomes everything."
+        ],
+        "researchFindings": {
+          "source": "2023 Consulting Fees Study",
+          "stats": [
+            "Specialists consistently charge more: 52% of specialists reported charging at least $10,000 per project, versus just 18% for non-specialists.",
+            "81% of consultants charging $20,000–$50,000 per project were specialists",
+            "Consultants with value-driven branding and clear positioning command 40–60% higher fees than those who rely on generalist profiles or have weak digital presence."
+          ]
+        },
+        "digitalTableStakes": [
+          "Digital is now table stakes in consulting.",
+          "Market reports confirm the majority of selection and trust-building now happens online. 80%+ of client-consultant relationships now start with digital research, not offline referrals."
+        ],
+        "linkedinProblems": {
+          "problem1": {
+            "title": "Positioning demands differentiation",
+            "highlightedQuote": "LinkedIn forces you into a standardized template. Your unique approach becomes a generic headline."
+          },
+          "problem2": {
+            "title": "Positioning relies on clear proof",
+            "highlightedQuote": "LinkedIn scatters your best evidence. Case studies and methods get lost or buried in feeds."
+          }
+        },
+        "websiteBenefits": {
+          "sectionTitle": "A Website Is Your Only Shot at Controlling the Narrative",
+          "benefits": [
+            "Publish deep case studies and frameworks, not just buzzwords and claims.",
+            "Highlight your process, methodologies, and intellectual property.",
+            "Show real client results, with space for detail and nuance.",
+            "Sequence the narrative: the right proof, in the right order, for the right clients."
+          ]
+        },
+        "linkedinPlusWebsite": {
+          "sectionTitle": "LinkedIn Brings Leads. Your Website Closes the Deal.",
+          "keyPoints": [
+            "Invisible deal losses happen when prospects research you and find nothing beyond LinkedIn.",
+            "LinkedIn acts as a filter - it generates interest, but doesn't close.",
+            "Current success despite LinkedIn-only presence doesn't mean you're not losing opportunities."
+          ],
+          "keyInsights": [
+            "A website's job isn't lead generation.",
+            "For a consultant, a professional website is a credibility tool.",
+            "Its purpose is to prove your expertise, showcase your track record, and signal that you are a serious professional ready for serious clients.",
+            "It's job isn't to generate new leads. It's to stop you from losing them."
+          ],
+          "highlightedQuote": "LinkedIn makes you visible. Your website makes you credible."
+        },
+        "additionalBenefits": {
+          "sectionTitle": "What's More: The Additional Benefits a Website Delivers (That LinkedIn Never Will)",
+          "items": [
+            "A Central Reference Point",
+            "Professional Depth and Seriousness",
+            "Personal Brand Building",
+            "Full Ownership and Control",
+            "A Linkable Asset for Media and Referrers",
+            "Ready for Scale When You Need It"
+          ]
+        },
+        "pathForward": "In a market where every consultant has a LinkedIn profile, standing out isn't about abandoning what works, it's about amplifying it. A professional website that clearly communicates your expertise isn't a nice-to-have. It's the difference between being considered and being chosen.",
+        "calderaHelp": {
+          "heading": "How Caldera Can Help",
+          "intro": "If you're ready to move beyond LinkedIn and want a website that actually proves your expertise, Caldera specializes in building professional, research-driven consultant websites.",
+          "features": [
+            "End-to-end execution: We handle research, copywriting, design, and setup.",
+            "Minimal time required: Our process is designed so you spend under 2 hours on input and review.",
+            "Proof and positioning: We focus on clear case studies, methodologies, and structured proof, not marketing fluff."
+          ],
+          "closing": "You don't need to start from scratch, and you don't need another digital marketing pitch. If your priority is clear positioning and professional credibility, this is what we do.",
+          "finalLine": "Learn more about Caldera or book a short call if you want to see exactly how the process works."
+        }
+      },
+      "cta": {
+        "heading": "Ready to Build Your Authority?",
+        "headingEmphasis": "Authority?",
+        "body": "Don't let your expertise go unrecognized. We specialize in building credibility websites for consultants who are ready to command premium rates.",
+        "button": "Start Your Website"
+      }
+    },
+    "authorityParadox": {
+      "metadata": {
+        "title": "The Authority Paradox: Why Technical Expertise Alone Won't Win Premium Clients",
+        "description": "Discover why being the smartest person in the room isn't enough to attract high-value consulting clients, and learn the counterintuitive approach that actually works."
+      },
+      "header": {
+        "category": "Authority Building",
+        "title": "The Authority Paradox: Why Technical Expertise Alone Won't Win Premium Clients",
+        "byline": "Caldera Agency • January 15, 2024 • 8 min read",
+        "subtitle": "Discover why being the smartest person in the room isn't enough to attract high-value consulting clients, and learn the counterintuitive approach that actually works."
+      },
+      "content": {
+        "openingStory": [
+          "Last week, I had coffee with a brilliant consultant who'd been struggling to land the premium clients he deserved. He had two decades of experience, multiple certifications, and could solve problems that stumped entire teams.",
+          "Yet he was competing on price with consultants half his age and charging a fraction of what his expertise was worth.",
+          "His story isn't unique. It's the authority paradox that plagues thousands of exceptional consultants worldwide."
+        ],
+        "highlightedQuote": "Being the smartest person in the room means nothing if the room doesn't know you're there.",
+        "expertiseTrap": {
+          "sectionTitle": "The Expertise Trap",
+          "content": [
+            "Here's what most consultants believe: if you're really good at what you do, clients will naturally find you and pay premium rates for your expertise.",
+            "This belief is not just wrong - it's backwards.",
+            "The marketplace doesn't reward the most knowledgeable consultant. It rewards the consultant who best communicates their knowledge, builds trust before the first meeting, and positions themselves as the obvious choice for high-stakes projects."
+          ]
+        },
+        "threeTruths": [
+          "Perception precedes capability. Clients decide if you're qualified before they understand what you actually do.",
+          "Authority is borrowed, not earned. You build credibility by association, positioning, and social proof - not just results.",
+          "Premium clients buy confidence, not competence. They want to know you've solved their exact problem before, for companies like theirs."
+        ],
+        "realAuthorityFormula": "Authority isn't about being the smartest person in the room. It's about being the most obvious choice when that room needs to solve a specific problem.",
+        "whyWebsiteMatters": {
+          "sectionTitle": "Why Your Website Matters",
+          "content": [
+            "Your website isn't a digital business card. It's your credibility filter.",
+            "Every potential client will visit your website before they decide to take your call. They're not just looking for information - they're making a snap judgment about whether you operate at their level."
+          ]
+        }
+      },
+      "cta": {
+        "heading": "Ready to Build Your Authority?",
+        "headingEmphasis": "Authority?",
+        "body": "Don't let your expertise go unrecognized. We specialize in building authority websites for consultants who are ready to command premium rates.",
+        "button": "Start Your Authority Website"
+      }
+    }
+  },
+
+  "formValidation": {
+    "prototypeForm": {
+      "linkedinEmpty": "Please enter your LinkedIn URL.",
+      "emailEmpty": "Please enter your email.",
+      "emailInvalid": "Please enter a valid email address.",
+      "captchaRequired": "Please complete the captcha."
+    },
+    "contactForm": {
+      "genericError": "Something went wrong. Please try again or email us directly at contact@caldera.agency"
+    }
+  }
+}
