@@ -5,9 +5,10 @@ import Link from 'next/link'
 
 interface MenuProps {
   onMenuToggle?: (isOpen: boolean) => void
+  dark?: boolean
 }
 
-export default function Menu({ onMenuToggle }: MenuProps) {
+export default function Menu({ onMenuToggle, dark = false }: MenuProps) {
   const [isOpen, setIsOpen] = useState(false)
 
   useEffect(() => {
@@ -38,26 +39,20 @@ export default function Menu({ onMenuToggle }: MenuProps) {
       {/* Menu Button */}
       <button
         onClick={toggleMenu}
-        className="group relative z-[110] bg-white/10 backdrop-blur-sm border border-white/20 p-3 rounded-full transition-all duration-300 hover:bg-white hover:border-white focus:outline-none"
+        className={`group relative z-[110] backdrop-blur-sm p-3 rounded-full transition-all duration-500 hover:bg-[var(--primary-blue)] hover:border-[var(--primary-blue)] focus:outline-none ${dark ? 'bg-white/10 border border-white/20' : 'bg-black/5 border border-black/10'}`}
         aria-label="Toggle navigation menu"
       >
-        <div className="relative w-5 h-5 flex flex-col justify-center items-center">
+        <div className="relative w-5 h-4 flex flex-col justify-center items-center">
           {/* Top line */}
-          <span 
-            className={`block h-0.5 w-5 bg-white rounded-full transition-all duration-300 transform origin-center group-hover:bg-black ${
-              isOpen ? 'rotate-45 translate-y-[1px]' : ''
-            }`}
-          />
-          {/* Middle line */}
-          <span 
-            className={`block h-0.5 w-5 bg-white rounded-full transition-all duration-300 mt-1 group-hover:bg-black ${
-              isOpen ? 'opacity-0' : 'opacity-100'
+          <span
+            className={`block h-0.5 w-5 rounded-full transition-all duration-300 transform origin-center group-hover:bg-white ${
+              isOpen ? 'rotate-45 translate-y-[3px] bg-white' : (dark ? 'bg-white' : 'bg-[var(--black)]')
             }`}
           />
           {/* Bottom line */}
-          <span 
-            className={`block h-0.5 w-5 bg-white rounded-full transition-all duration-300 transform origin-center mt-1 group-hover:bg-black ${
-              isOpen ? '-rotate-45 -translate-y-[6px]' : ''
+          <span
+            className={`block h-0.5 w-5 rounded-full transition-all duration-300 transform origin-center mt-1.5 group-hover:bg-white ${
+              isOpen ? '-rotate-45 -translate-y-[3px] bg-white' : (dark ? 'bg-white' : 'bg-[var(--black)]')
             }`}
           />
         </div>
@@ -137,9 +132,10 @@ export default function Menu({ onMenuToggle }: MenuProps) {
                 onClick={() => {
                   closeMenu()
                   setTimeout(() => {
-                    document.getElementById('contact')?.scrollIntoView({ 
+                    const target = document.getElementById('prototype-form-bottom') || document.getElementById('prototype-form') || document.getElementById('contact')
+                    target?.scrollIntoView({
                       behavior: 'smooth',
-                      block: 'start'
+                      block: 'center'
                     })
                   }, 300)
                 }}

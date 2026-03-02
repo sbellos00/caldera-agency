@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(pnpm dlx:*)",
+      "Bash(pnpm add:*)",
+      "WebSearch",
+      "WebFetch(domain:www.reactbits.dev)",
+      "Bash(pnpm remove:*)",
+      "Bash(pnpm build:*)",
+      "WebFetch(domain:www.fancycomponents.dev)",
+      "Bash(npx next:*)"
+    ]
+  }
+}

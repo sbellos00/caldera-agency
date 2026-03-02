@@ -41,15 +41,34 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
+  --animate-background-gradient: background-gradient;
+  @keyframes background-gradient {
+    0%, 100% {
+      transform: translate(0, 0);
+      animation-delay: var(--background-gradient-delay, 0s);
+    }
+    20% {
+      transform: translate(calc(100% * var(--tx-1, 1)), calc(100% * var(--ty-1, 1)));
+    }
+    40% {
+      transform: translate(calc(100% * var(--tx-2, -1)), calc(100% * var(--ty-2, 1)));
+    }
+    60% {
+      transform: translate(calc(100% * var(--tx-3, 1)), calc(100% * var(--ty-3, -1)));
+    }
+    80% {
+      transform: translate(calc(100% * var(--tx-4, -1)), calc(100% * var(--ty-4, -1)));
+    }
+  }
 }
 
 :root {
   --radius: 0.625rem;
-  --background: #f1efe7;
+  --background: #ffffff;
   --foreground: oklch(0.129 0.042 264.695);
-  --card: #f1efe7;
+  --card: #ffffff;
   --card-foreground: oklch(0.129 0.042 264.695);
-  --popover: #f1efe7;
+  --popover: #ffffff;
   --popover-foreground: oklch(0.129 0.042 264.695);
   --primary: oklch(0.208 0.042 265.755);
   --primary-foreground: oklch(0.984 0.003 247.858);
@@ -81,12 +100,12 @@
   --primary-blue: #0019ff;
   --blue-light: #E6E9FF;
   --blue-dark: #000D66;
-  --cream: #f1efe7;
+  --cream: #FAF8F5;
   --black: #000000;
-  --gray-dark: #1A1A1A;
-  --gray-medium: #6B6B6B;
-  --gray-light: #F0F0F2;
-  --white: #f1efe7;
+  --gray-dark: #111111;
+  --gray-medium: #5C5C5C;
+  --gray-light: #F5F5F7;
+  --white: #ffffff;
 }
 
 /* Caldera Agency logo styling */
@@ -139,7 +158,7 @@
     @apply bg-background text-foreground;
     font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", Arial, sans-serif;
     color: var(--black);
-    background: var(--cream);
+    background: var(--white);
     overflow-x: hidden;
     cursor: default;
   }
@@ -151,7 +170,7 @@
 }
 
 @layer components {
-  /* Custom Cursor */
+  /* Custom Cursor — upgraded with GSAP smooth trailing */
   .cursor {
     width: 40px;
     height: 40px;
@@ -160,19 +179,51 @@
     position: fixed;
     pointer-events: none;
     z-index: 9999;
-    transition: all 0.1s ease;
     mix-blend-mode: difference;
+    will-change: transform;
   }
 
   .cursor-dot {
-    width: 4px;
-    height: 4px;
+    width: 6px;
+    height: 6px;
     background: var(--primary-blue);
     border-radius: 50%;
     position: fixed;
     pointer-events: none;
     z-index: 9999;
     transform: translate(-50%, -50%);
+    will-change: transform;
+  }
+
+  .cursor-text {
+    position: fixed;
+    pointer-events: none;
+    z-index: 10000;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: white;
+    mix-blend-mode: difference;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    transform: translate(-50%, -50%);
+    will-change: transform;
+  }
+
+  .cursor-text.active {
+    opacity: 1;
+  }
+
+  /* Dark section noise/grain overlay */
+  .noise-overlay::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    background-size: 128px 128px;
+    pointer-events: none;
+    z-index: 1;
   }
 
   /* Floating shapes animations */
@@ -204,25 +255,14 @@
 
   /* Scroll fade animations */
   .scroll-fade {
-    opacity: 1;
-    transform: none;
-    transition: all 0.8s cubic-bezier(0.4, 0, 0, 1);
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 0.7s cubic-bezier(0.4, 0, 0, 1);
   }
 
   .scroll-fade.visible {
     opacity: 1;
     transform: translateY(0);
-  }
-
-  /* When JS is enabled, opt-in to animated entrance */
-  .js .scroll-fade {
-    opacity: 0;
-    transform: translateY(12px);
-    transition: opacity 0.5s ease, transform 0.5s ease;
-  }
-  .js .scroll-fade.visible {
-    opacity: 1;
-    transform: none;
   }
 
   .scroll-fade:nth-child(1) { transition-delay: 0s; }
@@ -574,19 +614,28 @@
     font-weight: 300;
     letter-spacing: -0.04em;
   }
-  
+
   @media (min-width: 768px) {
     .hero-title {
       line-height: 1;
     }
   }
 
-  /* Section title responsive sizing */
+
+  /* Section title responsive sizing — primary tier */
   .section-title {
     font-size: clamp(36px, 5.5vw, 68px);
-    line-height: 1;
+    line-height: 0.95;
     font-weight: 300;
     letter-spacing: -0.03em;
+  }
+
+  /* Section title — secondary tier (supporting sections) */
+  .section-title-secondary {
+    font-size: clamp(28px, 4vw, 48px);
+    line-height: 1.1;
+    font-weight: 300;
+    letter-spacing: -0.02em;
   }
 
   /* Animation delays */
@@ -628,6 +677,33 @@
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+/* Hero dramatic line-by-line reveal */
+@keyframes heroLineReveal {
+  from {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hero-line-reveal {
+  opacity: 0;
+  transform: translateY(100%);
+  animation: heroLineReveal 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation-delay: 0.3s;
+}
+
+.hero-line-reveal-2 {
+  animation-delay: 0.6s;
+}
+
+.hero-line-reveal-3 {
+  animation-delay: 1s;
 }
 
 @keyframes marquee {
