@@ -629,8 +629,8 @@ export default function HomeV2() {
                   <h2 className="text-[clamp(28px,3.5vw,52px)] font-light tracking-tight leading-[0.95] mb-5 text-[var(--black)]">
                     Drop your LinkedIn.<br /><span className="font-medium">Get a website.</span>
                   </h2>
-                  <p className="relative inline-block text-[var(--black)] font-medium text-[16px] md:text-[17px] leading-relaxed mb-4">
-                    We&apos;ll build your site before you spend a dollar.<span className="absolute bottom-0 left-0 w-full h-[2px] bg-[var(--primary-blue)]" />
+                  <p className="relative inline-block text-[var(--primary-blue)] md:text-[var(--black)] font-medium text-[16px] md:text-[17px] leading-relaxed mb-4">
+                    We&apos;ll build your site before you spend a dollar.<span className="absolute bottom-0 left-0 w-full h-[2px] bg-[var(--primary-blue)] hidden md:block" />
                   </p>
                   <p className="text-[var(--gray-medium)] text-[15px] md:text-[16px] leading-relaxed mb-8">
                     Paste your LinkedIn URL, let us handle the rest. Give us 5 days to research your background, study your expertise, and write copy around it. We&apos;ll come back with a full one-page website tailored specifically to your positioning. No commitment, no calls. <span className="relative inline-block text-[var(--black)] font-medium">We move forward only if you love it<span className="absolute bottom-0 left-0 w-full h-[2px] bg-[var(--primary-blue)]" /></span>.
