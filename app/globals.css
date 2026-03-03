@@ -1,6 +1,33 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
+html.lenis.lenis-stopped {
+  overflow: auto !important;
+}
+
+/*
+ * Instant text color on theme switch.
+ * Tailwind's transition-all includes `color`, so children animate inherited
+ * color changes. This overrides transition-property to exclude color-related
+ * properties while keeping everything else (including translate for Tailwind v4
+ * individual transform properties).
+ */
+.theme-container * {
+  transition-property: background-color, border-color, opacity, box-shadow,
+    transform, translate, scale, rotate, filter, backdrop-filter !important;
+}
+
+/* Hide scrollbar track so it doesn't show a white strip */
+::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;
+}
+
+/* Firefox */
+html {
+  scrollbar-width: none;
+}
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
@@ -179,7 +206,6 @@
     position: fixed;
     pointer-events: none;
     z-index: 9999;
-    mix-blend-mode: difference;
     will-change: transform;
   }
 

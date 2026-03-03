@@ -203,9 +203,9 @@ function PrototypeForm({ id, variant = 'light' }: { id: string; variant?: 'light
                 <input id={`${id}-linkedin`} type="url" value={linkedin} onChange={e => { setLinkedin(e.target.value); setError('') }}
                   placeholder="Paste your LinkedIn URL" className={inputClass} onKeyDown={e => e.key === 'Enter' && handleStep1()} />
                 <button onClick={handleStep1}
-                  className="group relative overflow-hidden flex-shrink-0 px-6 py-4 text-[14px] font-medium bg-[var(--black)] text-white tracking-tight transition-all duration-300 whitespace-nowrap rounded-lg sm:rounded-l-none">
+                  className="group relative overflow-hidden flex-shrink-0 px-6 py-4 text-[14px] font-medium bg-[var(--black)] text-white tracking-tight transition-all duration-300 hover:scale-105 whitespace-nowrap rounded-lg sm:rounded-l-none">
                   <div className="absolute inset-0 bg-[var(--primary-blue)] transform -translate-x-full transition-transform duration-300 ease-out group-hover:translate-x-0" />
-                  <span className="relative z-10">Get Your Free Prototype &rarr;</span>
+                  <span className="relative z-10 flex items-center gap-2 group-hover:text-white">Get Your Free Prototype <span className="transition-transform duration-300 group-hover:translate-x-0.5">&rarr;</span></span>
                 </button>
               </div>
             ) : (
@@ -214,8 +214,8 @@ function PrototypeForm({ id, variant = 'light' }: { id: string; variant?: 'light
                   placeholder="linkedin.com/in/yourprofile" className={inputClass} onKeyDown={e => e.key === 'Enter' && handleStep1()} />
                 <button onClick={handleStep1}
                   className={`group relative overflow-hidden px-6 py-4 text-[15px] font-medium rounded-lg tracking-tight transition-all duration-300 hover:scale-105 whitespace-nowrap ${isDark ? 'bg-white text-black' : 'bg-[var(--black)] text-white'}`}>
-                  <div className={`absolute inset-0 ${isDark ? 'bg-[var(--cream)]' : 'bg-[var(--primary-blue)]'} transform -translate-x-full transition-transform duration-300 ease-out group-hover:translate-x-0`} />
-                  <span className="relative z-10">Get Your Free Prototype</span>
+                  <div className={`absolute inset-0 ${isDark ? 'bg-[var(--black)]' : 'bg-[var(--primary-blue)]'} transform -translate-x-full transition-transform duration-300 ease-out group-hover:translate-x-0`} />
+                  <span className="relative z-10 group-hover:text-white">Get Your Free Prototype</span>
                 </button>
               </div>
             )}
@@ -235,8 +235,9 @@ function PrototypeForm({ id, variant = 'light' }: { id: string; variant?: 'light
               <input id={`${id}-email`} type="email" value={email} onChange={e => { setEmail(e.target.value); setError('') }}
                 placeholder="your@email.com" className={inputClass} onKeyDown={e => e.key === 'Enter' && handleStep2()} />
               <button onClick={handleStep2} disabled={status === 'submitting'}
-                className={`px-6 py-4 text-[15px] font-medium rounded-lg tracking-tight transition-all duration-300 hover:scale-105 disabled:opacity-60 disabled:hover:scale-100 whitespace-nowrap ${isDark ? 'bg-white text-black hover:bg-[var(--cream)]' : 'bg-[var(--primary-blue)] text-white'}`}>
-                {status === 'submitting' ? 'Sending...' : 'Send My Free Prototype'}
+                className={`group relative overflow-hidden px-6 py-4 text-[15px] font-medium rounded-lg tracking-tight transition-all duration-300 hover:scale-105 disabled:opacity-60 disabled:hover:scale-100 whitespace-nowrap ${isDark ? 'bg-white text-black' : 'bg-[var(--black)] text-white'}`}>
+                <div className={`absolute inset-0 ${isDark ? 'bg-[var(--black)]' : 'bg-[var(--primary-blue)]'} transform -translate-x-full transition-transform duration-300 ease-out group-hover:translate-x-0`} />
+                <span className="relative z-10 group-hover:text-white">{status === 'submitting' ? 'Sending...' : 'Send My Free Prototype'}</span>
               </button>
             </div>
             {error && <p className="text-red-400 text-sm pl-1">{error}</p>}
@@ -268,9 +269,8 @@ const faqData = [
 ]
 
 const testimonials = [
-  { highlight: 'Caldera understood my positioning better than I could have explained it myself.', quote: 'Caldera understood my positioning better than I could have explained it myself. The site practically wrote itself. Every detail felt intentional and on-brand. I genuinely didn\'t expect this level of quality from a free prototype.', name: 'Dr. Ron Paul', role: 'Leadership Coach', image: 'https://polarisinstitute.io/_next/image?url=%2FRonPaulLinkedIn.jpg&w=640&q=75', imgPos: 'center' },
-  { highlight: 'I went from no website to a site that wins me clients.', quote: 'I went from no website to a site that wins me clients. The whole process took less time than my last dentist appointment. Genuinely blown away by the speed and quality. I\'d recommend Caldera to any consultant.', name: 'Mark S. Piazza', role: 'Fractional CFO', image: 'https://res.cloudinary.com/dawyrpt2m/image/upload/v1766602121/Piazza_Headshot_1_daetif.jpg', imgPos: 'center 30%' },
-  { highlight: 'What they sent blew me away. I signed the same day.', quote: 'I was skeptical about the free prototype, but what they sent blew me away. I signed the same day. If you\'re a consultant without a site, just send your LinkedIn. You have nothing to lose.', name: 'Elena K.', role: 'Leadership Coach', image: 'https://res.cloudinary.com/dawyrpt2m/image/upload/v1767130093/unnamed_1_l4haxs.jpg', imgPos: 'center' },
+  { highlight: 'It has elevated how I position myself in every client conversation.', quote: 'Caldera Agency didn\'t just build me a website, they helped me formally launch my entrepreneurial practice with clarity and credibility. In a matter of days, Stefanos and his team translated my experience into a polished, enterprise-level site, delivered with remarkable speed and zero red tape. It has elevated how I position myself in every client conversation.', name: 'Mark S. Piazza', role: 'Fractional CFO & Financial Advisor', image: 'https://res.cloudinary.com/dawyrpt2m/image/upload/v1766602121/Piazza_Headshot_1_daetif.jpg', imgPos: 'center 30%' },
+  { highlight: 'An end product that far exceeded my expectations.', quote: 'My experience with the Caldera team has been great. They are very responsive, creative and were able to take my desired content and feedback to create an end product that far exceeded my expectations. They work very efficiently, often turning around edits and new concepts in hours, with a sharp eye on every detail. I highly recommend the team at Caldera.', name: 'Tim Scott', role: 'Founder, True North Supply Chain Advisory', image: 'https://res.cloudinary.com/dawyrpt2m/image/upload/v1767130093/unnamed_1_l4haxs.jpg', imgPos: 'center' },
 ]
 
 const portfolioItems = [
@@ -278,15 +278,15 @@ const portfolioItems = [
     name: 'Dr. Ron Paul',
     role: 'Leadership Coach & Culture Transformation Expert',
     url: 'https://polarisinstitute.io',
-    description: 'Full website build \u2014 brand development, strategy, design, development, and copywriting.',
+    description: 'Full website build: brand development, strategy, design, development, and copywriting.',
     image: '/WorkScreenshots/Screenshot 2026-03-02 081608.png',
   },
   {
     name: 'Mark S. Piazza',
     role: 'Fractional CFO & Financial Advisor',
     url: 'https://markspiazza.com',
-    description: 'One-page website \u2014 strategy, copy, design, development. Compact layout designed to minimize scrolls.',
-    image: '/WorkScreenshots/Screenshot 2026-03-02 081712.png',
+    description: 'One-page website: strategy, copy, design, development. Compact layout designed to minimize scrolls.',
+    image: '/WorkScreenshots/Screenshot 2026-03-02 081828.png',
   },
 ]
 
@@ -300,17 +300,21 @@ export default function HomeV2() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const [showPreloader, setShowPreloader] = useState(true)
+  const lenisRef = useRef<Lenis | null>(null)
   const scrollContainerRef = useRef<HTMLDivElement>(null)
   const themedSectionRefs = useRef<(HTMLElement | null)[]>([])
 
-  // Preloader timeout + lock scroll
+  // Preloader timeout + unlock scroll after hero animations
   useEffect(() => {
-    document.body.style.overflow = 'hidden'
-    const t = setTimeout(() => {
-      setShowPreloader(false)
-      document.body.style.overflow = ''
-    }, 2800)
-    return () => { clearTimeout(t); document.body.style.overflow = '' }
+    window.scrollTo(0, 0)
+    // Hide preloader after 2.8s
+    const preloaderTimer = setTimeout(() => setShowPreloader(false), 2800)
+    // Start Lenis after hero animations finish (~2.8s preloader + 3.5s hero anims)
+    const scrollTimer = setTimeout(() => lenisRef.current?.start(), 6300)
+    return () => {
+      clearTimeout(preloaderTimer)
+      clearTimeout(scrollTimer)
+    }
   }, [])
 
   // Nav scroll detection
@@ -409,6 +413,8 @@ export default function HomeV2() {
     if (!container) return
 
     const lenis = new Lenis({ lerp: 0.1, smoothWheel: true })
+    lenis.stop()
+    lenisRef.current = lenis
     lenis.on('scroll', ScrollTrigger.update)
     gsap.ticker.add((time) => lenis.raf(time * 1000))
     gsap.ticker.lagSmoothing(0)
@@ -455,13 +461,13 @@ export default function HomeV2() {
       {/* ─── 1. Navbar ─── */}
       <nav className="fixed top-0 w-full z-[100] px-6 md:px-12 py-5 transition-all duration-500">
         <div className="flex justify-between items-center max-w-screen-2xl mx-auto">
-          <div className={`text-3xl font-medium tracking-tight caldera-logo transition-colors duration-300 ${navDark ? 'text-white' : 'text-[var(--black)]'}`}>
+          <div className={`text-3xl font-medium tracking-tight caldera-logo ${navDark ? 'text-white' : 'text-[var(--black)]'}`}>
             caldera.agency
           </div>
           <div className="flex items-center gap-8">
             <button onClick={scrollToNearestForm}
-              className={`hidden md:block group relative overflow-hidden px-6 py-3 rounded-lg text-sm tracking-tight transition-all duration-500 hover:scale-105 ${navDark ? 'bg-white text-[var(--black)] border border-white' : 'bg-[var(--black)] text-white border border-[var(--black)]'}`}>
-              <div className="absolute inset-0 bg-[var(--primary-blue)] transform -translate-x-full transition-transform duration-300 ease-out group-hover:translate-x-0" />
+              className={`hidden md:block group relative overflow-hidden px-6 py-3 rounded-lg text-sm tracking-tight transition-all duration-500 hover:scale-105 ${navDark ? 'bg-white text-[var(--black)]' : 'bg-[var(--black)] text-white'}`}>
+              <div className={`absolute inset-0 ${navDark ? 'bg-[var(--black)]' : 'bg-[var(--primary-blue)]'} transform -translate-x-full transition-transform duration-300 ease-out group-hover:translate-x-0`} />
               <span className="relative z-10 flex items-center gap-2 group-hover:text-white">
                 Get Your Free Prototype
                 <span className="transition-transform duration-300 group-hover:translate-x-0.5">&rarr;</span>
@@ -472,18 +478,13 @@ export default function HomeV2() {
         </div>
       </nav>
 
-      {/* ─── 2. Hero (fixed) — frosted glass gradient mesh ─── */}
+      {/* ─── 2. Hero (fixed) — grid pattern ─── */}
       <section className="fixed inset-0 h-screen flex flex-col z-0 bg-[var(--cream)]">
-        {/* Aurora background */}
-        <div className="absolute inset-0">
-          <Aurora
-            colorStops={["#FAF8F5","#3c00ff","#5227FF"]}
-            amplitude={1}
-            blend={0.93}
-          />
-        </div>
-        {/* Frosted overlay for readability */}
-        <div className="absolute inset-0 bg-[var(--cream)]/60" />
+        {/* Grid pattern */}
+        <div className="pointer-events-none absolute inset-0 opacity-[0.03]" style={{
+          backgroundImage: `linear-gradient(var(--primary-blue) 1px, transparent 1px), linear-gradient(90deg, var(--primary-blue) 1px, transparent 1px)`,
+          backgroundSize: '60px 60px',
+        }} />
 
         {/* Hero content */}
         <div className="relative z-10 flex-1 flex items-center justify-center px-8 md:px-16 pt-[5vh]">
@@ -575,7 +576,7 @@ export default function HomeV2() {
           animate={!showPreloader ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           transition={{ duration: 0.8, delay: 2.9, ease: [0.22, 1, 0.36, 1] }}
         >
-          <div className="max-w-screen-2xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5">
+          <div className="max-w-screen-2xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5 max-w-4xl">
             {testimonials.map((t, i) => (
               <motion.div
                 key={i}
@@ -609,7 +610,7 @@ export default function HomeV2() {
       <div className="h-screen" aria-hidden="true" />
 
       {/* ─── All scrollable content ─── */}
-      <div ref={scrollContainerRef} className="relative z-10 transition-colors duration-[400ms] ease-out" style={{ backgroundColor: 'rgb(250, 248, 245)', color: 'rgb(0, 0, 0)' }}>
+      <div ref={scrollContainerRef} className="relative z-10 theme-container" style={{ backgroundColor: 'rgb(250, 248, 245)', color: 'rgb(0, 0, 0)', transition: 'background-color 400ms ease-out' }}>
 
         {/* ─── 3. Drawer: Form + How It Works (2-col) ─── */}
         <section className="relative overflow-hidden">
@@ -617,55 +618,43 @@ export default function HomeV2() {
           <div className="relative z-10 px-8 md:px-12 lg:px-16 py-20 md:py-28 lg:py-32">
             <div className="max-w-screen-xl mx-auto">
 
-              {/* Two-column layout */}
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-start">
+              {/* Two-column layout — left sells, right supports */}
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
 
-                {/* Left: CTA */}
-                <div className="scroll-fade">
-                  <p className="text-[var(--primary-blue)] text-sm font-medium tracking-widest uppercase mb-5">Start for free</p>
-                  <h2 className="text-[clamp(28px,3.5vw,52px)] font-light tracking-tight leading-[0.95] mb-5">
-                    See your website before <span className="font-medium">paying a cent</span>.
+                {/* Left: CTA (dominant — 7 cols) */}
+                <div className="lg:col-span-7 scroll-fade">
+                  <p className="text-[var(--primary-blue)] text-sm font-medium tracking-widest uppercase mb-5">Zero risk, zero commitment</p>
+                  <h2 className="text-[clamp(28px,3.5vw,52px)] font-light tracking-tight leading-[0.95] mb-5 text-[var(--black)]">
+                    Drop your LinkedIn.<br /><span className="font-medium">Get a website.</span>
                   </h2>
-                  <p className="text-[var(--gray-medium)] text-[16px] md:text-[17px] leading-relaxed mb-8">
-                    Drop your LinkedIn link. We&apos;ll spend a few days going through your background, studying your expertise, writing copy around it, shaping every detail from what we find. We then build you a preview for free and email you the link. You move forward only if you love it.
+                  <p className="relative inline-block text-[var(--black)] font-medium text-[16px] md:text-[17px] leading-relaxed mb-4">
+                    We&apos;ll build your site before you spend a dollar.<span className="absolute bottom-0 left-0 w-full h-[2px] bg-[var(--primary-blue)]" />
+                  </p>
+                  <p className="text-[var(--gray-medium)] text-[15px] md:text-[16px] leading-relaxed mb-8">
+                    Paste your LinkedIn URL, let us handle the rest. Give us 5 days to research your background, study your expertise, and write copy around it. We&apos;ll come back with a full one-page website tailored specifically to your positioning. No commitment, no calls. <span className="relative inline-block text-[var(--black)] font-medium">We move forward only if you love it<span className="absolute bottom-0 left-0 w-full h-[2px] bg-[var(--primary-blue)]" /></span>.
                   </p>
                   <PrototypeForm id="prototype-form" variant="minimal" />
                 </div>
 
-                {/* Right: How It Works — stacked cards with arrows */}
-                <div className="scroll-fade">
-                  <p className="text-[var(--primary-blue)] text-xs font-medium tracking-widest uppercase mb-6">How It Works</p>
-                  <div className="flex flex-col">
+                {/* Right: How It Works (subordinate — 5 cols, smaller text, lighter) */}
+                <div className="lg:col-span-5 scroll-fade lg:pt-8">
+                  <p className="text-[var(--gray-medium)] text-[11px] font-medium tracking-widest uppercase mb-5">How It Works</p>
+                  <div className="flex flex-col gap-3">
                     {[
-                      { icon: '01', h: 'We do the research', b: 'We study your LinkedIn, content, and market before asking you a single question.', tag: 'Zero busywork' },
-                      { icon: '02', h: 'You review, we build', b: 'We design and build your site with custom copy. You just approve and tweak.', tag: 'Easy review' },
-                      { icon: '03', h: 'Launch and announce', b: 'Your site goes live with a LinkedIn banner, launch assets, and 1 year of hosting.', tag: 'Go live' },
+                      { icon: '01', h: 'We build first', b: 'We study your LinkedIn, positioning, and market, then build a working prototype before we ever talk.' },
+                      { icon: '02', h: 'The prototype does the talking', b: 'Instead of briefs and questionnaires, we start with something real. It proves what we can do and gives us both a concrete starting point.' },
+                      { icon: '03', h: 'You review, we refine', b: 'Some clients take it nearly as-is. Others want big changes. We jump on a quick call to understand what you need and tailor our offer accordingly. Either way, there\u2019s no homework for you, just send us whatever you have, we figure it out and come back with the next version.' },
+                      { icon: '04', h: 'Launch', b: 'Your site goes live with 1 year of free hosting and support.' },
                     ].map((step, i) => (
-                      <React.Fragment key={step.icon}>
-                        {/* Arrow between cards */}
-                        {i > 0 && (
-                          <div className="flex justify-center py-2">
-                            <svg width="16" height="20" viewBox="0 0 16 20" fill="none" className="text-[var(--primary-blue)]/25">
-                              <path d="M8 0v16m0 0l-5-5m5 5l5-5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                            </svg>
-                          </div>
-                        )}
-                        <div className="scroll-fade" style={{ transitionDelay: `${i * 80}ms` }}>
-                          <div className="relative bg-white/80 backdrop-blur-sm border border-white/80 rounded-2xl p-5 shadow-[0_2px_20px_rgba(0,0,0,0.04)] hover:shadow-[0_12px_40px_rgba(0,0,0,0.1)] hover:-translate-y-0.5 transition-all duration-400 group cursor-pointer overflow-hidden">
-                            <div className="absolute inset-0 bg-gradient-to-br from-[var(--primary-blue)] to-[var(--blue-dark)] opacity-0 transition-opacity duration-400 group-hover:opacity-100 rounded-2xl" />
-                            <div className="flex items-start gap-5 relative z-10">
-                              <span className="text-[var(--primary-blue)] font-[family-name:var(--font-bebas)] text-3xl leading-none group-hover:text-white/80 transition-colors duration-300 flex-shrink-0 pt-0.5">{step.icon}</span>
-                              <div className="min-w-0">
-                                <div className="flex items-center gap-3 mb-1.5">
-                                  <h3 className="text-[15px] font-medium tracking-tight group-hover:text-white transition-colors duration-300">{step.h}</h3>
-                                  <span className="text-[9px] uppercase tracking-widest text-[var(--gray-medium)] bg-[var(--cream)] px-2 py-0.5 rounded-full group-hover:bg-white/20 group-hover:text-white/70 transition-all duration-300 flex-shrink-0">{step.tag}</span>
-                                </div>
-                                <p className="text-[var(--gray-medium)] text-sm leading-relaxed group-hover:text-white/80 transition-colors duration-300">{step.b}</p>
-                              </div>
-                            </div>
+                      <div key={step.icon} className="scroll-fade" style={{ transitionDelay: `${i * 80}ms` }}>
+                        <div className="flex items-start gap-4 text-[var(--black)]">
+                          <span className="text-[var(--primary-blue)]/40 font-[family-name:var(--font-bebas)] text-2xl leading-none flex-shrink-0 pt-0.5">{step.icon}</span>
+                          <div className="min-w-0">
+                            <h3 className="text-[14px] font-medium tracking-tight text-[var(--black)] mb-0.5">{step.h}</h3>
+                            <p className="text-[var(--gray-medium)] text-[13px] leading-relaxed">{step.b}</p>
                           </div>
                         </div>
-                      </React.Fragment>
+                      </div>
                     ))}
                   </div>
                 </div>
@@ -678,8 +667,8 @@ export default function HomeV2() {
         {/* ─── 4. Highlighted Work — 2 case studies ─── */}
         <section ref={el => { themedSectionRefs.current[0] = el }} className="py-24 md:py-32 px-8">
           <div className="max-w-screen-2xl mx-auto">
-            <p className="text-[var(--primary-blue)] text-sm font-medium tracking-widest uppercase text-center mb-4 scroll-fade">Our Work</p>
-            <h2 className="section-title text-center mb-16 md:mb-20 scroll-fade">Highlighted Work</h2>
+            <p className="text-[var(--primary-blue)] text-sm font-medium tracking-widest uppercase text-center mb-4 scroll-fade">Highlighted Work</p>
+            <h2 className="section-title text-center mb-16 md:mb-20 scroll-fade">What It Looks Like</h2>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
               {portfolioItems.map((item, i) => (
@@ -765,8 +754,8 @@ export default function HomeV2() {
             <div className="grid grid-cols-1 md:grid-cols-[200px_1fr] gap-10 md:gap-16 items-start scroll-fade">
               {/* Photo + name */}
               <div className="flex flex-col items-center md:items-start">
-                <div className="w-36 h-36 md:w-48 md:h-48 rounded-2xl overflow-hidden relative mb-4">
-                  <Image src="https://media.licdn.com/dms/image/v2/D4E03AQFtPrp_FPteWQ/profile-displayphoto-crop_800_800/B4EZmbDEKyIIAI-/0/1759242896559?e=1773878400&v=beta&t=nB4Feahu_xrmbFOODSzBuckTy0JLfVYPkl95h3gcfnE" alt="Stef, Founder of Caldera Agency" fill className="object-cover" sizes="192px" />
+                <div className="w-36 h-44 md:w-48 md:h-56 relative mb-4 rounded-2xl overflow-hidden" style={{ WebkitMaskImage: 'linear-gradient(to bottom, black 60%, transparent 100%)', maskImage: 'linear-gradient(to bottom, black 60%, transparent 100%)' }}>
+                  <Image src="/images/linkedinpfp.jpg" alt="Stef, Founder of Caldera Agency" fill className="object-cover object-top" sizes="192px" />
                 </div>
                 <p className="font-medium tracking-tight text-lg text-white">Stefanos Bellos</p>
                 <p className="text-white/40 text-sm">Founder, Caldera Agency</p>
@@ -775,7 +764,7 @@ export default function HomeV2() {
               {/* Letter */}
               <div className="space-y-5 text-lg leading-relaxed text-white/70">
                 <p>
-                  I spent thousands of hours at Dialectica connecting consultants with investors and multimillion dollar companies. I talked to hundreds of experts, brilliant people who shaped decisions worth millions.
+                  I spent thousands of hours at Dialectica connecting consultants with investors and global enterprises. I talked to hundreds of experts, brilliant people who shaped decisions worth millions.
                 </p>
                 <p>
                   Most of them had no website. Or worse, they had one that looked like it was built in 2012.
@@ -844,11 +833,11 @@ export default function HomeV2() {
             <div className="text-center mb-12 md:mb-20">
               <div className="inline-flex items-center gap-3 md:gap-4 mb-4 md:mb-6 scroll-fade">
                 <div className="w-8 md:w-12 h-px bg-current opacity-20" />
-                <span className="text-xs md:text-sm tracking-widest uppercase opacity-80 font-medium">Common Questions</span>
+                <span className="text-xs md:text-sm tracking-widest uppercase opacity-90 font-medium">Common Questions</span>
                 <div className="w-8 md:w-12 h-px bg-current opacity-20" />
               </div>
               <h2 className="section-title mb-4 md:mb-6 scroll-fade">Frequently Asked Questions</h2>
-              <p className="text-lg md:text-xl leading-relaxed opacity-70 max-w-3xl mx-auto font-light scroll-fade px-4">
+              <p className="text-lg md:text-xl leading-relaxed opacity-80 max-w-3xl mx-auto font-light scroll-fade px-4">
                 Clear answers to the questions most consultants ask before booking.
               </p>
             </div>
@@ -857,31 +846,31 @@ export default function HomeV2() {
               {(showAllFAQ ? faqData : faqData.slice(0, 5)).map((item, i) => (
                 <div key={i} className={i < 5 ? 'scroll-fade' : ''}>
                   <button onClick={() => setOpenFAQ(openFAQ === i ? null : i)}
-                    className="w-full bg-current/10 backdrop-blur-sm hover:bg-[var(--primary-blue)] border border-current/20 hover:border-[var(--primary-blue)] rounded-xl md:rounded-2xl p-4 md:p-6 text-left transition-all duration-300 hover:shadow-2xl group">
+                    className="w-full bg-white/10 backdrop-blur-sm hover:bg-white/20 border border-white/20 hover:border-white/30 rounded-xl md:rounded-2xl p-4 md:p-6 text-left transition-all duration-300 hover:shadow-2xl group">
                     <div className="flex items-center justify-between">
-                      <h3 className="text-base md:text-lg lg:text-xl font-normal transition-colors duration-300 pr-6 group-hover:text-white">{item.q}</h3>
+                      <h3 className="text-base md:text-lg lg:text-xl font-normal pr-6 group-hover:text-white">{item.q}</h3>
                       <div className={`w-5 h-5 flex items-center justify-center transition-transform duration-300 ${openFAQ === i ? 'rotate-45' : ''}`}>
-                        <span className="text-xl font-light leading-none transition-colors duration-300 group-hover:text-white">+</span>
+                        <span className="text-xl font-light leading-none group-hover:text-white">+</span>
                       </div>
                     </div>
                   </button>
                   <div className={`overflow-hidden transition-all duration-500 ease-out ${openFAQ === i ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}>
                     <div className="px-4 md:px-6 pb-4 md:pb-6 pt-3 md:pt-4">
-                      <p className="opacity-70 leading-relaxed text-sm md:text-base">{item.a}</p>
+                      <p className="opacity-85 leading-relaxed text-sm md:text-base">{item.a}</p>
                     </div>
                   </div>
                 </div>
               ))}
               {!showAllFAQ && faqData.length > 5 && (
                 <button onClick={() => setShowAllFAQ(true)}
-                  className="w-full bg-current/5 border border-current/15 rounded-xl md:rounded-2xl p-4 md:p-5 text-center opacity-60 hover:opacity-100 hover:bg-current/10 transition-all duration-300 text-sm md:text-base">
+                  className="w-full bg-white/5 border border-white/15 rounded-xl md:rounded-2xl p-4 md:p-5 text-center opacity-70 hover:opacity-100 hover:bg-white/10 transition-all duration-300 text-sm md:text-base">
                   Show {faqData.length - 5} more questions
                 </button>
               )}
             </div>
 
             <div className="text-center mt-12 md:mt-20 scroll-fade">
-              <p className="opacity-60 text-base md:text-lg mb-4 md:mb-6">Have a different question?</p>
+              <p className="opacity-75 text-base md:text-lg mb-4 md:mb-6">Have a different question?</p>
               <button onClick={scrollToNearestForm} className="inline-flex items-center gap-2 text-base md:text-lg relative pb-1 group">
                 <span>Get in touch</span>
                 <span className="transition-transform duration-300 group-hover:translate-x-1">&rarr;</span>

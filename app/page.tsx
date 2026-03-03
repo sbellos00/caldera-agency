@@ -1,5 +1,5 @@
 import type { Metadata } from "next"
-import HomeClient from "@/components/HomeClient"
+import HomeClientV2 from "@/components/HomeClientV2"
 
 export const metadata: Metadata = {
   title: "Caldera Agency - The Website Agency For Solo Consultants",
@@ -44,5 +44,5 @@ export const metadata: Metadata = {
 }
 
 export default function HomePage() {
-  return <HomeClient />
+  return <HomeClientV2 />
 }
