@@ -382,18 +382,20 @@ export default function HomeV2() {
     }
     magnetics.forEach(el => { el.addEventListener('mouseenter', magnetEnter); el.addEventListener('mouseleave', magnetLeave) })
 
-    // Scroll-fade observer
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible') })
-    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' })
-    document.querySelectorAll('.scroll-fade').forEach(el => observer.observe(el))
-
     return () => {
       document.removeEventListener('mousemove', handleMouseMove)
       gsap.ticker.remove(update)
       magnetics.forEach(el => { el.removeEventListener('mouseenter', magnetEnter); el.removeEventListener('mouseleave', magnetLeave) })
-      observer.disconnect()
     }
+  }, [])
+
+  // Scroll-fade observer — standalone so it works on mobile (cursor effect early-returns on small screens)
+  useEffect(() => {
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible') })
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' })
+    document.querySelectorAll('.scroll-fade').forEach(el => observer.observe(el))
+    return () => observer.disconnect()
   }, [])
 
   const [navDark, setNavDark] = useState(false)
@@ -627,8 +629,8 @@ export default function HomeV2() {
                   <h2 className="text-[clamp(28px,3.5vw,52px)] font-light tracking-tight leading-[0.95] mb-5 text-[var(--black)]">
                     Drop your LinkedIn.<br /><span className="font-medium">Get a website.</span>
                   </h2>
-                  <p className="relative inline-block text-[var(--black)] font-medium text-[16px] md:text-[17px] leading-relaxed mb-4">
-                    We&apos;ll build your site before you spend a dollar.<span className="absolute bottom-0 left-0 w-full h-[2px] bg-[var(--primary-blue)]" />
+                  <p className="relative inline-block text-[var(--primary-blue)] md:text-[var(--black)] font-medium text-[16px] md:text-[17px] leading-relaxed mb-4">
+                    We&apos;ll build your site before you spend a dollar.<span className="absolute bottom-0 left-0 w-full h-[2px] bg-[var(--primary-blue)] hidden md:block" />
                   </p>
                   <p className="text-[var(--gray-medium)] text-[15px] md:text-[16px] leading-relaxed mb-8">
                     Paste your LinkedIn URL, let us handle the rest. Give us 5 days to research your background, study your expertise, and write copy around it. We&apos;ll come back with a full one-page website tailored specifically to your positioning. No commitment, no calls. <span className="relative inline-block text-[var(--black)] font-medium">We move forward only if you love it<span className="absolute bottom-0 left-0 w-full h-[2px] bg-[var(--primary-blue)]" /></span>.
