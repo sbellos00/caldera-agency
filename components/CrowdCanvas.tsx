@@ -12,6 +12,8 @@ interface CrowdCanvasProps {
 type Peep = {
   image: HTMLImageElement
   rect: number[]
+  baseWidth: number
+  baseHeight: number
   width: number
   height: number
   x: number
@@ -45,8 +47,8 @@ export default function CrowdCanvas({ src, rows = 15, cols = 7 }: CrowdCanvasPro
 
     const createPeep = ({ image, rect }: { image: HTMLImageElement; rect: number[] }): Peep => {
       const peep: Peep = {
-        image, rect: [], width: 0, height: 0, x: 0, y: 0, anchorY: 0, scaleX: 1, walk: null,
-        setRect: (r: number[]) => { peep.rect = r; peep.width = r[2]; peep.height = r[3] },
+        image, rect: [], baseWidth: 0, baseHeight: 0, width: 0, height: 0, x: 0, y: 0, anchorY: 0, scaleX: 1, walk: null,
+        setRect: (r: number[]) => { peep.rect = r; peep.baseWidth = r[2]; peep.baseHeight = r[3]; peep.width = r[2]; peep.height = r[3] },
         render: (ctx: CanvasRenderingContext2D) => {
           ctx.save()
           ctx.translate(peep.x, peep.y)
@@ -118,6 +120,11 @@ export default function CrowdCanvas({ src, rows = 15, cols = 7 }: CrowdCanvasPro
       stage.height = canvas.clientHeight
       canvas.width = stage.width * devicePixelRatio
       canvas.height = stage.height * devicePixelRatio
+
+      // Scale peeps down on narrow viewports so they don't dominate mobile screens
+      const scale = Math.min(1, stage.width / 900)
+      allPeeps.forEach(p => { p.width = p.baseWidth * scale; p.height = p.baseHeight * scale })
+
       crowd.forEach(p => p.walk?.kill())
       crowd.length = 0
       availablePeeps.length = 0

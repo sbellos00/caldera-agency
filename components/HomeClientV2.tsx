@@ -382,18 +382,20 @@ export default function HomeV2() {
     }
     magnetics.forEach(el => { el.addEventListener('mouseenter', magnetEnter); el.addEventListener('mouseleave', magnetLeave) })
 
-    // Scroll-fade observer
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible') })
-    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' })
-    document.querySelectorAll('.scroll-fade').forEach(el => observer.observe(el))
-
     return () => {
       document.removeEventListener('mousemove', handleMouseMove)
       gsap.ticker.remove(update)
       magnetics.forEach(el => { el.removeEventListener('mouseenter', magnetEnter); el.removeEventListener('mouseleave', magnetLeave) })
-      observer.disconnect()
     }
+  }, [])
+
+  // Scroll-fade observer — standalone so it works on mobile (cursor effect early-returns on small screens)
+  useEffect(() => {
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible') })
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' })
+    document.querySelectorAll('.scroll-fade').forEach(el => observer.observe(el))
+    return () => observer.disconnect()
   }, [])
 
   const [navDark, setNavDark] = useState(false)
