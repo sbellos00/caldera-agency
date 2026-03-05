@@ -180,7 +180,7 @@ export default function ProcessPage() {
           <p className="text-[var(--primary-blue)] text-sm font-medium tracking-widest uppercase mb-6 scroll-fade">Our Process</p>
 
           <h1 className="text-[clamp(2.2rem,4.5vw,4.5rem)] font-light tracking-tight leading-[0.95] mb-6 text-[var(--black)] scroll-fade">
-            We&apos;ll build your site before you<br className="hidden md:block" /> spend <span className="font-serif italic font-normal text-[var(--primary-blue)]">a dollar.</span>
+            We&apos;ll build your site before you<br className="hidden md:block" /> spend <span className="font-serif italic font-normal text-[var(--primary-blue)]">a dollar</span>
           </h1>
 
           <p className="text-base md:text-lg leading-relaxed text-[var(--gray-medium)] max-w-2xl mb-10 scroll-fade">
@@ -221,25 +221,39 @@ export default function ProcessPage() {
             <p className="text-[var(--primary-blue)] text-sm font-medium tracking-widest uppercase text-center mb-4 scroll-fade">Step by step</p>
             <h2 className="section-title text-center mb-16 md:mb-20 scroll-fade">How It Works</h2>
 
-            <div className="space-y-5">
+            <div className="flex flex-col">
               {steps.map((step, i) => (
-                <div
-                  key={step.num}
-                  className="bg-[var(--cream)] rounded-2xl p-7 md:p-10 scroll-fade"
-                  style={{ transitionDelay: `${i * 80}ms` }}
-                >
-                  <div className="grid grid-cols-1 md:grid-cols-[auto_1fr] gap-5 md:gap-8 items-start">
-                    {/* Number */}
-                    <div className="flex items-center gap-4 md:block">
-                      <span className="text-[var(--primary-blue)]/40 font-[family-name:var(--font-bebas)] text-4xl md:text-5xl leading-none">{step.num}</span>
-                      <h3 className="text-xl md:text-2xl font-medium tracking-tight text-[var(--black)] md:hidden">{step.title}</h3>
-                    </div>
-                    {/* Content */}
-                    <div>
-                      <h3 className="hidden md:block text-xl md:text-2xl font-medium tracking-tight text-[var(--black)] mb-3">{step.title}</h3>
-                      <p className="text-[15px] md:text-base leading-relaxed text-[var(--gray-medium)]">{step.body}</p>
+                <div key={step.num}>
+                  {/* Step card */}
+                  <div
+                    className="bg-[var(--cream)] rounded-2xl p-7 md:p-10 scroll-fade"
+                    style={{ transitionDelay: `${i * 80}ms` }}
+                  >
+                    <div className="grid grid-cols-1 md:grid-cols-[auto_1fr] gap-5 md:gap-8 items-start">
+                      {/* Number */}
+                      <div className="flex items-center gap-4 md:block">
+                        <span className="text-[var(--primary-blue)]/40 font-[family-name:var(--font-bebas)] text-4xl md:text-5xl leading-none">{step.num}</span>
+                        <h3 className="text-xl md:text-2xl font-medium tracking-tight text-[var(--black)] md:hidden">{step.title}</h3>
+                      </div>
+                      {/* Content */}
+                      <div>
+                        <h3 className="hidden md:block text-xl md:text-2xl font-medium tracking-tight text-[var(--black)] mb-3">{step.title}</h3>
+                        <p className="text-[15px] md:text-base leading-relaxed text-[var(--gray-medium)]">{step.body}</p>
+                      </div>
                     </div>
                   </div>
+
+                  {/* Arrow connector between cards */}
+                  {i < steps.length - 1 && (
+                    <div className="flex justify-center py-4 scroll-fade" style={{ transitionDelay: `${i * 80 + 40}ms` }}>
+                      <div className="flex flex-col items-center gap-1">
+                        <div className="w-px h-6 bg-gradient-to-b from-[var(--primary-blue)]/30 to-[var(--primary-blue)]" />
+                        <svg width="14" height="10" viewBox="0 0 14 10" fill="none" className="text-[var(--primary-blue)] animate-[process-arrow-bounce_2s_ease-in-out_infinite]" style={{ animationDelay: `${i * 0.3}s` }}>
+                          <path d="M1 1L7 8L13 1" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
+                      </div>
+                    </div>
+                  )}
                 </div>
               ))}
             </div>
