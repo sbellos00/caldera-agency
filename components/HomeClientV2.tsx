@@ -772,7 +772,7 @@ export default function HomeV2() {
                   Most of them had no website. Or worse, they had one that looked like it was built in 2012.
                 </p>
                 <p>
-                  They&apos;d lose RFPs to competitors who simply looked more credible online. They&apos;d get passed over for speaking gigs because there was nowhere to send a link. They&apos;d rely entirely on LinkedIn and hope the algorithm was kind.
+                  They&apos;d lose RFPs to competitors who simply looked more credible online. They&apos;d get a warm referral and have nowhere to send them. They&apos;d rely entirely on LinkedIn and hope the algorithm was kind.
                 </p>
                 <p>
                   That&apos;s why I started Caldera. Because consultants shouldn&apos;t have to become web designers, copywriters, or project managers just to look professional online.
