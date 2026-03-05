@@ -1,9 +1,13 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, useCallback } from 'react'
 import Link from 'next/link'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Menu from '@/components/Menu'
 import Footer from '@/components/Footer'
+
+gsap.registerPlugin(ScrollTrigger)
 
 const steps = [
   {
@@ -55,149 +59,162 @@ export default function ProcessPage() {
   const cursorRef = useRef<HTMLDivElement>(null)
   const cursorDotRef = useRef<HTMLDivElement>(null)
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [navDark, setNavDark] = useState(false)
+  const scrollContainerRef = useRef<HTMLDivElement>(null)
+  const themedSectionRefs = useRef<(HTMLElement | null)[]>([])
 
+  const scrollToNearestForm = useCallback(() => {
+    const target = document.getElementById('prototype-form') || document.getElementById('prototype-form-bottom')
+    target?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+  }, [])
+
+  // Cursor
   useEffect(() => {
-    document.documentElement.classList.add('js')
-
     const cursor = cursorRef.current
-    const cursorDot = cursorDotRef.current
+    const dot = cursorDotRef.current
+    if (!cursor || !dot) return
 
-    if (!cursor || !cursorDot) return
-
-    let mouseX = 0
-    let mouseY = 0
-    let animationId: number
-
-    const handleMouseMove = (e: MouseEvent) => {
-      mouseX = e.clientX
-      mouseY = e.clientY
-    }
-
-    const updateCursor = () => {
-      cursor.style.left = mouseX - 20 + 'px'
-      cursor.style.top = mouseY - 20 + 'px'
-      cursorDot.style.left = mouseX + 'px'
-      cursorDot.style.top = mouseY + 'px'
-      animationId = requestAnimationFrame(updateCursor)
-    }
-
-    document.addEventListener('mousemove', handleMouseMove)
-    updateCursor()
-
-    // Hover effects
-    const hoverElements = document.querySelectorAll('a, button, .process-card, .timeline-step')
-
-    const handleMouseEnter = () => {
-      cursor.style.transform = 'scale(1.5)'
-      cursor.style.borderColor = 'var(--primary-blue)'
-    }
-
-    const handleMouseLeave = () => {
-      cursor.style.transform = 'scale(1)'
-      cursor.style.borderColor = 'var(--primary-blue)'
-    }
-
-    hoverElements.forEach(el => {
-      el.addEventListener('mouseenter', handleMouseEnter)
-      el.addEventListener('mouseleave', handleMouseLeave)
-    })
-
-    // Immediately reveal elements already in the viewport
-    document.querySelectorAll('.scroll-fade').forEach(el => {
-      const r = (el as HTMLElement).getBoundingClientRect()
-      if (r.top < window.innerHeight && r.bottom > 0) el.classList.add('visible')
-    })
-
-    // Intersection Observer
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible')
-          }
-        })
-      },
-      { threshold: 0.01, rootMargin: '0px 0px -10% 0px' }
-    )
-
-    document.querySelectorAll('.scroll-fade').forEach(el => {
-      observer.observe(el)
-    })
-
-    // Hide cursor on mobile
     if (window.innerWidth <= 768) {
       cursor.style.display = 'none'
-      cursorDot.style.display = 'none'
+      dot.style.display = 'none'
+      return
     }
+
+    let mouseX = 0, mouseY = 0, curX = 0, curY = 0, dotX = 0, dotY = 0
+
+    const handleMouseMove = (e: MouseEvent) => { mouseX = e.clientX; mouseY = e.clientY }
+    document.addEventListener('mousemove', handleMouseMove)
+
+    const update = () => {
+      curX += (mouseX - curX) * 0.15
+      curY += (mouseY - curY) * 0.15
+      dotX += (mouseX - dotX) * 0.35
+      dotY += (mouseY - dotY) * 0.35
+      cursor.style.left = curX - 20 + 'px'
+      cursor.style.top = curY - 20 + 'px'
+      dot.style.left = dotX + 'px'
+      dot.style.top = dotY + 'px'
+    }
+    gsap.ticker.add(update)
+
+    const magnetics = document.querySelectorAll('a, button')
+    const magnetEnter = () => {
+      cursor.style.width = '60px'; cursor.style.height = '60px'; cursor.style.marginLeft = '-10px'; cursor.style.marginTop = '-10px'
+      cursor.style.borderColor = 'var(--primary-blue)'; cursor.style.opacity = '0.5'
+    }
+    const magnetLeave = () => {
+      cursor.style.width = '40px'; cursor.style.height = '40px'; cursor.style.marginLeft = '0'; cursor.style.marginTop = '0'
+      cursor.style.opacity = '1'
+    }
+    magnetics.forEach(el => { el.addEventListener('mouseenter', magnetEnter); el.addEventListener('mouseleave', magnetLeave) })
 
     return () => {
       document.removeEventListener('mousemove', handleMouseMove)
-      cancelAnimationFrame(animationId)
-      hoverElements.forEach(el => {
-        el.removeEventListener('mouseenter', handleMouseEnter)
-        el.removeEventListener('mouseleave', handleMouseLeave)
-      })
+      gsap.ticker.remove(update)
+      magnetics.forEach(el => { el.removeEventListener('mouseenter', magnetEnter); el.removeEventListener('mouseleave', magnetLeave) })
     }
+  }, [])
+
+  // Scroll-fade observer
+  useEffect(() => {
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible') })
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' })
+    document.querySelectorAll('.scroll-fade').forEach(el => observer.observe(el))
+    return () => observer.disconnect()
+  }, [])
+
+  // Scroll-based theme switching
+  const scrollThemes = useRef([
+    { bg: 'rgb(0, 0, 0)', text: 'rgb(255, 255, 255)' },      // Stats — dark
+    { bg: 'rgb(255, 255, 255)', text: 'rgb(0, 0, 0)' },      // Transition back to white before CTA
+  ])
+
+  useEffect(() => {
+    const container = scrollContainerRef.current
+    if (!container) return
+
+    const ctx = gsap.context(() => {
+      themedSectionRefs.current.forEach((el, i) => {
+        if (!el) return
+        const theme = scrollThemes.current[i]
+        const prevTheme = i === 0
+          ? { bg: 'rgb(255, 255, 255)', text: 'rgb(0, 0, 0)' }
+          : scrollThemes.current[i - 1]
+
+        ScrollTrigger.create({
+          trigger: el,
+          start: i === scrollThemes.current.length - 1 ? 'top bottom' : 'top center',
+          onEnter: () => {
+            container.style.backgroundColor = theme.bg
+            container.style.color = theme.text
+            setNavDark(theme.text === 'rgb(255, 255, 255)')
+          },
+          onLeaveBack: () => {
+            container.style.backgroundColor = prevTheme.bg
+            container.style.color = prevTheme.text
+            setNavDark(prevTheme.text === 'rgb(255, 255, 255)')
+          },
+        })
+      })
+    })
+
+    return () => ctx.revert()
   }, [])
 
   return (
     <>
       {/* Custom Cursor */}
-      <div className="cursor md:block hidden" ref={cursorRef}></div>
-      <div className="cursor-dot md:block hidden" ref={cursorDotRef}></div>
+      <div className="cursor md:block hidden" ref={cursorRef} />
+      <div className="cursor-dot md:block hidden" ref={cursorDotRef} />
 
-      {/* Navigation */}
-      <nav className={`fixed top-0 w-full z-[100] px-6 md:px-12 py-6 ${!isMenuOpen ? 'md:mix-blend-difference' : ''}`}>
+      {/* ─── Navbar ─── */}
+      <nav className="fixed top-0 w-full z-[100] px-6 md:px-12 py-5 transition-all duration-500">
         <div className="flex justify-between items-center max-w-screen-2xl mx-auto">
-          <Link href="/" className="text-3xl font-medium tracking-tight text-white caldera-logo hover:text-[var(--primary-blue)] transition-colors duration-300">
+          <Link href="/" className={`text-3xl font-medium tracking-tight caldera-logo transition-colors duration-500 no-underline ${navDark ? 'text-white' : 'text-[var(--black)]'}`}>
             caldera.agency
           </Link>
           <div className="flex items-center gap-8">
-            <Link
-              href="/#contact"
-              className="hidden md:block group relative overflow-hidden bg-white/10 backdrop-blur-sm border border-white/20 text-white px-6 py-3 rounded-full text-sm tracking-tight transition-all duration-300 hover:bg-white hover:text-black hover:border-white"
-            >
-              <span className="relative z-10 flex items-center gap-2">
-                Get Started
+            <button onClick={scrollToNearestForm}
+              className={`hidden md:block group relative overflow-hidden px-6 py-3 rounded-lg text-sm tracking-tight transition-all duration-500 hover:scale-105 ${navDark ? 'bg-white text-[var(--black)]' : 'bg-[var(--black)] text-white'}`}>
+              <div className={`absolute inset-0 ${navDark ? 'bg-[var(--black)]' : 'bg-[var(--primary-blue)]'} transform -translate-x-full transition-transform duration-300 ease-out group-hover:translate-x-0`} />
+              <span className="relative z-10 flex items-center gap-2 group-hover:text-white">
+                Get Your Free Prototype
                 <span className="transition-transform duration-300 group-hover:translate-x-0.5">&rarr;</span>
               </span>
-            </Link>
-            <Menu onMenuToggle={setIsMenuOpen} />
+            </button>
+            <Menu onMenuToggle={setIsMenuOpen} dark={navDark} />
           </div>
         </div>
       </nav>
 
-      {/* Hero Section */}
-      <section className="min-h-screen relative flex items-center px-8 bg-gradient-to-b from-[var(--cream)] to-white overflow-hidden pt-16 md:pt-0">
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="process-hero-shape process-shape-1"></div>
-          <div className="process-hero-shape process-shape-2"></div>
-          <div className="process-hero-shape process-shape-3"></div>
-        </div>
+      {/* ─── Hero ─── */}
+      <section className="min-h-screen flex items-center relative bg-[var(--cream)] overflow-hidden pt-20 md:pt-0">
+        {/* Grid pattern */}
+        <div className="pointer-events-none absolute inset-0 opacity-[0.03]" style={{
+          backgroundImage: `linear-gradient(var(--primary-blue) 1px, transparent 1px), linear-gradient(90deg, var(--primary-blue) 1px, transparent 1px)`,
+          backgroundSize: '60px 60px',
+        }} />
 
-        <div className="relative z-10 max-w-screen-2xl mx-auto w-full text-center flex flex-col items-center">
-          <div className="inline-flex items-center gap-4 mb-6 animate-fade-in-up">
-            <div className="w-12 h-px bg-gradient-to-r from-transparent via-[var(--primary-blue)] to-transparent"></div>
-            <span className="text-sm tracking-widest uppercase text-[var(--primary-blue)] font-medium">Our Process</span>
-            <div className="w-12 h-px bg-gradient-to-r from-transparent via-[var(--primary-blue)] to-transparent"></div>
-          </div>
+        <div className="relative z-10 max-w-screen-xl mx-auto w-full px-8 md:px-16 text-center flex flex-col items-center">
+          <p className="text-[var(--primary-blue)] text-sm font-medium tracking-widest uppercase mb-6 scroll-fade">Our Process</p>
 
-          <h1 className="hero-title mb-8 max-w-5xl animate-fade-in-up animate-delay-100">
-            We&apos;ll build your site before you spend <span className="font-serif italic font-normal text-[var(--primary-blue)]">a dollar.</span>
+          <h1 className="text-[clamp(2.2rem,4.5vw,4.5rem)] font-light tracking-tight leading-[0.95] mb-6 text-[var(--black)] scroll-fade">
+            We&apos;ll build your site before you<br className="hidden md:block" /> spend <span className="font-serif italic font-normal text-[var(--primary-blue)]">a dollar.</span>
           </h1>
 
-          <p className="text-lg md:text-xl leading-relaxed text-[var(--gray-dark)] max-w-3xl mb-12 font-light animate-fade-in-up animate-delay-200">
+          <p className="text-base md:text-lg leading-relaxed text-[var(--gray-medium)] max-w-2xl mb-10 scroll-fade">
             No forms. No briefing calls. No homework. We research your background, build a working prototype, and send it to you before you&apos;ve spent a cent. You only move forward if you love it.
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-4 animate-fade-in-up animate-delay-300">
+          <div className="flex flex-col sm:flex-row gap-4 scroll-fade">
             <Link
               href="/#contact"
-              className="inline-flex items-center gap-3 bg-[var(--black)] text-white px-8 py-4 text-[15px] tracking-tight no-underline rounded-full relative overflow-hidden transition-all duration-300 ease-out hover:scale-105 group"
+              className="group relative overflow-hidden inline-flex items-center gap-3 bg-[var(--black)] text-white px-8 py-4 text-[15px] tracking-tight no-underline rounded-lg transition-all duration-300 ease-out hover:scale-105"
             >
               <div className="absolute inset-0 bg-[var(--primary-blue)] transform -translate-x-full transition-transform duration-300 ease-out group-hover:translate-x-0"></div>
-              <span className="relative z-10">Get Your Free Prototype</span>
-              <span className="relative z-10">&rarr;</span>
+              <span className="relative z-10 group-hover:text-white">Get Your Free Prototype</span>
+              <span className="relative z-10 group-hover:text-white">&rarr;</span>
             </Link>
             <button
               onClick={() => {
@@ -215,196 +232,93 @@ export default function ProcessPage() {
         </div>
       </section>
 
-      {/* Timeline Section */}
-      <section className="bg-white relative overflow-hidden">
-        {/* Background Elements */}
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="floating-shape shape-1"></div>
-          <div className="floating-shape shape-2"></div>
-        </div>
+      {/* ─── All scrollable content ─── */}
+      <div ref={scrollContainerRef} className="relative z-10 theme-container" style={{ backgroundColor: 'rgb(255, 255, 255)', color: 'rgb(0, 0, 0)', transition: 'background-color 400ms ease-out' }}>
 
-        {/* Dot pattern */}
-        <div className="absolute inset-0 opacity-[0.015]" style={{
-          backgroundImage: `radial-gradient(circle at 2px 2px, var(--primary-blue) 1px, transparent 0)`,
-          backgroundSize: '60px 60px'
-        }}></div>
+        {/* ─── Timeline Steps ─── */}
+        <section id="process-timeline" className="py-24 md:py-32 px-8 md:px-16">
+          <div className="max-w-screen-xl mx-auto">
+            <p className="text-[var(--primary-blue)] text-sm font-medium tracking-widest uppercase text-center mb-4 scroll-fade">Step by step</p>
+            <h2 className="section-title text-center mb-16 md:mb-20 scroll-fade">How It Works</h2>
 
-        {/* Separator */}
-        <div className="py-5 relative">
-          <div className="relative z-10 max-w-screen-2xl mx-auto px-8 md:px-16">
-            <div className="flex items-center justify-center">
-              <div className="flex-1 h-px bg-gradient-to-r from-transparent via-[var(--gray-light)] to-[var(--primary-blue)]/30"></div>
-              <div className="relative mx-8">
-                <div className="w-12 h-12 border border-[var(--gray-light)] rounded-full"></div>
-                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-4 h-4 bg-gradient-to-br from-[var(--primary-blue)] to-[var(--blue-dark)] rotate-45 rounded-sm"></div>
-              </div>
-              <div className="flex-1 h-px bg-gradient-to-l from-transparent via-[var(--gray-light)] to-[var(--primary-blue)]/30"></div>
-            </div>
-          </div>
-        </div>
-
-        {/* Process Timeline */}
-        <div id="process-timeline" className="relative">
-          <div className="relative z-10 py-20 px-8 md:px-16 max-w-screen-2xl mx-auto">
-            <div className="relative">
-              {/* Vertical Timeline Line */}
-              <div className="absolute left-1/2 transform -translate-x-1/2 w-px h-full bg-gradient-to-b from-[var(--primary-blue)]/30 via-[var(--primary-blue)]/60 to-[var(--primary-blue)]/30 hidden lg:block"></div>
-
-              <div className="space-y-16 lg:space-y-32">
-                {steps.map((step, i) => {
-                  const isEven = i % 2 === 1
-
-                  return (
-                    <div key={step.num} className="timeline-step relative scroll-fade">
-                      {/* Mobile Layout */}
-                      <div className="lg:hidden">
-                        <div className="flex items-center gap-4 mb-6">
-                          <div className="w-12 h-12 bg-gradient-to-br from-[var(--primary-blue)] to-[var(--blue-dark)] rounded-full flex items-center justify-center text-white text-lg font-light shadow-lg">
-                            {step.num}
-                          </div>
-                          <h3 className="text-2xl font-light text-[var(--black)] tracking-tight">
-                            {step.title}
-                          </h3>
-                        </div>
-                        <div className="process-card invitation-card-container">
-                          <div className="invitation-card-bg"></div>
-                          <div className="invitation-card">
-                            <p className="text-sm text-[var(--gray-dark)] leading-relaxed font-light">
-                              {step.body}
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* Desktop Layout */}
-                      <div className="hidden lg:grid lg:grid-cols-12 lg:gap-8 items-center">
-                        {/* Card side */}
-                        <div className={`lg:col-span-5 ${isEven ? 'lg:pr-8 order-2 lg:order-1' : 'lg:pr-8'}`}>
-                          {isEven ? (
-                            <div className="text-center lg:text-right">
-                              <div className="text-6xl lg:text-8xl font-light text-[var(--primary-blue)]/20 mb-4 tracking-tight">
-                                {step.title}
-                              </div>
-                            </div>
-                          ) : (
-                            <div className="process-card invitation-card-container">
-                              <div className="invitation-card-bg"></div>
-                              <div className="invitation-card">
-                                <div className="mb-4">
-                                  <div className="inline-block bg-[var(--blue-light)] border border-[var(--primary-blue)]/20 rounded-full px-3 py-1.5 mb-4">
-                                    <span className="text-xs tracking-widest uppercase text-[var(--primary-blue)] font-medium">
-                                      Step {step.num}
-                                    </span>
-                                  </div>
-                                  <h3 className="text-2xl md:text-3xl font-light text-[var(--black)] tracking-tight mb-3">
-                                    {step.title}
-                                  </h3>
-                                </div>
-                                <p className="text-base text-[var(--gray-dark)] leading-relaxed font-light">
-                                  {step.body}
-                                </p>
-                              </div>
-                            </div>
-                          )}
-                        </div>
-
-                        {/* Center number */}
-                        <div className={`lg:col-span-2 flex justify-center my-8 lg:my-0 ${isEven ? 'order-1 lg:order-2' : ''}`}>
-                          <div className="w-16 h-16 lg:w-20 lg:h-20 bg-gradient-to-br from-[var(--primary-blue)] to-[var(--blue-dark)] rounded-full flex items-center justify-center text-white text-2xl lg:text-3xl font-light shadow-lg">
-                            {step.num}
-                          </div>
-                        </div>
-
-                        {/* Label side */}
-                        <div className={`lg:col-span-5 ${isEven ? 'lg:pl-8 order-3' : 'lg:pl-8'}`}>
-                          {isEven ? (
-                            <div className="process-card invitation-card-container">
-                              <div className="invitation-card-bg"></div>
-                              <div className="invitation-card">
-                                <div className="mb-4">
-                                  <div className="inline-block bg-[var(--blue-light)] border border-[var(--primary-blue)]/20 rounded-full px-3 py-1.5 mb-4">
-                                    <span className="text-xs tracking-widest uppercase text-[var(--primary-blue)] font-medium">
-                                      Step {step.num}
-                                    </span>
-                                  </div>
-                                  <h3 className="text-2xl md:text-3xl font-light text-[var(--black)] tracking-tight mb-3">
-                                    {step.title}
-                                  </h3>
-                                </div>
-                                <p className="text-base text-[var(--gray-dark)] leading-relaxed font-light">
-                                  {step.body}
-                                </p>
-                              </div>
-                            </div>
-                          ) : (
-                            <div className="text-center lg:text-left">
-                              <div className="text-6xl lg:text-8xl font-light text-[var(--primary-blue)]/20 mb-4 tracking-tight">
-                                {step.title}
-                              </div>
-                            </div>
-                          )}
-                        </div>
-                      </div>
+            <div className="space-y-5">
+              {steps.map((step, i) => (
+                <div
+                  key={step.num}
+                  className="bg-[var(--cream)] rounded-2xl p-7 md:p-10 scroll-fade"
+                  style={{ transitionDelay: `${i * 80}ms` }}
+                >
+                  <div className="grid grid-cols-1 md:grid-cols-[auto_1fr] gap-5 md:gap-8 items-start">
+                    {/* Number */}
+                    <div className="flex items-center gap-4 md:block">
+                      <span className="text-[var(--primary-blue)]/40 font-[family-name:var(--font-bebas)] text-4xl md:text-5xl leading-none">{step.num}</span>
+                      <h3 className="text-xl md:text-2xl font-medium tracking-tight text-[var(--black)] md:hidden">{step.title}</h3>
                     </div>
-                  )
-                })}
-              </div>
-            </div>
-          </div>
-
-          {/* Stats Block */}
-          <div className="relative z-10 py-20 px-8 md:px-16 max-w-screen-2xl mx-auto">
-            <div className="max-w-5xl mx-auto scroll-fade">
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
-                {stats.map((stat) => (
-                  <div key={stat.value} className="text-center group">
-                    <div className="relative mb-6">
-                      <div className="w-24 h-24 mx-auto rounded-full border border-[var(--primary-blue)]/20 flex items-center justify-center">
-                        <span className="text-3xl font-serif italic text-[var(--primary-blue)]">
-                          {stat.value}
-                        </span>
-                      </div>
+                    {/* Content */}
+                    <div>
+                      <h3 className="hidden md:block text-xl md:text-2xl font-medium tracking-tight text-[var(--black)] mb-3">{step.title}</h3>
+                      <p className="text-[15px] md:text-base leading-relaxed text-[var(--gray-medium)]">{step.body}</p>
                     </div>
-                    <p className="text-[var(--gray-medium)] text-sm leading-relaxed max-w-xs mx-auto">
-                      {stat.description}
-                    </p>
                   </div>
-                ))}
-              </div>
+                </div>
+              ))}
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Closing CTA Section */}
-      <section className="bg-gradient-to-br from-[var(--primary-blue)] to-[var(--blue-dark)] relative overflow-hidden">
-        <div className="absolute inset-0 opacity-[0.05]" style={{
-          backgroundImage: `radial-gradient(circle at 1px 1px, white 1px, transparent 0)`,
-          backgroundSize: '60px 60px'
-        }}></div>
+        {/* ─── Stats ─── */}
+        <section ref={el => { themedSectionRefs.current[0] = el }} className="py-24 md:py-32 px-8 relative overflow-hidden noise-overlay">
+          <div className="absolute inset-0 opacity-[0.03]" style={{
+            backgroundImage: `radial-gradient(circle at 1px 1px, white 1px, transparent 0)`,
+            backgroundSize: '60px 60px',
+          }} />
 
-        <div className="relative z-10 py-20 px-8 md:px-16 max-w-screen-2xl mx-auto text-center">
-          <div className="max-w-4xl mx-auto scroll-fade">
-            <h2 className="section-title mb-8 text-white">
-              Ready to see what we build <span className="font-serif italic">for you?</span>
+          <div className="relative z-10 max-w-screen-xl mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
+              {stats.map((stat, i) => (
+                <div key={stat.value} className="text-center scroll-fade" style={{ transitionDelay: `${i * 100}ms` }}>
+                  <p className="text-4xl md:text-5xl font-light tracking-tight text-white mb-4 font-serif italic">
+                    {stat.value}
+                  </p>
+                  <p className="text-white/60 text-[15px] leading-relaxed max-w-xs mx-auto">
+                    {stat.description}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ─── Closing CTA ─── */}
+        <section ref={el => { themedSectionRefs.current[1] = el }} className="relative overflow-hidden">
+          {/* Grid pattern */}
+          <div className="pointer-events-none absolute inset-0 opacity-[0.03]" style={{
+            backgroundImage: `linear-gradient(var(--primary-blue) 1px, transparent 1px), linear-gradient(90deg, var(--primary-blue) 1px, transparent 1px)`,
+            backgroundSize: '60px 60px',
+          }} />
+
+          <div className="relative z-10 py-24 md:py-32 px-8 md:px-16 max-w-screen-xl mx-auto text-center">
+            <h2 className="section-title mb-6 scroll-fade">
+              Ready to see what we build <span className="font-serif italic text-[var(--primary-blue)]">for you?</span>
             </h2>
-            <p className="text-lg md:text-xl text-white/80 mb-12 leading-relaxed font-light">
+            <p className="text-base md:text-lg leading-relaxed text-[var(--gray-medium)] max-w-2xl mx-auto mb-10 scroll-fade">
               Drop your LinkedIn URL and we&apos;ll send you a free prototype. No calls. No commitment. No homework.
             </p>
-            <Link
-              href="/#contact"
-              className="inline-flex items-center gap-3 bg-white text-[var(--primary-blue)] px-8 py-4 text-[15px] tracking-tight no-underline rounded-full relative overflow-hidden transition-all duration-300 ease-out hover:scale-105 group font-medium"
-            >
-              <div className="absolute inset-0 bg-[var(--black)] transform -translate-x-full transition-transform duration-300 ease-out group-hover:translate-x-0"></div>
-              <span className="relative z-10 group-hover:text-white transition-colors duration-300">Get Your Free Prototype</span>
-              <span className="relative z-10 group-hover:text-white transition-colors duration-300">&rarr;</span>
-            </Link>
+            <div className="scroll-fade">
+              <Link
+                href="/#contact"
+                className="group relative overflow-hidden inline-flex items-center gap-3 bg-[var(--black)] text-white px-8 py-4 text-[15px] tracking-tight no-underline rounded-lg transition-all duration-300 ease-out hover:scale-105"
+              >
+                <div className="absolute inset-0 bg-[var(--primary-blue)] transform -translate-x-full transition-transform duration-300 ease-out group-hover:translate-x-0"></div>
+                <span className="relative z-10 group-hover:text-white">Get Your Free Prototype</span>
+                <span className="relative z-10 group-hover:text-white">&rarr;</span>
+              </Link>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Footer */}
-      <Footer />
+        <Footer />
+      </div>
     </>
   )
 }
