@@ -771,6 +771,12 @@ html {
   animation: floatFast 3s ease-in-out infinite;
 }
 
+/* Process page arrow bounce */
+@keyframes process-arrow-bounce {
+  0%, 100% { transform: translateY(0); opacity: 0.6; }
+  50% { transform: translateY(4px); opacity: 1; }
+}
+
 /* Radial gradient utility */
 .bg-gradient-radial {
   background-image: radial-gradient(circle, var(--tw-gradient-stops));
