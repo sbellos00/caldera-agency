@@ -257,15 +257,17 @@ function PrototypeForm({ id, variant = 'light' }: { id: string; variant?: 'light
 
 /* ─── Data ─── */
 const faqData = [
-  { q: 'What if I don\'t have time for a big project?', a: 'We\'ve designed our process to be incredibly efficient. We handle all the technical and creative work, requiring less than two hours of your time to get everything launched.' },
-  { q: 'What if you\'re late?', a: 'If your site isn\'t live in 20 days (assuming you provide what\'s needed), we pay you back 20% per business day late. Guaranteed.' },
-  { q: 'What if I\'m not happy at launch?', a: 'You only pay for each phase after you approve it. Final payment is only due if you\'re proud to launch\u2014no risk of paying for something you can\'t use.' },
-  { q: 'Isn\'t this just another template site?', a: 'No. Every step is research-based and guides us towards designing the perfect website for you from scratch. All design and copy is consultant-specific and tailored to your positioning, built for consulting credibility\u2014never generic.' },
-  { q: 'Do you build for other industries?', a: 'No. Consultants only. That\'s why our sites work.' },
-  { q: 'Will this bring leads?', a: 'No site guarantees leads. But without credibility, you lose by default. This site is built to open doors to RFPs, partnerships, and high-value deals.' },
+  { q: 'What if I don\'t have time for a big project?', a: 'Send us whatever you have, organized or not. We figure out the rest and come back with a full working website. Most clients spend less than 2 hours during the entire process. Your job is reviewing what we build.' },
+  { q: 'I was burned by agencies/freelancers before.', a: 'Before you spend a dollar, you see a working prototype of your actual website. No briefs, no mood boards, no promises. We build first and earn your trust before asking for anything. From there, you approve each phase before we move forward.' },
+  { q: 'What if you\'re late?', a: 'We are the fastest in the market. Clients who stay responsive have launched in under a week. Speed is not something we need to guarantee. It is just how we work.' },
+  { q: 'What if I\'m not happy at launch?', a: 'You only pay for each phase after you approve it. Final payment is only due if you\'re proud to launch. No risk of paying for something you can\'t use.' },
   { q: 'Who owns the site?', a: 'You own it, fully. No platform risk, no lock-in. We provide hosting, support, and maintenance to make your life easier, but you can take the full code and self-host anytime you wish.' },
   { q: 'What if I need updates later?', a: 'Up to 4 post-launch development hours are included for free during the first month with your hosting plan, then 2 hours per month thereafter. Anything more is handled quickly by us at our standard rate.' },
-  { q: 'I was burned by agencies/freelancers before.', a: 'We understand your hesitation. That\'s why we operate with complete transparency. Our process is broken down into clear milestones, and you only pay for each stage after you have reviewed and approved the work.' },
+  { q: 'Do you build for other industries?', a: 'No. Consultants only. That\'s why our sites work.' },
+  { q: 'Isn\'t this just another template site?', a: 'No. Every step is research-based and guides us towards designing the perfect website for you from scratch. All design and copy is consultant-specific and tailored to your positioning, built for consulting credibility. Never generic.' },
+  { q: 'Why not just do it myself?', a: 'Weeks of your time versus a few hours of reviewing. We handle the research, strategy, copy, design, and development. You show up, give feedback, and launch.' },
+  { q: 'Will this bring leads?', a: 'No site guarantees leads. But without credibility, you lose by default. This site is built to open doors to RFPs, partnerships, and high-value deals.' },
+  { q: 'LinkedIn works for me now.', a: 'LinkedIn is just one platform. A professional website gives you full control over your digital presence, establishes deeper credibility, and positions you at a higher tier than competitors who rely solely on social media. Don\'t risk being at the mercy of algorithms and sudden policy changes.' },
 ]
 
 const testimonials = [
