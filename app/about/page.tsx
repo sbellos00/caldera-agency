@@ -1,7 +1,8 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, useCallback } from 'react'
 import Link from 'next/link'
+import gsap from 'gsap'
 import Menu from '@/components/Menu'
 import Footer from '@/components/Footer'
 
@@ -10,112 +11,86 @@ export default function AboutPage() {
   const cursorDotRef = useRef<HTMLDivElement>(null)
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
+  const scrollToNearestForm = useCallback(() => {
+    const target = document.getElementById('prototype-form') || document.getElementById('prototype-form-bottom')
+    target?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+  }, [])
+
+  // GSAP ticker cursor
   useEffect(() => {
-    document.documentElement.classList.add('js')
-
     const cursor = cursorRef.current
-    const cursorDot = cursorDotRef.current
+    const dot = cursorDotRef.current
+    if (!cursor || !dot) return
 
-    if (!cursor || !cursorDot) return
-
-    let mouseX = 0
-    let mouseY = 0
-    let animationId: number
-
-    const handleMouseMove = (e: MouseEvent) => {
-      mouseX = e.clientX
-      mouseY = e.clientY
-    }
-
-    const updateCursor = () => {
-      cursor.style.left = mouseX - 20 + 'px'
-      cursor.style.top = mouseY - 20 + 'px'
-      cursorDot.style.left = mouseX + 'px'
-      cursorDot.style.top = mouseY + 'px'
-      animationId = requestAnimationFrame(updateCursor)
-    }
-
-    document.addEventListener('mousemove', handleMouseMove)
-    updateCursor()
-
-    // Hover effects
-    const hoverElements = document.querySelectorAll('a, button, .about-card')
-
-    const handleMouseEnter = () => {
-      cursor.style.transform = 'scale(1.5)'
-      cursor.style.borderColor = 'var(--primary-blue)'
-    }
-
-    const handleMouseLeave = () => {
-      cursor.style.transform = 'scale(1)'
-      cursor.style.borderColor = 'var(--primary-blue)'
-    }
-
-    hoverElements.forEach(el => {
-      el.addEventListener('mouseenter', handleMouseEnter)
-      el.addEventListener('mouseleave', handleMouseLeave)
-    })
-
-    // Immediately reveal elements already in the viewport
-    document.querySelectorAll('.scroll-fade').forEach(el => {
-      const r = (el as HTMLElement).getBoundingClientRect()
-      if (r.top < window.innerHeight && r.bottom > 0) el.classList.add('visible')
-    })
-
-    // Intersection Observer
-    const observerOptions = {
-      threshold: 0.01,
-      rootMargin: '0px 0px -10% 0px'
-    }
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible')
-        }
-      })
-    }, observerOptions)
-
-    document.querySelectorAll('.scroll-fade').forEach(el => {
-      observer.observe(el)
-    })
-
-    // Hide cursor on mobile
     if (window.innerWidth <= 768) {
       cursor.style.display = 'none'
-      cursorDot.style.display = 'none'
+      dot.style.display = 'none'
+      return
     }
+
+    let mouseX = 0, mouseY = 0, curX = 0, curY = 0, dotX = 0, dotY = 0
+
+    const handleMouseMove = (e: MouseEvent) => { mouseX = e.clientX; mouseY = e.clientY }
+    document.addEventListener('mousemove', handleMouseMove)
+
+    const update = () => {
+      curX += (mouseX - curX) * 0.15
+      curY += (mouseY - curY) * 0.15
+      dotX += (mouseX - dotX) * 0.35
+      dotY += (mouseY - dotY) * 0.35
+      cursor.style.left = curX - 20 + 'px'
+      cursor.style.top = curY - 20 + 'px'
+      dot.style.left = dotX + 'px'
+      dot.style.top = dotY + 'px'
+    }
+    gsap.ticker.add(update)
+
+    const magnetics = document.querySelectorAll('a, button')
+    const magnetEnter = () => {
+      cursor.style.width = '60px'; cursor.style.height = '60px'; cursor.style.marginLeft = '-10px'; cursor.style.marginTop = '-10px'
+      cursor.style.borderColor = 'var(--primary-blue)'; cursor.style.opacity = '0.5'
+    }
+    const magnetLeave = () => {
+      cursor.style.width = '40px'; cursor.style.height = '40px'; cursor.style.marginLeft = '0'; cursor.style.marginTop = '0'
+      cursor.style.opacity = '1'
+    }
+    magnetics.forEach(el => { el.addEventListener('mouseenter', magnetEnter); el.addEventListener('mouseleave', magnetLeave) })
 
     return () => {
       document.removeEventListener('mousemove', handleMouseMove)
-      cancelAnimationFrame(animationId)
-      hoverElements.forEach(el => {
-        el.removeEventListener('mouseenter', handleMouseEnter)
-        el.removeEventListener('mouseleave', handleMouseLeave)
-      })
+      gsap.ticker.remove(update)
+      magnetics.forEach(el => { el.removeEventListener('mouseenter', magnetEnter); el.removeEventListener('mouseleave', magnetLeave) })
     }
+  }, [])
+
+  // Scroll-fade observer
+  useEffect(() => {
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible') })
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' })
+    document.querySelectorAll('.scroll-fade').forEach(el => observer.observe(el))
+    return () => observer.disconnect()
   }, [])
 
   return (
     <>
       {/* Custom Cursor */}
-      <div className="cursor md:block hidden" ref={cursorRef}></div>
-      <div className="cursor-dot md:block hidden" ref={cursorDotRef}></div>
+      <div className="cursor md:block hidden" ref={cursorRef} />
+      <div className="cursor-dot md:block hidden" ref={cursorDotRef} />
 
-      {/* Navigation */}
-      <nav className={`fixed top-0 w-full z-[100] px-6 md:px-12 py-6 ${!isMenuOpen ? 'md:mix-blend-difference' : ''}`}>
+      {/* ─── Navbar ─── */}
+      <nav className="fixed top-0 w-full z-[100] px-6 md:px-12 py-5 transition-all duration-500">
         <div className="flex justify-between items-center max-w-screen-2xl mx-auto">
-          <Link href="/" className="text-3xl font-medium tracking-tight text-white caldera-logo hover:text-[var(--primary-blue)] transition-colors duration-300">
+          <Link href="/" className="text-3xl font-medium tracking-tight caldera-logo text-[var(--black)] transition-colors duration-500 no-underline">
             caldera.agency
           </Link>
           <div className="flex items-center gap-8">
-            <Link
-              href="/contact"
-              className="hidden md:block group relative overflow-hidden bg-white/10 backdrop-blur-sm border border-white/20 text-white px-6 py-3 rounded-full text-sm tracking-tight transition-all duration-300 hover:bg-white hover:text-black hover:border-white"
-            >
-              <span className="relative z-10 flex items-center gap-2">
+            <Link href="/contact"
+              className="hidden md:block group relative overflow-hidden px-6 py-3 rounded-lg text-sm tracking-tight transition-all duration-500 hover:scale-105 bg-[var(--black)] text-white">
+              <div className="absolute inset-0 bg-[var(--primary-blue)] transform -translate-x-full transition-transform duration-300 ease-out group-hover:translate-x-0" />
+              <span className="relative z-10 flex items-center gap-2 group-hover:text-white">
                 Get Started
-                <span className="transition-transform duration-300 group-hover:translate-x-0.5">→</span>
+                <span className="transition-transform duration-300 group-hover:translate-x-0.5">&rarr;</span>
               </span>
             </Link>
             <Menu onMenuToggle={setIsMenuOpen} />
@@ -123,41 +98,37 @@ export default function AboutPage() {
         </div>
       </nav>
 
-      {/* Hero Section */}
-      <section className="min-h-screen relative flex items-center px-8 bg-gradient-to-b from-[var(--cream)] to-white overflow-hidden pt-22 md:pt-0">
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="floating-shape shape-1"></div>
-          <div className="floating-shape shape-2"></div>
-          <div className="floating-shape shape-3"></div>
-        </div>
+      {/* ─── Hero ─── */}
+      <section className="min-h-screen flex items-center relative bg-[var(--cream)] overflow-hidden pt-20 md:pt-0">
+        {/* Grid pattern */}
+        <div className="pointer-events-none absolute inset-0 opacity-[0.03]" style={{
+          backgroundImage: `linear-gradient(var(--primary-blue) 1px, transparent 1px), linear-gradient(90deg, var(--primary-blue) 1px, transparent 1px)`,
+          backgroundSize: '60px 60px',
+        }} />
 
-        <div className="relative z-10 max-w-screen-2xl mx-auto w-full text-center flex flex-col items-center">
-          <div className="inline-flex items-center gap-4 mb-6 animate-fade-in-up">
-            <div className="w-12 h-px bg-gradient-to-r from-transparent via-[var(--primary-blue)] to-transparent"></div>
-            <span className="text-sm tracking-widest uppercase text-[var(--primary-blue)] font-medium">About Us</span>
-            <div className="w-12 h-px bg-gradient-to-r from-transparent via-[var(--primary-blue)] to-transparent"></div>
-          </div>
+        <div className="relative z-10 max-w-screen-xl mx-auto w-full px-8 md:px-16 text-center flex flex-col items-center">
+          <p className="text-[var(--primary-blue)] text-sm font-medium tracking-widest uppercase mb-6 scroll-fade">About Us</p>
 
-          <h1 className="hero-title mb-8 max-w-5xl animate-fade-in-up animate-delay-100">
-            We exist for one reason: <span className="font-serif italic font-normal text-[var(--primary-blue)]">to close the gap between what consultants have built and how they show up online.</span>
+          <h1 className="text-[clamp(2.2rem,4.5vw,4.5rem)] font-light tracking-tight leading-[0.95] mb-6 text-[var(--black)] scroll-fade">
+            We close the gap between what consultants have built and how they <span className="font-serif italic font-normal text-[var(--primary-blue)]">show up online</span>
           </h1>
 
-          <p className="text-xl leading-relaxed text-[var(--gray-dark)] max-w-3xl mb-12 font-light animate-fade-in-up animate-delay-200">
-            Every part of our process is designed so that consultants get a site that wins higher-value clients with zero wasted time, zero busywork, and zero generic agency playbook.
+          <p className="text-base md:text-lg leading-relaxed text-[var(--gray-medium)] max-w-2xl mb-10 scroll-fade">
+            We only work with consultants. We build your site before you spend a dollar. And we handle everything so you can stay focused on your work.
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-4 animate-fade-in-up animate-delay-300">
+          <div className="flex flex-col sm:flex-row gap-4 scroll-fade">
             <Link
               href="/contact"
-              className="inline-flex items-center gap-3 bg-[var(--black)] text-white px-8 py-4 text-[15px] tracking-tight no-underline rounded-full relative overflow-hidden transition-all duration-300 ease-out hover:scale-105 group"
+              className="group relative overflow-hidden inline-flex items-center gap-3 bg-[var(--black)] text-white px-8 py-4 text-[15px] tracking-tight no-underline rounded-lg transition-all duration-300 ease-out hover:scale-105"
             >
               <div className="absolute inset-0 bg-[var(--primary-blue)] transform -translate-x-full transition-transform duration-300 ease-out group-hover:translate-x-0"></div>
-              <span className="relative z-10">Start Your Project</span>
-              <span className="relative z-10">→</span>
+              <span className="relative z-10 group-hover:text-white">Start Your Project</span>
+              <span className="relative z-10 group-hover:text-white">&rarr;</span>
             </Link>
             <button
               onClick={() => {
-                document.getElementById('why-we-exist')?.scrollIntoView({
+                document.getElementById('our-story')?.scrollIntoView({
                   behavior: 'smooth',
                   block: 'start'
                 })
@@ -165,407 +136,239 @@ export default function AboutPage() {
               className="inline-flex items-center gap-2 text-[var(--black)] text-[15px] no-underline relative group"
             >
               <span>Read Our Story</span>
-              <span className="transition-transform duration-300 group-hover:translate-y-1">↓</span>
+              <span className="transition-transform duration-300 group-hover:translate-y-1">&darr;</span>
             </button>
           </div>
         </div>
       </section>
 
-      {/* Origin Story */}
-      <section id="why-we-exist" className="bg-white relative overflow-hidden">
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute top-1/4 left-1/6 w-96 h-96 bg-gradient-to-br from-[var(--primary-blue)]/8 to-[var(--blue-light)]/12 rounded-full blur-3xl"></div>
-          <div className="absolute bottom-1/4 right-1/5 w-80 h-80 bg-gradient-to-tl from-[var(--blue-light)]/10 to-[var(--primary-blue)]/6 rounded-full blur-2xl"></div>
-        </div>
-
-        <div className="relative z-10 py-24 md:py-32 px-8 md:px-16 max-w-screen-2xl mx-auto">
-          <div className="text-center mb-16 scroll-fade">
-            <h2 className="section-title mb-8">
-              Why <span className="font-serif italic text-[var(--primary-blue)]">Caldera</span> Exists
-            </h2>
-          </div>
-
-          <div className="max-w-3xl mx-auto space-y-20">
-            {/* The Problem We Saw */}
-            <div className="scroll-fade">
-              <div className="flex items-center gap-4 mb-6">
-                <div className="w-12 h-12 bg-gradient-to-br from-[var(--primary-blue)] to-[var(--blue-dark)] rounded-full flex items-center justify-center flex-shrink-0">
-                  <span className="text-white text-sm font-medium">01</span>
-                </div>
-                <h3 className="text-2xl md:text-3xl font-light text-[var(--black)] tracking-tight">
-                  The problem we kept seeing
-                </h3>
-              </div>
-              <div className="pl-16 space-y-5">
-                <p className="text-base md:text-lg text-[var(--gray-dark)] leading-relaxed font-light">
-                  Before starting Caldera, we spent thousands of hours connecting independent consultants with investors and global enterprises. We talked to hundreds of experts. Brilliant people who had shaped entire industries, built operating models from scratch, and turned around struggling businesses.
-                </p>
-                <p className="text-base md:text-lg text-[var(--gray-dark)] leading-relaxed font-light">
-                  Most of them had no website. Or one that looked like it was built in 2012 and never touched again.
-                </p>
-                <p className="text-base md:text-lg text-[var(--gray-dark)] leading-relaxed font-light">
-                  They were losing RFPs to competitors who were simply more polished online. They were getting warm referrals with nowhere to send them. They were relying entirely on LinkedIn and hoping the algorithm stayed kind.
-                </p>
-              </div>
-            </div>
-
-            {/* The LinkedIn Trap */}
-            <div className="scroll-fade">
-              <div className="flex items-center gap-4 mb-6">
-                <div className="w-12 h-12 bg-gradient-to-br from-[var(--primary-blue)] to-[var(--blue-dark)] rounded-full flex items-center justify-center flex-shrink-0">
-                  <span className="text-white text-sm font-medium">02</span>
-                </div>
-                <h3 className="text-2xl md:text-3xl font-light text-[var(--black)] tracking-tight">
-                  LinkedIn is not a platform
-                </h3>
-              </div>
-              <div className="pl-16 space-y-5">
-                <p className="text-base md:text-lg text-[var(--gray-dark)] leading-relaxed font-light">
-                  LinkedIn is a great place to get found. It is a terrible place to market yourself. It gives you a profile, not a platform. It controls your layout, your format, and your reach.
-                </p>
-                <p className="text-base md:text-lg text-[var(--gray-dark)] leading-relaxed font-light">
-                  You get compared to every other consultant in your niche on the same page, with the same template. That is how brilliant people get commoditized.
-                </p>
-              </div>
-            </div>
-
-            {/* The Real Gap */}
-            <div className="scroll-fade">
-              <div className="flex items-center gap-4 mb-6">
-                <div className="w-12 h-12 bg-gradient-to-br from-[var(--primary-blue)] to-[var(--blue-dark)] rounded-full flex items-center justify-center flex-shrink-0">
-                  <span className="text-white text-sm font-medium">03</span>
-                </div>
-                <h3 className="text-2xl md:text-3xl font-light text-[var(--black)] tracking-tight">
-                  The gap that is not closing on its own
-                </h3>
-              </div>
-              <div className="pl-16 space-y-5">
-                <p className="text-base md:text-lg text-[var(--gray-dark)] leading-relaxed font-light">
-                  Every serious business has a website. Independent consulting is a serious business. The gap between what consultants have built and how they present it online is one of the biggest missed opportunities in professional services.
-                </p>
-                <p className="text-base md:text-lg text-[var(--gray-dark)] leading-relaxed font-light">
-                  And it is not closing on its own, because the problem was never awareness. The problem is that doing it right takes time, expertise, and guidance that most consultants do not have and should not need to develop.
-                </p>
-              </div>
-            </div>
-
-            {/* What We Built */}
-            <div className="scroll-fade">
-              <div className="flex items-center gap-4 mb-6">
-                <div className="w-12 h-12 bg-gradient-to-br from-[var(--primary-blue)] to-[var(--blue-dark)] rounded-full flex items-center justify-center flex-shrink-0">
-                  <span className="text-white text-sm font-medium">04</span>
-                </div>
-                <h3 className="text-2xl md:text-3xl font-light text-[var(--black)] tracking-tight">
-                  So we built Caldera to close it
-                </h3>
-              </div>
-              <div className="pl-16 space-y-5">
-                <p className="text-base md:text-lg text-[var(--gray-dark)] leading-relaxed font-light">
-                  We find consultants who are underrepresented online, we build their site before we ever reach out, and we let the work make the case.
-                </p>
-                <p className="text-base md:text-lg text-[var(--gray-dark)] leading-relaxed font-light">
-                  We do the research, write the copy, design the site, and handle the launch. You send us whatever you have and we figure out the rest. We only work with consultants because that focus is what makes the work sharp.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Prototype-First Philosophy */}
-      <section className="bg-gradient-to-b from-[var(--cream)] to-white relative overflow-hidden">
-        <div className="absolute inset-0 opacity-[0.015]" style={{
-          backgroundImage: `radial-gradient(circle at 2px 2px, var(--primary-blue) 1px, transparent 0)`,
-          backgroundSize: '60px 60px'
-        }}></div>
-
-        <div className="relative z-10 py-24 md:py-32 px-8 md:px-16 max-w-screen-2xl mx-auto">
-          <div className="max-w-4xl mx-auto scroll-fade">
-            <div className="invitation-card-container">
-              <div className="invitation-card-bg"></div>
-              <div className="invitation-card">
-                <div className="text-center mb-8">
-                  <h2 className="section-title-secondary mb-6">
-                    Why we build your prototype <span className="font-serif italic text-[var(--primary-blue)]">before you spend a dollar</span>
-                  </h2>
-                </div>
-                <div className="max-w-2xl mx-auto space-y-5">
-                  <p className="text-base md:text-lg text-[var(--gray-dark)] leading-relaxed font-light">
-                    Not as a sales tactic, but as a filter. We only reach out when we have something worth showing. It keeps our standards high, makes the value self-evident, and lets you decide based on real work instead of vague promises.
-                  </p>
-                  <p className="text-base md:text-lg text-[var(--gray-dark)] leading-relaxed font-light">
-                    We keep the entry point accessible because we would rather build a long-term relationship with the best of the best than extract maximum revenue from the first few who find us.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* What Makes Us Different */}
-      <section className="bg-white relative overflow-hidden">
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="floating-shape shape-1"></div>
-          <div className="floating-shape shape-2"></div>
-          <div className="absolute top-1/4 left-1/6 w-96 h-96 bg-gradient-to-br from-[var(--primary-blue)]/8 to-[var(--blue-light)]/12 rounded-full blur-3xl"></div>
-          <div className="absolute top-2/3 right-1/5 w-80 h-80 bg-gradient-to-tl from-[var(--blue-light)]/10 to-[var(--primary-blue)]/6 rounded-full blur-2xl"></div>
-        </div>
-
-        <div className="absolute inset-0 opacity-[0.015]" style={{
-          backgroundImage: `radial-gradient(circle at 2px 2px, var(--primary-blue) 1px, transparent 0)`,
-          backgroundSize: '60px 60px'
-        }}></div>
-
-        <div className="relative z-10 py-24 md:py-32 px-8 md:px-16 max-w-screen-2xl mx-auto">
-          <div className="text-center mb-16 scroll-fade">
-            <h2 className="section-title mb-8">
-              What Makes Our Process <span className="font-serif italic text-[var(--primary-blue)]">Different</span>
-            </h2>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
-            {/* Consultants Only */}
-            <div className="about-card invitation-card-container scroll-fade">
-              <div className="invitation-card-bg"></div>
-              <div className="invitation-card">
-                <div className="mb-6">
-                  <div className="w-16 h-16 bg-gradient-to-br from-[var(--primary-blue)] to-[var(--blue-dark)] rounded-full flex items-center justify-center mb-4">
-                    <span className="text-white text-2xl">01</span>
-                  </div>
-                  <h3 className="text-xl font-light text-[var(--black)] tracking-tight mb-3">
-                    Consultants only. No distractions, no dilution.
-                  </h3>
-                </div>
-                <p className="text-sm text-[var(--gray-dark)] leading-relaxed font-light">
-                  We don&apos;t take on projects for agencies, local businesses, or e-commerce. Everything we do is built around what matters most for solo consultants: establishing credibility, driving high-value inbound, and freeing you from project headaches and admin bloat.
-                </p>
-              </div>
-            </div>
-
-            {/* No Busywork */}
-            <div className="about-card invitation-card-container scroll-fade">
-              <div className="invitation-card-bg"></div>
-              <div className="invitation-card">
-                <div className="mb-6">
-                  <div className="w-16 h-16 bg-gradient-to-br from-[var(--primary-blue)] to-[var(--blue-dark)] rounded-full flex items-center justify-center mb-4">
-                    <span className="text-white text-2xl">02</span>
-                  </div>
-                  <h3 className="text-xl font-light text-[var(--black)] tracking-tight mb-3">
-                    No busywork, ever.
-                  </h3>
-                </div>
-                <p className="text-sm text-[var(--gray-dark)] leading-relaxed font-light">
-                  We research your background and consulting market before you see a single question. No generic forms or open-ended guesswork.
-                </p>
-              </div>
-            </div>
-
-            {/* Clear Feedback */}
-            <div className="about-card invitation-card-container scroll-fade">
-              <div className="invitation-card-bg"></div>
-              <div className="invitation-card">
-                <div className="mb-6">
-                  <div className="w-16 h-16 bg-gradient-to-br from-[var(--primary-blue)] to-[var(--blue-dark)] rounded-full flex items-center justify-center mb-4">
-                    <span className="text-white text-2xl">03</span>
-                  </div>
-                  <h3 className="text-xl font-light text-[var(--black)] tracking-tight mb-3">
-                    Clear, structured feedback.
-                  </h3>
-                </div>
-                <p className="text-sm text-[var(--gray-dark)] leading-relaxed font-light">
-                  Each review round is focused, with our guidance on what to check and how to comment.
-                </p>
-              </div>
-            </div>
-
-            {/* Milestone Payments */}
-            <div className="about-card invitation-card-container scroll-fade">
-              <div className="invitation-card-bg"></div>
-              <div className="invitation-card">
-                <div className="mb-6">
-                  <div className="w-16 h-16 bg-gradient-to-br from-[var(--primary-blue)] to-[var(--blue-dark)] rounded-full flex items-center justify-center mb-4">
-                    <span className="text-white text-2xl">04</span>
-                  </div>
-                  <h3 className="text-xl font-light text-[var(--black)] tracking-tight mb-3">
-                    Milestone payments, always in your control.
-                  </h3>
-                </div>
-                <p className="text-sm text-[var(--gray-dark)] leading-relaxed font-light">
-                  You approve each phase before paying. You never risk being left with a half-finished website.
-                </p>
-              </div>
-            </div>
-
-            {/* We Handle Everything */}
-            <div className="about-card invitation-card-container scroll-fade">
-              <div className="invitation-card-bg"></div>
-              <div className="invitation-card">
-                <div className="mb-6">
-                  <div className="w-16 h-16 bg-gradient-to-br from-[var(--primary-blue)] to-[var(--blue-dark)] rounded-full flex items-center justify-center mb-4">
-                    <span className="text-white text-2xl">05</span>
-                  </div>
-                  <h3 className="text-xl font-light text-[var(--black)] tracking-tight mb-3">
-                    We handle everything after.
-                  </h3>
-                </div>
-                <p className="text-sm text-[var(--gray-dark)] leading-relaxed font-light">
-                  Launch, domain, analytics, hosting, tech support, and post-launch tweaks are all managed by us so you can stay focused on your work.
-                </p>
-              </div>
-            </div>
-
-            {/* Full Ownership */}
-            <div className="about-card invitation-card-container scroll-fade">
-              <div className="invitation-card-bg"></div>
-              <div className="invitation-card">
-                <div className="mb-6">
-                  <div className="w-16 h-16 bg-gradient-to-br from-[var(--primary-blue)] to-[var(--blue-dark)] rounded-full flex items-center justify-center mb-4">
-                    <span className="text-white text-2xl">06</span>
-                  </div>
-                  <h3 className="text-xl font-light text-[var(--black)] tracking-tight mb-3">
-                    Full ownership, zero lock-in.
-                  </h3>
-                </div>
-                <p className="text-sm text-[var(--gray-dark)] leading-relaxed font-light">
-                  You own your website, domain, and content 100%. Move, host, or upgrade anytime.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* The Goal */}
-      <section className="bg-[var(--gray-dark)] relative overflow-hidden">
-        <div className="absolute inset-0 opacity-[0.04]" style={{
+      {/* ─── Origin Story ─── */}
+      <section id="our-story" className="py-24 md:py-32 px-8 md:px-16 relative overflow-hidden bg-[var(--black)] noise-overlay">
+        <div className="absolute inset-0 opacity-[0.03]" style={{
           backgroundImage: `radial-gradient(circle at 1px 1px, white 1px, transparent 0)`,
-          backgroundSize: '60px 60px'
-        }}></div>
+          backgroundSize: '60px 60px',
+        }} />
 
-        <div className="relative z-10 py-24 md:py-32 px-8 md:px-16 max-w-screen-2xl mx-auto text-center">
-          <div className="max-w-3xl mx-auto scroll-fade">
-            <h2 className="section-title-secondary mb-8 text-white">
-              The <span className="font-serif italic">goal</span>
-            </h2>
-            <p className="text-lg md:text-xl text-white/70 leading-relaxed font-light mb-6">
-              We make our process as seamless as possible. We focus on building a strong network instead of squeezing margins. We deliver all the value upfront.
+        <div className="relative z-10 max-w-screen-lg mx-auto">
+          <p className="text-[var(--primary-blue)] text-sm font-medium tracking-widest uppercase text-center mb-12 scroll-fade">Our Story</p>
+
+          {/* Pull quote */}
+          <blockquote className="text-center mb-16 scroll-fade">
+            <p className="text-2xl md:text-4xl lg:text-5xl font-light leading-tight tracking-tight font-serif italic text-white/90 max-w-3xl mx-auto">
+              &ldquo;Brilliant people were getting commoditized because they had no platform to call their own.&rdquo;
             </p>
-            <p className="text-lg md:text-xl text-white/50 leading-relaxed font-light">
-              When a consultant is ready to invest in how they show up online, we want to be the only conversation that matters.
+          </blockquote>
+
+          <div className="space-y-5 text-lg leading-relaxed text-white/70 max-w-2xl mx-auto">
+            <p className="scroll-fade">
+              Before starting Caldera, we spent thousands of hours connecting independent consultants with investors and global enterprises. We talked to hundreds of experts. Brilliant people who had shaped entire industries, built operating models from scratch, and turned around struggling businesses.
+            </p>
+            <p className="scroll-fade">
+              Most of them had no website. Or one that looked like it was built in 2012 and never touched again.
+            </p>
+            <p className="scroll-fade">
+              They were losing RFPs to competitors who were simply more polished online. They were getting warm referrals with nowhere to send them. They were relying entirely on LinkedIn and hoping the algorithm stayed kind.
             </p>
           </div>
         </div>
       </section>
 
-      {/* What Every Site Must Deliver */}
-      <section className="bg-white relative overflow-hidden">
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute top-1/3 right-1/4 w-64 h-64 bg-gradient-to-r from-[var(--primary-blue)]/5 to-transparent rounded-full blur-xl"></div>
-        </div>
+      {/* ─── The LinkedIn Problem ─── */}
+      <section className="py-24 md:py-32 px-8 md:px-16">
+        <div className="max-w-screen-xl mx-auto">
+          <p className="text-[var(--primary-blue)] text-sm font-medium tracking-widest uppercase text-center mb-4 scroll-fade">The Problem</p>
+          <h2 className="section-title text-center mb-16 md:mb-20 scroll-fade">
+            LinkedIn gives you a profile, not a <span className="font-serif italic text-[var(--primary-blue)]">platform</span>
+          </h2>
 
-        <div className="relative z-10 py-24 md:py-32 px-8 md:px-16 max-w-screen-2xl mx-auto">
-          <div className="text-center mb-16 scroll-fade">
-            <h2 className="section-title mb-8">
-              What Every Caldera Site Must <span className="font-serif italic text-[var(--primary-blue)]">Deliver</span>
-            </h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+            {[
+              {
+                h: 'A great place to get found. A terrible place to market yourself.',
+                b: 'LinkedIn controls your layout, your format, and your reach. You get compared to every other consultant in your niche on the same page, with the same template.',
+              },
+              {
+                h: 'Every serious business has a website.',
+                b: 'Independent consulting is a serious business. The gap between what consultants have built and how they present it online is one of the biggest missed opportunities in professional services.',
+              },
+              {
+                h: 'The problem was never awareness.',
+                b: 'It\'s that doing it right takes time, expertise, and guidance that most consultants do not have and should not need to develop. That gap isn\'t closing on its own.',
+              },
+            ].map((card, i) => (
+              <div key={i} className="bg-[var(--cream)] rounded-2xl p-7 md:p-8 relative overflow-hidden transition-all duration-400 hover:scale-[1.02] hover:shadow-2xl scroll-fade group" style={{ transitionDelay: `${i * 100}ms` }}>
+                <div className="absolute inset-0 bg-gradient-to-br from-[var(--primary-blue)] to-[var(--blue-dark)] opacity-0 transition-opacity duration-400 group-hover:opacity-100" />
+                <div className="w-10 h-10 bg-[var(--primary-blue)] rounded-xl mb-6 relative z-10 transition-all duration-300 group-hover:bg-white" />
+                <h3 className="text-xl font-medium tracking-tight mb-3 text-[var(--black)] relative z-10 group-hover:text-white">{card.h}</h3>
+                <p className="text-[15px] leading-relaxed text-[var(--gray-medium)] relative z-10 group-hover:text-white">{card.b}</p>
+              </div>
+            ))}
           </div>
+        </div>
+      </section>
 
-          <div className="max-w-5xl mx-auto scroll-fade">
-            <div className="invitation-card-container">
-              <div className="invitation-card-bg"></div>
-              <div className="invitation-card">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                  <div className="space-y-6">
-                    <div className="flex items-start gap-4">
-                      <div className="w-3 h-3 bg-[var(--primary-blue)] rounded-full mt-2 flex-shrink-0"></div>
-                      <div>
-                        <h3 className="text-lg font-medium text-[var(--black)] mb-2">Instant Clarity</h3>
-                        <p className="text-sm text-[var(--gray-dark)] leading-relaxed font-light">
-                          In 5 seconds, any visitor knows who you help, what you do, and why you&apos;re legit.
-                        </p>
-                      </div>
-                    </div>
+      {/* ─── What We Built ─── */}
+      <section className="py-24 md:py-32 px-8 md:px-16 bg-[var(--cream)]">
+        {/* Grid pattern */}
+        <div className="pointer-events-none absolute inset-0 opacity-[0.03]" style={{
+          backgroundImage: `linear-gradient(var(--primary-blue) 1px, transparent 1px), linear-gradient(90deg, var(--primary-blue) 1px, transparent 1px)`,
+          backgroundSize: '60px 60px',
+        }} />
 
-                    <div className="flex items-start gap-4">
-                      <div className="w-3 h-3 bg-[var(--primary-blue)] rounded-full mt-2 flex-shrink-0"></div>
-                      <div>
-                        <h3 className="text-lg font-medium text-[var(--black)] mb-2">Authority on Display</h3>
-                        <p className="text-sm text-[var(--gray-dark)] leading-relaxed font-light">
-                          Results, track record, methods, and credentials are front and center and expertise is communicated clearly.
-                        </p>
-                      </div>
-                    </div>
+        <div className="max-w-screen-xl mx-auto">
+          <p className="text-[var(--primary-blue)] text-sm font-medium tracking-widest uppercase text-center mb-4 scroll-fade">The Solution</p>
+          <h2 className="section-title text-center mb-6 scroll-fade">
+            So we built <span className="font-serif italic text-[var(--primary-blue)]">Caldera</span>
+          </h2>
+          <p className="text-base md:text-lg leading-relaxed text-[var(--gray-medium)] max-w-2xl mx-auto text-center mb-16 md:mb-20 scroll-fade">
+            We find consultants who are underrepresented online, we build their site before we ever reach out, and we let the work make the case.
+          </p>
 
-                    <div className="flex items-start gap-4">
-                      <div className="w-3 h-3 bg-[var(--primary-blue)] rounded-full mt-2 flex-shrink-0"></div>
-                      <div>
-                        <h3 className="text-lg font-medium text-[var(--black)] mb-2">Professional Impression</h3>
-                        <p className="text-sm text-[var(--gray-dark)] leading-relaxed font-light">
-                          Modern, tasteful, and credible. Not forced, not bland.
-                        </p>
-                      </div>
-                    </div>
-                  </div>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+            {/* Left — what we do */}
+            <div className="lg:col-span-7 scroll-fade">
+              <h3 className="text-[clamp(28px,3.5vw,52px)] font-light tracking-tight leading-[0.95] mb-5 text-[var(--black)]">
+                You send us whatever you have.<br /><span className="font-medium">We figure out the rest.</span>
+              </h3>
+              <div className="space-y-4 text-[15px] md:text-[16px] leading-relaxed text-[var(--gray-medium)]">
+                <p>
+                  We do the research, write the copy, design the site, and handle the launch. We only work with consultants because that focus is what makes the work sharp. And we keep the entry point accessible because we would rather build a long-term relationship with the best of the best than extract maximum revenue from the first few who find us.
+                </p>
+              </div>
+            </div>
 
-                  <div className="space-y-6">
-                    <div className="flex items-start gap-4">
-                      <div className="w-3 h-3 bg-[var(--primary-blue)] rounded-full mt-2 flex-shrink-0"></div>
-                      <div>
-                        <h3 className="text-lg font-medium text-[var(--black)] mb-2">Referral Ready</h3>
-                        <p className="text-sm text-[var(--gray-dark)] leading-relaxed font-light">
-                          Every client should be proud to link it, and every referrer confident to send someone there.
-                        </p>
-                      </div>
-                    </div>
-
-                    <div className="flex items-start gap-4">
-                      <div className="w-3 h-3 bg-[var(--primary-blue)] rounded-full mt-2 flex-shrink-0"></div>
-                      <div>
-                        <h3 className="text-lg font-medium text-[var(--black)] mb-2">No Admin Headache</h3>
-                        <p className="text-sm text-[var(--gray-dark)] leading-relaxed font-light">
-                          Consultants only do what they must. Everything else is handled.
-                        </p>
+            {/* Right — prototype philosophy */}
+            <div className="lg:col-span-5 scroll-fade lg:pt-2">
+              <p className="text-[var(--gray-medium)] text-[11px] font-medium tracking-widest uppercase mb-5">Why We Build First</p>
+              <div className="flex flex-col gap-3">
+                {[
+                  { icon: '01', h: 'Not a sales tactic', b: 'We build your prototype as a filter. We only reach out when we have something worth showing.' },
+                  { icon: '02', h: 'Standards stay high', b: 'It keeps our quality bar self-enforcing. If we can\'t build something great, we don\'t reach out.' },
+                  { icon: '03', h: 'Real work, not promises', b: 'You decide based on an actual website, not a pitch deck or vague case studies.' },
+                  { icon: '04', h: 'Accessible entry point', b: 'We\'d rather earn trust upfront than extract maximum revenue from the first interaction.' },
+                ].map((step, i) => (
+                  <div key={step.icon} className="scroll-fade" style={{ transitionDelay: `${i * 80}ms` }}>
+                    <div className="flex items-start gap-4 text-[var(--black)]">
+                      <span className="text-[var(--primary-blue)]/40 font-[family-name:var(--font-bebas)] text-2xl leading-none flex-shrink-0 pt-0.5">{step.icon}</span>
+                      <div className="min-w-0">
+                        <h3 className="text-[14px] font-medium tracking-tight text-[var(--black)] mb-0.5">{step.h}</h3>
+                        <p className="text-[var(--gray-medium)] text-[13px] leading-relaxed">{step.b}</p>
                       </div>
                     </div>
                   </div>
-                </div>
+                ))}
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="bg-gradient-to-br from-[var(--primary-blue)] to-[var(--blue-dark)] relative overflow-hidden">
-        <div className="absolute inset-0 opacity-[0.05]" style={{
-          backgroundImage: `radial-gradient(circle at 1px 1px, white 1px, transparent 0)`,
-          backgroundSize: '60px 60px'
-        }}></div>
+      {/* ─── What Makes Us Different ─── */}
+      <section className="relative">
+        <div className="pt-24 md:pt-32 pb-16 px-8 md:px-16 max-w-screen-xl mx-auto">
+          <p className="text-[var(--primary-blue)] text-sm font-medium tracking-widest uppercase text-center mb-4 scroll-fade">How We Work</p>
+          <h2 className="section-title text-center mb-12 md:mb-16 scroll-fade">
+            What Makes Our Process <span className="font-serif italic text-[var(--primary-blue)]">Different</span>
+          </h2>
 
-        <div className="relative z-10 py-20 px-8 md:px-16 max-w-screen-2xl mx-auto text-center">
-          <div className="max-w-4xl mx-auto scroll-fade">
-            <h2 className="section-title mb-8 text-white">
-              Ready to Get <span className="font-serif italic">Started?</span>
-            </h2>
-            <p className="text-xl text-white/80 mb-12 leading-relaxed font-light">
-              Let&apos;s discuss your project and show you exactly how our process works for your specific situation.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link
-                href="/#contact"
-                className="inline-flex items-center gap-3 bg-white text-[var(--primary-blue)] px-8 py-4 text-[15px] tracking-tight no-underline rounded-full relative overflow-hidden transition-all duration-300 ease-out hover:scale-105 group font-medium"
-              >
-                <div className="absolute inset-0 bg-[var(--black)] transform -translate-x-full transition-transform duration-300 ease-out group-hover:translate-x-0"></div>
-                <span className="relative z-10 group-hover:text-white transition-colors duration-300">Start Your Project</span>
-                <span className="relative z-10 group-hover:text-white transition-colors duration-300">→</span>
-              </Link>
-            </div>
+          {/* 3 equal cards */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-5">
+            {[
+              { h: 'Consultants only. No distractions, no dilution.', b: 'We don\'t take on projects for agencies, local businesses, or e-commerce. Everything is built around establishing credibility, driving high-value inbound, and freeing you from project headaches.' },
+              { h: 'No busywork, ever.', b: 'We research your background and consulting market before you see a single question. No generic forms or open-ended guesswork. You just review what we build.' },
+              { h: 'Clear, structured feedback.', b: 'Each review round is focused, with our guidance on what to check and how to comment. No open-ended homework.' },
+            ].map((card, i) => (
+              <div key={i} className="bg-[var(--cream)] rounded-2xl p-7 md:p-8 relative overflow-hidden transition-all duration-400 hover:scale-[1.02] hover:shadow-2xl scroll-fade group" style={{ transitionDelay: `${i * 100}ms` }}>
+                <div className="absolute inset-0 bg-gradient-to-br from-[var(--primary-blue)] to-[var(--blue-dark)] opacity-0 transition-opacity duration-400 group-hover:opacity-100" />
+                <div className="w-10 h-10 bg-[var(--primary-blue)] rounded-xl mb-6 relative z-10 transition-all duration-300 group-hover:bg-white" />
+                <h3 className="text-xl font-medium tracking-tight mb-3 text-[var(--black)] relative z-10 group-hover:text-white">{card.h}</h3>
+                <p className="text-[15px] leading-relaxed text-[var(--gray-medium)] relative z-10 group-hover:text-white">{card.b}</p>
+              </div>
+            ))}
+          </div>
+
+          {/* 3 more cards */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+            {[
+              { h: 'Milestone payments, always in your control.', b: 'You approve each phase before paying. You never risk being left with a half-finished website.' },
+              { h: 'We handle everything after.', b: 'Launch, domain, analytics, hosting, tech support, and post-launch tweaks are all managed by us so you can stay focused on your work.' },
+              { h: 'Full ownership, zero lock-in.', b: 'You own your website, domain, and content 100%. Move, host, or upgrade anytime. No proprietary platforms. No hostage situations.' },
+            ].map((card, i) => (
+              <div key={i} className="bg-[var(--cream)] rounded-2xl p-7 md:p-8 relative overflow-hidden transition-all duration-400 hover:scale-[1.02] hover:shadow-2xl scroll-fade group" style={{ transitionDelay: `${i * 100}ms` }}>
+                <div className="absolute inset-0 bg-gradient-to-br from-[var(--primary-blue)] to-[var(--blue-dark)] opacity-0 transition-opacity duration-400 group-hover:opacity-100" />
+                <div className="w-10 h-10 bg-[var(--primary-blue)] rounded-xl mb-6 relative z-10 transition-all duration-300 group-hover:bg-white" />
+                <h3 className="text-xl font-medium tracking-tight mb-3 text-[var(--black)] relative z-10 group-hover:text-white">{card.h}</h3>
+                <p className="text-[15px] leading-relaxed text-[var(--gray-medium)] relative z-10 group-hover:text-white">{card.b}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Footer */}
+      {/* ─── The Goal ─── */}
+      <section className="py-24 md:py-32 px-8 relative overflow-hidden bg-[var(--black)] noise-overlay">
+        <div className="absolute inset-0 opacity-[0.03]" style={{
+          backgroundImage: `radial-gradient(circle at 1px 1px, white 1px, transparent 0)`,
+          backgroundSize: '60px 60px',
+        }} />
+
+        <div className="relative z-10 max-w-screen-xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
+            {[
+              {
+                value: 'Seamless process',
+                description: 'Every step is designed so that consultants get a site that wins higher-value clients with zero wasted time.',
+              },
+              {
+                value: 'Network over margins',
+                description: 'We focus on building a strong network of the best independent consultants instead of squeezing maximum revenue.',
+              },
+              {
+                value: 'Value upfront',
+                description: 'When a consultant is ready to invest in how they show up online, we want to be the only conversation that matters.',
+              },
+            ].map((stat, i) => (
+              <div key={stat.value} className="text-center scroll-fade" style={{ transitionDelay: `${i * 100}ms` }}>
+                <p className="text-3xl md:text-4xl font-light tracking-tight text-white mb-4 font-serif italic">
+                  {stat.value}
+                </p>
+                <p className="text-white/60 text-[15px] leading-relaxed max-w-xs mx-auto">
+                  {stat.description}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ─── Closing CTA ─── */}
+      <section className="relative overflow-hidden bg-white">
+        {/* Grid pattern */}
+        <div className="pointer-events-none absolute inset-0 opacity-[0.03]" style={{
+          backgroundImage: `linear-gradient(var(--primary-blue) 1px, transparent 1px), linear-gradient(90deg, var(--primary-blue) 1px, transparent 1px)`,
+          backgroundSize: '60px 60px',
+        }} />
+
+        <div className="relative z-10 py-24 md:py-32 px-8 md:px-16 max-w-screen-xl mx-auto text-center">
+          <h2 className="section-title mb-6 scroll-fade">
+            Ready to see what we can build <span className="font-serif italic text-[var(--primary-blue)]">for you?</span>
+          </h2>
+          <p className="text-base md:text-lg leading-relaxed text-[var(--gray-medium)] max-w-2xl mx-auto mb-10 scroll-fade">
+            Drop your LinkedIn URL and we&apos;ll send you a free prototype. No calls. No commitment. No homework.
+          </p>
+          <div className="scroll-fade">
+            <Link
+              href="/#contact"
+              className="group relative overflow-hidden inline-flex items-center gap-3 bg-[var(--black)] text-white px-8 py-4 text-[15px] tracking-tight no-underline rounded-lg transition-all duration-300 ease-out hover:scale-105"
+            >
+              <div className="absolute inset-0 bg-[var(--primary-blue)] transform -translate-x-full transition-transform duration-300 ease-out group-hover:translate-x-0"></div>
+              <span className="relative z-10 group-hover:text-white">Get Your Free Prototype</span>
+              <span className="relative z-10 group-hover:text-white">&rarr;</span>
+            </Link>
+          </div>
+        </div>
+      </section>
+
       <Footer />
     </>
   )
