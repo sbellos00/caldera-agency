@@ -336,7 +336,7 @@ export default function Home() {
             {featureCards.map((card, i) => (
               <div
                 key={i}
-                className="feature-card scroll-fade bg-white rounded-2xl p-8 md:p-10 border border-[var(--gray-light)]"
+                className="feature-card scroll-fade bg-white rounded-2xl p-8 md:p-10 border border-[var(--gray-light)] transition-all duration-300 hover:shadow-lg hover:border-[var(--primary-blue)]/20 hover:-translate-y-1"
               >
                 <h3 className="text-xl font-medium tracking-tight mb-4 leading-snug text-[var(--black)]">{card.title}</h3>
                 <p className="text-[var(--gray-medium)] leading-relaxed">{card.body}</p>
