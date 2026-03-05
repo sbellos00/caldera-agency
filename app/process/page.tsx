@@ -60,8 +60,6 @@ export default function ProcessPage() {
   const cursorDotRef = useRef<HTMLDivElement>(null)
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [navDark, setNavDark] = useState(false)
-  const scrollContainerRef = useRef<HTMLDivElement>(null)
-  const themedSectionRefs = useRef<(HTMLElement | null)[]>([])
 
   const scrollToNearestForm = useCallback(() => {
     const target = document.getElementById('prototype-form') || document.getElementById('prototype-form-bottom')
@@ -124,38 +122,20 @@ export default function ProcessPage() {
     return () => observer.disconnect()
   }, [])
 
-  // Scroll-based theme switching
-  const scrollThemes = useRef([
-    { bg: 'rgb(0, 0, 0)', text: 'rgb(255, 255, 255)' },      // Stats — dark
-    { bg: 'rgb(255, 255, 255)', text: 'rgb(0, 0, 0)' },      // Transition back to white before CTA
-  ])
-
+  // Nav dark state based on stats section visibility
   useEffect(() => {
-    const container = scrollContainerRef.current
-    if (!container) return
+    const statsEl = document.getElementById('stats-section')
+    if (!statsEl) return
 
     const ctx = gsap.context(() => {
-      themedSectionRefs.current.forEach((el, i) => {
-        if (!el) return
-        const theme = scrollThemes.current[i]
-        const prevTheme = i === 0
-          ? { bg: 'rgb(255, 255, 255)', text: 'rgb(0, 0, 0)' }
-          : scrollThemes.current[i - 1]
-
-        ScrollTrigger.create({
-          trigger: el,
-          start: i === scrollThemes.current.length - 1 ? 'top bottom' : 'top center',
-          onEnter: () => {
-            container.style.backgroundColor = theme.bg
-            container.style.color = theme.text
-            setNavDark(theme.text === 'rgb(255, 255, 255)')
-          },
-          onLeaveBack: () => {
-            container.style.backgroundColor = prevTheme.bg
-            container.style.color = prevTheme.text
-            setNavDark(prevTheme.text === 'rgb(255, 255, 255)')
-          },
-        })
+      ScrollTrigger.create({
+        trigger: statsEl,
+        start: 'top center',
+        end: 'bottom center',
+        onEnter: () => setNavDark(true),
+        onLeave: () => setNavDark(false),
+        onEnterBack: () => setNavDark(true),
+        onLeaveBack: () => setNavDark(false),
       })
     })
 
@@ -233,7 +213,7 @@ export default function ProcessPage() {
       </section>
 
       {/* ─── All scrollable content ─── */}
-      <div ref={scrollContainerRef} className="relative z-10 theme-container" style={{ backgroundColor: 'rgb(255, 255, 255)', color: 'rgb(0, 0, 0)', transition: 'background-color 400ms ease-out' }}>
+      <div className="relative z-10">
 
         {/* ─── Timeline Steps ─── */}
         <section id="process-timeline" className="py-24 md:py-32 px-8 md:px-16">
@@ -267,7 +247,7 @@ export default function ProcessPage() {
         </section>
 
         {/* ─── Stats ─── */}
-        <section ref={el => { themedSectionRefs.current[0] = el }} className="py-24 md:py-32 px-8 relative overflow-hidden noise-overlay">
+        <section id="stats-section" className="py-24 md:py-32 px-8 relative overflow-hidden bg-[var(--black)] noise-overlay">
           <div className="absolute inset-0 opacity-[0.03]" style={{
             backgroundImage: `radial-gradient(circle at 1px 1px, white 1px, transparent 0)`,
             backgroundSize: '60px 60px',
@@ -290,7 +270,7 @@ export default function ProcessPage() {
         </section>
 
         {/* ─── Closing CTA ─── */}
-        <section ref={el => { themedSectionRefs.current[1] = el }} className="relative overflow-hidden">
+        <section className="relative overflow-hidden bg-white">
           {/* Grid pattern */}
           <div className="pointer-events-none absolute inset-0 opacity-[0.03]" style={{
             backgroundImage: `linear-gradient(var(--primary-blue) 1px, transparent 1px), linear-gradient(90deg, var(--primary-blue) 1px, transparent 1px)`,
@@ -299,7 +279,7 @@ export default function ProcessPage() {
 
           <div className="relative z-10 py-24 md:py-32 px-8 md:px-16 max-w-screen-xl mx-auto text-center">
             <h2 className="section-title mb-6 scroll-fade">
-              Ready to see what we build <span className="font-serif italic text-[var(--primary-blue)]">for you?</span>
+              Ready to see what we can build <span className="font-serif italic text-[var(--primary-blue)]">for you?</span>
             </h2>
             <p className="text-base md:text-lg leading-relaxed text-[var(--gray-medium)] max-w-2xl mx-auto mb-10 scroll-fade">
               Drop your LinkedIn URL and we&apos;ll send you a free prototype. No calls. No commitment. No homework.
