@@ -140,17 +140,18 @@ export default function ContactPage() {
       <div className="cursor-dot md:block hidden" ref={cursorDotRef}></div>
 
       {/* Navigation */}
-      <nav className={`fixed top-0 w-full z-[100] px-6 md:px-12 py-6 ${!isMenuOpen ? 'md:mix-blend-difference' : ''}`}>
+      <nav className="fixed top-0 w-full z-[100] px-6 md:px-12 py-5 transition-all duration-500">
         <div className="flex justify-between items-center max-w-screen-2xl mx-auto">
-          <Link href="/" className="text-3xl font-medium tracking-tight text-white caldera-logo hover:text-[var(--primary-blue)] transition-colors duration-300">
+          <Link href="/" className="text-3xl font-medium tracking-tight text-[var(--black)] caldera-logo hover:text-[var(--primary-blue)] transition-colors duration-300">
             caldera.agency
           </Link>
           <div className="flex items-center gap-8">
             <Link
               href="/"
-              className="hidden md:block group relative overflow-hidden bg-white/10 backdrop-blur-sm border border-white/20 text-white px-6 py-3 rounded-full text-sm tracking-tight transition-all duration-300 hover:bg-white hover:text-black hover:border-white"
+              className="hidden md:block group relative overflow-hidden bg-[var(--black)] text-white px-6 py-3 rounded-lg text-sm tracking-tight transition-all duration-500 hover:scale-105"
             >
-              <span className="relative z-10 flex items-center gap-2">
+              <div className="absolute inset-0 bg-[var(--primary-blue)] transform -translate-x-full transition-transform duration-300 ease-out group-hover:translate-x-0" />
+              <span className="relative z-10 flex items-center gap-2 group-hover:text-white">
                 Back to Home
                 <span className="transition-transform duration-300 group-hover:translate-x-0.5">→</span>
               </span>
@@ -161,28 +162,20 @@ export default function ContactPage() {
       </nav>
 
       {/* Main Contact Section */}
-      <section className="min-h-screen bg-gradient-to-b from-[var(--cream)] to-white relative overflow-hidden">
-        {/* Background elements */}
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="floating-shape shape-1"></div>
-          <div className="floating-shape shape-2"></div>
-          <div className="absolute top-1/4 left-1/6 w-96 h-96 bg-gradient-to-br from-[var(--primary-blue)]/8 to-[var(--blue-light)]/12 rounded-full blur-3xl"></div>
-          <div className="absolute top-2/3 right-1/5 w-80 h-80 bg-gradient-to-tl from-[var(--blue-light)]/10 to-[var(--primary-blue)]/6 rounded-full blur-2xl"></div>
-        </div>
-
-        {/* Subtle dot pattern overlay */}
-        <div className="absolute inset-0 opacity-[0.015]" style={{
-          backgroundImage: `radial-gradient(circle at 2px 2px, var(--primary-blue) 1px, transparent 0)`,
+      <section className="min-h-screen bg-white relative overflow-hidden">
+        {/* Subtle dot pattern */}
+        <div className="absolute inset-0 opacity-[0.03]" style={{
+          backgroundImage: `radial-gradient(circle at 1px 1px, var(--primary-blue) 1px, transparent 0)`,
           backgroundSize: '60px 60px'
         }}></div>
 
         <div className="relative z-10 px-8 md:px-16 py-32 max-w-screen-2xl mx-auto">
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-16">
-              <div className="inline-flex items-center gap-4 mb-6">
-                <div className="w-12 h-px bg-gradient-to-r from-transparent via-[var(--primary-blue)] to-transparent"></div>
-                <span className="text-sm tracking-widest uppercase text-[var(--primary-blue)] font-medium">Get In Touch</span>
-                <div className="w-12 h-px bg-gradient-to-r from-transparent via-[var(--primary-blue)] to-transparent"></div>
+              <div className="inline-flex items-center gap-3 md:gap-4 mb-4 md:mb-6">
+                <div className="w-8 md:w-12 h-px bg-[var(--black)] opacity-20"></div>
+                <span className="text-xs md:text-sm tracking-widest uppercase opacity-90 font-medium text-[var(--black)]">Get In Touch</span>
+                <div className="w-8 md:w-12 h-px bg-[var(--black)] opacity-20"></div>
               </div>
               <h1 className="hero-title mb-8">
                 Let&apos;s <span className="font-serif italic font-normal text-[var(--primary-blue)]">talk</span>
@@ -211,7 +204,7 @@ export default function ContactPage() {
                         setSubmitStatus('idle')
                         setFormData({ name: '', email: '', message: '' })
                       }}
-                      className="inline-flex items-center justify-center gap-3 bg-[var(--black)] text-white px-8 py-3 text-[15px] tracking-tight rounded-full relative overflow-hidden transition-all duration-300 ease-out hover:scale-105 group"
+                      className="inline-flex items-center justify-center gap-3 bg-[var(--black)] text-white px-8 py-3 text-[15px] tracking-tight rounded-lg relative overflow-hidden transition-all duration-300 ease-out hover:scale-105 group"
                     >
                       <div className="absolute inset-0 bg-[var(--primary-blue)] transform -translate-x-full transition-transform duration-300 ease-out group-hover:translate-x-0"></div>
                       <span className="relative z-10">Send Another Message</span>
@@ -281,7 +274,7 @@ export default function ContactPage() {
                       <button
                         type="submit"
                         disabled={isSubmitting}
-                        className="inline-flex items-center justify-center gap-3 bg-[var(--black)] text-white px-12 py-4 text-[15px] tracking-tight rounded-full relative overflow-hidden transition-all duration-300 ease-out hover:scale-105 group disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+                        className="inline-flex items-center justify-center gap-3 bg-[var(--black)] text-white px-12 py-4 text-[15px] tracking-tight rounded-lg relative overflow-hidden transition-all duration-300 ease-out hover:scale-105 group disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
                       >
                         <div className="absolute inset-0 bg-[var(--primary-blue)] transform -translate-x-full transition-transform duration-300 ease-out group-hover:translate-x-0"></div>
                         <span className="relative z-10">{isSubmitting ? 'Sending...' : 'Send Message'}</span>

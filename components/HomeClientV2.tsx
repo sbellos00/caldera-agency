@@ -270,7 +270,7 @@ const faqData = [
 
 const testimonials = [
   { highlight: 'It has elevated how I position myself in every client conversation.', quote: 'Caldera Agency didn\'t just build me a website, they helped me formally launch my entrepreneurial practice with clarity and credibility. In a matter of days, Stefanos and his team translated my experience into a polished, enterprise-level site, delivered with remarkable speed and zero red tape. It has elevated how I position myself in every client conversation.', name: 'Mark S. Piazza', role: 'Fractional CFO & Financial Advisor', image: 'https://res.cloudinary.com/dawyrpt2m/image/upload/v1766602121/Piazza_Headshot_1_daetif.jpg', imgPos: 'center 30%' },
-  { highlight: 'An end product that far exceeded my expectations.', quote: 'My experience with the Caldera team has been great. They are very responsive, creative and were able to take my desired content and feedback to create an end product that far exceeded my expectations. They work very efficiently, often turning around edits and new concepts in hours, with a sharp eye on every detail. I highly recommend the team at Caldera.', name: 'Tim Scott', role: 'Founder, True North Supply Chain Advisory', image: 'https://res.cloudinary.com/dawyrpt2m/image/upload/v1767130093/unnamed_1_l4haxs.jpg', imgPos: 'center' },
+  { highlight: 'They work very efficiently, often turning around edits and new concepts in hours, with a sharp eye on every detail.', quote: 'My experience with the Caldera team has been great. They are very responsive, creative and were able to take my desired content and feedback to create an end product that far exceeded my expectations. They work very efficiently, often turning around edits and new concepts in hours, with a sharp eye on every detail. I highly recommend the team at Caldera.', name: 'Tim Scott', role: 'Founder, True North Supply Chain Advisory', image: 'https://res.cloudinary.com/dawyrpt2m/image/upload/v1767130093/unnamed_1_l4haxs.jpg', imgPos: 'center' },
 ]
 
 const portfolioItems = [
@@ -593,7 +593,7 @@ export default function HomeV2() {
                 </div>
                 {/* Content */}
                 <div className="min-w-0 flex-1">
-                  <p className={`text-[15px] md:text-[16px] font-medium leading-snug tracking-tight mb-2 ${'text-[var(--black)]'}`}>
+                  <p className={`text-[13px] md:text-[14px] font-medium leading-snug tracking-tight mb-2 ${'text-[var(--black)]'}`}>
                     &ldquo;{t.highlight}&rdquo;
                   </p>
                   <div className="flex items-center gap-2">
@@ -772,7 +772,7 @@ export default function HomeV2() {
                   Most of them had no website. Or worse, they had one that looked like it was built in 2012.
                 </p>
                 <p>
-                  They&apos;d lose RFPs to competitors who simply looked more credible online. They&apos;d get passed over for speaking gigs because there was nowhere to send a link. They&apos;d rely entirely on LinkedIn and hope the algorithm was kind.
+                  They&apos;d lose RFPs to competitors who simply looked more credible online. They&apos;d get a warm referral and have nowhere to send them. They&apos;d rely entirely on LinkedIn and hope the algorithm was kind.
                 </p>
                 <p>
                   That&apos;s why I started Caldera. Because consultants shouldn&apos;t have to become web designers, copywriters, or project managers just to look professional online.
@@ -850,9 +850,9 @@ export default function HomeV2() {
                   <button onClick={() => setOpenFAQ(openFAQ === i ? null : i)}
                     className="w-full bg-white/10 backdrop-blur-sm hover:bg-white/20 border border-white/20 hover:border-white/30 rounded-xl md:rounded-2xl p-4 md:p-6 text-left transition-all duration-300 hover:shadow-2xl group">
                     <div className="flex items-center justify-between">
-                      <h3 className="text-base md:text-lg lg:text-xl font-normal pr-6 group-hover:text-white">{item.q}</h3>
+                      <h3 className="text-base md:text-lg lg:text-xl font-normal pr-6">{item.q}</h3>
                       <div className={`w-5 h-5 flex items-center justify-center transition-transform duration-300 ${openFAQ === i ? 'rotate-45' : ''}`}>
-                        <span className="text-xl font-light leading-none group-hover:text-white">+</span>
+                        <span className="text-xl font-light leading-none">+</span>
                       </div>
                     </div>
                   </button>
@@ -873,11 +873,11 @@ export default function HomeV2() {
 
             <div className="text-center mt-12 md:mt-20 scroll-fade">
               <p className="opacity-75 text-base md:text-lg mb-4 md:mb-6">Have a different question?</p>
-              <button onClick={scrollToNearestForm} className="inline-flex items-center gap-2 text-base md:text-lg relative pb-1 group">
+              <Link href="/contact" className="inline-flex items-center gap-2 text-base md:text-lg relative pb-1 group">
                 <span>Get in touch</span>
                 <span className="transition-transform duration-300 group-hover:translate-x-1">&rarr;</span>
                 <div className="absolute bottom-0 left-0 w-0 h-0.5 bg-current transition-[width] duration-300 group-hover:w-full" />
-              </button>
+              </Link>
             </div>
           </div>
         </section>
