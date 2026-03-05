@@ -93,6 +93,17 @@ export default function Menu({ onMenuToggle, dark = false }: MenuProps) {
               </Link>
 
               <Link
+                href="/about"
+                onClick={closeMenu}
+                className="block text-white text-4xl md:text-6xl lg:text-7xl font-light tracking-tight no-underline relative group transition-all duration-300 hover:text-[var(--blue-light)]"
+              >
+                <span className="relative">
+                  About
+                  <div className="absolute bottom-0 left-0 w-0 h-0.5 bg-[var(--primary-blue)] transition-[width] duration-500 group-hover:w-full" />
+                </span>
+              </Link>
+
+              <Link
                 href="/process"
                 onClick={closeMenu}
                 className="block text-white text-4xl md:text-6xl lg:text-7xl font-light tracking-tight no-underline relative group transition-all duration-300 hover:text-[var(--blue-light)]"
