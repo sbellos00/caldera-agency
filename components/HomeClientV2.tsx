@@ -721,18 +721,20 @@ export default function HomeV2() {
                 { h: 'Fast turnaround. Minimal time from you.', b: 'From prototype to launch, the entire process takes less time than most agency discovery calls. We handle copywriting, design, development, domain setup, analytics - everything. You just give feedback.' },
                 { h: 'You own everything. No lock-in.', b: 'Your code. Your domain. Your site. We host it for a year for free and handle maintenance, but you can take the full codebase and leave anytime. No proprietary platforms. No hostage situations.' },
               ].map((card, i) => (
-                <div key={i} className="feature-card bg-[var(--cream)] rounded-2xl p-7 md:p-8 relative overflow-hidden scroll-fade" style={{ transitionDelay: `${i * 100}ms` }}>
-                  <div className="w-10 h-10 bg-[var(--primary-blue)] rounded-xl mb-6" />
-                  <h3 className="text-xl font-medium tracking-tight mb-3 text-[var(--black)]">{card.h}</h3>
-                  <p className="text-[15px] leading-relaxed text-[var(--gray-medium)]">{card.b}</p>
+                <div key={i} className="feature-card bg-[var(--cream)] rounded-2xl p-7 md:p-8 relative overflow-hidden transition-all duration-400 hover:scale-[1.02] hover:shadow-2xl scroll-fade group" style={{ transitionDelay: `${i * 100}ms` }}>
+                  <div className="absolute inset-0 bg-gradient-to-br from-[var(--primary-blue)] to-[var(--blue-dark)] opacity-0 transition-opacity duration-400 group-hover:opacity-100" />
+                  <div className="w-10 h-10 bg-[var(--primary-blue)] rounded-xl mb-6 relative z-10 transition-all duration-300 group-hover:bg-white" />
+                  <h3 className="text-xl font-medium tracking-tight mb-3 text-[var(--black)] relative z-10 group-hover:text-white">{card.h}</h3>
+                  <p className="text-[15px] leading-relaxed text-[var(--gray-medium)] relative z-10 group-hover:text-white">{card.b}</p>
                 </div>
               ))}
             </div>
 
             {/* Objection card — full width, centered */}
-            <div className="feature-card bg-[var(--cream)] rounded-2xl p-8 md:p-10 text-center relative overflow-hidden scroll-fade">
-              <h3 className="text-xl md:text-2xl font-medium tracking-tight mb-3 text-[var(--black)]">&ldquo;What if I don&apos;t like what you build?&rdquo;</h3>
-              <p className="text-[15px] leading-relaxed text-[var(--gray-medium)] max-w-2xl mx-auto">
+            <div className="feature-card bg-[var(--cream)] rounded-2xl p-8 md:p-10 text-center relative overflow-hidden transition-all duration-400 hover:scale-[1.02] hover:shadow-2xl scroll-fade group">
+              <div className="absolute inset-0 bg-gradient-to-br from-[var(--primary-blue)] to-[var(--blue-dark)] opacity-0 transition-opacity duration-400 group-hover:opacity-100" />
+              <h3 className="text-xl md:text-2xl font-medium tracking-tight mb-3 text-[var(--black)] relative z-10 group-hover:text-white">&ldquo;What if I don&apos;t like what you build?&rdquo;</h3>
+              <p className="text-[15px] leading-relaxed text-[var(--gray-medium)] max-w-2xl mx-auto relative z-10 group-hover:text-white">
                 You see a free prototype before you pay anything. After that, you approve each phase before we move on. You only pay for work you&apos;ve reviewed and approved. Final payment is due only when you&apos;re ready to launch.
               </p>
             </div>
