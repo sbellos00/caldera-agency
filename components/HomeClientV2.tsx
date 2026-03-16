@@ -273,6 +273,7 @@ const faqData = [
 const testimonials = [
   { highlight: 'It has elevated how I position myself in every client conversation.', quote: 'Caldera Agency didn\'t just build me a website, they helped me formally launch my entrepreneurial practice with clarity and credibility. In a matter of days, Stefanos and his team translated my experience into a polished, enterprise-level site, delivered with remarkable speed and zero red tape. It has elevated how I position myself in every client conversation.', name: 'Mark S. Piazza', role: 'Fractional CFO & Financial Advisor', image: 'https://res.cloudinary.com/dawyrpt2m/image/upload/v1766602121/Piazza_Headshot_1_daetif.jpg', imgPos: 'center 30%' },
   { highlight: 'They work very efficiently, often turning around edits and new concepts in hours, with a sharp eye on every detail.', quote: 'My experience with the Caldera team has been great. They are very responsive, creative and were able to take my desired content and feedback to create an end product that far exceeded my expectations. They work very efficiently, often turning around edits and new concepts in hours, with a sharp eye on every detail. I highly recommend the team at Caldera.', name: 'Tim Scott', role: 'Founder, True North Supply Chain Advisory', image: 'https://res.cloudinary.com/dawyrpt2m/image/upload/v1767130093/unnamed_1_l4haxs.jpg', imgPos: 'center' },
+  { highlight: 'The experience felt like a true partnership, and the value of the service far exceeded the cost.', quote: 'I was initially drawn to Caldera Agency because, unlike most vendors who send generic outreach, they had clearly taken the time to understand my business. That attention to detail and spirit of customization carried through the entire engagement. The team was incredibly responsive and committed to getting every element right. We truly built the website together, collaborating on everything from the core structure to the smallest design adjustments and animations. Caldera met every specification I had and was always willing to refine details until the site reflected exactly what I envisioned. The experience felt like a true partnership, and the value of the service far exceeded the cost.', name: 'Dr. Ron Paul', role: 'Leadership Coach & Culture Transformation Expert', image: '', imgPos: 'center' },
 ]
 
 const portfolioItems = [
@@ -580,7 +581,7 @@ export default function HomeV2() {
           animate={!showPreloader ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           transition={{ duration: 0.8, delay: 2.9, ease: [0.22, 1, 0.36, 1] }}
         >
-          <div className="max-w-screen-2xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5 max-w-4xl">
+          <div className="max-w-screen-2xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5 max-w-5xl">
             {testimonials.map((t, i) => (
               <motion.div
                 key={i}
@@ -590,9 +591,15 @@ export default function HomeV2() {
                 className="backdrop-blur-xl bg-white/40 border border-white/60 rounded-2xl p-4 md:p-5 shadow-[0_4px_30px_rgba(0,0,0,0.04)] flex items-start gap-4"
               >
                 {/* Photo */}
-                <div className="w-12 h-12 md:w-14 md:h-14 rounded-xl flex-shrink-0 overflow-hidden relative">
-                  <Image src={t.image} alt={t.name} fill className="object-cover" style={{ objectPosition: t.imgPos }} sizes="56px" />
-                </div>
+                {t.image ? (
+                  <div className="w-12 h-12 md:w-14 md:h-14 rounded-xl flex-shrink-0 overflow-hidden relative">
+                    <Image src={t.image} alt={t.name} fill className="object-cover" style={{ objectPosition: t.imgPos }} sizes="56px" />
+                  </div>
+                ) : (
+                  <div className="w-12 h-12 md:w-14 md:h-14 rounded-xl flex-shrink-0 bg-[var(--black)]/10 flex items-center justify-center">
+                    <span className="text-sm font-semibold text-[var(--black)]/60">{t.name.split(' ').map(n => n[0]).join('')}</span>
+                  </div>
+                )}
                 {/* Content */}
                 <div className="min-w-0 flex-1">
                   <p className={`text-[13px] md:text-[14px] font-medium leading-snug tracking-tight mb-2 ${'text-[var(--black)]'}`}>
@@ -816,9 +823,15 @@ export default function HomeV2() {
                       </div>
                     </div>
                     {/* Right: photo only */}
-                    <div className="w-40 h-48 md:w-full md:h-full rounded-xl overflow-hidden relative">
-                      <Image src={t.image} alt={t.name} fill className="object-cover" style={{ objectPosition: t.imgPos }} sizes="180px" />
-                    </div>
+                    {t.image ? (
+                      <div className="w-40 h-48 md:w-full md:h-full rounded-xl overflow-hidden relative">
+                        <Image src={t.image} alt={t.name} fill className="object-cover" style={{ objectPosition: t.imgPos }} sizes="180px" />
+                      </div>
+                    ) : (
+                      <div className="w-40 h-48 md:w-full md:h-full rounded-xl bg-[var(--black)]/5 flex items-center justify-center">
+                        <span className="text-3xl font-light text-[var(--black)]/30">{t.name.split(' ').map(n => n[0]).join('')}</span>
+                      </div>
+                    )}
                   </div>
                 </div>
               ))}
