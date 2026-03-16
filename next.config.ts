@@ -5,6 +5,7 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       { protocol: 'https', hostname: 'polarisinstitute.io' },
       { protocol: 'https', hostname: 'res.cloudinary.com' },
+      { protocol: 'https', hostname: 'ron-paul-demo.vercel.app' },
       { protocol: 'https', hostname: 'media.licdn.com' },
     ],
   },
