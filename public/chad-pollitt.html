@@ -1,0 +1,1212 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Website Audit &amp; Proposal — Caldera</title>
+<style>/* =================================================================
+   Caldera Agency — Foundations
+   Colors, type, and semantic tokens for any brand-aligned artifact.
+   Pair this file with index.html or your own document.
+   ================================================================= */
+
+@font-face {
+  font-family: "Geist";
+  src: url("Geist.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Geist Mono";
+  src: url("GeistMono.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Bebas Neue";
+  src: url("BebasNeue.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  /* ── Brand palette ──────────────────────────────────────────────
+     The brand revolves around one saturated electric blue against a
+     warm off-white cream. Black sits as the dependable typographic
+     workhorse; the blue-light tint only ever shows up as ambient
+     atmosphere (blurred shapes, hover hints, subtle backgrounds). */
+
+  --primary-blue: #0019ff;   /* Caldera blue — the only accent. Loud and exact. */
+  --blue-dark:    #000D66;   /* Deep blue — for gradients into hero/CTA panels. */
+  --blue-light:   #E6E9FF;   /* Pale wash — ambient shapes, subtle hover surfaces. */
+
+  --cream:        #FAF8F5;   /* The "paper" surface. Background of choice on light sections. */
+  --white:        #ffffff;
+
+  --black:        #000000;
+  --gray-dark:    #111111;
+  --gray-medium:  #5C5C5C;
+  --gray-light:   #F5F5F7;
+
+  /* ── Semantic surface / text tokens ─────────────────────────────
+     Caldera uses scroll-driven theme switching: surfaces flip
+     between cream/white, full black, and full blue. The same
+     content has to read on all three, so think of these tokens as
+     the LIGHT-MODE defaults — invert them on .theme-dark / .theme-blue. */
+
+  --bg:          var(--cream);
+  --bg-alt:      var(--white);
+  --fg:          var(--black);
+  --fg-muted:    var(--gray-medium);
+  --fg-subtle:   #8A8A8A;
+  --accent:      var(--primary-blue);
+  --accent-fg:   var(--white);
+  --border:      rgba(0, 0, 0, 0.08);
+  --selection:   var(--primary-blue);
+
+  /* ── Radii ─────────────────────────────────────────────────────
+     Caldera uses generous, soft radii. Cards (rounded-2xl = 16px),
+     pills (rounded-full), inputs/buttons (rounded-lg = 8px).
+     The hero "deliverable" invitation card pushes to 24px. */
+
+  --radius-xs: 4px;
+  --radius-sm: 8px;     /* buttons, inputs */
+  --radius-md: 12px;    /* small cards */
+  --radius-lg: 16px;    /* feature/portfolio cards */
+  --radius-xl: 24px;    /* hero invitation card */
+  --radius-pill: 9999px;
+
+  /* ── Elevation ─────────────────────────────────────────────────
+     Three families: subtle press-card lift, accented blue hover
+     glow on interactives, and the soft "drop" used over cream. */
+
+  --shadow-card:   0 4px 30px rgba(0, 0, 0, 0.04);
+  --shadow-card-hover: 0 12px 48px rgba(0, 25, 255, 0.20);
+  --shadow-input:  0 2px 12px rgba(0, 0, 0, 0.06);
+  --shadow-blue:   0 20px 60px -20px rgba(0, 25, 255, 0.08);
+  --shadow-blue-strong: 0 20px 50px -15px rgba(0, 25, 255, 0.15);
+
+  /* ── Spacing scale (informal — used as section/gutter rhythm) ── */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-20: 80px;
+  --space-24: 96px;
+  --space-32: 128px;   /* default vertical section padding */
+
+  /* ── Typography ────────────────────────────────────────────────
+     Sans = Geist (UI, body, everything functional)
+     Mono = Geist Mono (rarely surfaced, used for system labels)
+     Display = Bebas Neue (only for number tags "01"/"02"/"03" on
+                lists, prices, and editorial counters)
+     Serif italic = system serif stack — the brand's signature
+                emphasis treatment. Pulled in to italicize one or
+                two words inside an otherwise sans headline.
+     Logo wordmark = Times New Roman, condensed, slight tracking-in
+                — applied only to the literal "caldera.agency" mark. */
+
+  --font-sans:    "Geist", -apple-system, BlinkMacSystemFont, "SF Pro Display",
+                  "Helvetica Neue", Arial, sans-serif;
+  --font-mono:    "Geist Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  --font-display: "Bebas Neue", "Oswald", Impact, sans-serif;
+  --font-serif:   ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-logo:    "Times New Roman", Times, serif;
+
+  /* ── Type scale (responsive via clamp where it counts) ─────────
+     Anchored on the home hero clamp(2.2rem, 4.5vw, 4.5rem) and
+     section-title clamp(36px, 5.5vw, 68px). Body sits at 15-16px. */
+
+  --fs-hero:        clamp(2.2rem, 4.5vw, 4.5rem);   /* H1 hero */
+  --fs-section:     clamp(36px, 5.5vw, 68px);       /* H2 primary section */
+  --fs-section-2:   clamp(28px, 4vw, 48px);         /* H2 supporting section */
+  --fs-h3:          clamp(20px, 1.6vw, 24px);       /* card titles */
+  --fs-quote:       clamp(24px, 3.5vw, 48px);       /* pull quotes (italic serif) */
+  --fs-display-num: 24px;                            /* Bebas "01" counters */
+  --fs-body-lg:     17px;
+  --fs-body:        15px;
+  --fs-body-sm:     13px;
+  --fs-eyebrow:     12px;                            /* uppercase tracking labels */
+  --fs-micro:       11px;
+
+  --lh-tight:    0.95;
+  --lh-snug:     1.1;
+  --lh-normal:   1.5;
+  --lh-relaxed:  1.65;
+
+  --tracking-tightest: -0.04em;   /* hero, display */
+  --tracking-tight:    -0.02em;   /* section titles, card titles */
+  --tracking-normal:    0;
+  --tracking-wide:      0.1em;    /* eyebrow */
+  --tracking-widest:    0.2em;    /* footer brand mark, tag */
+
+  /* ── Motion ────────────────────────────────────────────────────
+     Caldera's motion vocabulary: long, smooth, single-direction.
+     The signature curve is cubic-bezier(0.22, 1, 0.36, 1) (out-expo
+     family — what they call PRELOADER_EASE). Theme switches take
+     ~900ms. Hover states 200–400ms. */
+
+  --ease-brand:  cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-out:    cubic-bezier(0.4, 0, 0, 1);
+  --ease-in-out: cubic-bezier(0.45, 0, 0.55, 1);
+
+  --dur-fast:    200ms;
+  --dur-base:    300ms;
+  --dur-slow:    500ms;
+  --dur-theme:   900ms;
+
+  /* ── Layout ────────────────────────────────────────────────────
+     Pages cap at ~1400px (Tailwind max-w-screen-2xl ≈ 1536, used
+     loosely). Standard horizontal gutters: 32px mobile, 64px desktop. */
+  --container:  1400px;
+  --gutter-sm:  24px;
+  --gutter-md:  32px;
+  --gutter-lg:  64px;
+}
+
+/* ── Dark theme override (used by .theme-dark or [data-theme="dark"]) ── */
+.theme-dark, [data-theme="dark"] {
+  --bg:        var(--black);
+  --bg-alt:    #0a0a0a;
+  --fg:        var(--white);
+  --fg-muted:  rgba(255, 255, 255, 0.7);
+  --fg-subtle: rgba(255, 255, 255, 0.4);
+  --border:    rgba(255, 255, 255, 0.10);
+  --accent-fg: var(--white);
+}
+
+/* ── Blue theme override (FAQ section, founder accent panels) ── */
+.theme-blue, [data-theme="blue"] {
+  --bg:        var(--primary-blue);
+  --bg-alt:    var(--blue-dark);
+  --fg:        var(--white);
+  --fg-muted:  rgba(255, 255, 255, 0.75);
+  --fg-subtle: rgba(255, 255, 255, 0.45);
+  --border:    rgba(255, 255, 255, 0.15);
+  --accent:    var(--white);
+  --accent-fg: var(--primary-blue);
+}
+
+/* ──────────────────────────────────────────────────────────────────
+   Base resets + semantic element styles
+   ────────────────────────────────────────────────────────────────── */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-sans);
+  font-size: var(--fs-body);
+  line-height: var(--lh-normal);
+  font-weight: 400;
+  cursor: default;
+}
+
+::selection { background: var(--selection); color: var(--white); }
+
+h1, .h1 {
+  font-family: var(--font-sans);
+  font-size: var(--fs-hero);
+  line-height: var(--lh-tight);
+  letter-spacing: var(--tracking-tightest);
+  font-weight: 300;
+  margin: 0;
+}
+h2, .h2 {
+  font-family: var(--font-sans);
+  font-size: var(--fs-section);
+  line-height: var(--lh-tight);
+  letter-spacing: -0.03em;
+  font-weight: 300;
+  margin: 0;
+}
+.h2-secondary {
+  font-size: var(--fs-section-2);
+  line-height: var(--lh-snug);
+  letter-spacing: var(--tracking-tight);
+  font-weight: 300;
+}
+h3, .h3 {
+  font-family: var(--font-sans);
+  font-size: var(--fs-h3);
+  line-height: 1.2;
+  letter-spacing: var(--tracking-tight);
+  font-weight: 500;
+  margin: 0;
+}
+
+p, .body {
+  font-family: var(--font-sans);
+  font-size: var(--fs-body);
+  line-height: var(--lh-relaxed);
+  color: var(--fg-muted);
+  margin: 0;
+}
+.body-lg { font-size: var(--fs-body-lg); line-height: 1.6; }
+.body-sm { font-size: var(--fs-body-sm); line-height: 1.55; }
+
+/* Eyebrow label — small uppercase tracked tag in primary-blue.
+   Used above every section title without exception. */
+.eyebrow {
+  font-size: var(--fs-eyebrow);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wide);
+  color: var(--primary-blue);
+  margin: 0 0 var(--space-4) 0;
+}
+
+/* Italic emphasis — the brand's signature treatment.
+   Wrap one or two words inside a sans headline with this to get the
+   serif italic + blue color combo that appears on nearly every page. */
+.italic-emphasis {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  color: var(--primary-blue);
+}
+
+/* Pull quote — large italic serif, used in founder/about sections. */
+.pull-quote {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 300;
+  font-size: var(--fs-quote);
+  line-height: 1.1;
+  letter-spacing: var(--tracking-tight);
+  color: var(--fg);
+  margin: 0;
+}
+
+/* Counter / step number — Bebas Neue, in faded blue.
+   Reserved for ordered lists (01., 02., 03.) and pricing tags. */
+.counter {
+  font-family: var(--font-display);
+  font-size: var(--fs-display-num);
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  color: rgba(0, 25, 255, 0.4);
+}
+
+/* Logo wordmark — Times condensed.
+   Apply to a literal text "caldera.agency" or "caldera." */
+.caldera-logo {
+  font-family: var(--font-logo);
+  font-stretch: condensed;
+  letter-spacing: -0.05em;
+  font-weight: 400;
+}
+
+/* Mono — used sparingly, mostly form helper labels and footer meta. */
+code, .mono {
+  font-family: var(--font-mono);
+  font-size: 0.92em;
+}
+
+a {
+  color: var(--primary-blue);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  transition: color var(--dur-fast) var(--ease-out);
+}
+a:hover { color: var(--blue-dark); }
+</style>
+<style>
+  /* ───────────────────────── Document shell ───────────────────────── */
+  html { scroll-behavior: smooth; }
+  body { background: var(--cream); color: var(--black); }
+
+  .doc { position: relative; z-index: 1; }
+
+  /* faint blue grid texture, brand spec: 60px grid, 3% opacity */
+  .grid-bg {
+    position: absolute; inset: 0; pointer-events: none; z-index: 0;
+    background-image:
+      linear-gradient(to right, var(--primary-blue) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--primary-blue) 1px, transparent 1px);
+    background-size: 60px 60px;
+    opacity: 0.03;
+  }
+
+  /* ───────────────────────── Sticky nav ───────────────────────── */
+  .nav {
+    position: sticky; top: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 18px clamp(24px, 5vw, 64px);
+    background: color-mix(in srgb, var(--cream) 86%, transparent);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav .mark { font-family: var(--font-logo); font-stretch: condensed; letter-spacing: -0.05em; font-weight: 400; font-size: 22px; color: var(--primary-blue); }
+  .nav .tag { font-size: var(--fs-eyebrow); font-weight: 500; text-transform: uppercase; letter-spacing: var(--tracking-wide); color: var(--gray-medium); }
+
+  /* ───────────────────────── Layout primitives ───────────────────────── */
+  .wrap { max-width: 1040px; margin: 0 auto; padding: 0 clamp(24px, 5vw, 64px); position: relative; z-index: 1; }
+  .narrow { max-width: var(--narrow-max, 760px); }
+
+  section { position: relative; }
+
+  /* ───────────────────────── Cover ───────────────────────── */
+  .cover {
+    min-height: 86vh;
+    display: flex; flex-direction: column; justify-content: center;
+    padding: clamp(64px, 12vh, 160px) 0 clamp(48px, 9vh, 120px);
+    position: relative; overflow: hidden;
+  }
+  .cover .eyebrow { margin-bottom: 28px; }
+  .cover h1 {
+    font-size: clamp(2.6rem, 7vw, 5.4rem);
+    line-height: 0.98; letter-spacing: var(--tracking-tightest);
+    font-weight: 300; max-width: 14ch;
+  }
+  .cover .lede {
+    margin-top: 36px; max-width: 60ch;
+    font-size: var(--fs-body-lg); line-height: 1.65; color: var(--gray-medium);
+  }
+  .cover .meta {
+    display: flex; flex-wrap: wrap; gap: 14px 40px; margin-top: 56px;
+    border-top: 1px solid var(--border); padding-top: 28px;
+  }
+  .cover .meta .item .k { font-size: var(--fs-micro); text-transform: uppercase; letter-spacing: var(--tracking-wide); color: var(--primary-blue); margin-bottom: 6px; }
+  .cover .meta .item .v { font-size: 15px; color: var(--black); }
+
+  /* ───────────────────────── Section header (non-numbered) ───────────────────────── */
+  .block { padding: clamp(56px, 9vh, 104px) 0; }
+  .block + .block { padding-top: 0; }
+
+  .sec-title {
+    font-size: clamp(32px, 5vw, 60px);
+    line-height: 1.04; letter-spacing: -0.03em; font-weight: 300;
+    margin: 0 0 28px;
+    text-wrap: balance;
+    max-width: 19ch;
+  }
+  /* long headings that should stay on one line on desktop */
+  .sec-title.solo { max-width: none; text-wrap: normal; font-size: clamp(26px, 3.4vw, 34px); }
+  .sec-title em, .num-head em, h1 em { font-family: var(--font-serif); font-style: italic; font-weight: 400; color: var(--primary-blue); }
+
+  .prose p { font-size: var(--fs-body-lg); line-height: 1.75; color: var(--gray-medium); margin: 0 0 20px; max-width: 68ch; }
+  .prose p:last-child { margin-bottom: 0; }
+  .prose strong { color: var(--black); font-weight: 600; }
+
+  /* ───────────────────────── Numbered improvement ───────────────────────── */
+  .improvements { padding-bottom: clamp(40px, 6vh, 72px); }
+  .imp {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: clamp(20px, 4vw, 56px);
+    padding: clamp(40px, 6vh, 64px) 0;
+    border-top: 1px solid var(--border);
+  }
+  .imp .num {
+    font-family: var(--font-display);
+    font-size: clamp(56px, 7vw, 92px);
+    line-height: 0.8;
+    color: rgba(0, 25, 255, 0.32);
+    letter-spacing: 0.01em;
+  }
+  .num-head {
+    font-size: clamp(21px, 2.4vw, 27px);
+    line-height: 1.14; letter-spacing: -0.02em; font-weight: 300;
+    margin: 0 0 20px;
+  }
+  .imp .prose p { font-size: var(--fs-body-lg); }
+
+  /* list label + arrow list */
+  .list-label { font-size: 14px; font-weight: 500; color: var(--black); margin: 26px 0 12px; letter-spacing: -0.01em; }
+  ul.arrow { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+  ul.arrow li { position: relative; padding-left: 26px; font-size: 16px; line-height: 1.55; color: var(--gray-medium); }
+  ul.arrow li::before { content: "→"; position: absolute; left: 0; top: 0; color: var(--primary-blue); font-weight: 500; }
+
+  /* recommendation card */
+  .rec {
+    margin-top: 28px;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: clamp(20px, 3vw, 30px);
+    box-shadow: var(--shadow-card);
+  }
+  .rec .icon-slot { width: 40px; height: 40px; background: var(--primary-blue); border-radius: var(--radius-md); margin-bottom: 16px; }
+  .rec .rec-label { font-size: var(--fs-eyebrow); font-weight: 500; text-transform: uppercase; letter-spacing: var(--tracking-wide); color: var(--primary-blue); margin-bottom: 12px; }
+  .rec .prose p { font-size: 16px; line-height: 1.7; }
+  .rec.empty { display: flex; align-items: center; gap: 16px; padding: 18px 24px; }
+  .rec.empty .icon-slot { margin-bottom: 0; }
+  .rec.empty .rec-label { margin-bottom: 0; }
+
+  /* ───────────────────────── Dark "Goal" section ───────────────────────── */
+  .goal {
+    background: var(--black); color: var(--white);
+    padding: clamp(80px, 14vh, 150px) 0;
+    position: relative; overflow: hidden;
+  }
+  .goal .noise { position: absolute; inset: 0; opacity: 0.04; pointer-events: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+  .goal .sec-title { color: var(--white); }
+  .goal .prose p { color: rgba(255,255,255,0.72); }
+  .goal .prose strong { color: var(--white); }
+
+  /* ───────────────────────── Proposal divider ───────────────────────── */
+  .part-break { text-align: center; padding: clamp(48px,8vh,90px) 0 0; }
+  .part-break .rule { width: 1px; height: 56px; background: var(--border); margin: 0 auto 0; }
+
+  /* ───────────────────────── Pricing ───────────────────────── */
+  .pricing {
+    background: var(--primary-blue); color: var(--white);
+    padding: clamp(72px, 12vh, 130px) 0;
+    position: relative; overflow: hidden;
+  }
+  .pricing .blob { position: absolute; width: 720px; height: 720px; border-radius: 50%;
+    background: var(--blue-dark); filter: blur(120px); opacity: 0.5; top: -200px; right: -160px; pointer-events: none; }
+  .pricing .sec-title { color: var(--white); }
+  .price-grid { display: grid; grid-template-columns: 1.4fr 1fr; gap: 24px; margin-top: 44px; }
+  .price-card {
+    background: var(--white); color: var(--black);
+    border-radius: var(--radius-xl); padding: clamp(28px, 4vw, 44px);
+    display: flex; flex-direction: column;
+  }
+  .price-card.alt { background: var(--blue-dark); color: var(--white); }
+  .price-card .kicker { font-size: 15px; font-weight: 500; letter-spacing: -0.01em; }
+  .price-card .amount { font-size: clamp(44px, 6vw, 68px); font-weight: 300; letter-spacing: -0.04em; line-height: 1; margin: 18px 0 22px; }
+  .price-card.alt .lighter-note { font-size: clamp(22px, 3vw, 30px); font-weight: 300; letter-spacing: -0.02em; line-height: 1.1; margin: 12px 0 20px; color: var(--white); }
+  .price-card p { font-size: 16px; line-height: 1.65; margin: 0 0 12px; }
+  .price-card .muted { color: var(--gray-medium); }
+  .price-card.alt .muted { color: rgba(255,255,255,0.72); }
+
+  /* payment structure inside pricing */
+  .payment { margin-top: clamp(56px, 9vh, 96px); }
+  .payment .pay-title { font-size: clamp(24px, 3vw, 34px); font-weight: 300; letter-spacing: -0.025em; color: var(--white); margin: 0 0 36px; }
+  .payment .pay-title em { font-family: var(--font-serif); font-style: italic; color: var(--white); }
+  .pay-steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(28px, 4vw, 60px); }
+  .pay-step { border-top: 1px solid rgba(255,255,255,0.4); padding-top: 22px; }
+  .pay-step .n { font-family: var(--font-display); font-size: 52px; color: var(--white); line-height: 0.9; margin-bottom: 18px; letter-spacing: 0.01em; }
+  .pay-step p { font-size: 17px; line-height: 1.65; color: rgba(255,255,255,0.9); margin: 0; max-width: 30ch; }
+
+  /* ───────────────────────── Footer ───────────────────────── */
+  .foot { background: var(--black); color: var(--white); padding: clamp(56px,9vh,90px) 0 0; position: relative; overflow: hidden; }
+  .foot .dots { position: absolute; inset: 0; opacity: 0.04; pointer-events:none;
+    background-image: radial-gradient(circle at 1px 1px, #fff 1px, transparent 0); background-size: 60px 60px; }
+  .foot .top { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 24px; align-items: flex-end; padding-bottom: 48px; position: relative; z-index:1; }
+  .foot .top .blurb { max-width: 38ch; color: rgba(255,255,255,0.6); font-size: 15px; line-height: 1.6; }
+  .foot .top .mark { font-family: var(--font-logo); font-stretch: condensed; letter-spacing: -0.05em; font-size: 26px; color: var(--white); }
+  .foot .ghost { font-family: var(--font-logo); font-stretch: condensed; letter-spacing: -0.05em; font-size: 17.5vw; line-height: 0.78; color: rgba(255,255,255,0.06); white-space: nowrap; overflow: hidden; }
+
+  /* ───────────────────────── Scroll fade-in (JS only) ───────────────────────── */
+  .js .fade { opacity: 0; transform: translateY(36px); transition: opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out); }
+  .js .fade.in { opacity: 1; transform: none; }
+
+  /* ───────────────────────── Responsive ───────────────────────── */
+  @media (max-width: 760px) {
+    .imp { grid-template-columns: 1fr; gap: 4px; }
+    .imp .num { font-size: 52px; }
+    .price-grid { grid-template-columns: 1fr; }
+    .pay-steps { grid-template-columns: 1fr; }
+    .nav .tag { display: none; }
+  }
+
+  @media print {
+    .nav { position: static; backdrop-filter: none; }
+    .js .fade { opacity: 1 !important; transform: none !important; }
+    .goal, .pricing, .foot, .price-card, .price-card.alt { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    section { break-inside: avoid; }
+    .imp { break-inside: avoid; }
+  }
+
+  /* ── Part opener ── */
+  .part-opener { padding-top: clamp(72px,12vh,140px); }
+  .part-rule { width: 60px; height: 2px; background: var(--primary-blue); margin-bottom: 30px; }
+  .part-title { font-size: clamp(40px,7vw,80px); line-height: 0.98; letter-spacing: -0.035em; font-weight: 300; margin: 0; text-wrap: balance; max-width: 20ch; }
+  .part-title em { font-family: var(--font-serif); font-style: italic; font-weight: 400; color: var(--primary-blue); }
+
+  /* ── Pillars (Structure / Design) — standout cards ── */
+  .pillars-intro { margin-top: clamp(40px,7vh,72px); display: flex; align-items: center; gap: 16px; }
+  .pillars-intro .line { flex: 1; height: 1px; background: var(--border); }
+  .pillars-intro .lbl { font-size: var(--fs-eyebrow); font-weight: 500; text-transform: uppercase; letter-spacing: var(--tracking-wide); color: var(--primary-blue); white-space: nowrap; }
+  .pillars { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(20px,2.5vw,32px); margin-top: clamp(24px,4vh,40px); }
+  .pillar { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: clamp(28px,3.2vw,44px); box-shadow: var(--shadow-card); }
+  .pillar-num { font-family: var(--font-display); font-size: 44px; line-height: 0.9; color: rgba(0,25,255,0.30); display: block; margin-bottom: 14px; }
+  .pillar h3 { font-size: clamp(26px,2.8vw,36px); font-weight: 300; letter-spacing: -0.025em; margin: 0 0 18px; color: var(--black); }
+  .pillar .prose p { font-size: 15.5px; line-height: 1.65; }
+  .pillar .prose p.lead { font-size: clamp(17px,1.5vw,20px); line-height: 1.5; color: var(--black); margin-bottom: 14px; letter-spacing: -0.01em; }
+  .pillar .prose p.lead em { font-family: var(--font-serif); font-style: italic; color: var(--primary-blue); }
+
+  /* ── How to Read This — lead emphasis ── */
+  .prose p.lede-em { font-size: clamp(18px,1.8vw,22px); line-height: 1.55; color: var(--black); letter-spacing: -0.01em; }
+  .prose p .ie { font-family: var(--font-serif); font-style: italic; font-weight: 400; color: var(--primary-blue); }
+
+  /* ── Findings (homepage breakdown) — location as a left marker ── */
+  .findings { max-width: 1000px; margin: 0 auto; }
+  .finding { display: grid; grid-template-columns: 185px 1fr; gap: clamp(20px,3vw,44px); border-top: 1px solid var(--border); padding: clamp(38px,6vh,60px) 0; }
+  .finding:first-child { border-top: none; padding-top: clamp(8px,2vh,20px); }
+  .finding > .loc {
+    grid-column: 1; grid-row: 1 / -1; align-self: start;
+    position: sticky; top: 96px;
+    display: inline-flex; flex-direction: column; align-items: flex-start; gap: 5px;
+    padding: 10px 15px;
+    background: rgba(0,25,255,0.05);
+    border: 1px solid rgba(0,25,255,0.14);
+    border-radius: 13px;
+    font-size: 10.5px; font-weight: 500; text-transform: uppercase;
+    letter-spacing: 0.07em; color: var(--primary-blue); margin: 0; line-height: 1.25;
+  }
+  .finding > .loc .area { font-weight: 600; letter-spacing: 0.05em; display: inline-flex; align-items: center; gap: 8px; }
+  .finding > .loc .area::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--primary-blue); flex-shrink: 0; }
+  .finding > .loc .spot { color: rgba(0,25,255,0.62); }
+  .finding > :not(.loc) { grid-column: 2; }
+  .finding .fhead { font-size: clamp(21px,2.4vw,27px); line-height: 1.14; letter-spacing: -0.02em; font-weight: 300; margin: 7px 0 20px; text-wrap: normal; }
+  .finding .fhead em { font-family: var(--font-serif); font-style: italic; font-weight: 400; color: var(--primary-blue); }
+
+  /* ── Middle section — full-bleed blue interstitial ── */
+  .interstitial { background: var(--primary-blue); color: var(--white); padding: clamp(76px,14vh,160px) 0; position: relative; overflow: hidden; text-align: center; }
+  .interstitial .blob { position: absolute; width: 700px; height: 700px; border-radius: 50%; background: var(--blue-dark); filter: blur(120px); opacity: 0.5; top: -200px; left: -160px; pointer-events: none; }
+  .interstitial .istar { position: absolute; inset: 0; opacity: 0.05; pointer-events: none; background-image: radial-gradient(circle at 1px 1px, #fff 1px, transparent 0); background-size: 56px 56px; }
+  .interstitial .eyebrow { color: rgba(255,255,255,0.78); margin-bottom: 26px; }
+  .interstitial-title { font-size: clamp(32px,5vw,60px); line-height: 1.0; letter-spacing: -0.03em; font-weight: 300; color: var(--white); margin: 0 auto; max-width: 17ch; text-wrap: balance; }
+  .interstitial-title em { font-family: var(--font-serif); font-style: italic; font-weight: 400; color: var(--blue-light); }
+  .interstitial-lead { font-size: clamp(18px,2vw,25px); line-height: 1.5; color: rgba(255,255,255,0.85); margin: 30px auto 0; max-width: 56ch; }
+
+  /* ── Numbered list (brand counter) ── */
+  ol.num-list { list-style: none; counter-reset: nl; margin: 12px 0 0; padding: 0; display: flex; flex-direction: column; gap: 12px; }
+  ol.num-list li { counter-increment: nl; position: relative; padding-left: 40px; font-size: 16px; line-height: 1.55; color: var(--gray-medium); min-height: 24px; }
+  ol.num-list li::before { content: counter(nl) "."; position: absolute; left: 0; top: 1px; font-family: var(--font-display); font-size: 21px; line-height: 1.05; color: rgba(0,25,255,0.55); }
+
+  @media (max-width: 760px) {
+    .pillars { grid-template-columns: 1fr; }
+    .finding { grid-template-columns: 1fr; gap: 16px; padding: 36px 0; }
+    .finding > .loc { display: none; }
+    .finding .fhead { margin: 0 0 14px; }
+  }
+  @media print {
+    .finding, .pillar { break-inside: avoid; }
+    .finding > .loc { position: static; }
+  }
+
+  /* ───────────────────────── Tweak-driven states ───────────────────────── */
+  :root { --narrow-max: 760px; }
+  body[data-investment="off"] #cover-investment { display: none; }
+  body[data-grid="off"] .grid-bg { display: none; }
+  body[data-rwidth="cozy"]  { --narrow-max: 640px; }
+  body[data-rwidth="wide"]  { --narrow-max: 920px; }
+  body[data-animate="off"] .fade { opacity: 1 !important; transform: none !important; transition: none !important; }
+
+  /* ───────────────────────── Print / PDF ───────────────────────── */
+  @media print {
+    @page { size: A4 portrait; margin: 0; }
+
+    html, body { background: #FAF8F5 !important; }
+    * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+
+    /* Drop interactive chrome + sticky behavior */
+    #tweaks-root, .twk-panel { display: none !important; }
+    .nav { position: static !important; -webkit-backdrop-filter: none !important; backdrop-filter: none !important; }
+    .finding > .loc { position: static !important; }
+
+    /* Everything visible regardless of scroll-reveal JS */
+    .fade { opacity: 1 !important; transform: none !important; transition: none !important; }
+
+    /* Let long sections flow across pages; keep atomic blocks intact */
+    section { break-inside: auto !important; }
+    .cover { break-after: page; min-height: 0; padding-top: 64px; padding-bottom: 72px; }
+    .part-opener, .interstitial, .goal, .pricing { break-before: page; }
+    .part-break { break-before: page; }
+    .finding, .imp, .rec, .pillar, .price-card, .pay-step, .pay-steps,
+    .price-grid, .payment, .transition { break-inside: avoid; }
+    .num-head, .fhead, .sec-title, .part-title, .interstitial-title,
+    .pillar h3, .pay-title, .list-label { break-after: avoid; }
+
+    /* Trim oversized vh padding so pages aren't mostly empty */
+    .goal, .pricing, .interstitial { padding-top: 64px !important; padding-bottom: 64px !important; }
+    .block.part-opener { padding-top: 56px !important; }
+  }
+</style>
+</head>
+<body data-investment="off">
+
+<div class="doc">
+
+  <!-- NAV -->
+  <nav class="nav">
+    <span class="mark caldera-logo">caldera.agency</span>
+    <span class="tag">Website Rebuild Proposal</span>
+  </nav>
+
+  <!-- COVER -->
+  <section class="cover">
+    <div class="grid-bg"></div>
+    <div class="wrap">
+      <p class="eyebrow">Website Proposal</p>
+      <h1>Website <em>Rebuild</em> Proposal</h1>
+      <p class="lede">A full-site rebuild proposal for making the website easier to read, easier to navigate, and better structured around the credibility, accomplishments, and value that already exist.</p>
+      <p class="lede" style="margin-top:18px;">This includes a detailed homepage review, broader sitewide priorities, and clear recommendations for helping visitors understand the offer faster and take the right next step with less friction.</p>
+      <div class="meta">
+        <div class="item">
+          <div class="k">Prepared for</div>
+          <div class="v">Chad Pollitt</div>
+        </div>
+        <div class="item">
+          <div class="k">Prepared by</div>
+          <div class="v caldera-logo" style="font-size:18px;">caldera.agency</div>
+        </div>
+        <div class="item">
+          <div class="k">Scope</div>
+          <div class="v">Full website rebuild</div>
+        </div>
+        <div class="item" id="cover-investment" data-tweak-hide="investment">
+          <div class="k">Investment</div>
+          <div class="v">$5,500 USD</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ PART: BEFORE THE DETAILS ════════ -->
+  <section class="block part-opener">
+    <div class="wrap narrow">
+      <div class="part-rule fade"></div>
+      <h2 class="part-title fade">Before the <em>Details</em></h2>
+    </div>
+  </section>
+
+  <section class="block" style="padding-top: clamp(10px,2.5vh,22px);">
+    <div class="wrap narrow">
+      <h3 class="num-head fade">How to read this</h3>
+      <div class="prose fade">
+        <p class="lede-em">I went through your site the way one of your buyers would, page by page, and wrote down everything that hurts the user experience or leaves room for improvement.</p>
+        <p style="font-family: Geist">A few things up front. Your raw material is very, very strong. The credentials, the press, the speaking history, the books. There are very few people who can claim these credentials. So nothing here is about <em>what</em> you have. It’s about how the site presents it, how easy it is to read, and how clearly it communicates your value. The main things we’re focusing on are <span class="ie">structure and design</span>.</p>
+      </div>
+    </div>
+    <div class="wrap">
+      <div class="pillars">
+        <div class="pillar fade">
+          <span class="pillar-num">01</span>
+          <h3>Structure</h3>
+          <div class="prose">
+            <p class="lead">What a visitor sees first, in what order, and how we direct their attention so they can quickly understand your value and the things that make you special.</p>
+          </div>
+        </div>
+        <div class="pillar fade">
+          <span class="pillar-num">02</span>
+          <h3>Design</h3>
+          <div class="prose">
+            <p class="lead">Contrast, readability, imagery, and motion. This determines how the website looks and feels.</p>
+            <p>Attention is limited, so we take care of every detail that makes navigation as effortless as possible, while creating a premium experience that matches the level of your work.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ PART: HOME PAGE (1 of 3) ════════ -->
+  <section class="block part-opener">
+    <div class="wrap narrow">
+      <div class="part-rule fade"></div>
+      <p class="eyebrow fade" style="margin-bottom: 14px;">Part 1 of 3</p>
+      <h2 class="part-title fade">Homepage <em>Breakdown</em>.</h2>
+    </div>
+  </section>
+
+  <section class="block" style="padding-top: clamp(24px,4vh,44px);">
+    <div class="wrap">
+      <div class="findings">
+
+        <div class="finding fade">
+          <p class="loc"><span class="area">Hero</span> <span class="spot">· On Load</span></p>
+          <h3 class="fhead">Content needs to fit inside the viewport</h3>
+          <div class="prose">
+            <p>When the page loads, the banner looks good, but on most screens the only thing in the viewport is “Chad Pollitt.” The line that positions you (“Global Keynote Speaker, Fractional CMO, Professor &amp; Author”) and both call-to-action buttons sit below the fold, so the visitor has to scroll to see them. It may seem trivial, but it’s important: the user has to “get it” immediately, without taking any action to understand what they’re seeing.</p>
+          </div>
+          <div class="rec">
+            <div class="icon-slot"></div>
+            <div class="rec-label">Recommended improvement:</div>
+            <div class="prose">
+              <p>Rebuild the hero so the positioning line and one clear button are visible the instant the page loads, with no scrolling required. Who you help, what you do, and how to book you, all above the fold.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="finding fade">
+          <p class="loc"><span class="area">Hero</span> <span class="spot">· Color &amp; Contrast</span></p>
+          <h3 class="fhead">Hero content color contrast</h3>
+          <div class="prose">
+            <p>As you scroll, the text and buttons start to get lost in the photo behind them, especially where they pass over the bright labels in the image. The hover animation on the buttons also creates a red-on-red effect (a problem in other sections too).</p>
+            <p>This is important information and needs to stay clearly readable. It’s the site’s first impression, and at this stage the user has low commitment. If reading the page takes effort, they’re more likely to bounce, so we need to make the experience smooth here, and keep things easy to act on.</p>
+          </div>
+          <div class="rec">
+            <div class="icon-slot"></div>
+            <div class="rec-label">Recommended improvement:</div>
+            <div class="prose">
+              <p>Fix the contrast properly: a treatment or shadow behind the text so it always reads, and buttons in a color that stands off the background and clearly says “click me.” Legibility first, everywhere.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="finding fade">
+          <p class="loc"><span class="area">Mid Page</span> <span class="spot">· Image Sections</span></p>
+          <h3 class="fhead">The photos are faded, and white text on top is hard to read</h3>
+          <div class="prose">
+            <p>Scrolling down, several of the photo sections have a washed-out, light-grey tint over them. Combined with white text laid on top, it gets hard to read.</p>
+          </div>
+          <div class="rec">
+            <div class="icon-slot"></div>
+            <div class="rec-label">Recommended improvement:</div>
+            <div class="prose">
+              <p>Stronger, cleaner imagery without the grey wash, and text contrast that holds up no matter what’s behind it.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="finding fade">
+          <p class="loc"><span class="area">Mid Page</span> <span class="spot">· The Two Large Boxes</span></p>
+          <h3 class="fhead">Two of the most important links don’t look like links</h3>
+          <div class="prose">
+            <p>The two large blocks (“Have Chad at your next event” and “Download Chad’s books &amp; resources”) do lead somewhere, but nothing about them signals that they’re clickable. A visitor reads them as headings, not buttons, and scrolls past two of your key conversion points.</p>
+          </div>
+          <div class="rec">
+            <div class="icon-slot"></div>
+            <div class="rec-label">Recommended improvement:</div>
+            <div class="prose">
+              <p>Make them obviously interactive: clear button styling, hover behavior, and a label that tells you what happens when you click.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="finding fade">
+          <p class="loc"><span class="area">Mid Page</span> <span class="spot">· “Inquire Now”</span></p>
+          <h3 class="fhead">The main booking button doesn’t grab attention</h3>
+          <div class="prose">
+            <p>The “Book a keynote, consult, or fractional CMO service” section ends in an “Inquire Now” button whose color doesn’t stand out from everything around it. This is the one thing that should immediately grab attention, and right now the contrast makes it easy to miss.</p>
+          </div>
+          <div class="rec">
+            <div class="icon-slot"></div>
+            <div class="rec-label">Recommended improvement:</div>
+            <div class="prose">
+              <p>Give the primary action a color and weight that pulls the eye straight to it. This is the most important button on the page.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="finding fade">
+          <p class="loc"><span class="area">Mid Page</span> <span class="spot">· Structural Change</span></p>
+          <h3 class="fhead">Too Many Calls to Action in the Same Viewport</h3>
+          <div class="prose">
+            <p>In this section, there are three calls to action appearing very close together: the two clickable photo blocks and the “Inquire Now” button directly underneath them.</p>
+            <p>This creates a structure issue because two of the actions lead to the contact form, while the other leads to Books &amp; Resources. As a result, the visitor is being shown multiple competing paths at the same time, which can weaken the clarity of the section.</p>
+          </div>
+          <div class="rec">
+            <div class="icon-slot"></div>
+            <div class="rec-label">Recommended improvement:</div>
+            <div class="prose">
+              <p>We should simplify this section by keeping two clear actions: one for Books &amp; Resources and one for the contact form.</p>
+              <p>This would make the section easier to understand and give the visitor a clearer choice without overcrowding the page with competing calls to action.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="finding fade">
+          <p class="loc"><span class="area">Mid Page</span> <span class="spot">· Speaking Video</span></p>
+          <h3 class="fhead">The speaking video has a great effect and no sound</h3>
+          <div class="prose">
+            <p>The clip of you speaking, framed with the TV effect, looks very good, but it isn’t functional, because there’s no audio. Watching someone speak to a room with no sound is confusing, and it wastes a chance to let visitors see you in action.</p>
+          </div>
+          <div class="rec">
+            <div class="icon-slot"></div>
+            <div class="rec-label">Recommended improvement:</div>
+            <div class="prose">
+              <p>Give it sound, and place it so it invites visitors to press play.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="finding fade">
+          <p class="loc"><span class="area">Mid Page</span> <span class="spot">· Accomplishments</span></p>
+          <h3 class="fhead">Proof points are too subtle</h3>
+          <div class="prose">
+            <p>The accomplishments block (24 years, 12 books, 100+ talks, 100k+ brands) is a very strong selling point that we should lean into. I’d strongly suggest moving it higher up the page; it’s some of the clearest evidence you have, and you want as many visitors as possible to see it. Rather than leaving it as static text, we can animate it so it draws the eye.</p>
+          </div>
+          <div class="rec">
+            <div class="icon-slot"></div>
+            <div class="rec-label">Recommended improvement:</div>
+            <div class="prose">
+              <p>Move it higher and animate it: counters that tick up as you scroll, a bit of motion, so the numbers get noticed instead of skimmed past.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="finding fade">
+          <p class="loc"><span class="area">Mid Page</span> <span class="spot">· Photo “Posts”</span></p>
+          <h3 class="fhead">The clickable photo cards are confusing</h3>
+          <div class="prose">
+            <p>The images that open into a short post-style caption are a clever way to add context. But the photos are faded and too crowded, and the grey font is hard to read.</p>
+          </div>
+          <div class="rec">
+            <div class="icon-slot"></div>
+            <div class="rec-label">Recommended improvement:</div>
+            <div class="prose">
+              <p>Keep the concept but polish it: sharp images, readable type, and a layout that makes each one feel worth clicking.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="finding fade">
+          <p class="loc"><span class="area">Mid Page</span> <span class="spot">· Testimonial</span></p>
+          <h3 class="fhead">One static testimonial where there should be a wall of proof</h3>
+          <div class="prose">
+            <p>Right now there’s a single testimonial: static text and a photo. For someone with your track record, that’s a fraction of the credibility you could be showing.</p>
+          </div>
+          <div class="rec">
+            <div class="icon-slot"></div>
+            <div class="rec-label">Recommended improvement:</div>
+            <div class="prose">
+              <p>Build a testimonial carousel that pairs each quote with a photo. You have very strong social proof, so lean into it.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="finding fade">
+          <p class="loc"><span class="area">Mid Page</span> <span class="spot">· Speaking Engagements</span></p>
+          <h3 class="fhead">The stock photo looks a bit off</h3>
+          <div class="prose">
+            <p>The “Speaking Engagements” section sits on a black, grey, and white stock image of a microphone, with white text over it. Contrast is a problem here too, and it makes the text hard to read. It also doesn’t fit the rest of the page design.</p>
+          </div>
+          <div class="rec">
+            <div class="icon-slot"></div>
+            <div class="rec-label">Recommended improvement:</div>
+            <div class="prose">
+              <p>Replace it with a real shot of you on stage (you have plenty) and fix the text contrast so it reads instantly.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ PART: SITEWIDE PRIORITIES (blue opener) ════════ -->
+  <section class="interstitial">
+    <div class="blob"></div>
+    <div class="istar"></div>
+    <div class="wrap narrow">
+      <p class="eyebrow fade">Part 2 of 3</p>
+      <h2 class="interstitial-title fade">Sitewide <em>Priorities</em></h2>
+      <p class="interstitial-lead fade">From here on, we highlight the broader patterns that repeat across the site. We avoided going line by line for the rest of the site like we did on the homepage, we didn’t want to send you a 40 page document that takes 1 hour to review.</p>
+    </div>
+  </section>
+
+  <section class="improvements" style="padding-top: clamp(20px,3vh,36px);">
+    <div class="wrap">
+
+      <div class="imp fade">
+        <div class="num">1.</div>
+        <div>
+          <h2 class="num-head">Improve Text Legibility Across Key Pages</h2>
+          <div class="prose">
+            <p>In several sections, the background imagery and text colors compete with each other, which makes important content harder to read.</p>
+          </div>
+          <p class="list-label">This appears most noticeably in:</p>
+          <ol class="num-list">
+            <li>Services page: Hero section</li>
+            <li>About page: Hero section</li>
+            <li>Other image-based sections where text sits directly on top of photography or visually busy backgrounds</li>
+          </ol>
+          <div class="rec">
+            <div class="icon-slot"></div>
+            <div class="rec-label">Recommended improvement:</div>
+            <div class="prose">
+              <p>We should adjust these sections so the text stays clearly readable against the background. This can be done by improving contrast, adding a cleaner overlay where needed, adjusting the text color, or repositioning the copy so it does not sit on top of visually busy areas.</p>
+              <p>These are important first-impression sections, so the visitor should be able to understand the message immediately without needing to work around the background image or color treatment.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="imp fade">
+        <div class="num">2.</div>
+        <div>
+          <h2 class="num-head">Make Navigation and Buttons Clearer</h2>
+          <div class="prose">
+            <p>Some buttons and clickable elements are not immediately recognizable as navigation items or calls to action. This can make it less obvious where the visitor should click next.</p>
+          </div>
+          <div class="rec">
+            <div class="icon-slot"></div>
+            <div class="rec-label">Recommended improvement:</div>
+            <div class="prose">
+              <p>We should make buttons, links, and navigation elements more visually distinct, consistent, and easy to identify.</p>
+              <p>The goal is for visitors to immediately understand what is clickable, what each action means, and where each click will take them.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="imp fade">
+        <div class="num">3.</div>
+        <div>
+          <h2 class="num-head">Strengthen Visual and Brand Consistency</h2>
+          <div class="prose">
+            <p>There are a few areas where the visual style feels inconsistent across the website. Some sections use one-off heading styles, hover treatments, animation styles, or typography choices that do not feel fully connected to the rest of the site.</p>
+          </div>
+          <div class="rec">
+            <div class="icon-slot"></div>
+            <div class="rec-label">Recommended improvement:</div>
+            <div class="prose">
+              <p>We should simplify and standardize the visual system across the website.</p>
+              <p>This includes the typography, heading styles, button treatments, animations, spacing, and section layouts. If multiple styles are being used intentionally, they should follow a clear hierarchy and repeat consistently. Otherwise, the site can start to feel less unified.</p>
+              <p>The goal is to make the full website feel more polished, cohesive, and intentional.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="imp fade">
+        <div class="num">4.</div>
+        <div>
+          <h2 class="num-head">Improve Layout and Reading Flow</h2>
+          <div class="prose">
+            <p>Some sections contain valuable content, but the layout does not always guide the eye clearly enough. As a result, important information can feel visually equal to less important details, which makes the page harder to scan.</p>
+          </div>
+          <p class="list-label">This is most noticeable in:</p>
+          <ol class="num-list">
+            <li>The four listed services</li>
+            <li>The About page overall</li>
+            <li>The “Other Notables” section/list</li>
+            <li>The Book section, where the left side feels text-heavy while the right side has more breathing room and feels easier to follow</li>
+            <li>Several text-heavy sections where the hierarchy between primary and secondary information is not clear enough</li>
+          </ol>
+          <div class="rec">
+            <div class="icon-slot"></div>
+            <div class="rec-label">Recommended improvement:</div>
+            <div class="prose">
+              <p>We should create a stronger visual hierarchy across these sections.</p>
+              <p>The most important information should stand out first, while supporting details should feel secondary. This can be improved through spacing, section structure, typography, layout balance, and clearer content grouping.</p>
+              <p>The goal is to make the site easier to scan, easier to follow, and more seamless to read.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="imp fade">
+        <div class="num">5.</div>
+        <div>
+          <h2 class="num-head">Clarify the Book &amp; Resources Section</h2>
+          <div class="prose">
+            <p>The Book &amp; Resources page currently feels text-heavy, especially on the left side. It also takes too long to understand the purpose of signing up.</p>
+            <p>At the moment, the visitor needs to read through several paragraphs before it becomes clear that signing up may relate to the newsletter, blog content, and resources.</p>
+          </div>
+          <div class="rec">
+            <div class="icon-slot"></div>
+            <div class="rec-label">Recommended improvement:</div>
+            <div class="prose">
+              <p>We should make the value of signing up much clearer and faster to understand.</p>
+              <p>The section should immediately explain what the visitor gets and why it matters. A clearer structure could separate:</p>
+            </div>
+            <ol class="num-list">
+              <li>Newsletter</li>
+              <li>Blog updates</li>
+              <li>Downloadable or available resources</li>
+            </ol>
+            <div class="prose" style="margin-top:16px;">
+              <p>This would make the page easier to understand at a glance and reduce friction for visitors.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="imp fade">
+        <div class="num">6.</div>
+        <div>
+          <h2 class="num-head">Fix Technical and Performance Issues</h2>
+          <div class="prose">
+            <p>There are a few technical and performance issues that should be reviewed and corrected.</p>
+          </div>
+          <p class="list-label">Current issues noticed:</p>
+          <ol class="num-list">
+            <li>Video and media behavior should be reviewed across the site, including sound, loading, and performance</li>
+            <li>The navigation bar disappears in the Book section</li>
+            <li>Some videos appear to lag</li>
+            <li>Mobile responsiveness needs significant improvement</li>
+          </ol>
+          <div class="rec">
+            <div class="icon-slot"></div>
+            <div class="rec-label">Recommended improvement:</div>
+            <div class="prose">
+              <p>We should review the full technical experience across desktop and mobile.</p>
+              <p>This includes video behavior, page performance, navigation behavior, loading smoothness, and responsiveness across different screen sizes. Mobile is especially important because many visitors will experience the site first from their phones.</p>
+              <p>The goal is to make the website feel smooth, stable, and easy to use across every major device.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="imp fade">
+        <div class="num">7.</div>
+        <div>
+          <h2 class="num-head">Improve Contact and Booking Flow</h2>
+          <div class="prose">
+            <p>At the moment, clicking “Contact” simply scrolls down to the contact form rather than opening a dedicated contact page or booking experience. This works as a basic contact path, but it could be much clearer for visitors who are ready to reach out with a specific type of inquiry.</p>
+            <p>A booking system with clear request paths would make it easier for the right inquiry to reach you. For example, visitors could choose between speaking inquiries, fractional work, consulting requests, or other general inquiries.</p>
+          </div>
+          <div class="rec">
+            <div class="icon-slot"></div>
+            <div class="rec-label">Recommended improvement:</div>
+            <div class="prose">
+              <p>We should add a clearer booking system so ready buyers and serious inquiries have a more direct path.</p>
+              <p>This would make the website easier to use and help visitors understand exactly what type of request they should make.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- THE GOAL -->
+  <section class="goal">
+    <div class="noise"></div>
+    <div class="wrap narrow">
+      <h2 class="sec-title fade">The <em>Goal</em></h2>
+      <div class="prose fade">
+        <p>The goal of these changes is to make the website feel clearer, more polished, and easier for visitors to move through, while also making your accomplishments and credibility more visible. In some places this means redesigning sections from the ground up rather than simply tweaking what is already there.</p>
+        <p>The current site already contains strong content, experience, and proof of credibility. The opportunity is to present those elements with stronger structure, clearer hierarchy, and a more intentional design system.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROPOSAL -->
+  <section class="block">
+    <div class="part-break"><div class="rule"></div></div>
+    <div class="wrap narrow" style="padding-top: clamp(40px,7vh,72px);">
+      <p class="eyebrow fade">Part 3 of 3</p>
+      <h2 class="sec-title fade"><em>Proposal</em></h2>
+      <div class="prose fade">
+        <p>This proposal is for a complete rebuild of the site, built to address the goals above.</p>
+        <p>We handle the full structure, design, and build, working from your existing brand and content. We’d start from what’s already on the site and fold in anything extra you’d like to add, such as images, testimonials, updated copy, or podcast material.</p>
+        <p>Once the first version is ready, we refine it based on your feedback until it’s right.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- BLOG / PODCAST -->
+  <section class="block">
+    <div class="wrap narrow">
+      <h2 class="sec-title solo fade">Blog, Podcast, and <em>Ongoing</em> Content</h2>
+      <div class="prose fade">
+        <p>We can also manage the blog and podcast sections on an ongoing basis.</p>
+        <p>You would provide the content, or we can work from the content you are already posting elsewhere, such as LinkedIn, if that is where the material is published first. From there, we can format, build, and update those sections accordingly.</p>
+        <p>This part would be priced separately because it depends on how much content currently exists and how often new content needs to be added. We can work that out together on the call.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CODE OWNERSHIP -->
+  <section class="block">
+    <div class="wrap narrow">
+      <h2 class="sec-title solo fade">Code <em>Ownership</em> and Hosting</h2>
+      <div class="prose fade">
+        <p><strong>You own the code.</strong></p>
+        <p>That means you can take the code and host it wherever you want if you ever choose to move it elsewhere.</p>
+        <p>Website hosting is included for the first year. After the first year, hosting and basic maintenance would be $100/year.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section class="pricing">
+    <div class="blob"></div>
+    <div class="wrap">
+      <h2 class="sec-title fade">Pricing</h2>
+      <div class="price-grid fade">
+        <div class="price-card">
+          <div class="kicker">Full Website Rebuild</div>
+          <div class="amount">$5,500<span style="font-size:0.34em; letter-spacing:0; font-weight:400; margin-left:10px; vertical-align:middle;">USD</span><sup style="font-size:0.30em; font-weight:400; vertical-align:super; margin-left:2px;">*</sup></div>
+          <p>This includes a complete rebuild of the website.</p>
+          <p class="muted">Your entire site would be restructured, redesigned, rebuilt, and prepared for launch.</p>
+        </div>
+        <div class="price-card alt">
+          <div class="kicker">Lighter Option</div>
+          <p class="muted" style="margin-top:14px;">If you prefer to start simpler, we can also discuss a lighter option focused on a single landing page.</p>
+          <p class="muted">This would cost less than the full website rebuild, and we can define the exact scope on the call.</p>
+        </div>
+      </div>
+
+      <p class="price-note fade" style="margin-top:22px; font-size:14px; line-height:1.6; color:rgba(255,255,255,0.72); max-width:62ch;">* Blog and podcast content management is an optional add-on, priced separately from the rebuild.</p>
+
+      <div class="payment fade">
+        <h3 class="pay-title">Payment <em>Structure</em></h3>
+        <div class="pay-steps">
+          <div class="pay-step">
+            <div class="n">01</div>
+            <p>50% upfront so we can begin the build.</p>
+          </div>
+          <div class="pay-step">
+            <div class="n">02</div>
+            <p>Once the main build is complete, we send it to you for revisions and feedback.</p>
+          </div>
+          <div class="pay-step">
+            <div class="n">03</div>
+            <p>The remaining 50% is paid when the website is finished and ready to go live.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="foot">
+    <div class="dots"></div>
+    <div class="wrap">
+      <div class="top">
+        <span class="mark caldera-logo">caldera.agency</span>
+      </div>
+    </div>
+    <div class="ghost caldera-logo">caldera.agency</div>
+  </footer>
+
+</div>
+
+<script>
+  document.documentElement.classList.add('js');
+  (function () {
+    var els = Array.prototype.slice.call(document.querySelectorAll('.fade'));
+    function show(el) { el.classList.add('in'); }
+
+    // Respect reduced-motion: reveal everything immediately.
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      els.forEach(show);
+      return;
+    }
+
+    // IntersectionObserver reveals elements as they enter view, regardless of
+    // which ancestor actually scrolls (works in embedded/outer-scroll contexts).
+    if ('IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) { show(e.target); io.unobserve(e.target); }
+        });
+      }, { threshold: 0.08, rootMargin: '0px 0px -6% 0px' });
+      els.forEach(function (el) { io.observe(el); });
+    } else {
+      els.forEach(show);
+    }
+
+    // Guaranteed safety net: nothing may ever stay permanently hidden.
+    setTimeout(function () { els.forEach(show); }, 2500);
+  })();
+</script>
+
+<!-- Auto-print removed: file opens normally without a print dialog -->
+
+
+</body></html>
