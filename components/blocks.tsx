@@ -124,6 +124,66 @@ export function ABullets({ items }: { items: ReactNode[] }) {
   )
 }
 
+/** White card with dot-bullet items. Best placed on a cream band so it pops. */
+export function CalloutCard({ title, items }: { title?: ReactNode; items: ReactNode[] }) {
+  return (
+    <div className="scroll-fade rounded-2xl border border-[var(--gray-light)] bg-white p-7 md:p-9 shadow-[0_8px_40px_rgba(0,0,0,0.04)]">
+      {title && <h3 className="mb-5 text-xl font-medium text-[var(--black)]">{title}</h3>}
+      <div className="space-y-4">
+        {items.map((it, i) => (
+          <div key={i} className="flex items-start gap-3">
+            <span className="mt-[10px] h-2 w-2 flex-shrink-0 rounded-full bg-[var(--primary-blue)]" />
+            <span className="text-[16px] md:text-[17px] leading-relaxed text-[var(--gray-dark)]">{it}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+/** White card with numbered circles. */
+export function NumberedCard({ items }: { items: ReactNode[] }) {
+  return (
+    <div className="scroll-fade rounded-2xl border border-[var(--gray-light)] bg-white p-7 md:p-9 shadow-[0_8px_40px_rgba(0,0,0,0.04)]">
+      <div className="space-y-4">
+        {items.map((it, i) => (
+          <div key={i} className="flex items-start gap-3">
+            <div className="mt-0.5 flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-[var(--primary-blue)]">
+              <span className="text-sm text-white">{i + 1}</span>
+            </div>
+            <span className="text-[16px] md:text-[17px] leading-relaxed text-[var(--gray-dark)]">{it}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+/** White card with heading + body per item (for benefit/definition lists). */
+export function DefinitionCard({ items }: { items: { h: ReactNode; b: ReactNode }[] }) {
+  return (
+    <div className="scroll-fade rounded-2xl border border-[var(--gray-light)] bg-white p-7 md:p-9 shadow-[0_8px_40px_rgba(0,0,0,0.04)]">
+      <div className="space-y-6">
+        {items.map((it, i) => (
+          <div key={i}>
+            <h4 className="mb-2 text-lg font-medium text-[var(--black)]">{it.h}</h4>
+            <p className="text-[16px] leading-relaxed text-[var(--gray-dark)]">{it.b}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+/** Left-accented italic pull quote, for use inside white/cream bands. */
+export function PullQuote({ children }: { children: ReactNode }) {
+  return (
+    <div className="scroll-fade my-8 border-l-2 border-[var(--primary-blue)]/40 bg-gradient-to-r from-[var(--blue-light)]/30 to-transparent py-3 pl-6">
+      <p className="text-lg md:text-xl font-light italic leading-relaxed text-[var(--gray-dark)]">{children}</p>
+    </div>
+  )
+}
+
 /** Native, JS-free accordion item styled for the blue FAQ band (homepage style). */
 export function GlassFaq({ q, a }: { q: string; a: string }) {
   return (
