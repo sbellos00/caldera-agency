@@ -50,7 +50,7 @@ const faqs: Faq[] = [
   },
   {
     q: 'What does a Caldera website cost?',
-    a: 'Pricing is milestone-based: you approve each phase before you pay for it, and final payment is due only when you are ready to launch. Because you start from a free prototype, you always see the work before committing money. {{STEF: add your starting price or typical range here if you want it stated publicly.}}',
+    a: 'Pricing is milestone-based: you approve each phase before you pay for it, and final payment is due only when you are ready to launch. Because you start from a free working prototype, you always see the actual work before any money changes hands — so there is no risk of paying for something you have not reviewed.',
   },
 ]
 

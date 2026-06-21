@@ -102,8 +102,7 @@ export default function Page() {
         That is how Caldera is structured: you start from a free working prototype of your actual site — built from
         your LinkedIn, before you pay anything — and payment is milestone-based, so you approve each phase and the final
         payment is due only when you are ready to launch. You also get full code ownership and a year of hosting
-        included, which folds Layer 3 into the deal.{' '}
-        <span className="text-[var(--gray-medium)]">{'{{STEF: add Caldera’s starting price or typical range here if you want a number on the page.}}'}</span>
+        included, which folds Layer 3 into the deal.
       </AP>
       <AP>
         For the wider decision of which route fits you, see{' '}
