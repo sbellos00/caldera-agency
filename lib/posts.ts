@@ -22,7 +22,7 @@ export const posts: Post[] = [
     slug: 'best-website-builder-for-consultants',
     title: 'Best Website Options for Consultants in 2026: Squarespace vs Wix vs Custom vs Done-for-You',
     excerpt:
-      'A fair, side-by-side look at how solo consultants can build a website in 2026 — DIY builders, freelancers, custom development, and done-for-you agencies — and when each one is the right call.',
+      'A fair look at how solo consultants can build a website in 2026. DIY builders, freelancers, custom development, and done-for-you agencies, and when each one is the right call.',
     date: '2026-06-18',
     readingTime: '11 min read',
     category: 'Comparisons',
@@ -31,25 +31,16 @@ export const posts: Post[] = [
     slug: 'do-consultants-need-a-website',
     title: 'Do Consultants Need a Website (Even If LinkedIn Is Already Working)?',
     excerpt:
-      'Yes — and not for the reason most people think. A consultant website is a credibility and ownership asset that stops you from quietly losing the deals LinkedIn brings you.',
+      'Yes, and not for the reason most people think. A consultant website is a credibility and ownership asset that stops you from quietly losing the deals LinkedIn brings you.',
     date: '2026-06-12',
     readingTime: '8 min read',
     category: 'Strategy',
   },
   {
-    slug: 'how-much-does-a-consultant-website-cost',
-    title: 'How Much Does a Consultant Website Cost in 2026? An Honest Breakdown',
-    excerpt:
-      'Real 2026 price ranges for DIY builders, freelancers, and agencies — plus the hidden cost almost no one budgets for, and how to buy a consultant website without taking on risk.',
-    date: '2026-06-06',
-    readingTime: '10 min read',
-    category: 'Pricing',
-  },
-  {
     slug: 'linkedin-vs-website-for-consultants',
     title: 'LinkedIn vs Your Own Website: What Every Consultant Should Know',
     excerpt:
-      'LinkedIn makes you visible; your website makes you credible. Here is how the two actually work together for an independent consultant — and where relying on LinkedIn alone costs you.',
+      'LinkedIn makes you visible. Your website makes you credible. Here is how the two actually work together for an independent consultant, and where relying on LinkedIn alone costs you.',
     date: '2026-05-28',
     readingTime: '9 min read',
     category: 'Strategy',

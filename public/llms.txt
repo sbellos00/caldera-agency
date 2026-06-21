@@ -1,6 +1,6 @@
 # Caldera Agency
 
-> Done-for-you websites for solo consultants. We research your background, write the copy, design and build the site, and host it — and we send a free working prototype before you pay anything.
+> Done-for-you websites for solo consultants. We research your background, write the copy, design and build the site, and host it. We send a free working prototype before you pay anything.
 
 ## Core pages
 - [Home](https://www.caldera.agency/): What Caldera does and how the free-prototype process works
@@ -27,7 +27,7 @@
 - Caldera builds websites exclusively for solo and independent consultants (fractional CFOs, coaches, advisors, and similar).
 - Clients receive a free working prototype before paying anything.
 - Payment is milestone-based; clients approve each phase, and final payment is due only at launch.
-- Clients get full code ownership — their code, domain, and content — with no proprietary platform and no lock-in.
+- Clients get full code ownership of their code, domain, and content, with no proprietary platform and no lock-in.
 - One year of hosting and support is included.
 - Most clients spend less than two hours total across the entire project.
 - Founded by Stefanos Bellos, formerly of the Dialectica expert network, who spent thousands of hours connecting consultants with investors and global enterprises.

@@ -9,7 +9,7 @@ export const CONTACT_EMAIL = 'contact@caldera.agency'
 /** One-line description reused across schema and metadata. Keep wording identical
  *  on-site and off-site (LinkedIn, directories) so the association is unambiguous. */
 export const BRAND_DESCRIPTION =
-  'Done-for-you websites for solo consultants. Caldera researches your background, writes the copy, designs and builds the site, and hosts it — and sends a free working prototype before you pay anything.'
+  'Done-for-you websites for solo consultants. Caldera researches your background, writes the copy, designs and builds the site, and hosts it. You get a free working prototype before you pay anything.'
 
 export interface Testimonial {
   name: string
@@ -47,7 +47,7 @@ export const organizationSchema = {
   logo: `${SITE_URL}/og-image.jpg`,
   image: `${SITE_URL}/og-image.jpg`,
   description: BRAND_DESCRIPTION,
-  foundingDate: '2024', // {{STEF: confirm the correct founding year}}
+  foundingDate: '2025',
   founder: { '@type': 'Person', name: 'Stefanos Bellos', jobTitle: 'Founder' },
   contactPoint: {
     '@type': 'ContactPoint',
@@ -102,6 +102,36 @@ export function breadcrumbSchema(crumbs: Crumb[]) {
       name: c.name,
       item: `${SITE_URL}${c.path}`,
     })),
+  }
+}
+
+export function blogPostingSchema(post: {
+  slug: string
+  title: string
+  excerpt: string
+  date: string
+  updated?: string
+}) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: post.title,
+    description: post.excerpt,
+    author: {
+      '@type': 'Person',
+      name: 'Stefanos Bellos',
+      url: `${SITE_URL}/about`,
+      jobTitle: 'Founder, Caldera Agency',
+    },
+    publisher: {
+      '@type': 'Organization',
+      name: SITE_NAME,
+      logo: { '@type': 'ImageObject', url: `${SITE_URL}/og-image.jpg` },
+    },
+    datePublished: post.date,
+    dateModified: post.updated ?? post.date,
+    mainEntityOfPage: `${SITE_URL}/blog/${post.slug}`,
+    image: `${SITE_URL}/og-image.jpg`,
   }
 }
 

@@ -28,22 +28,21 @@ const content: NicheContent = {
     <>
       A coaching website has to make something intangible feel concrete. The best one names exactly who you transform
       and how, replaces vague promises with a clear method and real outcomes, and signals the premium tier you charge
-      at — so a leader can tell you apart from the thousands of generalist coaches online. Caldera builds that site for
-      you and shows you a free working prototype before you pay.
+      at. That is how a leader tells you apart from the thousands of generalist coaches online. Caldera builds that site
+      for you and shows you a free working prototype before you pay.
     </>
   ),
-  serviceName: 'Caldera Agency — Websites for Executive & Leadership Coaches',
+  serviceName: 'Caldera Agency, Websites for Executive & Leadership Coaches',
   serviceDescription:
     'Done-for-you website design and development for executive, leadership, and culture coaches. Free prototype before payment, full ownership, milestone-based pricing.',
   audienceType: 'Executive, leadership, and culture coaches',
   whyTitle: 'Why a coach’s website has to work harder than most',
   whyIntro: (
     <>
-      Coaching is the hardest consulting service to sell from a profile, because the &ldquo;product&rdquo; is a
-      relationship and a transformation that hasn&rsquo;t happened yet. The market is crowded with coaches who all use
-      the same words — &ldquo;unlock potential,&rdquo; &ldquo;authentic leadership&rdquo; — and a skeptical executive or
-      HR buyer has learned to tune them out. Your website is where you escape that sea of sameness and prove there is a
-      real method and real results behind the promise.
+      Coaching is the hardest consulting service to sell from a profile, because the product is a relationship and a
+      transformation that has not happened yet. The market is crowded with coaches who all use the same words. Unlock
+      potential. Authentic leadership. A skeptical executive or HR buyer has learned to tune them out. Your website is
+      where you escape that sea of sameness and prove there is a real method and real results behind the promise.
     </>
   ),
   painPoints: [
@@ -53,11 +52,11 @@ const content: NicheContent = {
     },
     {
       h: 'The value is invisible',
-      b: 'You cannot screenshot a breakthrough. The site has to make an intangible transformation tangible — through frameworks, the arc of a client journey, and credible proof.',
+      b: 'You cannot screenshot a breakthrough. The site has to make an intangible transformation tangible, through frameworks, the arc of a client journey, and credible proof.',
     },
     {
       h: 'You sell to two buyers at once',
-      b: 'An individual leader and a corporate sponsor (HR, a CEO, a board) often evaluate you together. The site has to speak to personal change and organizational ROI in the same breath.',
+      b: 'An individual leader and a corporate sponsor, such as HR, a CEO, or a board, often evaluate you together. The site has to speak to personal change and organizational return in the same breath.',
     },
   ],
   buildTitle: 'What Caldera builds for a coach',
@@ -68,15 +67,15 @@ const content: NicheContent = {
     </>
   ),
   buildPoints: [
-    { h: 'A named, ownable method.', b: 'We turn your approach into a clearly articulated framework a buyer can understand and remember — the antidote to generic coaching language.' },
-    { h: 'Transformation made visible.', b: 'The before-and-after of a coaching engagement, client journeys, and outcomes presented so the intangible becomes concrete.' },
+    { h: 'A named, ownable method.', b: 'We turn your approach into a clearly articulated framework a buyer can understand and remember. It is the antidote to generic coaching language.' },
+    { h: 'Transformation made visible.', b: 'The before and after of a coaching engagement, client journeys, and outcomes, presented so the intangible becomes concrete.' },
     { h: 'Dual-audience positioning.', b: 'Copy that lands with both the individual leader and the organization paying the invoice.' },
     { h: 'A premium presence.', b: 'A calm, confident, high-end design that justifies premium fees the moment the page loads.' },
   ],
   proofIntro: (
     <>
       We built exactly this for a leadership coach. Dr. Ron Paul of the Polaris Leadership Institute wanted a site that
-      reflected the depth of his work; we collaborated on everything from structure to the smallest detail.
+      reflected the depth of his work, and we collaborated on everything from structure to the smallest detail.
     </>
   ),
   proof: {
@@ -88,7 +87,7 @@ const content: NicheContent = {
   },
   faqs: [
     {
-      q: 'How do you make coaching — which is intangible — look credible on a website?',
+      q: 'How do you make coaching, which is intangible, look credible on a website?',
       a: 'By giving it structure. We articulate your method as a named framework, show the arc of a typical client transformation, and present outcomes and testimonials so a buyer can picture the result. Specificity is what turns an abstract promise into something believable.',
     },
     {
@@ -97,7 +96,7 @@ const content: NicheContent = {
     },
     {
       q: 'How do you make my coaching practice stand out from every other coach?',
-      a: 'We avoid the recycled coaching vocabulary entirely and build the page around your distinct point of view, your method, and your proof. Distinctiveness comes from research into what actually makes your work different — not from a prettier template.',
+      a: 'We avoid the recycled coaching vocabulary entirely and build the page around your distinct point of view, your method, and your proof. Distinctiveness comes from research into what actually makes your work different, not from a prettier template.',
     },
     {
       q: 'How much of my time does this take?',

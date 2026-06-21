@@ -27,7 +27,7 @@ function Preloader() {
   return (
     <motion.div className="fixed inset-0 z-[200]">
       <div className="absolute z-10 flex h-full w-full items-center justify-center px-6 text-center">
-        <motion.h1
+        <motion.div
           className="font-serif italic text-3xl sm:text-4xl md:text-5xl tracking-tight text-white"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1, transition: { duration: 4 } }}
@@ -43,7 +43,7 @@ function Preloader() {
               className="mr-2 inline-block md:mr-3"
             >{word}</motion.span>
           ))}
-        </motion.h1>
+        </motion.div>
       </div>
       {/* Top stairs */}
       <motion.div className="pointer-events-none fixed left-0 top-0 z-[2] flex h-[50vh]">
@@ -494,6 +494,9 @@ export default function HomeV2() {
         {/* Hero content */}
         <div className="relative z-10 flex-1 flex items-center justify-center px-8 md:px-16 pt-[5vh]">
           <div className="text-center flex flex-col items-center w-full max-w-screen-2xl">
+            {/* Always-rendered primary heading for crawlers/AI engines (the same
+                words appear in the animated hero below; this is the semantic H1). */}
+            <h1 className="sr-only">The Website Agency Built for Solo Consultants</h1>
             {/* Title — 2 lines: line 1 from bottom, line 2 from top */}
             {/* Wait for preloader to finish before animating */}
             {!showPreloader && (

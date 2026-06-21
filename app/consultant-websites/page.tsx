@@ -2,13 +2,14 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import SiteHeader from '@/components/SiteHeader'
 import Footer from '@/components/Footer'
+import PageFX from '@/components/PageFX'
 import JsonLd from '@/components/JsonLd'
 import { faqSchema, breadcrumbSchema, SITE_URL, SITE_NAME, type Faq } from '@/lib/site'
 
 export const metadata: Metadata = {
   title: 'Consultant Websites: The Complete Guide',
   description:
-    'The complete guide to consultant websites: whether you need one, what it should do, what pages to include, what it should cost, and how to get one built without the busywork.',
+    'The complete guide to consultant websites. Whether you need one, what it should do, what pages to include, what it should cost, and how to get one built without the busywork.',
   alternates: { canonical: '/consultant-websites' },
   openGraph: {
     type: 'article',
@@ -24,19 +25,19 @@ export const metadata: Metadata = {
 const faqs: Faq[] = [
   {
     q: 'Do consultants really need a website in 2026?',
-    a: 'If you want to win premium, considered work, yes. Most buyers research you online before they reply, and a website is the only place you fully control how that research goes. LinkedIn gets you found; a website is what makes you credible once you are found.',
+    a: 'If you want to win premium, considered work, yes. Most buyers research you online before they reply, and a website is the only place you fully control how that research goes. LinkedIn gets you found. A website is what makes you credible once you are found.',
   },
   {
     q: 'Can a consultant website be a single page?',
-    a: 'Yes. Many solo consultants do very well with a focused one-page site that covers who you help, the proof, and how to contact you. A one-page site is faster to launch and easier to maintain; you can always expand it as you add case studies or services.',
+    a: 'Yes. Many solo consultants do very well with a focused one-page site that covers who you help, the proof, and how to contact you. A one-page site is faster to launch and easier to maintain, and you can always expand it as you add case studies or services.',
   },
   {
     q: 'How much should a consultant website cost?',
-    a: 'DIY builders run roughly $12–50/month, capable freelancers commonly charge a few thousand dollars, and agencies range from about $5,000 to $30,000+. The bigger cost driver, though, is positioning and ongoing content — not the build itself.',
+    a: 'DIY builders run roughly $12 to $50 a month, capable freelancers commonly charge a few thousand dollars, and agencies range from about $5,000 to $30,000 or more. The bigger cost driver, though, is positioning and ongoing content, not the build itself.',
   },
   {
     q: 'What is the fastest way to get a consultant website without doing the work yourself?',
-    a: 'Use a done-for-you service that researches your background and writes the copy for you, so your only job is review. Caldera, for example, builds a working prototype from your LinkedIn before you pay anything, and most clients spend under two hours total.',
+    a: 'Use a done-for-you service that researches your background and writes the copy for you, so your only job is review. Caldera, for example, builds a working prototype from your LinkedIn before you pay anything, and most clients spend under two hours in total.',
   },
 ]
 
@@ -45,7 +46,7 @@ const articleSchema = {
   '@type': 'Article',
   headline: 'Consultant Websites: The Complete Guide',
   description:
-    'The complete guide to consultant websites: whether you need one, what it should do, what pages to include, what it should cost, and how to get one built.',
+    'The complete guide to consultant websites. Whether you need one, what it should do, what pages to include, what it should cost, and how to get one built.',
   author: { '@type': 'Organization', name: SITE_NAME, url: SITE_URL },
   publisher: {
     '@type': 'Organization',
@@ -56,17 +57,18 @@ const articleSchema = {
   image: `${SITE_URL}/og-image.jpg`,
 }
 
-// Small server-rendered building blocks (no client JS, fully in the SSR HTML).
+const link = 'text-[var(--primary-blue)] underline underline-offset-4 hover:text-[var(--blue-dark)]'
+
 function H2({ children, id }: { children: React.ReactNode; id: string }) {
   return (
-    <h2 id={id} className="text-[clamp(24px,3.2vw,40px)] font-light tracking-tight leading-tight text-[var(--black)] mt-14 mb-5 scroll-mt-28">
+    <h2 id={id} className="scroll-fade text-[clamp(24px,3.2vw,40px)] font-light tracking-tight leading-tight text-[var(--black)] mt-14 mb-5 scroll-mt-28">
       {children}
     </h2>
   )
 }
 
 function P({ children }: { children: React.ReactNode }) {
-  return <p className="text-[16px] md:text-[17px] leading-relaxed text-[var(--gray-dark)] mb-5">{children}</p>
+  return <p className="scroll-fade text-[16px] md:text-[17px] leading-relaxed text-[var(--gray-dark)] mb-5">{children}</p>
 }
 
 export default function ConsultantWebsitesGuide() {
@@ -81,6 +83,7 @@ export default function ConsultantWebsitesGuide() {
         ])}
       />
 
+      <PageFX />
       <SiteHeader cta="Get your free prototype" />
 
       <main>
@@ -94,15 +97,15 @@ export default function ConsultantWebsitesGuide() {
             }}
           />
           <div className="relative z-10 max-w-screen-lg mx-auto px-8 md:px-16">
-            <p className="text-[var(--primary-blue)] text-sm font-medium tracking-widest uppercase mb-5">The complete guide</p>
-            <h1 className="text-[clamp(2.2rem,4.8vw,4.5rem)] font-light tracking-tight leading-[0.98] mb-8 text-[var(--black)]">
+            <p className="scroll-fade text-[var(--primary-blue)] text-sm font-medium tracking-widest uppercase mb-5">The complete guide</p>
+            <h1 className="scroll-fade text-[clamp(2.2rem,4.8vw,4.5rem)] font-light tracking-tight leading-[0.98] mb-8 text-[var(--black)]">
               Consultant websites: <span className="font-serif italic font-normal text-[var(--primary-blue)]">the complete guide</span>
             </h1>
-            <p className="text-lg md:text-xl leading-relaxed text-[var(--gray-dark)] max-w-3xl">
-              A consultant website is a credibility asset: a single page or small site you fully own that proves you
-              can solve a specific client&rsquo;s problem. It should establish authority, convert referrals and inbound
-              into conversations, and give media and partners somewhere to link. Below is everything you need to plan,
-              budget for, and build one.
+            <p className="scroll-fade text-lg md:text-xl leading-relaxed text-[var(--gray-dark)] max-w-3xl">
+              A consultant website is a credibility asset. It is a single page or small site you fully own that proves
+              you can solve a specific client&rsquo;s problem. It should establish authority, turn referrals and inbound
+              into conversations, and give media and partners somewhere to link. Here is everything you need to plan it,
+              budget for it, and build it.
             </p>
           </div>
         </section>
@@ -111,19 +114,19 @@ export default function ConsultantWebsitesGuide() {
         <article className="py-12 md:py-16 px-8 md:px-16 bg-white">
           <div className="max-w-screen-md mx-auto">
             {/* Key takeaways */}
-            <div className="bg-[var(--cream)] rounded-2xl p-7 md:p-9 mb-10">
+            <div className="scroll-fade bg-[var(--cream)] rounded-2xl p-7 md:p-9 mb-10">
               <h2 className="text-sm font-medium tracking-widest uppercase text-[var(--primary-blue)] mb-5">Key takeaways</h2>
               <ul className="space-y-3">
                 {[
-                  'A consultant website&rsquo;s primary job is credibility and conversion, not lead generation — LinkedIn brings the leads.',
-                  'You don&rsquo;t own LinkedIn. A website is the one asset you control end to end.',
-                  'Most solo consultants need only five things: who you help, proof, services, about, and contact.',
+                  'A consultant website is for credibility and conversion, not lead generation. LinkedIn brings the leads.',
+                  'You do not own LinkedIn. A website is the one asset you control end to end.',
+                  'Most solo consultants need only five things. Who you help, proof, services, about, and contact.',
                   'A focused one-page site beats a sprawling multi-page site for most solo consultants.',
-                  'The real cost is positioning and upkeep — the build is the cheap part.',
+                  'The real cost is positioning and upkeep. The build is the cheap part.',
                 ].map((point, i) => (
                   <li key={i} className="flex items-start gap-3">
                     <span className="mt-[7px] w-2 h-2 rounded-full bg-[var(--primary-blue)] flex-shrink-0" />
-                    <span className="text-[var(--gray-dark)] leading-relaxed" dangerouslySetInnerHTML={{ __html: point }} />
+                    <span className="text-[var(--gray-dark)] leading-relaxed">{point}</span>
                   </li>
                 ))}
               </ul>
@@ -131,32 +134,27 @@ export default function ConsultantWebsitesGuide() {
 
             <H2 id="do-you-need-one">Do consultants really need a website if LinkedIn is working?</H2>
             <P>
-              Yes — and the reason is ownership and control, not lead volume. LinkedIn is the strongest discovery
-              channel in consulting, and you should absolutely keep using it. But you don&rsquo;t own it. The platform
-              decides your layout, compresses your expertise into the same template as every other consultant, and can
-              change the rules overnight. Your case studies sink in the feed within days.
+              Yes. And the reason is ownership and control, not lead volume. LinkedIn is the strongest discovery channel
+              in consulting, and you should keep using it. But you do not own it. The platform decides your layout,
+              compresses your expertise into the same template as every other consultant, and can change the rules
+              overnight. Your case studies sink in the feed within days.
             </P>
             <P>
-              A website is the one place where you set the narrative. When a referral arrives or a buyer researches
-              you (and they always do), the website is what turns &ldquo;sounds interesting&rdquo; into
-              &ldquo;let&rsquo;s talk.&rdquo; The deals you lose this way are silent: nobody tells you they picked a
-              competitor who simply looked more credible online. For the full argument, see{' '}
-              <Link href="/blog/do-consultants-need-a-website" className="text-[var(--primary-blue)] underline underline-offset-4 hover:text-[var(--blue-dark)]">
-                do consultants need a website
-              </Link>{' '}
-              and{' '}
-              <Link href="/blog/linkedin-vs-website-for-consultants" className="text-[var(--primary-blue)] underline underline-offset-4 hover:text-[var(--blue-dark)]">
-                LinkedIn vs your own website
-              </Link>.
+              A website is the one place where you set the narrative. When a referral arrives or a buyer researches you,
+              and they always do, the website is what turns &ldquo;sounds interesting&rdquo; into &ldquo;let&rsquo;s
+              talk.&rdquo; The deals you lose this way are silent. Nobody tells you they picked a competitor who simply
+              looked more credible online. For the full argument, see{' '}
+              <Link href="/blog/do-consultants-need-a-website" className={link}>do consultants need a website</Link> and{' '}
+              <Link href="/blog/linkedin-vs-website-for-consultants" className={link}>LinkedIn vs your own website</Link>.
             </P>
 
             <H2 id="what-it-should-do">What should a consultant&rsquo;s website actually do?</H2>
             <P>Three jobs, in priority order:</P>
-            <ul className="mb-6 space-y-3">
+            <ul className="scroll-fade mb-6 space-y-3">
               {[
-                ['Establish authority.', 'Make it obvious, within seconds, that you solve a specific problem for a specific kind of client — and that you have done it before.'],
-                ['Convert referrals and inbound.', 'Give a warm lead everything they need to say yes: clear positioning, proof, and an easy next step.'],
-                ['Be a linkable home base.', 'A single professional destination podcasters, journalists, event organizers, and partners can point to.'],
+                ['Establish authority.', 'Make it obvious, within seconds, that you solve a specific problem for a specific kind of client, and that you have done it before.'],
+                ['Convert referrals and inbound.', 'Give a warm lead everything they need to say yes. Clear positioning, proof, and an easy next step.'],
+                ['Be a linkable home base.', 'A single professional destination that podcasters, journalists, event organizers, and partners can point to.'],
               ].map(([h, b]) => (
                 <li key={h} className="flex items-start gap-3">
                   <span className="mt-[7px] w-2 h-2 rounded-full bg-[var(--primary-blue)] flex-shrink-0" />
@@ -165,23 +163,23 @@ export default function ConsultantWebsitesGuide() {
               ))}
             </ul>
             <P>
-              Notice what is <em>not</em> on that list: being a lead-generation machine. For most solo consultants the
+              Notice what is not on that list. Being a lead-generation machine. For most solo consultants the
               site&rsquo;s job is to stop you losing the leads you already get, not to replace LinkedIn or referrals.
             </P>
 
             <H2 id="pages">What pages does a consultant website need?</H2>
-            <P>Keep it lean. Almost every effective solo-consultant site is some combination of these:</P>
-            <ul className="mb-6 space-y-3">
+            <P>Keep it lean. Almost every effective solo-consultant site is some mix of these:</P>
+            <ul className="scroll-fade mb-6 space-y-3">
               {[
-                ['Home / hero', 'Who you help, the outcome you create, and the single most compelling proof point — above the fold.'],
-                ['About / credibility', 'Your story and track record framed around the client, not a résumé. This is where trust is built.'],
-                ['Services or how you help', 'The specific engagements you offer, in plain language, with the kind of client each is for.'],
-                ['Proof', 'Case studies, results, named testimonials, logos, frameworks — the evidence that you have done this before.'],
-                ['Contact', 'One frictionless way to start a conversation. No ten-field forms.'],
+                ['Home, or hero.', 'Who you help, the outcome you create, and your single most compelling proof point, above the fold.'],
+                ['About, or credibility.', 'Your story and track record framed around the client, not a résumé. This is where trust is built.'],
+                ['Services, or how you help.', 'The specific engagements you offer, in plain language, with the kind of client each is for.'],
+                ['Proof.', 'Case studies, results, named testimonials, logos, frameworks. The evidence that you have done this before.'],
+                ['Contact.', 'One frictionless way to start a conversation. No ten-field forms.'],
               ].map(([h, b]) => (
                 <li key={h} className="flex items-start gap-3">
                   <span className="mt-[7px] w-2 h-2 rounded-full bg-[var(--primary-blue)] flex-shrink-0" />
-                  <span className="text-[var(--gray-dark)] leading-relaxed"><strong className="font-medium text-[var(--black)]">{h}.</strong> {b}</span>
+                  <span className="text-[var(--gray-dark)] leading-relaxed"><strong className="font-medium text-[var(--black)]">{h}</strong> {b}</span>
                 </li>
               ))}
             </ul>
@@ -189,15 +187,15 @@ export default function ConsultantWebsitesGuide() {
             <H2 id="one-page-or-multi">One page or multi-page?</H2>
             <P>
               For most solo consultants, one well-structured page wins. It is faster to build, easier to keep current,
-              and it sequences your story in exactly the order a buyer needs to read it — who you help, the proof, the
-              offer, the next step — with nowhere to get lost. A multi-page site earns its keep once you have several
-              distinct services, a real body of case studies, or you are publishing regularly and want the SEO surface
-              area. Start focused; expand when you have something specific to expand into.
+              and it tells your story in the exact order a buyer needs to read it. Who you help, the proof, the offer,
+              the next step, with nowhere to get lost. A multi-page site earns its keep once you have several distinct
+              services, a real body of case studies, or you are publishing regularly and want the extra surface area for
+              search. Start focused. Expand when you have something specific to expand into.
             </P>
 
             <H2 id="cost">How much should a consultant website cost?</H2>
             <P>Honest 2026 ranges, before we tell you what actually matters:</P>
-            <div className="overflow-x-auto rounded-2xl border border-[var(--gray-light)] mb-6">
+            <div className="scroll-fade overflow-x-auto rounded-2xl border border-[var(--gray-light)] mb-6">
               <table className="w-full border-collapse text-left text-[14px] md:text-[15px] min-w-[520px]">
                 <thead>
                   <tr className="bg-[var(--cream)]">
@@ -209,67 +207,59 @@ export default function ConsultantWebsitesGuide() {
                 <tbody>
                   <tr className="bg-white">
                     <th scope="row" className="p-4 font-medium text-[var(--black)] align-top">DIY builder</th>
-                    <td className="p-4 text-[var(--gray-medium)] align-top">~$12–50 / month</td>
+                    <td className="p-4 text-[var(--gray-medium)] align-top">$12 to $50 a month</td>
                     <td className="p-4 text-[var(--gray-medium)] align-top">You have the time and taste to do it yourself</td>
                   </tr>
                   <tr className="bg-[var(--cream)]/40">
                     <th scope="row" className="p-4 font-medium text-[var(--black)] align-top">Freelancer</th>
-                    <td className="p-4 text-[var(--gray-medium)] align-top">~$1,500–6,000 one-off</td>
+                    <td className="p-4 text-[var(--gray-medium)] align-top">$1,500 to $6,000 one-off</td>
                     <td className="p-4 text-[var(--gray-medium)] align-top">You can write your own positioning and manage the project</td>
                   </tr>
                   <tr className="bg-white">
                     <th scope="row" className="p-4 font-medium text-[var(--black)] align-top">Agency</th>
-                    <td className="p-4 text-[var(--gray-medium)] align-top">~$5,000–30,000+</td>
+                    <td className="p-4 text-[var(--gray-medium)] align-top">$5,000 to $30,000 or more</td>
                     <td className="p-4 text-[var(--gray-medium)] align-top">You want it done for you, end to end</td>
                   </tr>
                 </tbody>
               </table>
             </div>
             <P>
-              Here is the part most people miss: the real cost of a consultant website is positioning and ongoing
-              content, not the build. A beautiful site that says the wrong thing is worthless; a plain site with razor-
-              sharp positioning wins work. Budget for the thinking, not just the pixels. We break the numbers down in{' '}
-              <Link href="/blog/how-much-does-a-consultant-website-cost" className="text-[var(--primary-blue)] underline underline-offset-4 hover:text-[var(--blue-dark)]">
-                how much a consultant website costs
-              </Link>.
+              Here is the part most people miss. The real cost of a consultant website is positioning and ongoing
+              content, not the build. A beautiful site that says the wrong thing is worthless. A plain site with
+              razor-sharp positioning wins work. Budget for the thinking, not just the pixels.
             </P>
 
             <H2 id="diy-freelancer-agency">Should you DIY, hire a freelancer, or use an agency?</H2>
             <P>
-              It comes down to how you value your time and how much risk you want to carry. DIY is cheapest but you
+              It comes down to how you value your time and how much risk you want to carry. DIY is cheapest, but you
               become the strategist, copywriter, designer, and developer. A freelancer can be excellent if you can hand
-              them clear positioning and steer the project. An agency does it for you — but you usually brief them and
-              pay before you see real work. The compare-everything version, including when a done-for-you agency is the
-              right call, is in{' '}
-              <Link href="/blog/best-website-builder-for-consultants" className="text-[var(--primary-blue)] underline underline-offset-4 hover:text-[var(--blue-dark)]">
-                best website options for consultants
-              </Link>, and the consultant-specific case is on{' '}
-              <Link href="/best-website-agency-for-consultants" className="text-[var(--primary-blue)] underline underline-offset-4 hover:text-[var(--blue-dark)]">
-                the best website agency for consultants
-              </Link>.
+              them clear positioning and steer the project. An agency does it for you, but you usually brief them and pay
+              before you see real work. The compare-everything version, including when a done-for-you agency is the right
+              call, is in{' '}
+              <Link href="/blog/best-website-builder-for-consultants" className={link}>best website options for consultants</Link>, and the
+              consultant-specific case is on{' '}
+              <Link href="/best-website-agency-for-consultants" className={link}>the best website agency for consultants</Link>.
             </P>
 
             <H2 id="linkedin-to-website">How do you turn a LinkedIn profile into a website?</H2>
             <P>
-              The hard part is not the building — it is the translation. A LinkedIn profile is a chronological résumé;
-              a website is an argument. Turning one into the other means extracting the through-line of your career,
-              identifying the specific problem you are known for solving, finding the proof that backs it up, and
-              sequencing it so a buyer reaches &ldquo;this is the person I need&rdquo; as fast as possible.
+              The hard part is not the building. It is the translation. A LinkedIn profile is a chronological résumé. A
+              website is an argument. Turning one into the other means finding the through-line of your career, naming
+              the specific problem you are known for solving, gathering the proof that backs it up, and ordering it so a
+              buyer reaches &ldquo;this is the person I need&rdquo; as fast as possible.
             </P>
             <P>
-              This is exactly the work Caldera does: we research your background, your positioning, and your market
-              from your LinkedIn alone, then build a working prototype of your actual website — before you pay anything.
-              Most clients spend under two hours across the whole project. See{' '}
-              <Link href="/process" className="text-[var(--primary-blue)] underline underline-offset-4 hover:text-[var(--blue-dark)]">
-                exactly how the process works
-              </Link>.
+              This is exactly the work Caldera does. We research your background, your positioning, and your market from
+              your LinkedIn alone, then build a working prototype of your actual website before you pay anything. Most
+              clients spend under two hours across the whole project. See{' '}
+              <Link href="/process" className={link}>exactly how the process works</Link>.
             </P>
 
             {/* FAQ */}
             <H2 id="faq">Frequently asked questions</H2>
             <div className="flex flex-col gap-3 mt-6">
               {faqs.map((f, i) => (
-                <details key={i} className="group bg-[var(--cream)] rounded-2xl p-6 [&_summary]:cursor-pointer">
+                <details key={i} className="scroll-fade group bg-[var(--cream)] rounded-2xl p-6 [&_summary]:cursor-pointer">
                   <summary className="flex items-center justify-between gap-4 list-none">
                     <h3 className="text-base md:text-lg font-medium text-[var(--black)]">{f.q}</h3>
                     <span className="text-2xl font-light leading-none text-[var(--primary-blue)] transition-transform duration-300 group-open:rotate-45">+</span>

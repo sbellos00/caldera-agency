@@ -26,20 +26,20 @@ const content: NicheContent = {
   h1Accent: 'advisors & consultants',
   answer: (
     <>
-      An independent advisor&rsquo;s website has to prove deep, specific domain expertise to a buyer who is often an
-      enterprise team or procurement function. The best one names your niche precisely, shows the depth of your
+      An independent advisor’s website has to prove deep, specific domain expertise to a buyer who is often an
+      enterprise team or a procurement function. The best one names your niche precisely, shows the depth of your
       experience, and reads as the credible specialist a serious organization would shortlist. Caldera builds that site
       for you and shows you a free working prototype before you pay.
     </>
   ),
-  serviceName: 'Caldera Agency — Websites for Independent Advisors & Consultants',
+  serviceName: 'Caldera Agency, Websites for Independent Advisors & Consultants',
   serviceDescription:
-    'Done-for-you website design and development for independent advisors and specialist consultants (operations, supply chain, strategy, and similar). Free prototype before payment, full ownership.',
+    'Done-for-you website design and development for independent advisors and specialist consultants in operations, supply chain, strategy, and similar fields. Free prototype before payment, full ownership.',
   audienceType: 'Independent advisors and specialist consultants',
   whyTitle: 'Why specialist advisors get judged on depth',
   whyIntro: (
     <>
-      When a company brings in an independent advisor — in supply chain, operations, strategy, or any specialist field —
+      When a company brings in an independent advisor, in supply chain, operations, strategy, or any specialist field,
       they are buying judgment honed over a career. The buyer is frequently a team rather than one person, sometimes
       running a formal RFP, and they are screening for genuine depth, not surface familiarity. A generic or shallow
       website reads as a generalist, and generalists get filtered out of high-value, specialist engagements first.
@@ -52,7 +52,7 @@ const content: NicheContent = {
     },
     {
       h: 'Buyers screen for true expertise',
-      b: 'Enterprise and RFP buyers are scanning for evidence you have genuinely solved their class of problem. Vague “trusted advisor” language fails; specific domain depth wins.',
+      b: 'Enterprise and RFP buyers are scanning for evidence you have genuinely solved their class of problem. Vague “trusted advisor” language fails. Specific domain depth wins.',
     },
     {
       h: 'Your niche needs naming, precisely',
@@ -68,14 +68,14 @@ const content: NicheContent = {
   ),
   buildPoints: [
     { h: 'A precisely-named specialty.', b: 'Positioning that states your exact domain so the right buyers immediately recognize you as their specialist.' },
-    { h: 'Depth on display.', b: 'Your methodology, the types of engagements you run, and the scope of your experience — structured to satisfy a scrutinizing buyer.' },
+    { h: 'Depth on display.', b: 'Your methodology, the types of engagements you run, and the scope of your experience, structured to satisfy a scrutinizing buyer.' },
     { h: 'Enterprise-grade credibility.', b: 'A composed, professional presence that holds its own next to boutique and large advisory firms.' },
     { h: 'RFP-ready proof.', b: 'Clear case framing and named testimonials that a procurement team or executive sponsor can rely on.' },
   ],
   proofIntro: (
     <>
-      We have done exactly this for an independent advisor. Tim Scott of True North Supply Chain Advisory came to us with
-      his content and feedback; we turned it into an end product that exceeded his expectations.
+      We have done exactly this for an independent advisor. Tim Scott of True North Supply Chain Advisory came to us
+      with his content and feedback, and we turned it into an end product that exceeded his expectations.
     </>
   ),
   proof: {
@@ -87,7 +87,7 @@ const content: NicheContent = {
   faqs: [
     {
       q: 'How do you make a solo advisor look as credible as a consulting firm?',
-      a: 'Through positioning and depth, not volume. We present your specialty, methodology, and track record with the same rigor a buyer expects from a boutique firm — so being independent reads as focused expertise rather than limited capacity.',
+      a: 'Through positioning and depth, not volume. We present your specialty, methodology, and track record with the same rigor a buyer expects from a boutique firm, so being independent reads as focused expertise rather than limited capacity.',
     },
     {
       q: 'My work is very niche. Is that a problem for a website?',
@@ -95,7 +95,7 @@ const content: NicheContent = {
     },
     {
       q: 'Can the site support RFP and procurement processes?',
-      a: 'Yes. We structure your expertise, engagement types, and proof so an enterprise buyer or procurement team can quickly verify you fit their requirements — which is often what gets you onto the shortlist.',
+      a: 'Yes. We structure your expertise, engagement types, and proof so an enterprise buyer or procurement team can quickly verify you fit their requirements, which is often what gets you onto the shortlist.',
     },
     {
       q: 'How much of my time will this take?',

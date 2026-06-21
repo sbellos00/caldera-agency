@@ -2,21 +2,22 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import SiteHeader from '@/components/SiteHeader'
 import Footer from '@/components/Footer'
+import PageFX from '@/components/PageFX'
 import JsonLd from '@/components/JsonLd'
 import { getAllPosts } from '@/lib/posts'
 import { breadcrumbSchema, SITE_URL, SITE_NAME } from '@/lib/site'
 
 export const metadata: Metadata = {
-  title: 'Blog — Websites & Positioning for Consultants',
+  title: 'Blog: Websites & Positioning for Consultants',
   description:
-    'Plain-English guides on consultant websites, positioning, pricing, and LinkedIn — written for independent consultants deciding how to show up online.',
+    'Plain-English guides on consultant websites, positioning, and LinkedIn, written for independent consultants deciding how to show up online.',
   alternates: { canonical: '/blog' },
   openGraph: {
     type: 'website',
     url: '/blog',
-    title: 'Caldera Blog — Websites & Positioning for Consultants',
+    title: 'Caldera Blog: Websites & Positioning for Consultants',
     description:
-      'Plain-English guides on consultant websites, positioning, pricing, and LinkedIn — written for independent consultants.',
+      'Plain-English guides on consultant websites, positioning, and LinkedIn, written for independent consultants.',
     siteName: 'Caldera Agency',
     images: [{ url: '/og-image.jpg', width: 1200, height: 630, alt: 'Caldera Agency Blog' }],
   },
@@ -38,7 +39,7 @@ export default function BlogIndexPage() {
     '@type': 'Blog',
     name: `${SITE_NAME} Blog`,
     description:
-      'Guides on consultant websites, positioning, pricing, and LinkedIn for independent consultants.',
+      'Guides on consultant websites, positioning, and LinkedIn for independent consultants.',
     url: `${SITE_URL}/blog`,
     publisher: { '@id': `${SITE_URL}/#organization` },
     blogPost: posts.map((p) => ({
@@ -57,6 +58,7 @@ export default function BlogIndexPage() {
       <JsonLd data={blogSchema} />
       <JsonLd data={breadcrumbSchema([{ name: 'Home', path: '/' }, { name: 'Blog', path: '/blog' }])} />
 
+      <PageFX />
       <SiteHeader />
 
       <main>
@@ -70,13 +72,13 @@ export default function BlogIndexPage() {
             }}
           />
           <div className="relative z-10 max-w-screen-xl mx-auto px-8 md:px-16 text-center">
-            <p className="text-[var(--primary-blue)] text-sm font-medium tracking-widest uppercase mb-5">The Caldera Blog</p>
-            <h1 className="text-[clamp(2.2rem,4.5vw,4.5rem)] font-light tracking-tight leading-[0.95] mb-6 text-[var(--black)]">
+            <p className="scroll-fade text-[var(--primary-blue)] text-sm font-medium tracking-widest uppercase mb-5">The Caldera Blog</p>
+            <h1 className="scroll-fade text-[clamp(2.2rem,4.5vw,4.5rem)] font-light tracking-tight leading-[0.95] mb-6 text-[var(--black)]">
               Websites &amp; positioning, <span className="font-serif italic font-normal text-[var(--primary-blue)]">for consultants</span>
             </h1>
-            <p className="text-base md:text-lg leading-relaxed text-[var(--gray-medium)] max-w-2xl mx-auto">
-              Honest, practical writing on how independent consultants show up online — websites, positioning,
-              pricing, and how a site fits alongside LinkedIn. No fluff, no jargon.
+            <p className="scroll-fade text-base md:text-lg leading-relaxed text-[var(--gray-medium)] max-w-2xl mx-auto">
+              Honest, practical writing on how independent consultants show up online. Websites, positioning, and how a
+              site fits alongside LinkedIn. No fluff, no jargon.
             </p>
           </div>
         </section>
@@ -88,7 +90,7 @@ export default function BlogIndexPage() {
               <Link
                 key={post.slug}
                 href={`/blog/${post.slug}`}
-                className="group block bg-[var(--cream)] rounded-2xl p-7 md:p-9 transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 no-underline"
+                className="scroll-fade group block bg-[var(--cream)] rounded-2xl p-7 md:p-9 transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 no-underline"
               >
                 <div className="flex flex-wrap items-center gap-3 text-xs text-[var(--gray-medium)] mb-3">
                   <span className="text-[var(--primary-blue)] font-medium tracking-widest uppercase">{post.category}</span>
@@ -117,8 +119,8 @@ export default function BlogIndexPage() {
               Want the whole picture in one place?
             </h2>
             <p className="text-white/70 leading-relaxed max-w-2xl mx-auto mb-8">
-              Start with our complete guide to consultant websites, or see why consultants pick a specialist agency
-              over a generic web shop.
+              Start with our complete guide to consultant websites, or see why consultants pick a specialist agency over
+              a generic web shop.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
