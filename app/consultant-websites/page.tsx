@@ -284,6 +284,7 @@ export default function ConsultantWebsitesGuide() {
               <Link href="/for/fractional-cfo" className="border border-white/30 text-white px-5 py-3 text-sm rounded-lg no-underline transition-all duration-300 hover:bg-white/10">Fractional CFOs</Link>
               <Link href="/for/coaches" className="border border-white/30 text-white px-5 py-3 text-sm rounded-lg no-underline transition-all duration-300 hover:bg-white/10">Coaches</Link>
               <Link href="/for/advisors" className="border border-white/30 text-white px-5 py-3 text-sm rounded-lg no-underline transition-all duration-300 hover:bg-white/10">Advisors</Link>
+              <Link href="/work" className="border border-white/30 text-white px-5 py-3 text-sm rounded-lg no-underline transition-all duration-300 hover:bg-white/10">Case studies</Link>
             </div>
             <Link
               href="/contact"

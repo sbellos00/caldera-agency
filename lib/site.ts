@@ -140,6 +140,57 @@ export interface Faq {
   a: string
 }
 
+// Homepage FAQ. Rewritten answer-first and prompt-shaped for AI answer engines:
+// each question mirrors how people actually ask, and each answer opens with a
+// direct, quotable statement. Rendered on the homepage AND emitted as FAQPage
+// schema from app/page.tsx, so this is the single source of truth for both.
+export const homepageFaqs: Faq[] = [
+  {
+    q: 'What is Caldera Agency?',
+    a: 'Caldera Agency is a website agency that works exclusively with solo and independent consultants. We research your background, write your copy, design and build your site, and host it. You see a free working prototype of your actual website before you pay anything.',
+  },
+  {
+    q: 'Do consultants really need a website if they have LinkedIn?',
+    a: 'Yes. LinkedIn makes you visible, but your website makes you credible. LinkedIn shows you in the same template as every other consultant, and you do not own it. A website is the one place you control your story, prove your expertise, and turn referrals into clients.',
+  },
+  {
+    q: "What if I don't like what you build?",
+    a: 'You see a free prototype before you pay anything. After that, you approve each phase before we move on, so you only pay for work you have reviewed. Final payment is due only when you are ready to launch. There is no risk of paying for something you cannot use.',
+  },
+  {
+    q: 'Who owns the website?',
+    a: 'You do, fully. Your code, your domain, your content. There is no proprietary platform and no lock-in. We host and maintain the site to make your life easier, but you can take the full codebase and self-host anytime.',
+  },
+  {
+    q: 'How long does it take to build a consultant website?',
+    a: 'Most clients launch within days to a couple of weeks. The pace depends on how quickly you review each phase, since we handle the rest. Clients who stay responsive have launched in under a week, and most spend less than two hours on the entire project.',
+  },
+  {
+    q: 'How much does a consultant website from Caldera cost?',
+    a: 'Pricing is milestone-based, so you approve and pay for each phase as we go, and final payment is due only when you are ready to launch. Because you start from a free working prototype, you always see the real work before any money changes hands.',
+  },
+  {
+    q: 'What kind of consultants do you work with?',
+    a: 'Solo and independent consultants only. Fractional CFOs, executive and leadership coaches, supply chain and operations advisors, and strategy and management consultants. We do not take on agencies, local businesses, or e-commerce, because that focus is what makes our sites work.',
+  },
+  {
+    q: 'Do I have to write the copy or fill out long forms?',
+    a: 'No. We study your LinkedIn, your positioning, and your market, then come back with a finished website. You do not fill out discovery forms or sit through briefing calls. Most clients spend under two hours, and your only real job is reviewing what we build.',
+  },
+  {
+    q: 'What is included in a Caldera website?',
+    a: 'Everything. Research, copywriting, design, development, domain setup, analytics, and one year of hosting and support. After launch, up to four development hours are included free in the first month, then two hours a month.',
+  },
+  {
+    q: 'Will a website actually bring me more clients?',
+    a: "A consultant website's job is credibility and conversion, not lead generation. No site guarantees leads, but without credibility you lose deals you never hear about. A strong site opens doors to RFPs, partnerships, and high-value referrals that would otherwise pass you by.",
+  },
+  {
+    q: "Isn't this just another template site?",
+    a: 'No. Every site is researched and built from scratch around your positioning. The copy and design are consultant-specific and built for consulting credibility. Never generic, and never a theme with your name dropped into it.',
+  },
+]
+
 export function faqSchema(faqs: Faq[]) {
   return {
     '@context': 'https://schema.org',
