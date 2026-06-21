@@ -1,78 +1,28 @@
+import { SITE_URL, SITE_NAME, organizationSchema } from '@/lib/site'
+
+// Site-wide structured data, rendered once in the root layout. Page-specific
+// schema (ProfessionalService, FAQPage, Review, Article, BreadcrumbList) is added
+// on the individual pages so it only appears where the matching content does.
 export default function StructuredData() {
-  const organizationData = {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    "name": "Caldera Agency",
-    "url": "https://caldera.agency",
-    "logo": "https://caldera.agency/og-image.jpg",
-    "description": "Custom website development for solo consultants. We combine deep research, strategic positioning, and hands-off delivery to create websites that demonstrate expertise and convert higher-value clients.",
-    "foundingDate": "2024",
-    "contactPoint": {
-      "@type": "ContactPoint",
-      "email": "contact@caldera.agency",
-      "contactType": "customer service"
-    },
-    "address": {
-      "@type": "PostalAddress",
-      "addressCountry": "US"
-    },
-    "sameAs": [
-      "https://caldera.agency"
-    ]
-  }
-
-  const serviceData = {
-    "@context": "https://schema.org",
-    "@type": "Service",
-    "name": "Bespoke Authority-Building Websites for Solo Consultants",
-    "description": "Custom website development for solo consultants. We combine deep research, strategic positioning, and hands-off delivery to create websites that demonstrate expertise and convert higher-value clients.",
-    "provider": {
-      "@type": "Organization",
-      "name": "Caldera Agency",
-      "url": "https://caldera.agency"
-    },
-    "serviceType": "Website Development",
-    "areaServed": "Worldwide",
-    "audience": {
-      "@type": "Audience",
-      "audienceType": "Solo Consultants"
-    },
-    "offers": {
-      "@type": "Offer",
-      "description": "All-In-One Website Package including custom website, copywriting, analytics integration, domain integration, mobile optimization, and hosting",
-      "seller": {
-        "@type": "Organization",
-        "name": "Caldera Agency"
-      }
-    }
-  }
-
-  const breadcrumbData = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": [
-      {
-        "@type": "ListItem",
-        "position": 1,
-        "name": "Home",
-        "item": "https://caldera.agency"
-      }
-    ]
+  const websiteData = {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    '@id': `${SITE_URL}/#website`,
+    name: SITE_NAME,
+    url: SITE_URL,
+    publisher: { '@id': `${SITE_URL}/#organization` },
+    inLanguage: 'en',
   }
 
   return (
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationData) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceData) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbData) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteData) }}
       />
     </>
   )

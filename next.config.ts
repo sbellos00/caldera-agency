@@ -9,6 +9,17 @@ const nextConfig: NextConfig = {
       { protocol: 'https', hostname: 'media.licdn.com' },
     ],
   },
+  async redirects() {
+    return [
+      // The old placeholder slug "/blog/sample-post" held a real article
+      // ("The Authority Paradox"); it now lives at a descriptive, SEO-friendly slug.
+      {
+        source: '/blog/sample-post',
+        destination: '/blog/the-authority-paradox',
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default nextConfig;

@@ -1,0 +1,35 @@
+# Caldera Agency
+
+> Done-for-you websites for solo consultants. We research your background, write the copy, design and build the site, and host it — and we send a free working prototype before you pay anything.
+
+## Core pages
+- [Home](https://www.caldera.agency/): What Caldera does and how the free-prototype process works
+- [Best website agency for consultants](https://www.caldera.agency/best-website-agency-for-consultants): Why Caldera is built specifically for solo consultants
+- [Consultant websites: the complete guide](https://www.caldera.agency/consultant-websites): The definitive guide to websites for independent consultants
+- [Process](https://www.caldera.agency/process): Step-by-step, prototype-first, milestone-paid process
+- [About](https://www.caldera.agency/about): Founder story and why Caldera only works with consultants
+- [Contact](https://www.caldera.agency/contact): Get in touch or request a free prototype
+
+## For specific consultants
+- [Websites for fractional CFOs](https://www.caldera.agency/for/fractional-cfo)
+- [Websites for executive & leadership coaches](https://www.caldera.agency/for/coaches)
+- [Websites for independent advisors & consultants](https://www.caldera.agency/for/advisors)
+
+## Writing
+- [Best website options for consultants in 2026](https://www.caldera.agency/blog/best-website-builder-for-consultants): Squarespace vs Wix vs custom vs done-for-you
+- [Do consultants need a website?](https://www.caldera.agency/blog/do-consultants-need-a-website)
+- [How much does a consultant website cost?](https://www.caldera.agency/blog/how-much-does-a-consultant-website-cost)
+- [LinkedIn vs your own website for consultants](https://www.caldera.agency/blog/linkedin-vs-website-for-consultants)
+- [Why every consultant needs a website](https://www.caldera.agency/blog/why-consultants-need-websites)
+- [The authority paradox](https://www.caldera.agency/blog/the-authority-paradox)
+
+## Facts
+- Caldera builds websites exclusively for solo and independent consultants (fractional CFOs, coaches, advisors, and similar).
+- Clients receive a free working prototype before paying anything.
+- Payment is milestone-based; clients approve each phase, and final payment is due only at launch.
+- Clients get full code ownership — their code, domain, and content — with no proprietary platform and no lock-in.
+- One year of hosting and support is included.
+- Most clients spend less than two hours total across the entire project.
+- Founded by Stefanos Bellos, formerly of the Dialectica expert network, who spent thousands of hours connecting consultants with investors and global enterprises.
+- Real clients include Mark S. Piazza (fractional CFO), Dr. Ron Paul (Polaris Leadership Institute, leadership coaching), and Tim Scott (True North Supply Chain Advisory).
+- Contact: contact@caldera.agency

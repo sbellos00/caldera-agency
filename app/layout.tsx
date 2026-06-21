@@ -52,11 +52,14 @@ export const metadata: Metadata = {
   authors: [{ name: "Caldera Agency" }],
   creator: "Caldera Agency",
   publisher: "Caldera Agency",
-  metadataBase: new URL("https://caldera.agency"),
+  metadataBase: new URL("https://www.caldera.agency"),
+  alternates: {
+    canonical: "/",
+  },
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://caldera.agency",
+    url: "/",
     title: "Caldera Agency - Bespoke Authority-Building Websites for Solo Consultants",
     description: "Custom website development for solo consultants. We combine deep research, strategic positioning, and hands-off delivery to create websites that demonstrate expertise and convert higher-value clients.",
     siteName: "Caldera Agency",

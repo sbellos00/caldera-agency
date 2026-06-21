@@ -1,10 +1,12 @@
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Pricing | Caldera Agency',
+  // Internal print/PDF layout, not a public landing page — keep it out of the index.
+  robots: { index: false, follow: false },
+  title: 'Pricing',
   description: 'Caldera Agency pricing and what’s included in each package for solo consultants.',
   alternates: {
-    canonical: 'https://caldera.agency/pricing-pdf',
+    canonical: '/pricing-pdf',
   },
 }
 
