@@ -191,7 +191,7 @@ export default function Page() {
             { h: 'A central reference point', b: 'Your website becomes the single, definitive link you send to clients, partners, event organizers, and referrers. No confusion, no profile-hunting, no algorithm deciding what they see. Your professional home base.' },
             { h: 'Professional depth and seriousness', b: 'A professional website sends a clear message that you take your work seriously. It shows depth beyond a resume and that you understand how to communicate value, which matters especially for independent consultants.' },
             { h: 'Personal brand building', b: 'Your site gives you complete creative freedom. Design, messaging, content, and proof all reflect your unique approach. You shape the narrative, the visual style, and the tone. LinkedIn cannot offer this.' },
-            { h: 'Full ownership and control', b: 'LinkedIn owns your profile, your posts, and your data, and can change the rules anytime. Your website is a fully owned asset, immune to algorithm changes, paywalls, or sudden platform shifts.' },
+            { h: 'Full control of your presence', b: 'LinkedIn owns your profile, your posts, and your data, and can change the rules anytime. Your own website puts you in control, immune to algorithm changes, paywalls, or sudden platform shifts.' },
             { h: 'A linkable asset for media and referrers', b: 'When podcasters, journalists, or referral partners want to feature you, they need somewhere to send their audience. A website gives them a professional destination. LinkedIn profiles do not carry the same weight in show notes or bylines.' },
             { h: 'Ready for scale when you need it', b: 'While the primary job is credibility, a website keeps you ready for growth. It opens your entire digital marketing toolkit when you want it: SEO for the problems you solve, targeted campaigns, and inbound funnels for scaling beyond referrals.' },
           ]}
@@ -214,7 +214,7 @@ export default function Page() {
         <CalloutCard
           items={[
             <><strong>End-to-end execution.</strong> We handle research, copywriting, design, and setup.</>,
-            <><strong>Minimal time required.</strong> Our process is built so you spend under two hours on input and review.</>,
+            <><strong>Minimal time from you.</strong> We do the research, writing, design, and build. You share your vision and review what we create.</>,
             <><strong>Proof and positioning.</strong> We focus on clear case studies, methodologies, and structured proof, not marketing fluff.</>,
           ]}
         />

@@ -34,6 +34,7 @@ export default function Footer() {
             <a href="https://www.linkedin.com/company/caldera-agency" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors duration-300">LinkedIn</a>
             <Link href="/about" className="hover:text-white transition-colors duration-300">About</Link>
             <Link href="/process" className="hover:text-white transition-colors duration-300">Process</Link>
+            <Link href="/faq" className="hover:text-white transition-colors duration-300">FAQ</Link>
             <Link href="/contact" className="hover:text-white transition-colors duration-300">Contact</Link>
           </div>
           <a href="https://www.iubenda.com/privacy-policy/68538498" target="_blank" rel="noopener noreferrer" className="text-sm text-white/40 hover:text-white/70 transition-colors duration-300">

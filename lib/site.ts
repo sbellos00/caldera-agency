@@ -9,7 +9,7 @@ export const CONTACT_EMAIL = 'contact@caldera.agency'
 /** One-line description reused across schema and metadata. Keep wording identical
  *  on-site and off-site (LinkedIn, directories) so the association is unambiguous. */
 export const BRAND_DESCRIPTION =
-  'Done-for-you websites for solo consultants. Caldera researches your background, writes the copy, designs and builds the site, and hosts it. You get a free working prototype before you pay anything.'
+  'Done-for-you websites for solo consultants. Caldera researches your background, writes the copy, and designs, builds, and hosts a fully custom site that gives you complete control of your personal brand and digital presence. You see a free working prototype before you pay anything.'
 
 export interface Testimonial {
   name: string
@@ -73,7 +73,7 @@ export const professionalServiceSchema = {
   '@type': 'ProfessionalService',
   name: SITE_NAME,
   description:
-    'Website design and development agency exclusively for solo and independent consultants. Free working prototype before payment, milestone-based pricing, and full code ownership with no lock-in.',
+    'Website design and development agency exclusively for solo and independent consultants. Fully custom, done-for-you sites that give you complete control of your personal brand and digital presence, with any vision realized no matter the complexity. A free working prototype before you pay.',
   url: SITE_URL,
   serviceType: 'Website design and development for consultants',
   provider: { '@id': `${SITE_URL}/#organization` },
@@ -140,54 +140,68 @@ export interface Faq {
   a: string
 }
 
-// Homepage FAQ. Rewritten answer-first and prompt-shaped for AI answer engines:
-// each question mirrors how people actually ask, and each answer opens with a
-// direct, quotable statement. Rendered on the homepage AND emitted as FAQPage
-// schema from app/page.tsx, so this is the single source of truth for both.
+// Homepage FAQ. Answer-first and prompt-shaped for AI answer engines: each
+// question mirrors how people actually ask, and each answer opens with a direct,
+// quotable statement. Rendered on the homepage AND emitted as FAQPage schema from
+// app/page.tsx, so this is the single source of truth for both. The full set
+// (these plus extraFaqs) lives on /faq.
 export const homepageFaqs: Faq[] = [
   {
-    q: 'What is Caldera Agency?',
-    a: 'Caldera Agency is a website agency that works exclusively with solo and independent consultants. We research your background, write your copy, design and build your site, and host it. You see a free working prototype of your actual website before you pay anything.',
+    q: 'Do consultants need a website if they already have LinkedIn?',
+    a: 'Yes. On LinkedIn you sit in the same template as every other consultant, and the algorithm decides who sees you. A website is the one place you control your personal brand and digital presence completely. It is where you prove your expertise on your own terms and turn referrals and inbound interest into clients.',
   },
   {
-    q: 'Do consultants really need a website if they have LinkedIn?',
-    a: 'Yes. LinkedIn makes you visible, but your website makes you credible. LinkedIn shows you in the same template as every other consultant, and you do not own it. A website is the one place you control your story, prove your expertise, and turn referrals into clients.',
-  },
-  {
-    q: "What if I don't like what you build?",
-    a: 'You see a free prototype before you pay anything. After that, you approve each phase before we move on, so you only pay for work you have reviewed. Final payment is due only when you are ready to launch. There is no risk of paying for something you cannot use.',
-  },
-  {
-    q: 'Who owns the website?',
-    a: 'You do, fully. Your code, your domain, your content. There is no proprietary platform and no lock-in. We host and maintain the site to make your life easier, but you can take the full codebase and self-host anytime.',
+    q: 'How much does a consultant website cost?',
+    a: 'Every project starts with a free working prototype, so you see your actual website before you decide anything. From there, the investment depends on the scope and complexity of the site you want. There are no upfront fees to get started, and no obligation once you see the prototype.',
   },
   {
     q: 'How long does it take to build a consultant website?',
-    a: 'Most clients launch within days to a couple of weeks. The pace depends on how quickly you review each phase, since we handle the rest. Clients who stay responsive have launched in under a week, and most spend less than two hours on the entire project.',
+    a: 'Most clients launch within days to a couple of weeks. We handle the research, writing, design, and development, so the main variable is how quickly you review each round. Clients who respond quickly have gone from first prototype to live site in under a week.',
   },
   {
-    q: 'How much does a consultant website from Caldera cost?',
-    a: 'Pricing is milestone-based, so you approve and pay for each phase as we go, and final payment is due only when you are ready to launch. Because you start from a free working prototype, you always see the real work before any money changes hands.',
+    q: 'How is this different from Squarespace, Wix, or hiring a freelancer?',
+    a: 'DIY builders hand you a template and make you the designer, writer, and strategist. Most freelancers build only what you brief them. Caldera researches your background, writes your copy, and designs and builds a fully custom site around your vision. Whatever you picture, however complex, we build it from scratch.',
   },
   {
     q: 'What kind of consultants do you work with?',
-    a: 'Solo and independent consultants only. Fractional CFOs, executive and leadership coaches, supply chain and operations advisors, and strategy and management consultants. We do not take on agencies, local businesses, or e-commerce, because that focus is what makes our sites work.',
+    a: 'Solo and independent consultants only. Fractional CFOs, executive and leadership coaches, supply chain and operations advisors, and strategy and management consultants. We do not take on agencies, local businesses, or e-commerce. That focus is what makes our sites work.',
   },
   {
-    q: 'Do I have to write the copy or fill out long forms?',
-    a: 'No. We study your LinkedIn, your positioning, and your market, then come back with a finished website. You do not fill out discovery forms or sit through briefing calls. Most clients spend under two hours, and your only real job is reviewing what we build.',
+    q: 'Can you build exactly what I have in mind?',
+    a: 'Yes. Whatever you picture, we build it. Custom layouts, rich animation, interactive detail, an unconventional structure. Because every site is built from scratch rather than dropped into a template, there is no complexity ceiling. You describe the vision and we make it real.',
   },
   {
-    q: 'What is included in a Caldera website?',
-    a: 'Everything. Research, copywriting, design, development, domain setup, analytics, and one year of hosting and support. After launch, up to four development hours are included free in the first month, then two hours a month.',
+    q: 'Will a website actually get me more clients?',
+    a: "A consultant website's job is credibility and conversion, not lead generation. No site guarantees leads, but a credible site stops you losing the deals you never hear about, and it opens doors to RFPs, partnerships, and high-value referrals. It turns interest into trust.",
+  },
+]
+
+// Additional questions for the dedicated /faq page (the authoritative FAQ hub).
+// Kept distinct from the homepage set so /faq adds depth rather than repeating.
+export const extraFaqs: Faq[] = [
+  {
+    q: 'What is Caldera Agency?',
+    a: 'Caldera Agency is a website agency that works exclusively with solo and independent consultants. We research your background, write your copy, and design, build, and host a fully custom site that gives you complete control of your personal brand and digital presence. You see a free working prototype before you pay anything.',
   },
   {
-    q: 'Will a website actually bring me more clients?',
-    a: "A consultant website's job is credibility and conversion, not lead generation. No site guarantees leads, but without credibility you lose deals you never hear about. A strong site opens doors to RFPs, partnerships, and high-value referrals that would otherwise pass you by.",
+    q: 'How does the free prototype work?',
+    a: 'You share your LinkedIn. We research your background, positioning, and market, then build a working prototype of your actual website before you pay anything. If you love it, we refine it with you and launch. If it is not right, you walk away owing nothing.',
   },
   {
-    q: "Isn't this just another template site?",
-    a: 'No. Every site is researched and built from scratch around your positioning. The copy and design are consultant-specific and built for consulting credibility. Never generic, and never a theme with your name dropped into it.',
+    q: 'What is included when you build my website?',
+    a: 'Everything needed to get you live and looking credible. Research, copywriting, design, development, domain setup, analytics, and a year of hosting and support. You bring the vision and the raw material, and we handle the rest.',
+  },
+  {
+    q: 'How involved do I need to be?',
+    a: 'Very little. We do the research, the writing, the design, and the build. Your job is to share your vision and react to what we create. There are no discovery forms to fill out and no homework.',
+  },
+  {
+    q: 'What happens after my website launches?',
+    a: 'Your first year of hosting and support is included, and we handle the technical side so you can stay focused on your work. When you want changes or additions later, we are there to make them.',
+  },
+  {
+    q: 'Who owns the website?',
+    a: 'It is yours. Your site, your domain, your content. We host and maintain it to make your life easier, and you are never locked in.',
   },
 ]
 

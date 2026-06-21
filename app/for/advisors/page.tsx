@@ -5,14 +5,14 @@ import { testimonials } from '@/lib/site'
 export const metadata: Metadata = {
   title: 'Websites for Independent Advisors & Consultants',
   description:
-    'A done-for-you website for independent advisors and specialist consultants that proves deep domain expertise to enterprise buyers. Free prototype before you pay, full ownership.',
+    'A done-for-you website for independent advisors and specialist consultants that proves deep domain expertise to enterprise buyers. Free prototype before you pay, fully custom and built to your vision.',
   alternates: { canonical: '/for/advisors' },
   openGraph: {
     type: 'website',
     url: '/for/advisors',
     title: 'Websites for Independent Advisors & Consultants | Caldera Agency',
     description:
-      'A domain-deep, RFP-ready website for independent advisors. Free prototype before you pay, full ownership, done for you.',
+      'A domain-deep, RFP-ready website for independent advisors. Free prototype before you pay, fully custom and built to your vision, done for you.',
     siteName: 'Caldera Agency',
     images: [{ url: '/og-image.jpg', width: 1200, height: 630, alt: 'Websites for Independent Advisors and Consultants' }],
   },
@@ -34,7 +34,7 @@ const content: NicheContent = {
   ),
   serviceName: 'Caldera Agency, Websites for Independent Advisors & Consultants',
   serviceDescription:
-    'Done-for-you website design and development for independent advisors and specialist consultants in operations, supply chain, strategy, and similar fields. Free prototype before payment, full ownership.',
+    'Done-for-you website design and development for independent advisors and specialist consultants in operations, supply chain, strategy, and similar fields. Fully custom and built to your vision, with a free working prototype before you pay.',
   audienceType: 'Independent advisors and specialist consultants',
   whyTitle: 'Why specialist advisors get judged on depth',
   whyIntro: (
@@ -99,7 +99,7 @@ const content: NicheContent = {
     },
     {
       q: 'How much of my time will this take?',
-      a: 'Under two hours, typically. We do the research and start from a free working prototype, so your role is mainly review. You keep advising clients while we build the site.',
+      a: 'Very little. We do the research and start from a free working prototype, so your role is mainly sharing your vision and reviewing. You keep advising clients while we build the site.',
     },
   ],
   ctaHeading: (

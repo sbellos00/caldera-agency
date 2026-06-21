@@ -184,6 +184,19 @@ export function PullQuote({ children }: { children: ReactNode }) {
   )
 }
 
+/** Native, JS-free accordion item for light (cream/white) bands. White card pops on cream. */
+export function LightFaq({ q, a }: { q: string; a: string }) {
+  return (
+    <details className="scroll-fade group rounded-2xl border border-[var(--gray-light)] bg-white p-6 md:p-7 shadow-[0_8px_40px_rgba(0,0,0,0.04)] [&_summary]:cursor-pointer">
+      <summary className="flex list-none items-center justify-between gap-4">
+        <h3 className="text-base md:text-lg font-medium text-[var(--black)]">{q}</h3>
+        <span className="text-2xl font-light leading-none text-[var(--primary-blue)] transition-transform duration-300 group-open:rotate-45">+</span>
+      </summary>
+      <p className="mt-4 text-[15px] leading-relaxed text-[var(--gray-medium)]">{a}</p>
+    </details>
+  )
+}
+
 /** Native, JS-free accordion item styled for the blue FAQ band (homepage style). */
 export function GlassFaq({ q, a }: { q: string; a: string }) {
   return (

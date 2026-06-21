@@ -5,14 +5,14 @@ import { testimonials } from '@/lib/site'
 export const metadata: Metadata = {
   title: 'Websites for Executive & Leadership Coaches',
   description:
-    'A done-for-you website for executive and leadership coaches that makes intangible work feel concrete and premium. Free prototype before you pay, full ownership, built by Caldera.',
+    'A done-for-you website for executive and leadership coaches that makes intangible work feel concrete and premium. Free prototype before you pay, fully custom and built to your vision.',
   alternates: { canonical: '/for/coaches' },
   openGraph: {
     type: 'website',
     url: '/for/coaches',
     title: 'Websites for Executive & Leadership Coaches | Caldera Agency',
     description:
-      'A premium, proof-driven website for coaches. Free prototype before you pay, full ownership, done for you.',
+      'A premium, proof-driven website for coaches. Free prototype before you pay, fully custom and built to your vision, done for you.',
     siteName: 'Caldera Agency',
     images: [{ url: '/og-image.jpg', width: 1200, height: 630, alt: 'Websites for Executive and Leadership Coaches' }],
   },
@@ -34,7 +34,7 @@ const content: NicheContent = {
   ),
   serviceName: 'Caldera Agency, Websites for Executive & Leadership Coaches',
   serviceDescription:
-    'Done-for-you website design and development for executive, leadership, and culture coaches. Free prototype before payment, full ownership, milestone-based pricing.',
+    'Done-for-you website design and development for executive, leadership, and culture coaches. Fully custom and built to your vision, with a free working prototype before you pay.',
   audienceType: 'Executive, leadership, and culture coaches',
   whyTitle: 'Why a coach’s website has to work harder than most',
   whyIntro: (
@@ -100,7 +100,7 @@ const content: NicheContent = {
     },
     {
       q: 'How much of my time does this take?',
-      a: 'Under two hours, usually. We do the research and start from a free working prototype, so you mostly review and react. You keep coaching while we build the site.',
+      a: 'Very little. We do the research and start from a free working prototype, so you mostly share your vision, review, and react. You keep coaching while we build the site.',
     },
   ],
   ctaHeading: (

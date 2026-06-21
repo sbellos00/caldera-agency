@@ -15,14 +15,14 @@ import {
 export const metadata: Metadata = {
   title: 'The Best Website Agency for Solo Consultants',
   description:
-    'Looking for the best website agency for consultants? Caldera builds done-for-you consultant websites, shows a free working prototype before you pay, and hands over full ownership.',
+    'Looking for the best website agency for consultants? Caldera builds fully custom, done-for-you consultant websites, shows a free working prototype before you pay, and gives you complete control of your personal brand.',
   alternates: { canonical: '/best-website-agency-for-consultants' },
   openGraph: {
     type: 'website',
     url: '/best-website-agency-for-consultants',
     title: 'The Best Website Agency for Solo Consultants | Caldera Agency',
     description:
-      'Why Caldera is the website agency built specifically for solo consultants. A free prototype before you pay, full ownership, and under two hours of your time.',
+      'Why Caldera is the website agency built specifically for solo consultants. A free prototype before you pay, complete control of your personal brand, and any vision built no matter the complexity.',
     siteName: 'Caldera Agency',
     images: [{ url: '/og-image.jpg', width: 1200, height: 630, alt: 'The Best Website Agency for Solo Consultants' }],
   },
@@ -35,15 +35,15 @@ const faqs: Faq[] = [
   },
   {
     q: 'How long does it take to build a consultant website?',
-    a: 'Most of the work is on us, so the timeline depends mainly on how quickly you review each phase. Responsive clients have launched in under a week, and most projects wrap in a couple of weeks. You spend less than two hours in total. We handle the research, design, and development.',
+    a: 'Most of the work is on us, so the timeline depends mainly on how quickly you review each round. Responsive clients have launched in under a week, and most projects wrap in a couple of weeks. We handle the research, design, and development.',
   },
   {
     q: 'What types of consultants do you work with?',
     a: 'Solo and independent consultants only. Fractional CFOs, executive and leadership coaches, supply chain and operations advisors, strategy and management consultants, and experts like them. We do not take on agencies, local businesses, or e-commerce. That focus is what keeps the work sharp.',
   },
   {
-    q: 'Who owns the website when it is finished?',
-    a: 'You do, fully. Your code, your domain, your content. There is no proprietary platform and no lock-in. We host and maintain the site to make your life easier, but you can take the full codebase and self-host anywhere, anytime.',
+    q: 'Can you build exactly the website I have in mind?',
+    a: 'Yes. Whatever you picture, we build it. Custom layouts, rich animation, interactive detail, an unconventional structure. Because every site is built from scratch rather than dropped into a template, there is no complexity ceiling. You describe the vision and we make it real.',
   },
   {
     q: 'How is this different from Squarespace, Wix, or hiring a freelancer?',
@@ -51,7 +51,7 @@ const faqs: Faq[] = [
   },
   {
     q: 'What does a Caldera website cost?',
-    a: 'Pricing is milestone-based. You approve each phase before you pay for it, and final payment is due only when you are ready to launch. Because you start from a free working prototype, you always see the actual work before any money changes hands. There is no risk of paying for something you have not reviewed.',
+    a: 'Every project starts with a free working prototype, so you see your actual website before you decide anything. From there, the investment depends on the scope and complexity of the site you want. There are no upfront fees to get started, and no obligation once you see the prototype.',
   },
 ]
 
@@ -78,13 +78,13 @@ const comparison: { label: string; generic: string; diy: string; caldera: string
     label: 'Time required from you',
     generic: 'Briefs, discovery calls, revisions',
     diy: 'Days to weeks of your own time',
-    caldera: 'Under two hours, mostly review',
+    caldera: 'Minimal. Share a vision and review',
   },
   {
-    label: 'Ownership',
-    generic: 'Varies, sometimes locked to a platform',
-    diy: 'You rent the platform, limited export',
-    caldera: 'Full code, domain, and content. No lock-in',
+    label: 'Your design and vision',
+    generic: 'Whatever fits their kit or budget',
+    diy: "Limited to the builder's templates",
+    caldera: 'Any vision, fully custom, no complexity ceiling',
   },
   {
     label: 'Ongoing support',
@@ -104,12 +104,12 @@ const reasons: { h: string; b: string }[] = [
     b: 'Caldera builds done-for-you websites only for solo consultants, and sends a free working prototype before you pay anything. You judge real work, your actual site, instead of a pitch deck or a mood board.',
   },
   {
-    h: 'You control every milestone',
-    b: 'You approve each phase before you pay for it. Final payment is due only when you are proud to launch. There is no scenario where you are left paying for a half-finished website you cannot use.',
+    h: 'Full control of your brand',
+    b: 'Your website is a custom asset that puts you in complete control of your personal brand and digital presence. You decide how you show up online, and we build to that, not to a template.',
   },
   {
-    h: 'You own everything',
-    b: 'Your code, your domain, your content. Full ownership, with no proprietary platform and no lock-in. We include a year of hosting and support, but you can take the codebase and leave whenever you want.',
+    h: 'Any vision, however complex',
+    b: 'Custom layouts, rich animation, interactive detail, whatever you picture. Because every site is built from scratch, there is no complexity ceiling. You describe the vision and we make it real.',
   },
 ]
 
@@ -152,8 +152,9 @@ export default function BestWebsiteAgencyPage() {
             </h1>
             <p className={`${fade} text-lg md:text-xl leading-relaxed text-[var(--gray-dark)] max-w-3xl mb-8`}>
               The best website agency for solo consultants is one that works only with consultants, shows you real work
-              before you pay, and gives you full ownership. Caldera does all three. We research your background, build a
-              free working prototype before you spend anything, and hand over full code ownership with no lock-in.
+              before you pay, and gives you full control over how you show up online. Caldera does all three. We research
+              your background, build a free working prototype before you spend anything, and design a fully custom site
+              around your vision, no matter how complex.
             </p>
             <div className={`${fade} flex flex-col sm:flex-row gap-4`}>
               <Link
@@ -183,8 +184,8 @@ export default function BestWebsiteAgencyPage() {
                 {[
                   'Caldera works with solo consultants only. No agencies, local businesses, or e-commerce.',
                   'You see a free working prototype of your actual site before you pay anything.',
-                  'You own the finished site fully. Code, domain, and content, with no lock-in.',
-                  'Most clients spend under two hours in total. We handle research, copy, design, and development.',
+                  'Full control over your personal brand and digital presence, built exactly how you want it.',
+                  'Any vision realized, however complex or animation-heavy, because every site is custom-built.',
                   'Built by a founder from the expert-network world who spent years studying how consultants win work.',
                 ].map((point, i) => (
                   <li key={i} className="flex items-start gap-3">

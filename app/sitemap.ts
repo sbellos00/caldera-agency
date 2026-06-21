@@ -14,6 +14,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: '/about', priority: 0.7, changeFrequency: 'monthly' },
     { path: '/process', priority: 0.7, changeFrequency: 'monthly' },
     { path: '/contact', priority: 0.6, changeFrequency: 'monthly' },
+    { path: '/faq', priority: 0.6, changeFrequency: 'monthly' },
     { path: '/blog', priority: 0.7, changeFrequency: 'weekly' },
     { path: '/for/fractional-cfo', priority: 0.8, changeFrequency: 'monthly' },
     { path: '/for/coaches', priority: 0.8, changeFrequency: 'monthly' },

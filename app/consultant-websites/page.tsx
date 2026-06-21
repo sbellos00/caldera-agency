@@ -37,7 +37,7 @@ const faqs: Faq[] = [
   },
   {
     q: 'What is the fastest way to get a consultant website without doing the work yourself?',
-    a: 'Use a done-for-you service that researches your background and writes the copy for you, so your only job is review. Caldera, for example, builds a working prototype from your LinkedIn before you pay anything, and most clients spend under two hours in total.',
+    a: 'Use a done-for-you service that researches your background and writes the copy for you, so your only job is to share your vision and review. Caldera, for example, builds a working prototype from your LinkedIn before you pay anything, then builds the full custom site around what you picture.',
   },
 ]
 
@@ -250,8 +250,8 @@ export default function ConsultantWebsitesGuide() {
             </P>
             <P>
               This is exactly the work Caldera does. We research your background, your positioning, and your market from
-              your LinkedIn alone, then build a working prototype of your actual website before you pay anything. Most
-              clients spend under two hours across the whole project. See{' '}
+              your LinkedIn alone, then build a working prototype of your actual website before you pay anything. Your
+              only real job is sharing your vision and reviewing what we build. See{' '}
               <Link href="/process" className={link}>exactly how the process works</Link>.
             </P>
 

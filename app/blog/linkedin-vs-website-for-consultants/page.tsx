@@ -51,7 +51,7 @@ export default function Page() {
           />
           <FeatureCard
             title="What a website does that LinkedIn never will"
-            body="Control and credibility. You choose the layout, the order of the story, and the proof. You can publish a real case study instead of a post that vanishes in two days. You own it outright, and you give partners and journalists a professional place to link."
+            body="Control and credibility. You choose the layout, the order of the story, and the proof. You can publish a real case study instead of a post that vanishes in two days. You control it completely, and you give partners and journalists a professional place to link."
           />
         </div>
       </Band>

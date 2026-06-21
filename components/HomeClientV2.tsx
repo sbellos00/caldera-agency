@@ -718,7 +718,7 @@ export default function HomeV2() {
               {[
                 { h: 'We do the research so you don\'t have to.', b: 'We study your LinkedIn, your positioning, your competitors, and your market. You don\'t fill out discovery forms. You don\'t sit through briefing calls. We come to you with a prototype, not a questionnaire.' },
                 { h: 'Fast turnaround. Minimal time from you.', b: 'From prototype to launch, the entire process takes less time than most agency discovery calls. We handle copywriting, design, development, domain setup, analytics - everything. You just give feedback.' },
-                { h: 'You own everything. No lock-in.', b: 'Your code. Your domain. Your site. We host it for a year for free and handle maintenance, but you can take the full codebase and leave anytime. No proprietary platforms. No hostage situations.' },
+                { h: 'Built around your vision.', b: 'Whatever you have in your head, we build it. Custom layouts, rich animation, interactive detail, no template ceiling. You get full control over your personal brand and how you show up online, expressed exactly the way you imagine it.' },
               ].map((card, i) => (
                 <div key={i} className="feature-card bg-[var(--cream)] rounded-2xl p-7 md:p-8 relative overflow-hidden transition-all duration-400 hover:scale-[1.02] hover:shadow-2xl scroll-fade group" style={{ transitionDelay: `${i * 100}ms` }}>
                   <div className="absolute inset-0 bg-gradient-to-br from-[var(--primary-blue)] to-[var(--blue-dark)] opacity-0 transition-opacity duration-400 group-hover:opacity-100" />
@@ -734,7 +734,7 @@ export default function HomeV2() {
               <div className="absolute inset-0 bg-gradient-to-br from-[var(--primary-blue)] to-[var(--blue-dark)] opacity-0 transition-opacity duration-400 group-hover:opacity-100" />
               <h3 className="text-xl md:text-2xl font-medium tracking-tight mb-3 text-[var(--black)] relative z-10 group-hover:text-white">&ldquo;What if I don&apos;t like what you build?&rdquo;</h3>
               <p className="text-[15px] leading-relaxed text-[var(--gray-medium)] max-w-2xl mx-auto relative z-10 group-hover:text-white">
-                You see a free prototype before you pay anything. After that, you approve each phase before we move on. You only pay for work you&apos;ve reviewed and approved. Final payment is due only when you&apos;re ready to launch.
+                You see a free working prototype before you pay anything. We build it from your LinkedIn, no brief required, so you react to your real website instead of imagining one. If it is not right, you walk away owing nothing.
               </p>
             </div>
           </div>
@@ -878,11 +878,18 @@ export default function HomeV2() {
 
             <div className="text-center mt-12 md:mt-20 scroll-fade">
               <p className="opacity-75 text-base md:text-lg mb-4 md:mb-6">Have a different question?</p>
-              <Link href="/contact" className="inline-flex items-center gap-2 text-base md:text-lg relative pb-1 group">
-                <span>Get in touch</span>
-                <span className="transition-transform duration-300 group-hover:translate-x-1">&rarr;</span>
-                <div className="absolute bottom-0 left-0 w-0 h-0.5 bg-current transition-[width] duration-300 group-hover:w-full" />
-              </Link>
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8">
+                <Link href="/faq" className="inline-flex items-center gap-2 text-base md:text-lg relative pb-1 group">
+                  <span>See all FAQs</span>
+                  <span className="transition-transform duration-300 group-hover:translate-x-1">&rarr;</span>
+                  <div className="absolute bottom-0 left-0 w-0 h-0.5 bg-current transition-[width] duration-300 group-hover:w-full" />
+                </Link>
+                <Link href="/contact" className="inline-flex items-center gap-2 text-base md:text-lg relative pb-1 group">
+                  <span>Get in touch</span>
+                  <span className="transition-transform duration-300 group-hover:translate-x-1">&rarr;</span>
+                  <div className="absolute bottom-0 left-0 w-0 h-0.5 bg-current transition-[width] duration-300 group-hover:w-full" />
+                </Link>
+              </div>
             </div>
           </div>
         </section>

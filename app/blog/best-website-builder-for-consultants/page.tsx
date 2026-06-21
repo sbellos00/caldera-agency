@@ -84,9 +84,9 @@ export default function Page() {
         />
         <AP>
           That last option is how we work. Caldera builds websites only for solo consultants. We research your
-          background, write the copy, design the site, and build it, then send you a working prototype before you pay
-          anything. You own the code. We host it for a year. Most clients spend under two hours on the whole thing. You
-          can see <Link href="/process" className={link}>how the process works</Link> or read why we are the{' '}
+          background, write the copy, and design and build a fully custom site around your vision, then send you a
+          working prototype before you pay anything. However complex or animation-heavy what you picture is, we build
+          it. You can see <Link href="/process" className={link}>how the process works</Link> or read why we are the{' '}
           <Link href="/best-website-agency-for-consultants" className={link}>best website agency for consultants</Link>.
         </AP>
       </Band>

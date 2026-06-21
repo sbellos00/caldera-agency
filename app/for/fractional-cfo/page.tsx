@@ -5,14 +5,14 @@ import { testimonials } from '@/lib/site'
 export const metadata: Metadata = {
   title: 'Websites for Fractional CFOs',
   description:
-    'A done-for-you website for fractional CFOs that signals financial credibility to founders and boards. Free working prototype before you pay, full ownership, built by Caldera.',
+    'A done-for-you website for fractional CFOs that signals financial credibility to founders and boards. Free working prototype before you pay, fully custom and built to your vision.',
   alternates: { canonical: '/for/fractional-cfo' },
   openGraph: {
     type: 'website',
     url: '/for/fractional-cfo',
     title: 'Websites for Fractional CFOs | Caldera Agency',
     description:
-      'A credibility-first website for fractional CFOs. Free prototype before you pay, full ownership, done for you.',
+      'A credibility-first website for fractional CFOs. Free prototype before you pay, fully custom and built to your vision, done for you.',
     siteName: 'Caldera Agency',
     images: [{ url: '/og-image.jpg', width: 1200, height: 630, alt: 'Websites for Fractional CFOs' }],
   },
@@ -34,7 +34,7 @@ const content: NicheContent = {
   ),
   serviceName: 'Caldera Agency, Websites for Fractional CFOs',
   serviceDescription:
-    'Done-for-you website design and development for fractional and part-time CFOs and financial advisors. Free prototype before payment, full ownership, milestone-based pricing.',
+    'Done-for-you website design and development for fractional and part-time CFOs and financial advisors. Fully custom and built to your vision, with a free working prototype before you pay.',
   audienceType: 'Fractional CFOs and financial advisors',
   whyTitle: 'Why credibility is everything for a fractional CFO',
   whyIntro: (
@@ -101,7 +101,7 @@ const content: NicheContent = {
     },
     {
       q: 'How much of my time will this take?',
-      a: 'Under two hours, typically. We research your background ourselves and start from a free working prototype, so your only real job is reviewing what we build. You stay focused on clients while we handle the site.',
+      a: 'Very little. We research your background ourselves and start from a free working prototype, so your only real job is sharing your vision and reviewing what we build. You stay focused on clients while we handle the site.',
     },
   ],
   ctaHeading: (
