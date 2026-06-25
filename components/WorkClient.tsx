@@ -34,17 +34,11 @@ export default function WorkClient() {
     else el.scrollIntoView({ behavior: 'smooth', block: 'start' })
   }, [])
 
-  // Scroll-driven background theming — mirrors the homepage: the scroll container's
-  // background colour transitions as each themed section enters the viewport, so the
-  // sections themselves carry no hard-coded background.
-  // Cream hero → black case studies → blue testimonials (a single accent section,
-  // like the homepage FAQ) → black CTA. Text stays white across black and blue, so
-  // there is no flash of unreadable text on any transition.
-  const scrollThemes = useRef([
-    { bg: 'rgb(0, 0, 0)', text: 'rgb(255, 255, 255)' },        // Case studies — dark
-    { bg: 'rgb(0, 25, 255)', text: 'rgb(255, 255, 255)' },     // Testimonials — blue
-    { bg: 'rgb(0, 0, 0)', text: 'rgb(255, 255, 255)' },        // CTA — dark
-  ])
+  // Scroll-driven background theming. The container starts BLACK, so the case-studies
+  // section is black from the moment it appears (no cream flash). It flips once to the
+  // homepage white when the testimonials section reaches the top — by which point the
+  // black case-studies section is fully gone, so its white text never lands on white —
+  // and stays white through the CTA. The nav logo flips at the same boundaries.
 
   // Custom cursor (matches the rest of the site)
   useEffect(() => {
@@ -116,30 +110,39 @@ export default function WorkClient() {
     gsap.ticker.add(raf)
     gsap.ticker.lagSmoothing(0)
 
-    const ctx = gsap.context(() => {
-      themedSectionRefs.current.forEach((el, i) => {
-        if (!el) return
-        const theme = scrollThemes.current[i]
-        // The first themed section's "previous" state is the cream hero/container.
-        const prevTheme = i === 0
-          ? { bg: 'rgb(250, 248, 245)', text: 'rgb(0, 0, 0)' }
-          : scrollThemes.current[i - 1]
+    const caseEl = themedSectionRefs.current[0]
+    const testiEl = themedSectionRefs.current[1]
 
+    const ctx = gsap.context(() => {
+      // Hero (cream) → case studies (black): the container is already black, so only
+      // the nav logo flips — to white once the black section sits behind the nav.
+      if (caseEl) {
         ScrollTrigger.create({
-          trigger: el,
-          start: 'top center',
+          trigger: caseEl,
+          start: 'top top',
+          onEnter: () => setNavDark(true),
+          onLeaveBack: () => setNavDark(false),
+        })
+      }
+      // Case studies (black) → testimonials (white) and onward: flip only once the
+      // white section reaches the top, so the black case-studies section (white text)
+      // is fully gone and nothing flashes. The CTA shares this white theme.
+      if (testiEl) {
+        ScrollTrigger.create({
+          trigger: testiEl,
+          start: 'top top',
           onEnter: () => {
-            container.style.backgroundColor = theme.bg
-            container.style.color = theme.text
-            setNavDark(theme.text === 'rgb(255, 255, 255)')
+            container.style.backgroundColor = 'rgb(255, 255, 255)'
+            container.style.color = 'rgb(0, 0, 0)'
+            setNavDark(false)
           },
           onLeaveBack: () => {
-            container.style.backgroundColor = prevTheme.bg
-            container.style.color = prevTheme.text
-            setNavDark(prevTheme.text === 'rgb(255, 255, 255)')
+            container.style.backgroundColor = 'rgb(0, 0, 0)'
+            container.style.color = 'rgb(255, 255, 255)'
+            setNavDark(true)
           },
         })
-      })
+      }
     })
 
     return () => {
@@ -219,7 +222,7 @@ export default function WorkClient() {
       <div
         ref={scrollContainerRef}
         className="relative z-10 theme-container"
-        style={{ backgroundColor: 'rgb(250, 248, 245)', color: 'rgb(0, 0, 0)', transition: 'background-color 400ms ease-out' }}
+        style={{ backgroundColor: 'rgb(0, 0, 0)', color: 'rgb(255, 255, 255)', transition: 'background-color 400ms ease-out' }}
       >
         {/* Case studies — browser-frame cards (homepage "Highlighted Work" style) */}
         <section ref={el => { themedSectionRefs.current[0] = el }} id="case-studies" className="py-24 md:py-32 px-8 md:px-16">
@@ -279,24 +282,20 @@ export default function WorkClient() {
           </div>
         </section>
 
-        {/* Testimonials — blue accent section (matches the homepage FAQ) */}
-        <section ref={el => { themedSectionRefs.current[1] = el }} className="relative py-24 md:py-32 px-8 md:px-16 overflow-hidden">
-          <div className="absolute inset-0 opacity-[0.03]" style={{
-            backgroundImage: `radial-gradient(circle at 1px 1px, white 1px, transparent 0)`,
-            backgroundSize: '60px 60px',
-          }} />
-          <div className="relative z-10 max-w-screen-lg mx-auto">
-            <p className="text-white/80 text-sm font-medium tracking-widest uppercase text-center mb-4 scroll-fade">Testimonials</p>
+        {/* Testimonials — homepage-style white section with cream cards */}
+        <section ref={el => { themedSectionRefs.current[1] = el }} className="py-24 md:py-32 px-8 md:px-16">
+          <div className="max-w-screen-lg mx-auto">
+            <p className="text-[var(--primary-blue)] text-sm font-medium tracking-widest uppercase text-center mb-4 scroll-fade">Testimonials</p>
             <h2 className="section-title text-center mb-12 md:mb-16 scroll-fade">What clients say</h2>
             <div className="flex flex-col gap-6">
               {workTestimonials.map((t) => (
-                <figure key={t.name} className="scroll-fade bg-white/[0.08] border border-white/20 rounded-2xl p-7 md:p-9">
-                  <blockquote className="text-white/90 leading-relaxed text-[16px] md:text-[17px] mb-4">
+                <figure key={t.name} className="scroll-fade bg-[var(--cream)] rounded-2xl p-7 md:p-9 shadow-[0_8px_40px_rgba(0,0,0,0.04)]">
+                  <blockquote className="text-[var(--gray-dark)] leading-relaxed text-[16px] md:text-[17px] mb-4">
                     &ldquo;{t.body}&rdquo;
                   </blockquote>
                   <figcaption className="text-sm">
-                    <span className="font-semibold text-white">{t.name}</span>
-                    <span className="text-white/60">, {t.role}</span>
+                    <span className="font-semibold text-[var(--black)]">{t.name}</span>
+                    <span className="text-[var(--gray-medium)]">, {t.role}</span>
                   </figcaption>
                 </figure>
               ))}
@@ -304,24 +303,26 @@ export default function WorkClient() {
           </div>
         </section>
 
-        {/* Closing CTA */}
-        <section ref={el => { themedSectionRefs.current[2] = el }} className="relative py-24 md:py-32 px-8 md:px-16 overflow-hidden noise-overlay">
-          <div className="absolute inset-0 opacity-[0.03]" style={{
-            backgroundImage: `radial-gradient(circle at 1px 1px, white 1px, transparent 0)`,
+        {/* Closing CTA — homepage-style light section (grid pattern, dark text) */}
+        <section ref={el => { themedSectionRefs.current[2] = el }} className="relative py-24 md:py-32 px-8 md:px-16 overflow-hidden">
+          <div className="pointer-events-none absolute inset-0 opacity-[0.03]" style={{
+            backgroundImage: `linear-gradient(var(--primary-blue) 1px, transparent 1px), linear-gradient(90deg, var(--primary-blue) 1px, transparent 1px)`,
             backgroundSize: '60px 60px',
           }} />
           <div className="relative z-10 max-w-screen-lg mx-auto text-center">
-            <h2 className="text-[clamp(28px,4vw,52px)] font-light tracking-tight leading-tight mb-5 text-white">
+            <h2 className="text-[clamp(28px,4vw,52px)] font-light tracking-tight leading-tight mb-5 text-[var(--black)]">
               Want to see <span className="font-serif italic text-[var(--primary-blue)]">yours</span>?
             </h2>
-            <p className="text-white/70 leading-relaxed max-w-2xl mx-auto mb-8">
+            <p className="text-[var(--gray-medium)] leading-relaxed max-w-2xl mx-auto mb-8">
               Drop your LinkedIn and we will build a free working prototype of your website. No calls. No commitment. No homework.
             </p>
             <Link
               href="/contact"
-              className="inline-flex items-center justify-center gap-3 bg-white text-[var(--black)] px-8 py-4 text-[15px] font-medium tracking-tight rounded-lg no-underline transition-all duration-300 hover:scale-105"
+              className="group relative overflow-hidden inline-flex items-center gap-3 bg-[var(--black)] text-white px-8 py-4 text-[15px] tracking-tight no-underline rounded-lg transition-all duration-300 ease-out hover:scale-105"
             >
-              Get your free prototype &rarr;
+              <div className="absolute inset-0 bg-[var(--primary-blue)] transform -translate-x-full transition-transform duration-300 ease-out group-hover:translate-x-0"></div>
+              <span className="relative z-10 group-hover:text-white">Get your free prototype</span>
+              <span className="relative z-10 group-hover:text-white">&rarr;</span>
             </Link>
           </div>
         </section>
