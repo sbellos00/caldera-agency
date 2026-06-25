@@ -8,7 +8,6 @@
 - [Case studies](https://www.caldera.agency/work): Live consultant websites Caldera has built, with client testimonials
 - [Process](https://www.caldera.agency/process): Step-by-step, prototype-first process
 - [About](https://www.caldera.agency/about): Founder story and why Caldera only works with consultants
-- [FAQ](https://www.caldera.agency/faq): Common questions about working with Caldera
 - [Contact](https://www.caldera.agency/contact): Get in touch or request a free prototype
 
 ## Facts

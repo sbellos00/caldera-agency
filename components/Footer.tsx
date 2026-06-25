@@ -13,12 +13,9 @@ export default function Footer() {
       }} />
 
       <div className="relative z-10 px-6 md:px-8 lg:px-16 max-w-screen-2xl mx-auto">
-        {/* Top row: copyright left, description right */}
+        {/* Top row: copyright */}
         <div className="flex flex-col md:flex-row justify-between items-start pt-16 md:pt-20 pb-12 md:pb-16 gap-8">
           <span className="text-white/40 text-sm">&copy; {currentYear} Caldera Agency</span>
-          <p className="text-white/70 text-sm md:text-base leading-relaxed max-w-lg md:text-right">
-            Bespoke, authority-building websites for solo consultants. We combine deep research, strategic positioning, and hands-off delivery so you can focus on your business.
-          </p>
         </div>
 
         {/* Massive brand name */}
@@ -34,7 +31,6 @@ export default function Footer() {
             <a href="https://www.linkedin.com/company/caldera-agency" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors duration-300">LinkedIn</a>
             <Link href="/about" className="hover:text-white transition-colors duration-300">About</Link>
             <Link href="/process" className="hover:text-white transition-colors duration-300">Process</Link>
-            <Link href="/faq" className="hover:text-white transition-colors duration-300">FAQ</Link>
             <Link href="/contact" className="hover:text-white transition-colors duration-300">Contact</Link>
           </div>
           <a href="https://www.iubenda.com/privacy-policy/68538498" target="_blank" rel="noopener noreferrer" className="text-sm text-white/40 hover:text-white/70 transition-colors duration-300">

@@ -887,11 +887,6 @@ export default function HomeV2() {
             <div className="text-center mt-12 md:mt-20 scroll-fade">
               <p className="opacity-75 text-base md:text-lg mb-4 md:mb-6">Have a different question?</p>
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8">
-                <Link href="/faq" className="inline-flex items-center gap-2 text-base md:text-lg relative pb-1 group">
-                  <span>See all FAQs</span>
-                  <span className="transition-transform duration-300 group-hover:translate-x-1">&rarr;</span>
-                  <div className="absolute bottom-0 left-0 w-0 h-0.5 bg-current transition-[width] duration-300 group-hover:w-full" />
-                </Link>
                 <Link href="/contact" className="inline-flex items-center gap-2 text-base md:text-lg relative pb-1 group">
                   <span>Get in touch</span>
                   <span className="transition-transform duration-300 group-hover:translate-x-1">&rarr;</span>
