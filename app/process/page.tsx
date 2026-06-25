@@ -13,7 +13,7 @@ const steps = [
   {
     num: '01',
     title: 'We find you',
-    body: 'We research your LinkedIn, study your positioning, and build a full working prototype of your website before making any contact. No questionnaires. No discovery calls. Just a real website, built around you.',
+    body: 'We research your LinkedIn, study your positioning, and build a full working prototype of your website before making any contact. No questionnaires. No discovery calls. Just a working website, built around you.',
   },
   {
     num: '02',
@@ -28,12 +28,12 @@ const steps = [
   {
     num: '04',
     title: 'We refine',
-    body: 'We take your feedback and build the next version. Copy, design, structure\u2014all of it. Most clients are ready to launch after one round of revisions. Some need two. Either way, you approve every change before we move on.',
+    body: 'We take your feedback and build the next version. Copy, design, structure, all of it. Most clients are ready to launch after one round of revisions. Some need two. Either way, you approve every change before we move on.',
   },
   {
     num: '05',
     title: 'Launch',
-    body: 'Your site goes live at your domain. Hosting, domain management, and support are included for free for the first year. You own the full codebase. No lock-in, ever.',
+    body: 'Your site goes live at your domain. Hosting, domain management, and support are included for free for the first year, so you stay focused on your work while we handle the technical side.',
   },
 ]
 
@@ -44,9 +44,9 @@ const stats = [
       'The average time from first call to launch. Responsive clients have launched in under a week.',
   },
   {
-    value: '2 hours',
+    value: '0 templates',
     description:
-      'The average time a client spends during the entire process.',
+      'Every site is built from scratch around your vision. No matter how complex or animation-heavy, we build exactly what you picture.',
   },
   {
     value: '$0 upfront',

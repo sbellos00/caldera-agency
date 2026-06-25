@@ -244,7 +244,7 @@ export default function AboutPage() {
                 {[
                   { icon: '01', h: 'Not a sales tactic', b: 'We build your prototype as a filter. We only reach out when we have something worth showing.' },
                   { icon: '02', h: 'Standards stay high', b: 'It keeps our quality bar self-enforcing. If we can\'t build something great, we don\'t reach out.' },
-                  { icon: '03', h: 'Real work, not promises', b: 'You decide based on an actual website, not a pitch deck or vague case studies.' },
+                  { icon: '03', h: 'Proof, not promises', b: 'You decide based on a working website, not a pitch deck or vague case studies.' },
                   { icon: '04', h: 'Accessible entry point', b: 'We\'d rather earn trust upfront than extract maximum revenue from the first interaction.' },
                 ].map((step, i) => (
                   <div key={step.icon} className="scroll-fade" style={{ transitionDelay: `${i * 80}ms` }}>
@@ -290,9 +290,9 @@ export default function AboutPage() {
           {/* 3 more cards */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
             {[
-              { h: 'Milestone payments, always in your control.', b: 'You approve each phase before paying. You never risk being left with a half-finished website.' },
+              { h: 'You see the work before you pay.', b: 'You start with a free working prototype of your website. No risk of paying for a brief, a mock-up, or a half-finished site. You only move forward once you have seen it.' },
               { h: 'We handle everything after.', b: 'Launch, domain, analytics, hosting, tech support, and post-launch tweaks are all managed by us so you can stay focused on your work.' },
-              { h: 'Full ownership, zero lock-in.', b: 'You own your website, domain, and content 100%. Move, host, or upgrade anytime. No proprietary platforms. No hostage situations.' },
+              { h: 'Full control over your brand and presence.', b: 'Your website is a custom asset that reflects your personal brand exactly how you want it. You decide how you show up online, and we build to that vision, down to the smallest detail.' },
             ].map((card, i) => (
               <div key={i} className="bg-[var(--cream)] rounded-2xl p-7 md:p-8 relative overflow-hidden transition-all duration-400 hover:scale-[1.02] hover:shadow-2xl scroll-fade group" style={{ transitionDelay: `${i * 100}ms` }}>
                 <div className="absolute inset-0 bg-gradient-to-br from-[var(--primary-blue)] to-[var(--blue-dark)] opacity-0 transition-opacity duration-400 group-hover:opacity-100" />

@@ -1,0 +1,22 @@
+# Caldera Agency
+
+> Done-for-you websites for solo consultants. We research your background, write the copy, and design, build, and host a fully custom site that gives you complete control of your personal brand and digital presence. You see a free working prototype before you pay anything.
+
+## Core pages
+- [Home](https://www.caldera.agency/): What Caldera does and how the free-prototype process works
+- [Best website agency for consultants](https://www.caldera.agency/best-website-agency-for-consultants): Why Caldera is built specifically for solo consultants
+- [Case studies](https://www.caldera.agency/work): Live consultant websites Caldera has built, with client testimonials
+- [Process](https://www.caldera.agency/process): Step-by-step, prototype-first process
+- [About](https://www.caldera.agency/about): Founder story and why Caldera only works with consultants
+- [FAQ](https://www.caldera.agency/faq): Common questions about working with Caldera
+- [Contact](https://www.caldera.agency/contact): Get in touch or request a free prototype
+
+## Facts
+- Caldera builds websites exclusively for solo and independent consultants (fractional CFOs, executive and leadership coaches, supply chain and operations advisors, health care consultants, and similar).
+- Clients receive a free working prototype before paying anything.
+- Every site is fully custom and built from scratch around the client's vision, no matter how complex or animation-heavy.
+- Clients get complete control of their personal brand and digital presence.
+- One year of hosting and support is included.
+- Founded by Stefanos Bellos, formerly of the Dialectica expert network, who spent thousands of hours connecting consultants with investors and global enterprises.
+- Clients include Mark S. Piazza (fractional CFO), Dr. Ron Paul (Polaris Leadership Institute, leadership coaching), and Tim Scott (True North Supply Chain Advisory).
+- Contact: contact@caldera.agency

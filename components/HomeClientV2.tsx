@@ -15,6 +15,7 @@ import VerticalCutReveal from '@/components/fancy/text/VerticalCutReveal'
 import Aurora from '@/components/Aurora'
 import Menu from '@/components/Menu'
 import Footer from '@/components/Footer'
+import { homepageFaqs } from '@/lib/site'
 
 const CrowdCanvas = dynamic(() => import('@/components/CrowdCanvas'), { ssr: false })
 
@@ -27,7 +28,7 @@ function Preloader() {
   return (
     <motion.div className="fixed inset-0 z-[200]">
       <div className="absolute z-10 flex h-full w-full items-center justify-center px-6 text-center">
-        <motion.h1
+        <motion.div
           className="font-serif italic text-3xl sm:text-4xl md:text-5xl tracking-tight text-white"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1, transition: { duration: 4 } }}
@@ -43,7 +44,7 @@ function Preloader() {
               className="mr-2 inline-block md:mr-3"
             >{word}</motion.span>
           ))}
-        </motion.h1>
+        </motion.div>
       </div>
       {/* Top stairs */}
       <motion.div className="pointer-events-none fixed left-0 top-0 z-[2] flex h-[50vh]">
@@ -256,20 +257,6 @@ function PrototypeForm({ id, variant = 'light' }: { id: string; variant?: 'light
 }
 
 /* ─── Data ─── */
-const faqData = [
-  { q: 'What if I don\'t have time for a big project?', a: 'Send us whatever you have, organized or not. We figure out the rest and come back with a full working website. Most clients spend less than 2 hours during the entire process. Your job is reviewing what we build.' },
-  { q: 'I was burned by agencies/freelancers before.', a: 'Before you spend a dollar, you see a working prototype of your actual website. No briefs, no mood boards, no promises. We build first and earn your trust before asking for anything. From there, you approve each phase before we move forward.' },
-  { q: 'What if you\'re late?', a: 'We are the fastest in the market. Clients who stay responsive have launched in under a week. Speed is not something we need to guarantee. It is just how we work.' },
-  { q: 'What if I\'m not happy at launch?', a: 'You only pay for each phase after you approve it. Final payment is only due if you\'re proud to launch. No risk of paying for something you can\'t use.' },
-  { q: 'Who owns the site?', a: 'You own it, fully. No platform risk, no lock-in. We provide hosting, support, and maintenance to make your life easier, but you can take the full code and self-host anytime you wish.' },
-  { q: 'What if I need updates later?', a: 'Up to 4 post-launch development hours are included for free during the first month with your hosting plan, then 2 hours per month thereafter. Anything more is handled quickly by us at our standard rate.' },
-  { q: 'Do you build for other industries?', a: 'No. Consultants only. That\'s why our sites work.' },
-  { q: 'Isn\'t this just another template site?', a: 'No. Every step is research-based and guides us towards designing the perfect website for you from scratch. All design and copy is consultant-specific and tailored to your positioning, built for consulting credibility. Never generic.' },
-  { q: 'Why not just do it myself?', a: 'Weeks of your time versus a few hours of reviewing. We handle the research, strategy, copy, design, and development. You show up, give feedback, and launch.' },
-  { q: 'Will this bring leads?', a: 'No site guarantees leads. But without credibility, you lose by default. This site is built to open doors to RFPs, partnerships, and high-value deals.' },
-  { q: 'LinkedIn works for me now.', a: 'LinkedIn is just one platform. A professional website gives you full control over your digital presence, establishes deeper credibility, and positions you at a higher tier than competitors who rely solely on social media. Don\'t risk being at the mercy of algorithms and sudden policy changes.' },
-]
-
 const testimonials = [
   { highlight: 'It has elevated how I position myself in every client conversation.', quote: 'Caldera Agency didn\'t just build me a website, they helped me formally launch my entrepreneurial practice with clarity and credibility. In a matter of days, Stefanos and his team translated my experience into a polished, enterprise-level site, delivered with remarkable speed and zero red tape. It has elevated how I position myself in every client conversation.', name: 'Mark S. Piazza', role: 'Fractional CFO & Financial Advisor', image: 'https://res.cloudinary.com/dawyrpt2m/image/upload/v1766602121/Piazza_Headshot_1_daetif.jpg', imgPos: 'center 30%' },
   { highlight: 'They work very efficiently, often turning around edits and new concepts in hours, with a sharp eye on every detail.', quote: 'My experience with the Caldera team has been great. They are very responsive, creative and were able to take my desired content and feedback to create an end product that far exceeded my expectations. They work very efficiently, often turning around edits and new concepts in hours, with a sharp eye on every detail. I highly recommend the team at Caldera.', name: 'Tim Scott', role: 'Founder, True North Supply Chain Advisory', image: 'https://res.cloudinary.com/dawyrpt2m/image/upload/v1767130093/unnamed_1_l4haxs.jpg', imgPos: 'center' },
@@ -494,6 +481,9 @@ export default function HomeV2() {
         {/* Hero content */}
         <div className="relative z-10 flex-1 flex items-center justify-center px-8 md:px-16 pt-[5vh]">
           <div className="text-center flex flex-col items-center w-full max-w-screen-2xl">
+            {/* Always-rendered primary heading for crawlers/AI engines (the same
+                words appear in the animated hero below; this is the semantic H1). */}
+            <h1 className="sr-only">The Website Agency Built for Solo Consultants</h1>
             {/* Title — 2 lines: line 1 from bottom, line 2 from top */}
             {/* Wait for preloader to finish before animating */}
             {!showPreloader && (
@@ -653,7 +643,7 @@ export default function HomeV2() {
                   <div className="flex flex-col gap-3">
                     {[
                       { icon: '01', h: 'We build first', b: 'We study your LinkedIn, positioning, and market, then build a working prototype before we ever talk.' },
-                      { icon: '02', h: 'The prototype does the talking', b: 'Instead of briefs and questionnaires, we start with something real. It proves what we can do and gives us both a concrete starting point.' },
+                      { icon: '02', h: 'The prototype does the talking', b: 'Instead of briefs and questionnaires, we start with a working prototype. It proves what we can do and gives us both a concrete starting point.' },
                       { icon: '03', h: 'You review, we refine', b: 'Some clients take it nearly as-is. Others want big changes. We jump on a quick call to understand what you need and tailor our offer accordingly. Either way, there\u2019s no homework for you, just send us whatever you have, we figure it out and come back with the next version.' },
                       { icon: '04', h: 'Launch', b: 'Your site goes live with 1 year of free hosting and support.' },
                     ].map((step, i) => (
@@ -713,6 +703,14 @@ export default function HomeV2() {
                 </a>
               ))}
             </div>
+
+            <div className="text-center mt-14 md:mt-16 scroll-fade">
+              <Link href="/work" className="inline-flex items-center gap-2 text-base md:text-lg relative pb-1 group">
+                <span>See all the case studies</span>
+                <span className="transition-transform duration-300 group-hover:translate-x-1">&rarr;</span>
+                <div className="absolute bottom-0 left-0 w-0 h-0.5 bg-current transition-[width] duration-300 group-hover:w-full" />
+              </Link>
+            </div>
           </div>
         </section>
 
@@ -728,7 +726,7 @@ export default function HomeV2() {
               {[
                 { h: 'We do the research so you don\'t have to.', b: 'We study your LinkedIn, your positioning, your competitors, and your market. You don\'t fill out discovery forms. You don\'t sit through briefing calls. We come to you with a prototype, not a questionnaire.' },
                 { h: 'Fast turnaround. Minimal time from you.', b: 'From prototype to launch, the entire process takes less time than most agency discovery calls. We handle copywriting, design, development, domain setup, analytics - everything. You just give feedback.' },
-                { h: 'You own everything. No lock-in.', b: 'Your code. Your domain. Your site. We host it for a year for free and handle maintenance, but you can take the full codebase and leave anytime. No proprietary platforms. No hostage situations.' },
+                { h: 'Built around your vision.', b: 'Whatever you have in your head, we build it. Custom layouts, rich animation, interactive detail, no template ceiling. You get full control over your personal brand and how you show up online, expressed exactly the way you imagine it.' },
               ].map((card, i) => (
                 <div key={i} className="feature-card bg-[var(--cream)] rounded-2xl p-7 md:p-8 relative overflow-hidden transition-all duration-400 hover:scale-[1.02] hover:shadow-2xl scroll-fade group" style={{ transitionDelay: `${i * 100}ms` }}>
                   <div className="absolute inset-0 bg-gradient-to-br from-[var(--primary-blue)] to-[var(--blue-dark)] opacity-0 transition-opacity duration-400 group-hover:opacity-100" />
@@ -744,7 +742,7 @@ export default function HomeV2() {
               <div className="absolute inset-0 bg-gradient-to-br from-[var(--primary-blue)] to-[var(--blue-dark)] opacity-0 transition-opacity duration-400 group-hover:opacity-100" />
               <h3 className="text-xl md:text-2xl font-medium tracking-tight mb-3 text-[var(--black)] relative z-10 group-hover:text-white">&ldquo;What if I don&apos;t like what you build?&rdquo;</h3>
               <p className="text-[15px] leading-relaxed text-[var(--gray-medium)] max-w-2xl mx-auto relative z-10 group-hover:text-white">
-                You see a free prototype before you pay anything. After that, you approve each phase before we move on. You only pay for work you&apos;ve reviewed and approved. Final payment is due only when you&apos;re ready to launch.
+                You see a free working prototype before you pay anything. We build it from your LinkedIn, no brief required, so you are reacting to a working version of your site, not a pitch. If it is not right, you walk away owing nothing.
               </p>
             </div>
           </div>
@@ -860,7 +858,7 @@ export default function HomeV2() {
             </div>
 
             <div className="max-w-4xl mx-auto space-y-3 md:space-y-4">
-              {(showAllFAQ ? faqData : faqData.slice(0, 5)).map((item, i) => (
+              {(showAllFAQ ? homepageFaqs : homepageFaqs.slice(0, 5)).map((item, i) => (
                 <div key={i} className={i < 5 ? 'scroll-fade' : ''}>
                   <button onClick={() => setOpenFAQ(openFAQ === i ? null : i)}
                     className="w-full bg-white/10 backdrop-blur-sm hover:bg-white/20 border border-white/20 hover:border-white/30 rounded-xl md:rounded-2xl p-4 md:p-6 text-left transition-all duration-300 hover:shadow-2xl group">
@@ -878,21 +876,28 @@ export default function HomeV2() {
                   </div>
                 </div>
               ))}
-              {!showAllFAQ && faqData.length > 5 && (
+              {!showAllFAQ && homepageFaqs.length > 5 && (
                 <button onClick={() => setShowAllFAQ(true)}
                   className="w-full bg-white/5 border border-white/15 rounded-xl md:rounded-2xl p-4 md:p-5 text-center opacity-70 hover:opacity-100 hover:bg-white/10 transition-all duration-300 text-sm md:text-base">
-                  Show {faqData.length - 5} more questions
+                  Show {homepageFaqs.length - 5} more questions
                 </button>
               )}
             </div>
 
             <div className="text-center mt-12 md:mt-20 scroll-fade">
               <p className="opacity-75 text-base md:text-lg mb-4 md:mb-6">Have a different question?</p>
-              <Link href="/contact" className="inline-flex items-center gap-2 text-base md:text-lg relative pb-1 group">
-                <span>Get in touch</span>
-                <span className="transition-transform duration-300 group-hover:translate-x-1">&rarr;</span>
-                <div className="absolute bottom-0 left-0 w-0 h-0.5 bg-current transition-[width] duration-300 group-hover:w-full" />
-              </Link>
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8">
+                <Link href="/faq" className="inline-flex items-center gap-2 text-base md:text-lg relative pb-1 group">
+                  <span>See all FAQs</span>
+                  <span className="transition-transform duration-300 group-hover:translate-x-1">&rarr;</span>
+                  <div className="absolute bottom-0 left-0 w-0 h-0.5 bg-current transition-[width] duration-300 group-hover:w-full" />
+                </Link>
+                <Link href="/contact" className="inline-flex items-center gap-2 text-base md:text-lg relative pb-1 group">
+                  <span>Get in touch</span>
+                  <span className="transition-transform duration-300 group-hover:translate-x-1">&rarr;</span>
+                  <div className="absolute bottom-0 left-0 w-0 h-0.5 bg-current transition-[width] duration-300 group-hover:w-full" />
+                </Link>
+              </div>
             </div>
           </div>
         </section>

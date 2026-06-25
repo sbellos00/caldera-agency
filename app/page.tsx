@@ -1,5 +1,7 @@
 import type { Metadata } from "next"
 import HomeClientV2 from "@/components/HomeClientV2"
+import JsonLd from "@/components/JsonLd"
+import { professionalServiceSchema, faqSchema, homepageFaqs, testimonials, SITE_URL, SITE_NAME } from "@/lib/site"
 
 export const metadata: Metadata = {
   title: "Caldera Agency - The Website Agency For Solo Consultants",
@@ -16,10 +18,13 @@ export const metadata: Metadata = {
     "linkedin website builder",
     "caldera agency"
   ],
+  alternates: {
+    canonical: "/",
+  },
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://caldera.agency",
+    url: "/",
     title: "Caldera Agency - The Website Agency For Solo Consultants",
     description: "You do nothing. We build everything. Share your LinkedIn and we handle research, copy, design, and development. Free prototype before you spend a cent.",
     siteName: "Caldera Agency",
@@ -38,11 +43,33 @@ export const metadata: Metadata = {
     description: "You do nothing. We build everything. Share your LinkedIn and we handle research, copy, design, and development. Free prototype before you spend a cent.",
     images: ["/og-image.jpg"],
   },
-  alternates: {
-    canonical: "https://caldera.agency",
+}
+
+const reviewSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  '@id': `${SITE_URL}/#organization`,
+  name: SITE_NAME,
+  aggregateRating: {
+    '@type': 'AggregateRating',
+    ratingValue: '5',
+    reviewCount: '3', // {{STEF: keep in sync with the number of real testimonials shown on the site}}
   },
+  review: (['piazza', 'scott', 'paul'] as const).map((k) => ({
+    '@type': 'Review',
+    author: { '@type': 'Person', name: testimonials[k].name },
+    reviewRating: { '@type': 'Rating', ratingValue: '5', bestRating: '5' },
+    reviewBody: testimonials[k].body,
+  })),
 }
 
 export default function HomePage() {
-  return <HomeClientV2 />
+  return (
+    <>
+      <JsonLd data={professionalServiceSchema} />
+      <JsonLd data={faqSchema(homepageFaqs)} />
+      <JsonLd data={reviewSchema} />
+      <HomeClientV2 />
+    </>
+  )
 }
