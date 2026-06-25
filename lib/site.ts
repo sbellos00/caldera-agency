@@ -143,8 +143,7 @@ export interface Faq {
 // Homepage FAQ. Answer-first and prompt-shaped for AI answer engines: each
 // question mirrors how people actually ask, and each answer opens with a direct,
 // quotable statement. Rendered on the homepage AND emitted as FAQPage schema from
-// app/page.tsx, so this is the single source of truth for both. The full set
-// (these plus extraFaqs) lives on /faq.
+// app/page.tsx, so this is the single source of truth for both.
 export const homepageFaqs: Faq[] = [
   {
     q: 'Do consultants need a website if they already have LinkedIn?',
@@ -159,20 +158,12 @@ export const homepageFaqs: Faq[] = [
     a: 'Most clients launch within days to a couple of weeks. We handle the research, writing, design, and development, so the main variable is how quickly you review each round. Clients who respond quickly have gone from first prototype to live site in under a week.',
   },
   {
-    q: 'How is this different from Squarespace, Wix, or hiring a freelancer?',
-    a: 'DIY builders hand you a template and make you the designer, writer, and strategist. Most freelancers build only what you brief them. Caldera researches your background, writes your copy, and designs and builds a fully custom site around your vision. Whatever you picture, however complex, we build it from scratch.',
-  },
-  {
     q: 'What kind of consultants do you work with?',
     a: 'Solo and independent consultants. That means Fractional CFOs, executive and leadership coaches, supply chain and operations advisors, health care consultants, and experts like them. That focus is what keeps the work sharp.',
   },
   {
     q: 'Can you build exactly what I have in mind?',
     a: 'Yes. Whatever you picture, we build it. Custom layouts, rich animation, interactive detail, an unconventional structure. Because every site is built from scratch rather than dropped into a template, there is no complexity ceiling. You describe the vision and we make it real.',
-  },
-  {
-    q: 'Will a website actually get me more clients?',
-    a: "A consultant website's job is credibility and conversion, not lead generation. No site guarantees leads, but a credible site stops you losing the deals you never hear about, and it opens doors to RFPs, partnerships, and high-value referrals. It turns interest into trust.",
   },
 ]
 
