@@ -11,10 +11,6 @@
 - [FAQ](https://www.caldera.agency/faq): Common questions about working with Caldera
 - [Contact](https://www.caldera.agency/contact): Get in touch or request a free prototype
 
-## Writing
-- [LinkedIn vs your own website for consultants](https://www.caldera.agency/blog/linkedin-vs-website-for-consultants)
-- [The authority paradox](https://www.caldera.agency/blog/the-authority-paradox)
-
 ## Facts
 - Caldera builds websites exclusively for solo and independent consultants (fractional CFOs, executive and leadership coaches, supply chain and operations advisors, health care consultants, and similar).
 - Clients receive a free working prototype before paying anything.

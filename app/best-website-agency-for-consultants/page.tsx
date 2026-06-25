@@ -312,8 +312,8 @@ export default function BestWebsiteAgencyPage() {
             </Link>
             <p className="text-white/50 text-sm mt-10">
               See our{' '}
-              <Link href="/work" className="underline underline-offset-4 hover:text-white">case studies</Link>, or read{' '}
-              <Link href="/blog/linkedin-vs-website-for-consultants" className="underline underline-offset-4 hover:text-white">LinkedIn vs your own website</Link>.
+              <Link href="/work" className="underline underline-offset-4 hover:text-white">case studies</Link>, or{' '}
+              <Link href="/process" className="underline underline-offset-4 hover:text-white">how the process works</Link>.
             </p>
           </div>
         </section>

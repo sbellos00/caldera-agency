@@ -11,17 +11,15 @@ const nextConfig: NextConfig = {
   },
   async redirects() {
     return [
-      // The old placeholder slug "/blog/sample-post" held a real article
-      // ("The Authority Paradox"); it now lives at a descriptive, SEO-friendly slug.
-      {
-        source: '/blog/sample-post',
-        destination: '/blog/the-authority-paradox',
-        permanent: true,
-      },
-      // Retired pages — redirect to the flagship, the main page we keep.
+      // The blog has been retired. Redirect every old blog URL to the flagship page.
+      { source: '/blog', destination: '/best-website-agency-for-consultants', permanent: true },
+      { source: '/blog/sample-post', destination: '/best-website-agency-for-consultants', permanent: true },
+      { source: '/blog/the-authority-paradox', destination: '/best-website-agency-for-consultants', permanent: true },
+      { source: '/blog/linkedin-vs-website-for-consultants', destination: '/best-website-agency-for-consultants', permanent: true },
       { source: '/blog/why-consultants-need-websites', destination: '/best-website-agency-for-consultants', permanent: true },
       { source: '/blog/do-consultants-need-a-website', destination: '/best-website-agency-for-consultants', permanent: true },
       { source: '/blog/best-website-builder-for-consultants', destination: '/best-website-agency-for-consultants', permanent: true },
+      // Retired standalone pages.
       { source: '/consultant-websites', destination: '/best-website-agency-for-consultants', permanent: true },
       { source: '/for/fractional-cfo', destination: '/best-website-agency-for-consultants', permanent: true },
       { source: '/for/coaches', destination: '/best-website-agency-for-consultants', permanent: true },
