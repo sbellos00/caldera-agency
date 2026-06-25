@@ -234,7 +234,7 @@ export default function ConsultantWebsitesGuide() {
               It comes down to how you value your time and how much risk you want to carry. DIY is cheapest, but you
               become the strategist, copywriter, designer, and developer. A freelancer can be excellent if you can hand
               them clear positioning and steer the project. An agency does it for you, but you usually brief them and pay
-              before you see real work. The compare-everything version, including when a done-for-you agency is the right
+              before anything is built. The compare-everything version, including when a done-for-you agency is the right
               call, is in{' '}
               <Link href="/blog/best-website-builder-for-consultants" className={link}>best website options for consultants</Link>, and the
               consultant-specific case is on{' '}
@@ -250,8 +250,8 @@ export default function ConsultantWebsitesGuide() {
             </P>
             <P>
               This is exactly the work Caldera does. We research your background, your positioning, and your market from
-              your LinkedIn alone, then build a working prototype of your actual website before you pay anything. Your
-              only real job is sharing your vision and reviewing what we build. See{' '}
+              your LinkedIn alone, then build a working prototype of your website before you pay anything. Your only job
+              is sharing your vision and reviewing what we build. See{' '}
               <Link href="/process" className={link}>exactly how the process works</Link>.
             </P>
 

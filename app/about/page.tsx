@@ -244,7 +244,7 @@ export default function AboutPage() {
                 {[
                   { icon: '01', h: 'Not a sales tactic', b: 'We build your prototype as a filter. We only reach out when we have something worth showing.' },
                   { icon: '02', h: 'Standards stay high', b: 'It keeps our quality bar self-enforcing. If we can\'t build something great, we don\'t reach out.' },
-                  { icon: '03', h: 'Real work, not promises', b: 'You decide based on an actual website, not a pitch deck or vague case studies.' },
+                  { icon: '03', h: 'Proof, not promises', b: 'You decide based on a working website, not a pitch deck or vague case studies.' },
                   { icon: '04', h: 'Accessible entry point', b: 'We\'d rather earn trust upfront than extract maximum revenue from the first interaction.' },
                 ].map((step, i) => (
                   <div key={step.icon} className="scroll-fade" style={{ transitionDelay: `${i * 80}ms` }}>
@@ -290,7 +290,7 @@ export default function AboutPage() {
           {/* 3 more cards */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
             {[
-              { h: 'You see real work before you pay.', b: 'You start with a free working prototype of your actual website. No risk of paying for a brief, a mock-up, or a half-finished site. You only move forward once you have seen something real.' },
+              { h: 'You see the work before you pay.', b: 'You start with a free working prototype of your website. No risk of paying for a brief, a mock-up, or a half-finished site. You only move forward once you have seen it.' },
               { h: 'We handle everything after.', b: 'Launch, domain, analytics, hosting, tech support, and post-launch tweaks are all managed by us so you can stay focused on your work.' },
               { h: 'Full control over your brand and presence.', b: 'Your website is a custom asset that reflects your personal brand exactly how you want it. You decide how you show up online, and we build to that vision, down to the smallest detail.' },
             ].map((card, i) => (

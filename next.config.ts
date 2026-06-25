@@ -18,6 +18,12 @@ const nextConfig: NextConfig = {
         destination: '/blog/the-authority-paradox',
         permanent: true,
       },
+      // Retired "Why every consultant needs a website" — redirect to the closest live topic.
+      {
+        source: '/blog/why-consultants-need-websites',
+        destination: '/blog/do-consultants-need-a-website',
+        permanent: true,
+      },
     ];
   },
 };

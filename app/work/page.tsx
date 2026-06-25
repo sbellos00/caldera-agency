@@ -78,7 +78,7 @@ export default function WorkPage() {
             Consultant websites <Accent>we have built</Accent>
           </h1>
           <p className="scroll-fade text-lg md:text-xl leading-relaxed text-[var(--gray-dark)] max-w-3xl">
-            Real, live websites for independent consultants. Every one was researched, written, designed, and built by
+            Live websites for independent consultants. Every one was researched, written, designed, and built by
             Caldera, with a free working prototype before the client paid anything. Here is a look at the work and what
             clients say about it.
           </p>

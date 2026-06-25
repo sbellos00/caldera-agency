@@ -643,7 +643,7 @@ export default function HomeV2() {
                   <div className="flex flex-col gap-3">
                     {[
                       { icon: '01', h: 'We build first', b: 'We study your LinkedIn, positioning, and market, then build a working prototype before we ever talk.' },
-                      { icon: '02', h: 'The prototype does the talking', b: 'Instead of briefs and questionnaires, we start with something real. It proves what we can do and gives us both a concrete starting point.' },
+                      { icon: '02', h: 'The prototype does the talking', b: 'Instead of briefs and questionnaires, we start with a working prototype. It proves what we can do and gives us both a concrete starting point.' },
                       { icon: '03', h: 'You review, we refine', b: 'Some clients take it nearly as-is. Others want big changes. We jump on a quick call to understand what you need and tailor our offer accordingly. Either way, there\u2019s no homework for you, just send us whatever you have, we figure it out and come back with the next version.' },
                       { icon: '04', h: 'Launch', b: 'Your site goes live with 1 year of free hosting and support.' },
                     ].map((step, i) => (
@@ -734,7 +734,7 @@ export default function HomeV2() {
               <div className="absolute inset-0 bg-gradient-to-br from-[var(--primary-blue)] to-[var(--blue-dark)] opacity-0 transition-opacity duration-400 group-hover:opacity-100" />
               <h3 className="text-xl md:text-2xl font-medium tracking-tight mb-3 text-[var(--black)] relative z-10 group-hover:text-white">&ldquo;What if I don&apos;t like what you build?&rdquo;</h3>
               <p className="text-[15px] leading-relaxed text-[var(--gray-medium)] max-w-2xl mx-auto relative z-10 group-hover:text-white">
-                You see a free working prototype before you pay anything. We build it from your LinkedIn, no brief required, so you react to your real website instead of imagining one. If it is not right, you walk away owing nothing.
+                You see a free working prototype before you pay anything. We build it from your LinkedIn, no brief required, so you are reacting to a working version of your site, not a pitch. If it is not right, you walk away owing nothing.
               </p>
             </div>
           </div>

@@ -80,8 +80,6 @@ export default function Page() {
           That is the whole system. Neither half is optional if you compete for serious, considered work.
         </AP>
         <AP>
-          For the longer argument, read{' '}
-          <Link href="/blog/why-consultants-need-websites" className={link}>why every consultant needs a website</Link>.
           If you are still deciding whether it is worth it, see{' '}
           <Link href="/blog/do-consultants-need-a-website" className={link}>do consultants need a website</Link>. To plan
           the site itself, use{' '}

@@ -84,10 +84,8 @@ export default function Page() {
           ]}
         />
         <AP>
-          For everyone else, a website is the difference between being considered and being chosen. For the deeper
-          version, with the research behind it, read{' '}
-          <Link href="/blog/why-consultants-need-websites" className={link}>why every consultant needs a website</Link>,
-          or start with{' '}
+          For everyone else, a website is the difference between being considered and being chosen. To plan the site
+          itself, start with{' '}
           <Link href="/consultant-websites" className={link}>the complete guide to consultant websites</Link>.
         </AP>
       </Band>

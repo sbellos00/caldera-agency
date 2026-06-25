@@ -152,7 +152,7 @@ export const homepageFaqs: Faq[] = [
   },
   {
     q: 'How much does a consultant website cost?',
-    a: 'Every project starts with a free working prototype, so you see your actual website before you decide anything. From there, the investment depends on the scope and complexity of the site you want. There are no upfront fees to get started, and no obligation once you see the prototype.',
+    a: 'Every project starts with a free working prototype, so you see your website before you decide anything. From there, the investment depends on the scope and complexity of the site you want.',
   },
   {
     q: 'How long does it take to build a consultant website?',
@@ -164,7 +164,7 @@ export const homepageFaqs: Faq[] = [
   },
   {
     q: 'What kind of consultants do you work with?',
-    a: 'Solo and independent consultants only. Fractional CFOs, executive and leadership coaches, supply chain and operations advisors, and strategy and management consultants. We do not take on agencies, local businesses, or e-commerce. That focus is what makes our sites work.',
+    a: 'Solo and independent consultants. That means Fractional CFOs, executive and leadership coaches, supply chain and operations advisors, health care consultants, and experts like them. That focus is what keeps the work sharp.',
   },
   {
     q: 'Can you build exactly what I have in mind?',
@@ -185,7 +185,7 @@ export const extraFaqs: Faq[] = [
   },
   {
     q: 'How does the free prototype work?',
-    a: 'You share your LinkedIn. We research your background, positioning, and market, then build a working prototype of your actual website before you pay anything. If you love it, we refine it with you and launch. If it is not right, you walk away owing nothing.',
+    a: 'You share your LinkedIn. We research your background, positioning, and market, then build a working prototype of your website before you pay anything. If you love it, we refine it with you and launch. If it is not right, you walk away owing nothing.',
   },
   {
     q: 'What is included when you build my website?',

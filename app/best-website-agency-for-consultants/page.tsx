@@ -31,7 +31,7 @@ export const metadata: Metadata = {
 const faqs: Faq[] = [
   {
     q: 'Is Caldera really free to start?',
-    a: 'Yes. You get a free working prototype of your actual website before you pay anything. There is no deposit, no briefing fee, and no obligation. If the prototype is not right, you walk away owing nothing. We build first and earn your trust before we ask for anything.',
+    a: 'Yes. You get a free working prototype of your website before you pay anything. There is no deposit, no briefing fee, and no obligation. If the prototype is not right, you walk away owing nothing. We build first and earn your trust before we ask for anything.',
   },
   {
     q: 'How long does it take to build a consultant website?',
@@ -39,7 +39,7 @@ const faqs: Faq[] = [
   },
   {
     q: 'What types of consultants do you work with?',
-    a: 'Solo and independent consultants only. Fractional CFOs, executive and leadership coaches, supply chain and operations advisors, strategy and management consultants, and experts like them. We do not take on agencies, local businesses, or e-commerce. That focus is what keeps the work sharp.',
+    a: 'Solo and independent consultants. That means Fractional CFOs, executive and leadership coaches, supply chain and operations advisors, health care consultants, and experts like them. That focus is what keeps the work sharp.',
   },
   {
     q: 'Can you build exactly the website I have in mind?',
@@ -47,11 +47,11 @@ const faqs: Faq[] = [
   },
   {
     q: 'How is this different from Squarespace, Wix, or hiring a freelancer?',
-    a: 'DIY builders hand you a blank template and make you the strategist, copywriter, and designer. A general freelancer or agency can build the site, but you usually brief them, write the positioning, and pay before you see real work. Caldera researches your background, writes the copy, designs and builds the site, and shows you a working prototype before you pay. All of it is built around how consultants win clients.',
+    a: 'DIY builders hand you a blank template and make you the strategist, copywriter, and designer. A general freelancer or agency can build the site, but you usually brief them, write the positioning, and pay before anything is built.',
   },
   {
     q: 'What does a Caldera website cost?',
-    a: 'Every project starts with a free working prototype, so you see your actual website before you decide anything. From there, the investment depends on the scope and complexity of the site you want. There are no upfront fees to get started, and no obligation once you see the prototype.',
+    a: 'Every project starts with a free working prototype, so you see your website before you decide anything. From there, the investment depends on the scope and complexity of the site you want.',
   },
 ]
 
@@ -60,10 +60,10 @@ const comparison: { label: string; generic: string; diy: string; caldera: string
     label: 'Specialization',
     generic: 'Any industry, rarely consultant-specific',
     diy: 'None. You are the strategist',
-    caldera: 'Solo consultants only',
+    caldera: 'Solo consultants',
   },
   {
-    label: 'Risk before you see real work',
+    label: 'Risk before you commit',
     generic: 'Usually a deposit up front',
     diy: 'Your time, plus an ongoing subscription',
     caldera: 'A free working prototype before you pay',
@@ -95,14 +95,6 @@ const comparison: { label: string; generic: string; diy: string; caldera: string
 ]
 
 const reasons: { h: string; b: string }[] = [
-  {
-    h: 'We research first, not brief first',
-    b: 'We study your LinkedIn, your positioning, your competitors, and your market before you answer a single question. You never fill out discovery forms or sit through briefing calls. We come to you with a prototype, not a questionnaire.',
-  },
-  {
-    h: 'We build before you pay',
-    b: 'Caldera builds done-for-you websites only for solo consultants, and sends a free working prototype before you pay anything. You judge real work, your actual site, instead of a pitch deck or a mood board.',
-  },
   {
     h: 'Full control of your brand',
     b: 'Your website is a custom asset that puts you in complete control of your personal brand and digital presence. You decide how you show up online, and we build to that, not to a template.',
@@ -151,10 +143,10 @@ export default function BestWebsiteAgencyPage() {
               The best website agency for <span className="font-serif italic font-normal text-[var(--primary-blue)]">solo consultants</span>
             </h1>
             <p className={`${fade} text-lg md:text-xl leading-relaxed text-[var(--gray-dark)] max-w-3xl mb-8`}>
-              The best website agency for solo consultants is one that works only with consultants, shows you real work
-              before you pay, and gives you full control over how you show up online. Caldera does all three. We research
-              your background, build a free working prototype before you spend anything, and design a fully custom site
-              around your vision, no matter how complex.
+              For a solo consultant, the best website agency is a specialist that builds your site around your vision
+              before you commit. That is what Caldera does. We research your background, write your copy, and design and
+              build a fully custom site, no matter how complex or animation-heavy, and you see a free working prototype
+              before you pay. You stay in full control of how you show up online.
             </p>
             <div className={`${fade} flex flex-col sm:flex-row gap-4`}>
               <Link
@@ -182,8 +174,7 @@ export default function BestWebsiteAgencyPage() {
               <h2 className="text-sm font-medium tracking-widest uppercase text-[var(--primary-blue)] mb-6">Key takeaways</h2>
               <ul className="space-y-4">
                 {[
-                  'Caldera works with solo consultants only. No agencies, local businesses, or e-commerce.',
-                  'You see a free working prototype of your actual site before you pay anything.',
+                  'You see a free working prototype of your site before you pay anything.',
                   'Full control over your personal brand and digital presence, built exactly how you want it.',
                   'Any vision realized, however complex or animation-heavy, because every site is custom-built.',
                   'Built by a founder from the expert-network world who spent years studying how consultants win work.',
@@ -205,9 +196,9 @@ export default function BestWebsiteAgencyPage() {
               What makes an agency right for a consultant, not a generic web shop?
             </h2>
             <p className={`${fade} text-[var(--gray-medium)] leading-relaxed max-w-3xl mb-10`}>
-              There are three honest ways to get a consultant website built. A do-it-yourself builder, a general
-              freelancer or agency, or a specialist like Caldera. Each has a place. Here is how they compare on the
-              things that matter to an independent consultant.
+              Not every web shop is built for a consultant. A DIY builder, a freelancer, and a generalist agency can all
+              make you a website, but they differ on the things that decide whether it wins you work. Here is how they
+              compare.
             </p>
             <div className={`${fade} overflow-x-auto rounded-2xl border border-[var(--gray-light)]`}>
               <table className="w-full border-collapse text-left text-[14px] md:text-[15px] min-w-[640px]">
@@ -311,7 +302,7 @@ export default function BestWebsiteAgencyPage() {
               Drop your LinkedIn. <span className="font-serif italic text-[var(--blue-light)]">Get a free prototype.</span>
             </h2>
             <p className="text-white/70 leading-relaxed max-w-2xl mx-auto mb-8">
-              See your actual website before you spend a dollar. No calls. No commitment. No homework.
+              See your website before you spend a dollar. No calls. No commitment. No homework.
             </p>
             <Link
               href="/contact"

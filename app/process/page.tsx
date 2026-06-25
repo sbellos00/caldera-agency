@@ -13,7 +13,7 @@ const steps = [
   {
     num: '01',
     title: 'We find you',
-    body: 'We research your LinkedIn, study your positioning, and build a full working prototype of your website before making any contact. No questionnaires. No discovery calls. Just a real website, built around you.',
+    body: 'We research your LinkedIn, study your positioning, and build a full working prototype of your website before making any contact. No questionnaires. No discovery calls. Just a working website, built around you.',
   },
   {
     num: '02',

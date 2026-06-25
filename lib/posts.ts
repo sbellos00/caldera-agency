@@ -46,15 +46,6 @@ export const posts: Post[] = [
     category: 'Strategy',
   },
   {
-    slug: 'why-consultants-need-websites',
-    title: 'Why Every Consultant Needs a Website (Even When LinkedIn Is Working)',
-    excerpt:
-      "Discover why LinkedIn alone isn't enough for consultants who want to command premium rates and win high-value clients.",
-    date: '2025-08-05',
-    readingTime: '8 min read',
-    category: 'Consultant Positioning',
-  },
-  {
     slug: 'the-authority-paradox',
     title: "The Authority Paradox: Why Technical Expertise Alone Won't Win Premium Clients",
     excerpt:
