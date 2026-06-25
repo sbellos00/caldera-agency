@@ -37,11 +37,12 @@ export default function WorkClient() {
   // Scroll-driven background theming — mirrors the homepage: the scroll container's
   // background colour transitions as each themed section enters the viewport, so the
   // sections themselves carry no hard-coded background.
-  // Once we leave the cream hero, everything stays black through the footer — one
-  // clean cream → black transition, no flashing back to white between sections.
+  // Cream hero → black case studies → blue testimonials (a single accent section,
+  // like the homepage FAQ) → black CTA. Text stays white across black and blue, so
+  // there is no flash of unreadable text on any transition.
   const scrollThemes = useRef([
     { bg: 'rgb(0, 0, 0)', text: 'rgb(255, 255, 255)' },        // Case studies — dark
-    { bg: 'rgb(0, 0, 0)', text: 'rgb(255, 255, 255)' },        // Testimonials — dark
+    { bg: 'rgb(0, 25, 255)', text: 'rgb(255, 255, 255)' },     // Testimonials — blue
     { bg: 'rgb(0, 0, 0)', text: 'rgb(255, 255, 255)' },        // CTA — dark
   ])
 
@@ -278,20 +279,24 @@ export default function WorkClient() {
           </div>
         </section>
 
-        {/* Testimonials */}
-        <section ref={el => { themedSectionRefs.current[1] = el }} className="py-24 md:py-32 px-8 md:px-16">
-          <div className="max-w-screen-lg mx-auto">
-            <p className="text-[var(--primary-blue)] text-sm font-medium tracking-widest uppercase text-center mb-4 scroll-fade">Testimonials</p>
+        {/* Testimonials — blue accent section (matches the homepage FAQ) */}
+        <section ref={el => { themedSectionRefs.current[1] = el }} className="relative py-24 md:py-32 px-8 md:px-16 overflow-hidden">
+          <div className="absolute inset-0 opacity-[0.03]" style={{
+            backgroundImage: `radial-gradient(circle at 1px 1px, white 1px, transparent 0)`,
+            backgroundSize: '60px 60px',
+          }} />
+          <div className="relative z-10 max-w-screen-lg mx-auto">
+            <p className="text-white/80 text-sm font-medium tracking-widest uppercase text-center mb-4 scroll-fade">Testimonials</p>
             <h2 className="section-title text-center mb-12 md:mb-16 scroll-fade">What clients say</h2>
             <div className="flex flex-col gap-6">
               {workTestimonials.map((t) => (
-                <figure key={t.name} className="scroll-fade bg-white/[0.04] border border-white/10 rounded-2xl p-7 md:p-9">
-                  <blockquote className="text-white/80 leading-relaxed text-[16px] md:text-[17px] mb-4">
+                <figure key={t.name} className="scroll-fade bg-white/[0.08] border border-white/20 rounded-2xl p-7 md:p-9">
+                  <blockquote className="text-white/90 leading-relaxed text-[16px] md:text-[17px] mb-4">
                     &ldquo;{t.body}&rdquo;
                   </blockquote>
                   <figcaption className="text-sm">
                     <span className="font-semibold text-white">{t.name}</span>
-                    <span className="text-white/50">, {t.role}</span>
+                    <span className="text-white/60">, {t.role}</span>
                   </figcaption>
                 </figure>
               ))}
