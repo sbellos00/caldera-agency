@@ -5,6 +5,8 @@ import Link from 'next/link'
 import Image from 'next/image'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import Lenis from 'lenis'
+import 'lenis/dist/lenis.css'
 import Menu from '@/components/Menu'
 import Footer from '@/components/Footer'
 import { caseStudies, workTestimonials } from '@/lib/work'
@@ -21,11 +23,15 @@ export default function WorkClient() {
   const cursorDotRef = useRef<HTMLDivElement>(null)
   const scrollContainerRef = useRef<HTMLDivElement>(null)
   const themedSectionRefs = useRef<(HTMLElement | null)[]>([])
+  const lenisRef = useRef<Lenis | null>(null)
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [navDark, setNavDark] = useState(false)
 
   const scrollToCaseStudies = useCallback(() => {
-    document.getElementById('case-studies')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    const el = document.getElementById('case-studies')
+    if (!el) return
+    if (lenisRef.current) lenisRef.current.scrollTo(el)
+    else el.scrollIntoView({ behavior: 'smooth', block: 'start' })
   }, [])
 
   // Scroll-driven background theming — mirrors the homepage: the scroll container's
@@ -93,10 +99,19 @@ export default function WorkClient() {
     return () => observer.disconnect()
   }, [])
 
-  // Background theme switching
+  // Background theme switching — mirrors the homepage exactly, including the Lenis
+  // smooth scroll that makes the background-colour transitions feel slow and
+  // deliberate rather than snapping on native scroll.
   useEffect(() => {
     const container = scrollContainerRef.current
     if (!container) return
+
+    const lenis = new Lenis({ lerp: 0.1, smoothWheel: true })
+    lenisRef.current = lenis
+    lenis.on('scroll', ScrollTrigger.update)
+    const raf = (time: number) => lenis.raf(time * 1000)
+    gsap.ticker.add(raf)
+    gsap.ticker.lagSmoothing(0)
 
     const ctx = gsap.context(() => {
       themedSectionRefs.current.forEach((el, i) => {
@@ -124,7 +139,12 @@ export default function WorkClient() {
       })
     })
 
-    return () => ctx.revert()
+    return () => {
+      ctx.revert()
+      gsap.ticker.remove(raf)
+      lenis.destroy()
+      lenisRef.current = null
+    }
   }, [])
 
   return (
@@ -165,11 +185,11 @@ export default function WorkClient() {
           <p className="text-[var(--primary-blue)] text-sm font-medium tracking-widest uppercase mb-6 scroll-fade">Case studies</p>
 
           <h1 className="text-[clamp(2.2rem,4.5vw,4.5rem)] font-light tracking-tight leading-[0.95] mb-6 text-[var(--black)] scroll-fade">
-            Consultant websites <span className="font-serif italic font-normal text-[var(--primary-blue)]">we have built</span>
+            Our <span className="font-serif italic font-normal text-[var(--primary-blue)]">work</span>
           </h1>
 
           <p className="text-base md:text-lg leading-relaxed text-[var(--gray-medium)] max-w-2xl mb-10 scroll-fade">
-            Live websites for independent consultants. Every one was researched, written, designed, and built by Caldera, with a free working prototype before the client paid anything.
+            A few of the websites we&apos;ve built for consultants.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 scroll-fade">
