@@ -705,9 +705,10 @@ export default function HomeV2() {
             </div>
 
             <div className="text-center mt-14 md:mt-16 scroll-fade">
-              <Link href="/work" className="group inline-flex items-center gap-2 border border-white/30 text-white px-7 py-4 text-[15px] font-medium tracking-tight rounded-lg no-underline transition-all duration-300 hover:bg-white/10 hover:scale-105">
-                See all the case studies
+              <Link href="/work" className="inline-flex items-center gap-2 text-base md:text-lg relative pb-1 group">
+                <span>See all the case studies</span>
                 <span className="transition-transform duration-300 group-hover:translate-x-1">&rarr;</span>
+                <div className="absolute bottom-0 left-0 w-0 h-0.5 bg-current transition-[width] duration-300 group-hover:w-full" />
               </Link>
             </div>
           </div>
