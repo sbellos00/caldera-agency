@@ -37,9 +37,11 @@ export default function WorkClient() {
   // Scroll-driven background theming — mirrors the homepage: the scroll container's
   // background colour transitions as each themed section enters the viewport, so the
   // sections themselves carry no hard-coded background.
+  // Once we leave the cream hero, everything stays black through the footer — one
+  // clean cream → black transition, no flashing back to white between sections.
   const scrollThemes = useRef([
     { bg: 'rgb(0, 0, 0)', text: 'rgb(255, 255, 255)' },        // Case studies — dark
-    { bg: 'rgb(250, 248, 245)', text: 'rgb(0, 0, 0)' },        // Testimonials — cream
+    { bg: 'rgb(0, 0, 0)', text: 'rgb(255, 255, 255)' },        // Testimonials — dark
     { bg: 'rgb(0, 0, 0)', text: 'rgb(255, 255, 255)' },        // CTA — dark
   ])
 
@@ -185,11 +187,11 @@ export default function WorkClient() {
           <p className="text-[var(--primary-blue)] text-sm font-medium tracking-widest uppercase mb-6 scroll-fade">Case studies</p>
 
           <h1 className="text-[clamp(2.2rem,4.5vw,4.5rem)] font-light tracking-tight leading-[0.95] mb-6 text-[var(--black)] scroll-fade">
-            Our <span className="font-serif italic font-normal text-[var(--primary-blue)]">work</span>
+            We let the work make the <span className="font-serif italic font-normal text-[var(--primary-blue)]">case</span>
           </h1>
 
           <p className="text-base md:text-lg leading-relaxed text-[var(--gray-medium)] max-w-2xl mb-10 scroll-fade">
-            A few of the websites we&apos;ve built for consultants.
+            Websites we&apos;ve built for independent consultants. Each one started as a free prototype, before anyone paid a cent.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 scroll-fade">
@@ -283,13 +285,13 @@ export default function WorkClient() {
             <h2 className="section-title text-center mb-12 md:mb-16 scroll-fade">What clients say</h2>
             <div className="flex flex-col gap-6">
               {workTestimonials.map((t) => (
-                <figure key={t.name} className="scroll-fade bg-white rounded-2xl p-7 md:p-9 shadow-[0_8px_40px_rgba(0,0,0,0.04)]">
-                  <blockquote className="text-[var(--gray-dark)] leading-relaxed text-[16px] md:text-[17px] mb-4">
+                <figure key={t.name} className="scroll-fade bg-white/[0.04] border border-white/10 rounded-2xl p-7 md:p-9">
+                  <blockquote className="text-white/80 leading-relaxed text-[16px] md:text-[17px] mb-4">
                     &ldquo;{t.body}&rdquo;
                   </blockquote>
                   <figcaption className="text-sm">
-                    <span className="font-semibold text-[var(--black)]">{t.name}</span>
-                    <span className="text-[var(--gray-medium)]">, {t.role}</span>
+                    <span className="font-semibold text-white">{t.name}</span>
+                    <span className="text-white/50">, {t.role}</span>
                   </figcaption>
                 </figure>
               ))}
@@ -298,10 +300,14 @@ export default function WorkClient() {
         </section>
 
         {/* Closing CTA */}
-        <section ref={el => { themedSectionRefs.current[2] = el }} className="py-24 md:py-32 px-8 md:px-16">
-          <div className="max-w-screen-lg mx-auto text-center">
+        <section ref={el => { themedSectionRefs.current[2] = el }} className="relative py-24 md:py-32 px-8 md:px-16 overflow-hidden noise-overlay">
+          <div className="absolute inset-0 opacity-[0.03]" style={{
+            backgroundImage: `radial-gradient(circle at 1px 1px, white 1px, transparent 0)`,
+            backgroundSize: '60px 60px',
+          }} />
+          <div className="relative z-10 max-w-screen-lg mx-auto text-center">
             <h2 className="text-[clamp(28px,4vw,52px)] font-light tracking-tight leading-tight mb-5 text-white">
-              Want to see <span className="font-serif italic text-[var(--blue-light)]">yours</span>?
+              Want to see <span className="font-serif italic text-[var(--primary-blue)]">yours</span>?
             </h2>
             <p className="text-white/70 leading-relaxed max-w-2xl mx-auto mb-8">
               Drop your LinkedIn and we will build a free working prototype of your website. No calls. No commitment. No homework.
