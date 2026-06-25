@@ -11,12 +11,8 @@ export interface CaseStudy {
 }
 
 // Live case studies. The two flagship builds (Polaris, Piazza) lead with local
-// screenshots and full summaries; the newer client sites follow, each pairing a
-// Cloudinary screenshot with the live site. Where the consultant's name could not
-// be confirmed, `name`/`role` are blank and the card falls back to showing the
-// domain as its title.
-// {{STEF: fill in summaries, and the missing names/roles for esemenyuk.com and
-//  nextspanconsulting.com (see WorkClient card fallback).}}
+// screenshots; the newer client sites follow, each pairing a Cloudinary screenshot
+// with the live site.
 export const caseStudies: CaseStudy[] = [
   {
     name: 'Dr. Ron Paul',
@@ -39,35 +35,40 @@ export const caseStudies: CaseStudy[] = [
     role: 'Founder, Boutique HR',
     url: 'https://boutiquehr.agency',
     image: 'https://res.cloudinary.com/dxg4uslo6/image/upload/v1782384519/Screenshot_2026-06-25_at_1.45.27_PM_fxxu6e.png',
-    summary: '',
+    summary:
+      'A full website build for an HR consultant. Working from the palette and moodboard her brand designer supplied, we implemented the full vision across strategy, design, and development, built so her depth of work and her personality come through instantly.',
   },
   {
     name: 'Tim Scott',
     role: 'Founder, True North Supply Chain Advisory',
     url: 'https://www.truenorthsupplychainadvisory.com',
     image: 'https://res.cloudinary.com/dxg4uslo6/image/upload/v1782384510/Screenshot_2026-06-25_at_1.48.14_PM_yttpvr.png',
-    summary: '',
+    summary:
+      'A one-page site for a supply-chain advisory practice: strategy, design, and development.',
   },
   {
-    name: '',
-    role: '',
+    name: 'Ekaterina Semenyuk',
+    role: 'Biosafety & Research Safety Consultant',
     url: 'https://esemenyuk.com',
     image: 'https://res.cloudinary.com/dxg4uslo6/image/upload/v1782384441/Screenshot_2026-06-25_at_1.46.18_PM_u5ptyt.png',
-    summary: '',
+    summary:
+      'A one-page site: strategy, copy, design, and development, built to present her healthcare expertise, with the branding drawn from Azelia Labs, the lab she works with.',
   },
   {
-    name: '',
-    role: '',
+    name: 'Spencer McGuire-Mitchem',
+    role: 'Founder, NextSpan Consulting',
     url: 'https://www.nextspanconsulting.com',
     image: 'https://res.cloudinary.com/dxg4uslo6/image/upload/v1782384441/Screenshot_2026-06-25_at_1.46.45_PM_ase0fu.png',
-    summary: '',
+    summary:
+      'A one-page site for his solo consulting company: strategy, copy, design, branding, and development.',
   },
   {
     name: 'Sarah Ziegler',
-    role: '',
+    role: 'Biosafety & Research Safety Consultant',
     url: 'https://sarahziegler.com',
     image: 'https://res.cloudinary.com/dxg4uslo6/image/upload/v1782384441/Screenshot_2026-06-25_at_1.45.41_PM_jkmplp.png',
-    summary: '',
+    summary:
+      'A one-page site: strategy, copy, design, and development, built to present her healthcare expertise, with the branding drawn from Azelia Labs, the lab she works with.',
   },
 ]
 
