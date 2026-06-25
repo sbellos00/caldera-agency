@@ -18,12 +18,14 @@ const nextConfig: NextConfig = {
         destination: '/blog/the-authority-paradox',
         permanent: true,
       },
-      // Retired "Why every consultant needs a website" — redirect to the closest live topic.
-      {
-        source: '/blog/why-consultants-need-websites',
-        destination: '/blog/do-consultants-need-a-website',
-        permanent: true,
-      },
+      // Retired pages — redirect to the flagship, the main page we keep.
+      { source: '/blog/why-consultants-need-websites', destination: '/best-website-agency-for-consultants', permanent: true },
+      { source: '/blog/do-consultants-need-a-website', destination: '/best-website-agency-for-consultants', permanent: true },
+      { source: '/blog/best-website-builder-for-consultants', destination: '/best-website-agency-for-consultants', permanent: true },
+      { source: '/consultant-websites', destination: '/best-website-agency-for-consultants', permanent: true },
+      { source: '/for/fractional-cfo', destination: '/best-website-agency-for-consultants', permanent: true },
+      { source: '/for/coaches', destination: '/best-website-agency-for-consultants', permanent: true },
+      { source: '/for/advisors', destination: '/best-website-agency-for-consultants', permanent: true },
     ];
   },
 };

@@ -9,16 +9,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const priorityPages: { path: string; priority: number; changeFrequency: MetadataRoute.Sitemap[number]['changeFrequency'] }[] = [
     { path: '/', priority: 1, changeFrequency: 'weekly' },
     { path: '/best-website-agency-for-consultants', priority: 0.9, changeFrequency: 'monthly' },
-    { path: '/consultant-websites', priority: 0.9, changeFrequency: 'monthly' },
     { path: '/work', priority: 0.8, changeFrequency: 'monthly' },
     { path: '/about', priority: 0.7, changeFrequency: 'monthly' },
     { path: '/process', priority: 0.7, changeFrequency: 'monthly' },
     { path: '/contact', priority: 0.6, changeFrequency: 'monthly' },
     { path: '/faq', priority: 0.6, changeFrequency: 'monthly' },
     { path: '/blog', priority: 0.7, changeFrequency: 'weekly' },
-    { path: '/for/fractional-cfo', priority: 0.8, changeFrequency: 'monthly' },
-    { path: '/for/coaches', priority: 0.8, changeFrequency: 'monthly' },
-    { path: '/for/advisors', priority: 0.8, changeFrequency: 'monthly' },
   ]
 
   const staticRoutes: MetadataRoute.Sitemap = priorityPages.map((p) => ({

@@ -80,10 +80,9 @@ export default function Page() {
           That is the whole system. Neither half is optional if you compete for serious, considered work.
         </AP>
         <AP>
-          If you are still deciding whether it is worth it, see{' '}
-          <Link href="/blog/do-consultants-need-a-website" className={link}>do consultants need a website</Link>. To plan
-          the site itself, use{' '}
-          <Link href="/consultant-websites" className={link}>the complete guide to consultant websites</Link>.
+          When you are ready, see the{' '}
+          <Link href="/work" className={link}>case studies</Link>, or read why we are the{' '}
+          <Link href="/best-website-agency-for-consultants" className={link}>best website agency for consultants</Link>.
         </AP>
       </Band>
     </ArticleShell>

@@ -312,10 +312,8 @@ export default function BestWebsiteAgencyPage() {
             </Link>
             <p className="text-white/50 text-sm mt-10">
               See our{' '}
-              <Link href="/work" className="underline underline-offset-4 hover:text-white">case studies</Link>, or keep reading:{' '}
-              <Link href="/consultant-websites" className="underline underline-offset-4 hover:text-white">the complete guide to consultant websites</Link>,{' '}
-              <Link href="/blog/best-website-builder-for-consultants" className="underline underline-offset-4 hover:text-white">Squarespace vs Wix vs custom vs done-for-you</Link>, or{' '}
-              <Link href="/blog/do-consultants-need-a-website" className="underline underline-offset-4 hover:text-white">do consultants need a website</Link>.
+              <Link href="/work" className="underline underline-offset-4 hover:text-white">case studies</Link>, or read{' '}
+              <Link href="/blog/linkedin-vs-website-for-consultants" className="underline underline-offset-4 hover:text-white">LinkedIn vs your own website</Link>.
             </p>
           </div>
         </section>

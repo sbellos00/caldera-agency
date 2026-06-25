@@ -116,18 +116,17 @@ export default function BlogIndexPage() {
         <section className="py-16 md:py-20 px-8 md:px-16 bg-[var(--black)] text-white relative overflow-hidden noise-overlay">
           <div className="relative z-10 max-w-screen-lg mx-auto text-center">
             <h2 className="text-2xl md:text-3xl font-light tracking-tight mb-4">
-              Want the whole picture in one place?
+              Want to see the bigger picture?
             </h2>
             <p className="text-white/70 leading-relaxed max-w-2xl mx-auto mb-8">
-              Start with our complete guide to consultant websites, or see why consultants pick a specialist agency over
-              a generic web shop.
+              See the websites we have built, or why consultants pick a specialist agency over a generic web shop.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
-                href="/consultant-websites"
+                href="/work"
                 className="inline-flex items-center justify-center gap-2 bg-white text-[var(--black)] px-7 py-4 text-[15px] font-medium tracking-tight rounded-lg no-underline transition-all duration-300 hover:scale-105"
               >
-                The complete guide &rarr;
+                See the case studies &rarr;
               </Link>
               <Link
                 href="/best-website-agency-for-consultants"

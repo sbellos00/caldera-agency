@@ -703,6 +703,13 @@ export default function HomeV2() {
                 </a>
               ))}
             </div>
+
+            <div className="text-center mt-14 md:mt-16 scroll-fade">
+              <Link href="/work" className="group inline-flex items-center gap-2 border border-white/30 text-white px-7 py-4 text-[15px] font-medium tracking-tight rounded-lg no-underline transition-all duration-300 hover:bg-white/10 hover:scale-105">
+                See all the case studies
+                <span className="transition-transform duration-300 group-hover:translate-x-1">&rarr;</span>
+              </Link>
+            </div>
           </div>
         </section>
 

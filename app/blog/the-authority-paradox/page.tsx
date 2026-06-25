@@ -134,9 +134,8 @@ export default function Page() {
           communicates that you operate at the same level as your premium clients.
         </AP>
         <AP>
-          That is the whole game: positioned expertise, made obvious. For the full playbook, read{' '}
-          <Link href="/consultant-websites" className={link}>the complete guide to consultant websites</Link>, or see
-          why consultants choose the{' '}
+          That is the whole game: positioned expertise, made obvious. See the{' '}
+          <Link href="/work" className={link}>case studies</Link>, or why consultants choose the{' '}
           <Link href="/best-website-agency-for-consultants" className={link}>best website agency for consultants</Link>.
         </AP>
       </Band>
