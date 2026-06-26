@@ -193,12 +193,10 @@ export default function BestWebsiteAgencyPage() {
         <section className="py-14 md:py-20 px-8 md:px-16 bg-white">
           <div className="max-w-screen-xl mx-auto">
             <h2 className={`${fade} text-[clamp(26px,3.5vw,44px)] font-light tracking-tight leading-tight mb-4 text-[var(--black)]`}>
-              Anyone can build a website. The right one <span className="font-serif italic text-[var(--primary-blue)]">wins you work</span>.
+              The Ways to Build a <span className="font-serif italic text-[var(--primary-blue)]">Consultant Website</span>
             </h2>
             <p className={`${fade} text-[var(--gray-medium)] leading-relaxed max-w-3xl mb-10`}>
-              A DIY builder, a freelancer, and a generalist agency can all get you online. The difference is everything
-              that makes a consultant credible &mdash; sharp positioning, copy that proves your expertise, and a site
-              built around the work you actually do. Here&rsquo;s how they compare.
+              A simple comparison of your main options, from a DIY builder to a generalist agency to a team that builds for consultants.
             </p>
             <div className={`${fade} overflow-x-auto rounded-2xl border border-[var(--gray-light)]`}>
               <table className="w-full border-collapse text-left text-[14px] md:text-[15px] min-w-[640px]">
