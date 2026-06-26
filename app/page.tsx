@@ -5,7 +5,7 @@ import { professionalServiceSchema, faqSchema, homepageFaqs, testimonials, SITE_
 
 export const metadata: Metadata = {
   title: "Caldera | The Website Agency for Solo Consultants",
-  description: "Caldera is a done-for-you website agency for solo consultants. Share your LinkedIn and we handle the research, copy, design, and build. Then you see a free prototype before you pay anything.",
+  description: "Caldera is a done-for-you website agency for solo consultants. Share your LinkedIn and we handle the research, copy, design, and build, then show you a free prototype before you pay anything.",
   keywords: [
     "consultant website design",
     "authority website",
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: "/",
     title: "Caldera | The Website Agency for Solo Consultants",
-    description: "Caldera is a done-for-you website agency for solo consultants. Share your LinkedIn and we handle the research, copy, design, and build. Then you see a free prototype before you pay anything.",
+    description: "Caldera is a done-for-you website agency for solo consultants. Share your LinkedIn and we handle the research, copy, design, and build, then show you a free prototype before you pay anything.",
     siteName: "Caldera Agency",
     images: [
       {
@@ -40,7 +40,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Caldera | The Website Agency for Solo Consultants",
-    description: "Caldera is a done-for-you website agency for solo consultants. Share your LinkedIn and we handle the research, copy, design, and build. Then you see a free prototype before you pay anything.",
+    description: "Caldera is a done-for-you website agency for solo consultants. Share your LinkedIn and we handle the research, copy, design, and build, then show you a free prototype before you pay anything.",
     images: ["/og-image.jpg"],
   },
 }

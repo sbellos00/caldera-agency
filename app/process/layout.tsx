@@ -5,7 +5,7 @@ import { breadcrumbSchema } from '@/lib/site'
 export const metadata: Metadata = {
   title: 'How We Work',
   description:
-    'Caldera builds a consultant website, starting from researching your background, writing the copy around it, and then designing and building the site, around your expertise. And we show a free prototype before you pay. Most consultants launch within a couple of weeks.',
+    'How Caldera builds a consultant website: we research your background, write the copy around it, then design and build the site around your expertise, with a free prototype before you pay. Most consultants launch within a couple of weeks.',
   alternates: {
     canonical: '/process',
   },

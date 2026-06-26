@@ -7,14 +7,14 @@ import { caseStudies, workTestimonials } from '@/lib/work'
 export const metadata: Metadata = {
   title: 'Consultant Website Case Studies',
   description:
-    'Examples of consultant websites Caldera has built, the websites and what clients say. Done-for-you sites for various Consulting industries, such as, Fractional CFOs, Coaches, HR, and Healthcare, each one built around the consultant’s expertise.',
+    'Examples of consultant websites Caldera has built, the live sites and what clients say. Done-for-you websites for fractional CFOs, coaches, HR, healthcare, and other consultants, each one built around their expertise.',
   alternates: { canonical: '/work' },
   openGraph: {
     type: 'website',
     url: '/work',
     title: 'Consultant Website Case Studies',
     description:
-      'Examples of consultant websites Caldera has built, the websites and what clients say. Done-for-you sites for various Consulting industries, such as, Fractional CFOs, Coaches, HR, and Healthcare, each one built around the consultant’s expertise.',
+      'Examples of consultant websites Caldera has built, the live sites and what clients say. Done-for-you websites for fractional CFOs, coaches, HR, healthcare, and other consultants, each one built around their expertise.',
     siteName: 'Caldera Agency',
     images: [{ url: '/og-image.jpg', width: 1200, height: 630, alt: 'Caldera Agency consultant website case studies' }],
   },
