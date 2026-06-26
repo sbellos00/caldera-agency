@@ -321,11 +321,6 @@ export default function BestWebsiteAgencyPage() {
             >
               Get your free prototype &rarr;
             </Link>
-            <p className="text-white/50 text-sm mt-10">
-              See our{' '}
-              <Link href="/work" className="underline underline-offset-4 hover:text-white">case studies</Link>, or{' '}
-              <Link href="/process" className="underline underline-offset-4 hover:text-white">how the process works</Link>.
-            </p>
           </div>
         </section>
       </main>
