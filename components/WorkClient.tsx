@@ -224,7 +224,7 @@ export default function WorkClient() {
             <h2 className="section-title text-center mb-14 md:mb-16 scroll-fade">What it looks like</h2>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
-              {caseStudies.map((c, i) => {
+              {caseStudies.filter((c) => !c.hidden).map((c, i) => {
                 const title = c.name || hostLabel(c.url)
                 const Card = (
                   <>

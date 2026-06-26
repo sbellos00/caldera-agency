@@ -24,7 +24,7 @@ const itemListSchema = {
   '@context': 'https://schema.org',
   '@type': 'ItemList',
   name: 'Consultant website case studies by Caldera Agency',
-  itemListElement: caseStudies.map((c, i) => {
+  itemListElement: caseStudies.filter((c) => !c.hidden).map((c, i) => {
     const label = c.name || (c.url ? c.url.replace(/^https?:\/\//, '').replace(/\/$/, '') : 'Consultant')
     return {
       '@type': 'ListItem',
