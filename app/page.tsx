@@ -4,8 +4,8 @@ import JsonLd from "@/components/JsonLd"
 import { professionalServiceSchema, faqSchema, homepageFaqs, testimonials, SITE_URL, SITE_NAME } from "@/lib/site"
 
 export const metadata: Metadata = {
-  title: "Caldera Agency - The Website Agency For Solo Consultants",
-  description: "You do nothing. We build everything. Share your LinkedIn and we handle research, copy, design, and development. Free prototype before you spend a cent.",
+  title: "Caldera | The Website Agency for Solo Consultants",
+  description: "Caldera is a done-for-you website agency for solo consultants. Share your LinkedIn and we handle the research, copy, design, and build. Then you see a free prototype before you pay anything.",
   keywords: [
     "consultant website design",
     "authority website",
@@ -25,8 +25,8 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     url: "/",
-    title: "Caldera Agency - The Website Agency For Solo Consultants",
-    description: "You do nothing. We build everything. Share your LinkedIn and we handle research, copy, design, and development. Free prototype before you spend a cent.",
+    title: "Caldera | The Website Agency for Solo Consultants",
+    description: "Caldera is a done-for-you website agency for solo consultants. Share your LinkedIn and we handle the research, copy, design, and build. Then you see a free prototype before you pay anything.",
     siteName: "Caldera Agency",
     images: [
       {
@@ -39,8 +39,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Caldera Agency - The Website Agency For Solo Consultants",
-    description: "You do nothing. We build everything. Share your LinkedIn and we handle research, copy, design, and development. Free prototype before you spend a cent.",
+    title: "Caldera | The Website Agency for Solo Consultants",
+    description: "Caldera is a done-for-you website agency for solo consultants. Share your LinkedIn and we handle the research, copy, design, and build. Then you see a free prototype before you pay anything.",
     images: ["/og-image.jpg"],
   },
 }

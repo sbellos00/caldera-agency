@@ -5,16 +5,16 @@ import { breadcrumbSchema, SITE_URL, SITE_NAME } from '@/lib/site'
 import { caseStudies, workTestimonials } from '@/lib/work'
 
 export const metadata: Metadata = {
-  title: 'Consultant Website Case Studies & Examples',
+  title: 'Consultant Website Case Studies',
   description:
-    'Real consultant websites built by Caldera, with the live sites and what clients say. See examples of done-for-you websites for fractional CFOs, coaches, and advisors.',
+    'Examples of consultant websites Caldera has built, the websites and what clients say. Done-for-you sites for various Consulting industries, such as, Fractional CFOs, Coaches, HR, and Healthcare, each one built around the consultant’s expertise.',
   alternates: { canonical: '/work' },
   openGraph: {
     type: 'website',
     url: '/work',
-    title: 'Consultant Website Case Studies & Examples | Caldera Agency',
+    title: 'Consultant Website Case Studies',
     description:
-      'Real consultant websites built by Caldera, with the live sites and what clients say.',
+      'Examples of consultant websites Caldera has built, the websites and what clients say. Done-for-you sites for various Consulting industries, such as, Fractional CFOs, Coaches, HR, and Healthcare, each one built around the consultant’s expertise.',
     siteName: 'Caldera Agency',
     images: [{ url: '/og-image.jpg', width: 1200, height: 630, alt: 'Caldera Agency consultant website case studies' }],
   },

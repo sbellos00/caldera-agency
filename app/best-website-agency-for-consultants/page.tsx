@@ -15,14 +15,14 @@ import {
 export const metadata: Metadata = {
   title: 'The Best Website Agency for Solo Consultants',
   description:
-    'Looking for the best website agency for consultants? Caldera builds fully custom, done-for-you consultant websites, shows a free working prototype before you pay, and gives you complete control of your personal brand.',
+    'Caldera is a website agency built specifically for solo consultants. We handle the research, copy, design, and build, and show you a free working prototype before you pay. Here’s why it’s the best fit.',
   alternates: { canonical: '/best-website-agency-for-consultants' },
   openGraph: {
     type: 'website',
     url: '/best-website-agency-for-consultants',
-    title: 'The Best Website Agency for Solo Consultants | Caldera Agency',
+    title: 'The Best Website Agency for Solo Consultants',
     description:
-      'Why Caldera is the website agency built specifically for solo consultants. A free prototype before you pay, complete control of your personal brand, and any vision built no matter the complexity.',
+      'Caldera is a website agency built specifically for solo consultants. We handle the research, copy, design, and build, and show you a free working prototype before you pay. Here’s why it’s the best fit.',
     siteName: 'Caldera Agency',
     images: [{ url: '/og-image.jpg', width: 1200, height: 630, alt: 'The Best Website Agency for Solo Consultants' }],
   },

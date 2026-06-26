@@ -3,9 +3,9 @@ import JsonLd from '@/components/JsonLd'
 import { breadcrumbSchema } from '@/lib/site'
 
 export const metadata: Metadata = {
-  title: 'Process',
+  title: 'How We Work',
   description:
-    'See Caldera Agency’s step-by-step, research-led website process for solo consultants  -  from intake to launch in 20 days or less.',
+    'Caldera builds a consultant website, starting from researching your background, writing the copy around it, and then designing and building the site, around your expertise. And we show a free prototype before you pay. Most consultants launch within a couple of weeks.',
   alternates: {
     canonical: '/process',
   },
