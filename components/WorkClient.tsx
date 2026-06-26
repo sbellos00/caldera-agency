@@ -184,11 +184,11 @@ export default function WorkClient() {
           <p className="text-[var(--primary-blue)] text-sm font-medium tracking-widest uppercase mb-6 scroll-fade">Case studies</p>
 
           <h1 className="text-[clamp(2.2rem,4.5vw,4.5rem)] font-light tracking-tight leading-[0.95] mb-6 text-[var(--black)] scroll-fade">
-            We let the work make the <span className="font-serif italic font-normal text-[var(--primary-blue)]">case</span>
+            A Portfolio of <span className="font-serif italic font-normal text-[var(--primary-blue)]">Consultant Websites</span>
           </h1>
 
           <p className="text-base md:text-lg leading-relaxed text-[var(--gray-medium)] max-w-2xl mb-10 scroll-fade">
-            Websites we&apos;ve built for independent consultants. Each one started as a free prototype, before anyone paid a cent.
+            A selection of projects where we shaped the strategy, wrote the copy, designed the experience, and built the site around the consultant&rsquo;s expertise.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 scroll-fade">
