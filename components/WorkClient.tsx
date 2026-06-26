@@ -34,11 +34,11 @@ export default function WorkClient() {
     else el.scrollIntoView({ behavior: 'smooth', block: 'start' })
   }, [])
 
-  // Scroll-driven background theming. The container starts BLACK, so the case-studies
-  // section is black from the moment it appears (no cream flash). It flips once to the
-  // homepage white when the testimonials section reaches the top — by which point the
-  // black case-studies section is fully gone, so its white text never lands on white —
-  // and stays white through the CTA. The nav logo flips at the same boundaries.
+  // Background theming. The scroll container is BLACK (the case-studies backdrop), and
+  // the testimonials + CTA sections paint their own white background — so the white
+  // begins right at the top edge of the testimonials section, the moment it scrolls in,
+  // while the case-studies section stays black and untouched. The nav logo flips to
+  // match whatever section currently sits behind it.
 
   // Custom cursor (matches the rest of the site)
   useEffect(() => {
@@ -114,8 +114,9 @@ export default function WorkClient() {
     const testiEl = themedSectionRefs.current[1]
 
     const ctx = gsap.context(() => {
-      // Hero (cream) → case studies (black): the container is already black, so only
-      // the nav logo flips — to white once the black section sits behind the nav.
+      // These triggers only flip the nav logo to match whatever section is behind it.
+      // Hero (cream) → case studies (black): logo turns white once the black section
+      // sits behind the nav.
       if (caseEl) {
         ScrollTrigger.create({
           trigger: caseEl,
@@ -124,23 +125,15 @@ export default function WorkClient() {
           onLeaveBack: () => setNavDark(false),
         })
       }
-      // Case studies (black) → testimonials (white) and onward: flip only once the
-      // white section reaches the top, so the black case-studies section (white text)
-      // is fully gone and nothing flashes. The CTA shares this white theme.
+      // Case studies (black) → testimonials/CTA (white): logo turns dark once the white
+      // section sits behind the nav. The white background itself is painted by the
+      // sections, so it appears the moment the testimonials scrolls into view.
       if (testiEl) {
         ScrollTrigger.create({
           trigger: testiEl,
           start: 'top top',
-          onEnter: () => {
-            container.style.backgroundColor = 'rgb(255, 255, 255)'
-            container.style.color = 'rgb(0, 0, 0)'
-            setNavDark(false)
-          },
-          onLeaveBack: () => {
-            container.style.backgroundColor = 'rgb(0, 0, 0)'
-            container.style.color = 'rgb(255, 255, 255)'
-            setNavDark(true)
-          },
+          onEnter: () => setNavDark(false),
+          onLeaveBack: () => setNavDark(true),
         })
       }
     })
@@ -282,11 +275,11 @@ export default function WorkClient() {
           </div>
         </section>
 
-        {/* Testimonials — homepage-style white section with cream cards */}
-        <section ref={el => { themedSectionRefs.current[1] = el }} className="py-24 md:py-32 px-8 md:px-16">
+        {/* Testimonials — white section with cream cards (paints its own background) */}
+        <section ref={el => { themedSectionRefs.current[1] = el }} className="bg-white py-24 md:py-32 px-8 md:px-16">
           <div className="max-w-screen-lg mx-auto">
             <p className="text-[var(--primary-blue)] text-sm font-medium tracking-widest uppercase text-center mb-4 scroll-fade">Testimonials</p>
-            <h2 className="section-title text-center mb-12 md:mb-16 scroll-fade">What clients say</h2>
+            <h2 className="section-title text-center mb-12 md:mb-16 scroll-fade text-[var(--black)]">What clients say</h2>
             <div className="flex flex-col gap-6">
               {workTestimonials.map((t) => (
                 <figure key={t.name} className="scroll-fade bg-[var(--cream)] rounded-2xl p-7 md:p-9 shadow-[0_8px_40px_rgba(0,0,0,0.04)]">
@@ -303,8 +296,8 @@ export default function WorkClient() {
           </div>
         </section>
 
-        {/* Closing CTA — homepage-style light section (grid pattern, dark text) */}
-        <section ref={el => { themedSectionRefs.current[2] = el }} className="relative py-24 md:py-32 px-8 md:px-16 overflow-hidden">
+        {/* Closing CTA — light section (paints its own background) */}
+        <section ref={el => { themedSectionRefs.current[2] = el }} className="relative bg-white py-24 md:py-32 px-8 md:px-16 overflow-hidden">
           <div className="pointer-events-none absolute inset-0 opacity-[0.03]" style={{
             backgroundImage: `linear-gradient(var(--primary-blue) 1px, transparent 1px), linear-gradient(90deg, var(--primary-blue) 1px, transparent 1px)`,
             backgroundSize: '60px 60px',
