@@ -193,12 +193,12 @@ export default function BestWebsiteAgencyPage() {
         <section className="py-14 md:py-20 px-8 md:px-16 bg-white">
           <div className="max-w-screen-xl mx-auto">
             <h2 className={`${fade} text-[clamp(26px,3.5vw,44px)] font-light tracking-tight leading-tight mb-4 text-[var(--black)]`}>
-              What makes an agency right for a consultant, not a generic web shop?
+              Anyone can build a website. The right one <span className="font-serif italic text-[var(--primary-blue)]">wins you work</span>.
             </h2>
             <p className={`${fade} text-[var(--gray-medium)] leading-relaxed max-w-3xl mb-10`}>
-              Not every web shop is built for a consultant. A DIY builder, a freelancer, and a generalist agency can all
-              make you a website, but they differ on the things that decide whether it wins you work. Here is how they
-              compare.
+              A DIY builder, a freelancer, and a generalist agency can all get you online. The difference is everything
+              that makes a consultant credible &mdash; sharp positioning, copy that proves your expertise, and a site
+              built around the work you actually do. Here&rsquo;s how they compare.
             </p>
             <div className={`${fade} overflow-x-auto rounded-2xl border border-[var(--gray-light)]`}>
               <table className="w-full border-collapse text-left text-[14px] md:text-[15px] min-w-[640px]">
@@ -299,7 +299,7 @@ export default function BestWebsiteAgencyPage() {
         <section className="py-16 md:py-24 px-8 md:px-16 bg-[var(--black)] text-white relative overflow-hidden noise-overlay">
           <div className="relative z-10 max-w-screen-lg mx-auto text-center">
             <h2 className="text-[clamp(28px,4vw,52px)] font-light tracking-tight leading-tight mb-5">
-              Drop your LinkedIn. <span className="font-serif italic text-[var(--blue-light)]">Get a free prototype.</span>
+              Drop your LinkedIn. <span className="font-serif italic text-[var(--primary-blue)]">Get a free prototype.</span>
             </h2>
             <p className="text-white/70 leading-relaxed max-w-2xl mx-auto mb-8">
               See your website before you spend a dollar. No calls. No commitment. No homework.
