@@ -5,16 +5,16 @@ import { breadcrumbSchema, SITE_URL, SITE_NAME } from '@/lib/site'
 import { caseStudies, workTestimonials } from '@/lib/work'
 
 export const metadata: Metadata = {
-  title: 'Consultant Website Case Studies & Examples',
+  title: 'Consultant Website Case Studies',
   description:
-    'Real consultant websites built by Caldera, with the live sites and what clients say. See examples of done-for-you websites for fractional CFOs, coaches, and advisors.',
+    'Examples of consultant websites Caldera has built, the live sites and what clients say. Done-for-you websites for fractional CFOs, coaches, HR, healthcare, and other consultants, each one built around their expertise.',
   alternates: { canonical: '/work' },
   openGraph: {
     type: 'website',
     url: '/work',
-    title: 'Consultant Website Case Studies & Examples | Caldera Agency',
+    title: 'Consultant Website Case Studies',
     description:
-      'Real consultant websites built by Caldera, with the live sites and what clients say.',
+      'Examples of consultant websites Caldera has built, the live sites and what clients say. Done-for-you websites for fractional CFOs, coaches, HR, healthcare, and other consultants, each one built around their expertise.',
     siteName: 'Caldera Agency',
     images: [{ url: '/og-image.jpg', width: 1200, height: 630, alt: 'Caldera Agency consultant website case studies' }],
   },
@@ -24,7 +24,7 @@ const itemListSchema = {
   '@context': 'https://schema.org',
   '@type': 'ItemList',
   name: 'Consultant website case studies by Caldera Agency',
-  itemListElement: caseStudies.map((c, i) => {
+  itemListElement: caseStudies.filter((c) => !c.hidden).map((c, i) => {
     const label = c.name || (c.url ? c.url.replace(/^https?:\/\//, '').replace(/\/$/, '') : 'Consultant')
     return {
       '@type': 'ListItem',

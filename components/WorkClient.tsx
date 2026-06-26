@@ -5,6 +5,8 @@ import Link from 'next/link'
 import Image from 'next/image'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import Lenis from 'lenis'
+import 'lenis/dist/lenis.css'
 import Menu from '@/components/Menu'
 import Footer from '@/components/Footer'
 import { caseStudies, workTestimonials } from '@/lib/work'
@@ -21,21 +23,22 @@ export default function WorkClient() {
   const cursorDotRef = useRef<HTMLDivElement>(null)
   const scrollContainerRef = useRef<HTMLDivElement>(null)
   const themedSectionRefs = useRef<(HTMLElement | null)[]>([])
+  const lenisRef = useRef<Lenis | null>(null)
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [navDark, setNavDark] = useState(false)
 
   const scrollToCaseStudies = useCallback(() => {
-    document.getElementById('case-studies')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    const el = document.getElementById('case-studies')
+    if (!el) return
+    if (lenisRef.current) lenisRef.current.scrollTo(el)
+    else el.scrollIntoView({ behavior: 'smooth', block: 'start' })
   }, [])
 
-  // Scroll-driven background theming — mirrors the homepage: the scroll container's
-  // background colour transitions as each themed section enters the viewport, so the
-  // sections themselves carry no hard-coded background.
-  const scrollThemes = useRef([
-    { bg: 'rgb(0, 0, 0)', text: 'rgb(255, 255, 255)' },        // Case studies — dark
-    { bg: 'rgb(250, 248, 245)', text: 'rgb(0, 0, 0)' },        // Testimonials — cream
-    { bg: 'rgb(0, 0, 0)', text: 'rgb(255, 255, 255)' },        // CTA — dark
-  ])
+  // Background theming. The scroll container is BLACK (the case-studies backdrop), and
+  // the testimonials + CTA sections paint their own white background,so the white
+  // begins right at the top edge of the testimonials section, the moment it scrolls in,
+  // while the case-studies section stays black and untouched. The nav logo flips to
+  // match whatever section currently sits behind it.
 
   // Custom cursor (matches the rest of the site)
   useEffect(() => {
@@ -93,38 +96,54 @@ export default function WorkClient() {
     return () => observer.disconnect()
   }, [])
 
-  // Background theme switching
+  // Background theme switching,mirrors the homepage exactly, including the Lenis
+  // smooth scroll that makes the background-colour transitions feel slow and
+  // deliberate rather than snapping on native scroll.
   useEffect(() => {
     const container = scrollContainerRef.current
     if (!container) return
 
-    const ctx = gsap.context(() => {
-      themedSectionRefs.current.forEach((el, i) => {
-        if (!el) return
-        const theme = scrollThemes.current[i]
-        // The first themed section's "previous" state is the cream hero/container.
-        const prevTheme = i === 0
-          ? { bg: 'rgb(250, 248, 245)', text: 'rgb(0, 0, 0)' }
-          : scrollThemes.current[i - 1]
+    const lenis = new Lenis({ lerp: 0.1, smoothWheel: true })
+    lenisRef.current = lenis
+    lenis.on('scroll', ScrollTrigger.update)
+    const raf = (time: number) => lenis.raf(time * 1000)
+    gsap.ticker.add(raf)
+    gsap.ticker.lagSmoothing(0)
 
+    const caseEl = themedSectionRefs.current[0]
+    const testiEl = themedSectionRefs.current[1]
+
+    const ctx = gsap.context(() => {
+      // These triggers only flip the nav logo to match whatever section is behind it.
+      // Hero (cream) → case studies (black): logo turns white once the black section
+      // sits behind the nav.
+      if (caseEl) {
         ScrollTrigger.create({
-          trigger: el,
-          start: 'top center',
-          onEnter: () => {
-            container.style.backgroundColor = theme.bg
-            container.style.color = theme.text
-            setNavDark(theme.text === 'rgb(255, 255, 255)')
-          },
-          onLeaveBack: () => {
-            container.style.backgroundColor = prevTheme.bg
-            container.style.color = prevTheme.text
-            setNavDark(prevTheme.text === 'rgb(255, 255, 255)')
-          },
+          trigger: caseEl,
+          start: 'top top',
+          onEnter: () => setNavDark(true),
+          onLeaveBack: () => setNavDark(false),
         })
-      })
+      }
+      // Case studies (black) → testimonials/CTA (white): logo turns dark once the white
+      // section sits behind the nav. The white background itself is painted by the
+      // sections, so it appears the moment the testimonials scrolls into view.
+      if (testiEl) {
+        ScrollTrigger.create({
+          trigger: testiEl,
+          start: 'top top',
+          onEnter: () => setNavDark(false),
+          onLeaveBack: () => setNavDark(true),
+        })
+      }
     })
 
-    return () => ctx.revert()
+    return () => {
+      ctx.revert()
+      gsap.ticker.remove(raf)
+      lenis.destroy()
+      lenisRef.current = null
+    }
   }, [])
 
   return (
@@ -165,11 +184,11 @@ export default function WorkClient() {
           <p className="text-[var(--primary-blue)] text-sm font-medium tracking-widest uppercase mb-6 scroll-fade">Case studies</p>
 
           <h1 className="text-[clamp(2.2rem,4.5vw,4.5rem)] font-light tracking-tight leading-[0.95] mb-6 text-[var(--black)] scroll-fade">
-            Consultant websites <span className="font-serif italic font-normal text-[var(--primary-blue)]">we have built</span>
+            A Portfolio of <span className="font-serif italic font-normal text-[var(--primary-blue)]">Consultant Websites</span>
           </h1>
 
           <p className="text-base md:text-lg leading-relaxed text-[var(--gray-medium)] max-w-2xl mb-10 scroll-fade">
-            Live websites for independent consultants. Every one was researched, written, designed, and built by Caldera, with a free working prototype before the client paid anything.
+            A selection of projects where we shaped the strategy, wrote the copy, designed the experience, and built the site around the consultant&rsquo;s expertise.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 scroll-fade">
@@ -196,16 +215,16 @@ export default function WorkClient() {
       <div
         ref={scrollContainerRef}
         className="relative z-10 theme-container"
-        style={{ backgroundColor: 'rgb(250, 248, 245)', color: 'rgb(0, 0, 0)', transition: 'background-color 400ms ease-out' }}
+        style={{ backgroundColor: 'rgb(0, 0, 0)', color: 'rgb(255, 255, 255)', transition: 'background-color 400ms ease-out' }}
       >
-        {/* Case studies — browser-frame cards (homepage "Highlighted Work" style) */}
+        {/* Case studies,browser-frame cards (homepage "Highlighted Work" style) */}
         <section ref={el => { themedSectionRefs.current[0] = el }} id="case-studies" className="py-24 md:py-32 px-8 md:px-16">
           <div className="max-w-screen-2xl mx-auto">
             <p className="text-[var(--primary-blue)] text-sm font-medium tracking-widest uppercase text-center mb-4 scroll-fade">Selected work</p>
             <h2 className="section-title text-center mb-14 md:mb-16 scroll-fade">What it looks like</h2>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
-              {caseStudies.map((c, i) => {
+              {caseStudies.filter((c) => !c.hidden).map((c, i) => {
                 const title = c.name || hostLabel(c.url)
                 const Card = (
                   <>
@@ -224,7 +243,7 @@ export default function WorkClient() {
                           </div>
                         )}
                       </div>
-                      {/* Screenshot — natural aspect ratio, no crop */}
+                      {/* Screenshot,natural aspect ratio, no crop */}
                       {c.image && (
                         <Image src={c.image} alt={`${title} website`} width={1200} height={800} className="w-full h-auto" sizes="(max-width: 768px) 100vw, 50vw" />
                       )}
@@ -256,14 +275,14 @@ export default function WorkClient() {
           </div>
         </section>
 
-        {/* Testimonials */}
-        <section ref={el => { themedSectionRefs.current[1] = el }} className="py-24 md:py-32 px-8 md:px-16">
+        {/* Testimonials,white section with cream cards (paints its own background) */}
+        <section ref={el => { themedSectionRefs.current[1] = el }} className="bg-white py-24 md:py-32 px-8 md:px-16">
           <div className="max-w-screen-lg mx-auto">
             <p className="text-[var(--primary-blue)] text-sm font-medium tracking-widest uppercase text-center mb-4 scroll-fade">Testimonials</p>
-            <h2 className="section-title text-center mb-12 md:mb-16 scroll-fade">What clients say</h2>
+            <h2 className="section-title text-center mb-12 md:mb-16 scroll-fade text-[var(--black)]">What clients say</h2>
             <div className="flex flex-col gap-6">
               {workTestimonials.map((t) => (
-                <figure key={t.name} className="scroll-fade bg-white rounded-2xl p-7 md:p-9 shadow-[0_8px_40px_rgba(0,0,0,0.04)]">
+                <figure key={t.name} className="scroll-fade bg-[var(--cream)] rounded-2xl p-7 md:p-9 shadow-[0_8px_40px_rgba(0,0,0,0.04)]">
                   <blockquote className="text-[var(--gray-dark)] leading-relaxed text-[16px] md:text-[17px] mb-4">
                     &ldquo;{t.body}&rdquo;
                   </blockquote>
@@ -277,20 +296,26 @@ export default function WorkClient() {
           </div>
         </section>
 
-        {/* Closing CTA */}
-        <section ref={el => { themedSectionRefs.current[2] = el }} className="py-24 md:py-32 px-8 md:px-16">
-          <div className="max-w-screen-lg mx-auto text-center">
-            <h2 className="text-[clamp(28px,4vw,52px)] font-light tracking-tight leading-tight mb-5 text-white">
-              Want to see <span className="font-serif italic text-[var(--blue-light)]">yours</span>?
+        {/* Closing CTA,light section (paints its own background) */}
+        <section ref={el => { themedSectionRefs.current[2] = el }} className="relative bg-white py-24 md:py-32 px-8 md:px-16 overflow-hidden">
+          <div className="pointer-events-none absolute inset-0 opacity-[0.03]" style={{
+            backgroundImage: `linear-gradient(var(--primary-blue) 1px, transparent 1px), linear-gradient(90deg, var(--primary-blue) 1px, transparent 1px)`,
+            backgroundSize: '60px 60px',
+          }} />
+          <div className="relative z-10 max-w-screen-lg mx-auto text-center">
+            <h2 className="text-[clamp(28px,4vw,52px)] font-light tracking-tight leading-tight mb-5 text-[var(--black)]">
+              Want to see <span className="font-serif italic text-[var(--primary-blue)]">yours</span>?
             </h2>
-            <p className="text-white/70 leading-relaxed max-w-2xl mx-auto mb-8">
+            <p className="text-[var(--gray-medium)] leading-relaxed max-w-2xl mx-auto mb-8">
               Drop your LinkedIn and we will build a free working prototype of your website. No calls. No commitment. No homework.
             </p>
             <Link
               href="/contact"
-              className="inline-flex items-center justify-center gap-3 bg-white text-[var(--black)] px-8 py-4 text-[15px] font-medium tracking-tight rounded-lg no-underline transition-all duration-300 hover:scale-105"
+              className="group relative overflow-hidden inline-flex items-center gap-3 bg-[var(--black)] text-white px-8 py-4 text-[15px] tracking-tight no-underline rounded-lg transition-all duration-300 ease-out hover:scale-105"
             >
-              Get your free prototype &rarr;
+              <div className="absolute inset-0 bg-[var(--primary-blue)] transform -translate-x-full transition-transform duration-300 ease-out group-hover:translate-x-0"></div>
+              <span className="relative z-10 group-hover:text-white">Get your free prototype</span>
+              <span className="relative z-10 group-hover:text-white">&rarr;</span>
             </Link>
           </div>
         </section>

@@ -16,6 +16,31 @@ import Aurora from '@/components/Aurora'
 import Menu from '@/components/Menu'
 import Footer from '@/components/Footer'
 import { homepageFaqs } from '@/lib/site'
+import { hasHydrated, LAST_PATH_KEY, HOME_VISITED_KEY } from '@/lib/navState'
+
+// The preloader plays only on the very first homepage visit in a browser session,
+// or when arriving from the flagship page. Refreshes and client-side navigations
+// from other pages skip it.
+const FLAGSHIP_PATH = '/best-website-agency-for-consultants'
+function shouldShowPreloader() {
+  if (typeof window === 'undefined') return true
+  if (hasHydrated()) {
+    // Client-side nav: only show if coming from flagship
+    try {
+      return sessionStorage.getItem(LAST_PATH_KEY) === FLAGSHIP_PATH
+    } catch {
+      return false
+    }
+  }
+  // Fresh document load (hard load or refresh)
+  try {
+    const fromFlagship = sessionStorage.getItem(LAST_PATH_KEY) === FLAGSHIP_PATH
+    const alreadyVisited = sessionStorage.getItem(HOME_VISITED_KEY) === '1'
+    return fromFlagship || !alreadyVisited
+  } catch {
+    return true
+  }
+}
 
 const CrowdCanvas = dynamic(() => import('@/components/CrowdCanvas'), { ssr: false })
 
@@ -199,7 +224,7 @@ function PrototypeForm({ id, variant = 'light' }: { id: string; variant?: 'light
           <div className="flex flex-col gap-3">
             {!isMinimal && <label htmlFor={`${id}-linkedin`} className={`text-sm font-medium pl-1 ${isDark ? 'text-white/70' : 'text-[var(--gray-dark)]'}`}>Your LinkedIn URL</label>}
             {isMinimal ? (
-              /* Unified input group — input and button as one connected element */
+              /* Unified input group,input and button as one connected element */
               <div className="flex flex-col sm:flex-row bg-[var(--cream)] rounded-lg overflow-hidden shadow-[0_2px_12px_rgba(0,0,0,0.06)]">
                 <input id={`${id}-linkedin`} type="url" value={linkedin} onChange={e => { setLinkedin(e.target.value); setError('') }}
                   placeholder="Paste your LinkedIn URL" className={inputClass} onKeyDown={e => e.key === 'Enter' && handleStep1()} />
@@ -289,22 +314,27 @@ export default function HomeV2() {
   const [showAllFAQ, setShowAllFAQ] = useState(false)
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
-  const [showPreloader, setShowPreloader] = useState(true)
+  const [showPreloader, setShowPreloader] = useState(shouldShowPreloader)
   const lenisRef = useRef<Lenis | null>(null)
   const scrollContainerRef = useRef<HTMLDivElement>(null)
   const themedSectionRefs = useRef<(HTMLElement | null)[]>([])
 
-  // Preloader timeout + unlock scroll after hero animations
+  // Preloader timeout + unlock scroll after hero animations. When the preloader is
+  // skipped (a client-side navigation that is not from the flagship page), there is
+  // no intro to wait on, so scrolling is unlocked promptly instead.
   useEffect(() => {
     window.scrollTo(0, 0)
-    // Hide preloader after 2.8s
-    const preloaderTimer = setTimeout(() => setShowPreloader(false), 2800)
-    // Start Lenis after hero animations finish (~2.8s preloader + 3.5s hero anims)
-    const scrollTimer = setTimeout(() => lenisRef.current?.start(), 6300)
-    return () => {
-      clearTimeout(preloaderTimer)
-      clearTimeout(scrollTimer)
+    const timers: ReturnType<typeof setTimeout>[] = []
+    if (showPreloader) {
+      timers.push(setTimeout(() => setShowPreloader(false), 2800))
+      timers.push(setTimeout(() => lenisRef.current?.start(), 6300))
+    } else {
+      timers.push(setTimeout(() => lenisRef.current?.start(), 600))
     }
+    try { sessionStorage.setItem(HOME_VISITED_KEY, '1') } catch {}
+    return () => timers.forEach(clearTimeout)
+    // showPreloader is intentionally read once at mount.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   // Nav scroll detection
@@ -379,7 +409,7 @@ export default function HomeV2() {
     }
   }, [])
 
-  // Scroll-fade observer — standalone so it works on mobile (cursor effect early-returns on small screens)
+  // Scroll-fade observer,standalone so it works on mobile (cursor effect early-returns on small screens)
   useEffect(() => {
     const observer = new IntersectionObserver(entries => {
       entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible') })
@@ -392,11 +422,11 @@ export default function HomeV2() {
 
   // Scroll-based theme switching (sections 4-8)
   const scrollThemes = useRef([
-    { bg: 'rgb(0, 0, 0)', text: 'rgb(255, 255, 255)' },         // 4. Highlighted Work — dark
-    { bg: 'rgb(255, 255, 255)', text: 'rgb(0, 0, 0)' },         // 5. Features — light
-    { bg: 'rgb(0, 0, 0)', text: 'rgb(255, 255, 255)' },         // 6. Founder — dark
-    { bg: 'rgb(255, 255, 255)', text: 'rgb(0, 0, 0)' },         // 7. Testimonials — light
-    { bg: 'rgb(0, 25, 255)', text: 'rgb(255, 255, 255)' },      // 8. FAQ — blue
+    { bg: 'rgb(0, 0, 0)', text: 'rgb(255, 255, 255)' },         // 4. Highlighted Work,dark
+    { bg: 'rgb(255, 255, 255)', text: 'rgb(0, 0, 0)' },         // 5. Features,light
+    { bg: 'rgb(0, 0, 0)', text: 'rgb(255, 255, 255)' },         // 6. Founder,dark
+    { bg: 'rgb(255, 255, 255)', text: 'rgb(0, 0, 0)' },         // 7. Testimonials,light
+    { bg: 'rgb(0, 25, 255)', text: 'rgb(255, 255, 255)' },      // 8. FAQ,blue
     { bg: 'rgb(255, 255, 255)', text: 'rgb(0, 0, 0)' },         // 9. Transition back to white before CTA
   ])
 
@@ -470,7 +500,7 @@ export default function HomeV2() {
         </div>
       </nav>
 
-      {/* ─── 2. Hero (fixed) — grid pattern ─── */}
+      {/* ─── 2. Hero (fixed),grid pattern ─── */}
       <section className="fixed inset-0 h-screen flex flex-col z-0 bg-[var(--cream)]">
         {/* Grid pattern */}
         <div className="pointer-events-none absolute inset-0 opacity-[0.03]" style={{
@@ -484,7 +514,7 @@ export default function HomeV2() {
             {/* Always-rendered primary heading for crawlers/AI engines (the same
                 words appear in the animated hero below; this is the semantic H1). */}
             <h1 className="sr-only">The Website Agency Built for Solo Consultants</h1>
-            {/* Title — 2 lines: line 1 from bottom, line 2 from top */}
+            {/* Title,2 lines: line 1 from bottom, line 2 from top */}
             {/* Wait for preloader to finish before animating */}
             {!showPreloader && (
               <>
@@ -564,7 +594,7 @@ export default function HomeV2() {
           </div>
         </div>
 
-        {/* Testimonials — rich cards with pull-quote highlight */}
+        {/* Testimonials,rich cards with pull-quote highlight */}
         <motion.div
           className="relative z-10 w-full pb-8 md:pb-12 px-6 md:px-12"
           initial={{ opacity: 0, y: 30 }}
@@ -619,10 +649,10 @@ export default function HomeV2() {
           <div className="relative z-10 px-8 md:px-12 lg:px-16 py-20 md:py-28 lg:py-32">
             <div className="max-w-screen-xl mx-auto">
 
-              {/* Two-column layout — left sells, right supports */}
+              {/* Two-column layout,left sells, right supports */}
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
 
-                {/* Left: CTA (dominant — 7 cols) */}
+                {/* Left: CTA (dominant,7 cols) */}
                 <div className="lg:col-span-7 scroll-fade">
                   <p className="text-[var(--primary-blue)] text-sm font-medium tracking-widest uppercase mb-5">Zero risk, zero commitment</p>
                   <h2 className="text-[clamp(28px,3.5vw,52px)] font-light tracking-tight leading-[0.95] mb-5 text-[var(--black)]">
@@ -637,7 +667,7 @@ export default function HomeV2() {
                   <PrototypeForm id="prototype-form" variant="minimal" />
                 </div>
 
-                {/* Right: How It Works (subordinate — 5 cols, smaller text, lighter) */}
+                {/* Right: How It Works (subordinate,5 cols, smaller text, lighter) */}
                 <div className="lg:col-span-5 scroll-fade lg:pt-8">
                   <p className="text-[var(--gray-medium)] text-[11px] font-medium tracking-widest uppercase mb-5">How It Works</p>
                   <div className="flex flex-col gap-3">
@@ -665,7 +695,7 @@ export default function HomeV2() {
           </div>
         </section>
 
-        {/* ─── 4. Highlighted Work — 2 case studies ─── */}
+        {/* ─── 4. Highlighted Work,2 case studies ─── */}
         <section ref={el => { themedSectionRefs.current[0] = el }} className="py-24 md:py-32 px-8">
           <div className="max-w-screen-2xl mx-auto">
             <p className="text-[var(--primary-blue)] text-sm font-medium tracking-widest uppercase text-center mb-4 scroll-fade">Highlighted Work</p>
@@ -688,7 +718,7 @@ export default function HomeV2() {
                         <div className="bg-white/10 rounded-md px-3 py-1 text-xs text-white/50 max-w-[200px]">{item.url.replace('https://', '')}</div>
                       </div>
                     </div>
-                    {/* Screenshot — natural aspect ratio, no crop */}
+                    {/* Screenshot,natural aspect ratio, no crop */}
                     <Image src={item.image} alt={`${item.name} website`} width={1200} height={800} className="w-full h-auto" sizes="(max-width: 768px) 100vw, 50vw" />
                   </div>
                   {/* Info */}
@@ -737,7 +767,7 @@ export default function HomeV2() {
               ))}
             </div>
 
-            {/* Objection card — full width, centered */}
+            {/* Objection card,full width, centered */}
             <div className="feature-card bg-[var(--cream)] rounded-2xl p-8 md:p-10 text-center relative overflow-hidden transition-all duration-400 hover:scale-[1.02] hover:shadow-2xl scroll-fade group">
               <div className="absolute inset-0 bg-gradient-to-br from-[var(--primary-blue)] to-[var(--blue-dark)] opacity-0 transition-opacity duration-400 group-hover:opacity-100" />
               <h3 className="text-xl md:text-2xl font-medium tracking-tight mb-3 text-[var(--black)] relative z-10 group-hover:text-white">&ldquo;What if I don&apos;t like what you build?&rdquo;</h3>
@@ -748,7 +778,7 @@ export default function HomeV2() {
           </div>
         </section>
 
-        {/* ─── 6. Founder Section — editorial/manifesto ─── */}
+        {/* ─── 6. Founder Section,editorial/manifesto ─── */}
         <section ref={el => { themedSectionRefs.current[2] = el }} className="py-24 md:py-32 px-8 relative overflow-hidden noise-overlay">
           <div className="max-w-screen-lg mx-auto relative z-10">
             <p className="text-[var(--primary-blue)] text-sm font-medium tracking-widest uppercase text-center mb-12 scroll-fade">From the Founder</p>
@@ -792,7 +822,7 @@ export default function HomeV2() {
           </div>
         </section>
 
-        {/* ─── 7. What Our Clients Say — full testimonials ─── */}
+        {/* ─── 7. What Our Clients Say,full testimonials ─── */}
         <section ref={el => { themedSectionRefs.current[3] = el }} className="py-24 md:py-32 px-8">
           <div className="max-w-screen-xl mx-auto">
             <p className="text-[var(--primary-blue)] text-sm font-medium tracking-widest uppercase text-center mb-4 scroll-fade">Testimonials</p>
@@ -814,7 +844,7 @@ export default function HomeV2() {
                           &ldquo;{t.quote}&rdquo;
                         </p>
                       </div>
-                      {/* Attribution — moved here from the right column */}
+                      {/* Attribution,moved here from the right column */}
                       <div>
                         <p className="text-sm text-[var(--gray-medium)]">{t.name}</p>
                         <p className="text-sm font-semibold tracking-tight">{t.role}</p>
@@ -837,7 +867,7 @@ export default function HomeV2() {
           </div>
         </section>
 
-        {/* ─── 8. FAQ — Dark gradient, 9 questions ─── */}
+        {/* ─── 8. FAQ,Dark gradient, 9 questions ─── */}
         <section ref={el => { themedSectionRefs.current[4] = el }} id="faq" className="relative overflow-hidden">
           <div className="absolute inset-0 opacity-[0.03]" style={{
             backgroundImage: `radial-gradient(circle at 1px 1px, white 1px, transparent 0)`,
@@ -897,7 +927,7 @@ export default function HomeV2() {
           </div>
         </section>
 
-        {/* ─── 9. Final CTA — Stand Out + CrowdCanvas + Form ─── */}
+        {/* ─── 9. Final CTA,Stand Out + CrowdCanvas + Form ─── */}
         <section ref={el => { themedSectionRefs.current[5] = el }} className="relative flex flex-col w-full overflow-hidden">
           {/* Grid pattern */}
           <div className="pointer-events-none absolute inset-0 opacity-[0.03]" style={{
@@ -917,7 +947,7 @@ export default function HomeV2() {
               Drop your LinkedIn URL and we&apos;ll send you a free prototype. No calls. No commitment. No homework.
             </motion.p>
 
-            {/* Inline form — minimal variant, no card wrapper */}
+            {/* Inline form,minimal variant, no card wrapper */}
             <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8, delay: 0.4 }}
               className="w-full max-w-xl">
               <PrototypeForm id="prototype-form-bottom" variant="minimal" />

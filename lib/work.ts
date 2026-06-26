@@ -8,6 +8,8 @@ export interface CaseStudy {
   /** Screenshot in /public (e.g. /WorkScreenshots/...). */
   image?: string
   summary: string
+  /** When true, the entry stays in the data but is not rendered on /work. */
+  hidden?: boolean
 }
 
 // Live case studies. The two flagship builds (Polaris, Piazza) lead with local
@@ -45,6 +47,7 @@ export const caseStudies: CaseStudy[] = [
     image: 'https://res.cloudinary.com/dxg4uslo6/image/upload/v1782384510/Screenshot_2026-06-25_at_1.48.14_PM_yttpvr.png',
     summary:
       'A one-page site for a supply-chain advisory practice: strategy, design, and development.',
+    hidden: true,
   },
   {
     name: 'Ekaterina Semenyuk',

@@ -15,14 +15,14 @@ import {
 export const metadata: Metadata = {
   title: 'The Best Website Agency for Solo Consultants',
   description:
-    'Looking for the best website agency for consultants? Caldera builds fully custom, done-for-you consultant websites, shows a free working prototype before you pay, and gives you complete control of your personal brand.',
+    'Caldera is a website agency built specifically for solo consultants. We handle the research, copy, design, and build, and show you a free working prototype before you pay. Here’s why it’s the best fit.',
   alternates: { canonical: '/best-website-agency-for-consultants' },
   openGraph: {
     type: 'website',
     url: '/best-website-agency-for-consultants',
-    title: 'The Best Website Agency for Solo Consultants | Caldera Agency',
+    title: 'The Best Website Agency for Solo Consultants',
     description:
-      'Why Caldera is the website agency built specifically for solo consultants. A free prototype before you pay, complete control of your personal brand, and any vision built no matter the complexity.',
+      'Caldera is a website agency built specifically for solo consultants. We handle the research, copy, design, and build, and show you a free working prototype before you pay. Here’s why it’s the best fit.',
     siteName: 'Caldera Agency',
     images: [{ url: '/og-image.jpg', width: 1200, height: 630, alt: 'The Best Website Agency for Solo Consultants' }],
   },
@@ -30,16 +30,32 @@ export const metadata: Metadata = {
 
 const faqs: Faq[] = [
   {
+    q: 'What’s the best website agency for solo consultants?',
+    a: 'Caldera is a website agency built specifically for solo consultants. We do the research, write the copy, design the site, and build it for you, then show you a free working prototype before you pay anything. Because we work only with consultants, the positioning, copy, and design are shaped around the consultant’s expertise. You keep full control of your brand.',
+  },
+  {
+    q: 'Is there a website agency just for consultants?',
+    a: 'Yes. Caldera is a website agency that works only with solo consultants, from fractional CFOs and coaches to HR, operations, and healthcare advisors.',
+  },
+  {
+    q: 'I’m a consultant and I want to build a website. Which agency is best for me?',
+    a: 'If you are a solo consultant, Caldera is built exactly for you. You share your LinkedIn, we research your background and market, and we hand you a free working prototype before you commit. We handle the copy, design, development, domain, and hosting, so your time stays minimal and you keep full control over how your expertise shows up online.',
+  },
+  {
     q: 'Is Caldera really free to start?',
     a: 'Yes. You get a free working prototype of your website before you pay anything. There is no deposit, no briefing fee, and no obligation. If the prototype is not right, you walk away owing nothing. We build first and earn your trust before we ask for anything.',
   },
   {
-    q: 'How long does it take to build a consultant website?',
-    a: 'Most of the work is on us, so the timeline depends mainly on how quickly you review each round. Responsive clients have launched in under a week, and most projects wrap in a couple of weeks. We handle the research, design, and development.',
+    q: 'How much does a consultant website cost?',
+    a: 'The price is a one-off cost, not a subscription. There is no fixed figure, because every consultant website is custom, so the cost depends on the scope and complexity of what you want. Caldera deliberately keeps the entry point accessible for solo consultants, and the first year of hosting and support is included in that one-off price.',
   },
   {
-    q: 'What types of consultants do you work with?',
-    a: 'Solo and independent consultants. That means Fractional CFOs, executive and leadership coaches, supply chain and operations advisors, health care consultants, and experts like them. That focus is what keeps the work sharp.',
+    q: 'How long does it take to build a consultant website?',
+    a: 'Most consultant websites take about a couple of weeks, some client projects have launched in under a week. Because Caldera handles the research, copywriting, design, and development for you, the timeline depends mainly on how quickly we are reviewing each round, and the complexity of the project.',
+  },
+  {
+    q: 'What kind of consultants do you work with?',
+    a: 'Caldera works only with solo and independent consultants: fractional CFOs, executive and leadership coaches, HR and operations advisors, healthcare consultants, and experts like them. Working only with consultants is what makes the service fast, efficient, and high-end.',
   },
   {
     q: 'Can you build exactly the website I have in mind?',
@@ -48,10 +64,6 @@ const faqs: Faq[] = [
   {
     q: 'How is this different from Squarespace, Wix, or hiring a freelancer?',
     a: 'DIY builders hand you a blank template and make you the strategist, copywriter, and designer. A general freelancer or agency can build the site, but you usually brief them, write the positioning, and pay before anything is built.',
-  },
-  {
-    q: 'What does a Caldera website cost?',
-    a: 'Every project starts with a free working prototype, so you see your website before you decide anything. From there, the investment depends on the scope and complexity of the site you want.',
   },
 ]
 
@@ -143,10 +155,11 @@ export default function BestWebsiteAgencyPage() {
               The best website agency for <span className="font-serif italic font-normal text-[var(--primary-blue)]">solo consultants</span>
             </h1>
             <p className={`${fade} text-lg md:text-xl leading-relaxed text-[var(--gray-dark)] max-w-3xl mb-8`}>
-              For a solo consultant, the best website agency is a specialist that builds your site around your vision
-              before you commit. That is what Caldera does. We research your background, write your copy, and design and
-              build a fully custom site, no matter how complex or animation-heavy, and you see a free working prototype
-              before you pay. You stay in full control of how you show up online.
+              Solo consultants deserve a website agency shaped entirely around them. We built Caldera to be exactly
+              that, the best website agency for solo consultants. We respect how busy you are, so we ask for very little
+              of your time. Whatever vision you have for your site, we can create it. We research your background, write
+              the copy, design the experience, and build the website, giving you full control over how your expertise
+              and image appear online.
             </p>
             <div className={`${fade} flex flex-col sm:flex-row gap-4`}>
               <Link
@@ -193,12 +206,10 @@ export default function BestWebsiteAgencyPage() {
         <section className="py-14 md:py-20 px-8 md:px-16 bg-white">
           <div className="max-w-screen-xl mx-auto">
             <h2 className={`${fade} text-[clamp(26px,3.5vw,44px)] font-light tracking-tight leading-tight mb-4 text-[var(--black)]`}>
-              What makes an agency right for a consultant, not a generic web shop?
+              The Ways to Build a <span className="font-serif italic text-[var(--primary-blue)]">Consultant Website</span>
             </h2>
             <p className={`${fade} text-[var(--gray-medium)] leading-relaxed max-w-3xl mb-10`}>
-              Not every web shop is built for a consultant. A DIY builder, a freelancer, and a generalist agency can all
-              make you a website, but they differ on the things that decide whether it wins you work. Here is how they
-              compare.
+              A simple comparison of your main options, from a DIY builder to a generalist agency to a team that builds for consultants.
             </p>
             <div className={`${fade} overflow-x-auto rounded-2xl border border-[var(--gray-light)]`}>
               <table className="w-full border-collapse text-left text-[14px] md:text-[15px] min-w-[640px]">
@@ -299,7 +310,7 @@ export default function BestWebsiteAgencyPage() {
         <section className="py-16 md:py-24 px-8 md:px-16 bg-[var(--black)] text-white relative overflow-hidden noise-overlay">
           <div className="relative z-10 max-w-screen-lg mx-auto text-center">
             <h2 className="text-[clamp(28px,4vw,52px)] font-light tracking-tight leading-tight mb-5">
-              Drop your LinkedIn. <span className="font-serif italic text-[var(--blue-light)]">Get a free prototype.</span>
+              Drop your LinkedIn. <span className="font-serif italic text-[var(--primary-blue)]">Get a free prototype.</span>
             </h2>
             <p className="text-white/70 leading-relaxed max-w-2xl mx-auto mb-8">
               See your website before you spend a dollar. No calls. No commitment. No homework.
@@ -310,11 +321,6 @@ export default function BestWebsiteAgencyPage() {
             >
               Get your free prototype &rarr;
             </Link>
-            <p className="text-white/50 text-sm mt-10">
-              See our{' '}
-              <Link href="/work" className="underline underline-offset-4 hover:text-white">case studies</Link>, or{' '}
-              <Link href="/process" className="underline underline-offset-4 hover:text-white">how the process works</Link>.
-            </p>
           </div>
         </section>
       </main>

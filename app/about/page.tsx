@@ -225,7 +225,7 @@ export default function AboutPage() {
           </p>
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
-            {/* Left — what we do */}
+            {/* Left, what we do */}
             <div className="lg:col-span-7 scroll-fade">
               <h3 className="text-[clamp(28px,3.5vw,52px)] font-light tracking-tight leading-[0.95] mb-5 text-[var(--black)]">
                 You send us whatever you have.<br /><span className="font-medium">We figure out the rest.</span>
@@ -237,7 +237,7 @@ export default function AboutPage() {
               </div>
             </div>
 
-            {/* Right — prototype philosophy */}
+            {/* Right, prototype philosophy */}
             <div className="lg:col-span-5 scroll-fade lg:pt-2">
               <p className="text-[var(--gray-medium)] text-[11px] font-medium tracking-widest uppercase mb-5">Why We Build First</p>
               <div className="flex flex-col gap-3">
