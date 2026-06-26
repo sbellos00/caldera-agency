@@ -1,0 +1,56 @@
+{
+  "$schema": "https://agentskills.io/schema/v0.2.0/index.json",
+  "skills": [
+    {
+      "name": "contact-form",
+      "type": "api",
+      "description": "Submit a contact inquiry to Caldera Agency. Accepts name, email, and an optional message.",
+      "url": "https://www.caldera.agency/api/contact",
+      "method": "POST",
+      "input": {
+        "content_type": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["name", "email"],
+          "properties": {
+            "name": { "type": "string", "description": "Full name of the person reaching out" },
+            "email": { "type": "string", "format": "email", "description": "Contact email address" },
+            "message": { "type": "string", "description": "Optional message or inquiry" },
+            "linkedin": { "type": "string", "description": "Optional LinkedIn profile URL" },
+            "website": { "type": "string", "description": "Optional current website URL" }
+          }
+        }
+      }
+    },
+    {
+      "name": "request-prototype",
+      "type": "api",
+      "description": "Request a free website prototype from Caldera Agency. Share your LinkedIn profile and email to get started.",
+      "url": "https://www.caldera.agency/api/prototype",
+      "method": "POST",
+      "input": {
+        "content_type": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["linkedin", "email"],
+          "properties": {
+            "linkedin": { "type": "string", "description": "LinkedIn profile URL" },
+            "email": { "type": "string", "format": "email", "description": "Contact email address" }
+          }
+        }
+      }
+    },
+    {
+      "name": "site-information",
+      "type": "content",
+      "description": "Read about Caldera Agency — a website agency for solo consultants. Includes service details, process, case studies, and FAQs.",
+      "url": "https://www.caldera.agency/llms.txt"
+    },
+    {
+      "name": "case-studies",
+      "type": "content",
+      "description": "View live consultant websites built by Caldera Agency, with client testimonials.",
+      "url": "https://www.caldera.agency/work"
+    }
+  ]
+}
