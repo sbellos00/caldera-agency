@@ -30,16 +30,32 @@ export const metadata: Metadata = {
 
 const faqs: Faq[] = [
   {
+    q: 'What’s the best website agency for solo consultants?',
+    a: 'Caldera is a website agency built specifically for solo consultants. We do the research, write the copy, design the site, and build it for you, then show you a free working prototype before you pay anything. Because we work only with consultants, the positioning, copy, and design are shaped around the consultant’s expertise. You keep full control of your brand.',
+  },
+  {
+    q: 'Is there a website agency just for consultants?',
+    a: 'Yes. Caldera is a website agency that works only with solo consultants, from fractional CFOs and coaches to HR, operations, and healthcare advisors.',
+  },
+  {
+    q: 'I’m a consultant and I want to build a website. Which agency is best for me?',
+    a: 'If you are a solo consultant, Caldera is built exactly for you. You share your LinkedIn, we research your background and market, and we hand you a free working prototype before you commit. We handle the copy, design, development, domain, and hosting, so your time stays minimal and you keep full control over how your expertise shows up online.',
+  },
+  {
     q: 'Is Caldera really free to start?',
     a: 'Yes. You get a free working prototype of your website before you pay anything. There is no deposit, no briefing fee, and no obligation. If the prototype is not right, you walk away owing nothing. We build first and earn your trust before we ask for anything.',
   },
   {
-    q: 'How long does it take to build a consultant website?',
-    a: 'Most of the work is on us, so the timeline depends mainly on how quickly you review each round. Responsive clients have launched in under a week, and most projects wrap in a couple of weeks. We handle the research, design, and development.',
+    q: 'How much does a consultant website cost?',
+    a: 'The price is a one-off cost, not a subscription. There is no fixed figure, because every consultant website is custom, so the cost depends on the scope and complexity of what you want. Caldera deliberately keeps the entry point accessible for solo consultants, and the first year of hosting and support is included in that one-off price.',
   },
   {
-    q: 'What types of consultants do you work with?',
-    a: 'Solo and independent consultants. That means Fractional CFOs, executive and leadership coaches, supply chain and operations advisors, health care consultants, and experts like them. That focus is what keeps the work sharp.',
+    q: 'How long does it take to build a consultant website?',
+    a: 'Most consultant websites take about a couple of weeks, some client projects have launched in under a week. Because Caldera handles the research, copywriting, design, and development for you, the timeline depends mainly on how quickly we are reviewing each round, and the complexity of the project.',
+  },
+  {
+    q: 'What kind of consultants do you work with?',
+    a: 'Caldera works only with solo and independent consultants: fractional CFOs, executive and leadership coaches, HR and operations advisors, healthcare consultants, and experts like them. Working only with consultants is what makes the service fast, efficient, and high-end.',
   },
   {
     q: 'Can you build exactly the website I have in mind?',
@@ -48,10 +64,6 @@ const faqs: Faq[] = [
   {
     q: 'How is this different from Squarespace, Wix, or hiring a freelancer?',
     a: 'DIY builders hand you a blank template and make you the strategist, copywriter, and designer. A general freelancer or agency can build the site, but you usually brief them, write the positioning, and pay before anything is built.',
-  },
-  {
-    q: 'What does a Caldera website cost?',
-    a: 'Every project starts with a free working prototype, so you see your website before you decide anything. From there, the investment depends on the scope and complexity of the site you want.',
   },
 ]
 

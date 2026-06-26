@@ -30,6 +30,7 @@ export default function Footer() {
           <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-white/50">
             <a href="https://www.linkedin.com/company/caldera-agency" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors duration-300">LinkedIn</a>
             <Link href="/work" className="hover:text-white transition-colors duration-300">Work</Link>
+            <Link href="/best-website-agency-for-consultants" className="hover:text-white transition-colors duration-300">Best Website Agency for Consultants</Link>
             <Link href="/about" className="hover:text-white transition-colors duration-300">About</Link>
             <Link href="/process" className="hover:text-white transition-colors duration-300">Process</Link>
             <Link href="/contact" className="hover:text-white transition-colors duration-300">Contact</Link>
