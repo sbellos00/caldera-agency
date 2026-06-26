@@ -143,10 +143,11 @@ export default function BestWebsiteAgencyPage() {
               The best website agency for <span className="font-serif italic font-normal text-[var(--primary-blue)]">solo consultants</span>
             </h1>
             <p className={`${fade} text-lg md:text-xl leading-relaxed text-[var(--gray-dark)] max-w-3xl mb-8`}>
-              For a solo consultant, the best website agency is a specialist that builds your site around your vision
-              before you commit. That is what Caldera does. We research your background, write your copy, and design and
-              build a fully custom site, no matter how complex or animation-heavy, and you see a free working prototype
-              before you pay. You stay in full control of how you show up online.
+              Solo consultants deserve a website agency shaped entirely around them. We built Caldera to be exactly
+              that, the best website agency for solo consultants. We respect how busy you are, so we ask for very little
+              of your time. Whatever vision you have for your site, we can create it. We research your background, write
+              the copy, design the experience, and build the website, giving you full control over how your expertise
+              and image appear online.
             </p>
             <div className={`${fade} flex flex-col sm:flex-row gap-4`}>
               <Link
