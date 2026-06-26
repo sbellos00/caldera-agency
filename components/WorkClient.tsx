@@ -35,7 +35,7 @@ export default function WorkClient() {
   }, [])
 
   // Background theming. The scroll container is BLACK (the case-studies backdrop), and
-  // the testimonials + CTA sections paint their own white background — so the white
+  // the testimonials + CTA sections paint their own white background,so the white
   // begins right at the top edge of the testimonials section, the moment it scrolls in,
   // while the case-studies section stays black and untouched. The nav logo flips to
   // match whatever section currently sits behind it.
@@ -96,7 +96,7 @@ export default function WorkClient() {
     return () => observer.disconnect()
   }, [])
 
-  // Background theme switching — mirrors the homepage exactly, including the Lenis
+  // Background theme switching,mirrors the homepage exactly, including the Lenis
   // smooth scroll that makes the background-colour transitions feel slow and
   // deliberate rather than snapping on native scroll.
   useEffect(() => {
@@ -217,7 +217,7 @@ export default function WorkClient() {
         className="relative z-10 theme-container"
         style={{ backgroundColor: 'rgb(0, 0, 0)', color: 'rgb(255, 255, 255)', transition: 'background-color 400ms ease-out' }}
       >
-        {/* Case studies — browser-frame cards (homepage "Highlighted Work" style) */}
+        {/* Case studies,browser-frame cards (homepage "Highlighted Work" style) */}
         <section ref={el => { themedSectionRefs.current[0] = el }} id="case-studies" className="py-24 md:py-32 px-8 md:px-16">
           <div className="max-w-screen-2xl mx-auto">
             <p className="text-[var(--primary-blue)] text-sm font-medium tracking-widest uppercase text-center mb-4 scroll-fade">Selected work</p>
@@ -243,7 +243,7 @@ export default function WorkClient() {
                           </div>
                         )}
                       </div>
-                      {/* Screenshot — natural aspect ratio, no crop */}
+                      {/* Screenshot,natural aspect ratio, no crop */}
                       {c.image && (
                         <Image src={c.image} alt={`${title} website`} width={1200} height={800} className="w-full h-auto" sizes="(max-width: 768px) 100vw, 50vw" />
                       )}
@@ -275,7 +275,7 @@ export default function WorkClient() {
           </div>
         </section>
 
-        {/* Testimonials — white section with cream cards (paints its own background) */}
+        {/* Testimonials,white section with cream cards (paints its own background) */}
         <section ref={el => { themedSectionRefs.current[1] = el }} className="bg-white py-24 md:py-32 px-8 md:px-16">
           <div className="max-w-screen-lg mx-auto">
             <p className="text-[var(--primary-blue)] text-sm font-medium tracking-widest uppercase text-center mb-4 scroll-fade">Testimonials</p>
@@ -296,7 +296,7 @@ export default function WorkClient() {
           </div>
         </section>
 
-        {/* Closing CTA — light section (paints its own background) */}
+        {/* Closing CTA,light section (paints its own background) */}
         <section ref={el => { themedSectionRefs.current[2] = el }} className="relative bg-white py-24 md:py-32 px-8 md:px-16 overflow-hidden">
           <div className="pointer-events-none absolute inset-0 opacity-[0.03]" style={{
             backgroundImage: `linear-gradient(var(--primary-blue) 1px, transparent 1px), linear-gradient(90deg, var(--primary-blue) 1px, transparent 1px)`,

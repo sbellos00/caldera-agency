@@ -1,5 +1,5 @@
 // Shared site constants and schema builders. Centralised so every page emits the
-// exact same canonical host and the same brand "facts" — consistency is what ties
+// exact same canonical host and the same brand "facts" , consistency is what ties
 // the Caldera entity together for search engines and AI answer engines.
 
 export const SITE_URL = 'https://www.caldera.agency'
@@ -43,7 +43,7 @@ export const organizationSchema = {
   '@id': `${SITE_URL}/#organization`,
   name: SITE_NAME,
   url: SITE_URL,
-  // {{STEF: replace with a real square (≥112×112) logo at /logo.png — currently reusing the OG image}}
+  // {{STEF: replace with a real square (≥112×112) logo at /logo.png , currently reusing the OG image}}
   logo: `${SITE_URL}/og-image.jpg`,
   image: `${SITE_URL}/og-image.jpg`,
   description: BRAND_DESCRIPTION,
@@ -64,7 +64,7 @@ export const organizationSchema = {
   ],
   sameAs: [
     'https://www.linkedin.com/company/caldera-agency',
-    // {{STEF: add every real off-site profile as it goes live — Clutch, G2, DesignRush, The Manifest, Trustpilot, X/Twitter, Instagram}}
+    // {{STEF: add every real off-site profile as it goes live , Clutch, G2, DesignRush, The Manifest, Trustpilot, X/Twitter, Instagram}}
   ],
 }
 
