@@ -6,6 +6,7 @@ import CookieBanner from "@/components/CookieBanner";
 import { Analytics } from "@vercel/analytics/next"
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import StructuredData from "@/components/StructuredData"
+import NavTracker from "@/components/NavTracker"
 
 const geistSans = localFont({
   src: "./fonts/geist-latin.woff2",
@@ -100,6 +101,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${bebasNeue.variable} antialiased`}
       >
+        <NavTracker />
         <StructuredData />
         <GoogleAnalytics />
         <CookieBanner />

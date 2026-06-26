@@ -16,6 +16,21 @@ import Aurora from '@/components/Aurora'
 import Menu from '@/components/Menu'
 import Footer from '@/components/Footer'
 import { homepageFaqs } from '@/lib/site'
+import { hasHydrated, LAST_PATH_KEY } from '@/lib/navState'
+
+// The preloader plays only on a fresh document load (hard load or refresh) or when
+// the user arrives at the homepage from the flagship page. On any other client-side
+// navigation to the homepage it is skipped.
+const FLAGSHIP_PATH = '/best-website-agency-for-consultants'
+function shouldShowPreloader() {
+  if (typeof window === 'undefined') return true // SSR == a fresh document load
+  if (!hasHydrated()) return true // first client render of this document load
+  try {
+    return sessionStorage.getItem(LAST_PATH_KEY) === FLAGSHIP_PATH
+  } catch {
+    return false
+  }
+}
 
 const CrowdCanvas = dynamic(() => import('@/components/CrowdCanvas'), { ssr: false })
 
@@ -289,22 +304,28 @@ export default function HomeV2() {
   const [showAllFAQ, setShowAllFAQ] = useState(false)
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
-  const [showPreloader, setShowPreloader] = useState(true)
+  const [showPreloader, setShowPreloader] = useState(shouldShowPreloader)
   const lenisRef = useRef<Lenis | null>(null)
   const scrollContainerRef = useRef<HTMLDivElement>(null)
   const themedSectionRefs = useRef<(HTMLElement | null)[]>([])
 
-  // Preloader timeout + unlock scroll after hero animations
+  // Preloader timeout + unlock scroll after hero animations. When the preloader is
+  // skipped (a client-side navigation that is not from the flagship page), there is
+  // no intro to wait on, so scrolling is unlocked promptly instead.
   useEffect(() => {
     window.scrollTo(0, 0)
-    // Hide preloader after 2.8s
-    const preloaderTimer = setTimeout(() => setShowPreloader(false), 2800)
-    // Start Lenis after hero animations finish (~2.8s preloader + 3.5s hero anims)
-    const scrollTimer = setTimeout(() => lenisRef.current?.start(), 6300)
-    return () => {
-      clearTimeout(preloaderTimer)
-      clearTimeout(scrollTimer)
+    const timers: ReturnType<typeof setTimeout>[] = []
+    if (showPreloader) {
+      // Hide preloader after 2.8s
+      timers.push(setTimeout(() => setShowPreloader(false), 2800))
+      // Start Lenis after hero animations finish (~2.8s preloader + 3.5s hero anims)
+      timers.push(setTimeout(() => lenisRef.current?.start(), 6300))
+    } else {
+      timers.push(setTimeout(() => lenisRef.current?.start(), 600))
     }
+    return () => timers.forEach(clearTimeout)
+    // showPreloader is intentionally read once at mount.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   // Nav scroll detection
