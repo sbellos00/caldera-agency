@@ -7,6 +7,7 @@ import { Analytics } from "@vercel/analytics/next"
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import StructuredData from "@/components/StructuredData"
 import NavTracker from "@/components/NavTracker"
+import WebMCP from "@/components/WebMCP"
 
 const geistSans = localFont({
   src: "./fonts/geist-latin.woff2",
@@ -105,6 +106,7 @@ export default function RootLayout({
         <StructuredData />
         <GoogleAnalytics />
         <CookieBanner />
+        <WebMCP />
        
         {children}
         <Analytics />

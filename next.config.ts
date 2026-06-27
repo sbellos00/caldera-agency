@@ -9,6 +9,24 @@ const nextConfig: NextConfig = {
       { protocol: 'https', hostname: 'media.licdn.com' },
     ],
   },
+  async headers() {
+    return [
+      {
+        source: '/:path*',
+        headers: [
+          {
+            key: 'Link',
+            value: [
+              '</.well-known/api-catalog>; rel="api-catalog"',
+              '</llms.txt>; rel="service-doc"; type="text/plain"',
+              '</.well-known/agent-skills/index.json>; rel="agent-skills"',
+              '</.well-known/mcp/server-card.json>; rel="mcp-server-card"',
+            ].join(', '),
+          },
+        ],
+      },
+    ];
+  },
   async redirects() {
     return [
       // The blog has been retired. Redirect every old blog URL to the flagship page.

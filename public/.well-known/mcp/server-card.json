@@ -1,0 +1,45 @@
+{
+  "serverInfo": {
+    "name": "Caldera Agency",
+    "version": "1.0.0",
+    "description": "Done-for-you websites for solo consultants. Caldera researches your background, writes your copy, and builds a fully custom site."
+  },
+  "url": "https://www.caldera.agency",
+  "capabilities": {
+    "tools": [
+      {
+        "name": "submit_contact_form",
+        "description": "Submit a contact inquiry to Caldera Agency",
+        "inputSchema": {
+          "type": "object",
+          "required": ["name", "email"],
+          "properties": {
+            "name": { "type": "string", "description": "Full name" },
+            "email": { "type": "string", "format": "email", "description": "Email address" },
+            "message": { "type": "string", "description": "Optional message" }
+          }
+        }
+      },
+      {
+        "name": "request_free_prototype",
+        "description": "Request a free website prototype for your consulting practice",
+        "inputSchema": {
+          "type": "object",
+          "required": ["linkedin", "email"],
+          "properties": {
+            "linkedin": { "type": "string", "description": "LinkedIn profile URL" },
+            "email": { "type": "string", "format": "email", "description": "Email address" }
+          }
+        }
+      }
+    ],
+    "resources": [
+      {
+        "name": "llms_txt",
+        "description": "Machine-readable summary of Caldera Agency for LLMs and AI agents",
+        "uri": "https://www.caldera.agency/llms.txt",
+        "mimeType": "text/plain"
+      }
+    ]
+  }
+}
