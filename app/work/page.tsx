@@ -45,6 +45,12 @@ const reviewSchema = {
   '@type': 'Organization',
   '@id': `${SITE_URL}/#organization`,
   name: SITE_NAME,
+  aggregateRating: {
+    '@type': 'AggregateRating',
+    ratingValue: '5',
+    bestRating: '5',
+    ratingCount: String(workTestimonials.length),
+  },
   review: workTestimonials.map((t) => ({
     '@type': 'Review',
     author: { '@type': 'Person', name: t.name },
