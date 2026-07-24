@@ -53,9 +53,9 @@ const reviewSchema = {
   aggregateRating: {
     '@type': 'AggregateRating',
     ratingValue: '5',
-    reviewCount: '3', // {{STEF: keep in sync with the number of real testimonials shown on the site}}
+    reviewCount: '4', // {{STEF: keep in sync with the number of real testimonials shown on the site}}
   },
-  review: (['piazza', 'scott', 'paul'] as const).map((k) => ({
+  review: (['piazza', 'scott', 'paul', 'esemenyuk'] as const).map((k) => ({
     '@type': 'Review',
     author: { '@type': 'Person', name: testimonials[k].name },
     reviewRating: { '@type': 'Rating', ratingValue: '5', bestRating: '5' },
