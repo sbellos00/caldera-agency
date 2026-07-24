@@ -50,7 +50,7 @@ export const caseStudies: CaseStudy[] = [
     hidden: true,
   },
   {
-    name: 'Ekaterina Esemenyuk',
+    name: 'Ekaterina Semenyuk',
     role: 'Biosafety & Research Safety Consultant',
     url: 'https://esemenyuk.com',
     image: 'https://res.cloudinary.com/dxg4uslo6/image/upload/v1782384441/Screenshot_2026-06-25_at_1.46.18_PM_u5ptyt.png',
