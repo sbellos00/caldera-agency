@@ -17,9 +17,10 @@ export interface Testimonial {
   body: string
 }
 
-// Only the three named, real testimonials shown on the site. Matched to niches
-// where relevant: Piazza → fractional CFO, Ron Paul → coaching, Tim Scott → advisory.
-export const testimonials: Record<'piazza' | 'scott' | 'paul', Testimonial> = {
+// The named, real testimonials shown on the site. Matched to niches where relevant:
+// Piazza → fractional CFO, Ron Paul → coaching, Tim Scott → advisory,
+// Esemenyuk → biosafety / research safety.
+export const testimonials: Record<'piazza' | 'scott' | 'paul' | 'esemenyuk', Testimonial> = {
   piazza: {
     name: 'Mark S. Piazza',
     role: 'Fractional CFO & Financial Advisor',
@@ -34,6 +35,11 @@ export const testimonials: Record<'piazza' | 'scott' | 'paul', Testimonial> = {
     name: 'Dr. Ron Paul',
     role: 'Founder, Polaris Leadership Institute',
     body: 'I was initially drawn to Caldera Agency because, unlike most vendors who send generic outreach, they had clearly taken the time to understand my business. The team was incredibly responsive and committed to getting every element right. We truly built the website together. The experience felt like a true partnership, and the value of the service far exceeded the cost.',
+  },
+  esemenyuk: {
+    name: 'Ekaterina Esemenyuk',
+    role: 'Biosafety & Research Safety Consultant',
+    body: 'I just wanted to say thank you for the fantastic work on my website! I’m very happy with how it turned out. It looks clean, professional, and truly reflects my work and vision. It was a pleasure working with you, and I would gladly recommend your services to others. Thank you again!',
   },
 }
 

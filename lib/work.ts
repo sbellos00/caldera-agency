@@ -50,7 +50,7 @@ export const caseStudies: CaseStudy[] = [
     hidden: true,
   },
   {
-    name: 'Ekaterina Semenyuk',
+    name: 'Ekaterina Esemenyuk',
     role: 'Biosafety & Research Safety Consultant',
     url: 'https://esemenyuk.com',
     image: 'https://res.cloudinary.com/dxg4uslo6/image/upload/v1782384441/Screenshot_2026-06-25_at_1.46.18_PM_u5ptyt.png',
@@ -78,4 +78,4 @@ export const caseStudies: CaseStudy[] = [
 // Real testimonials shown on the page. Matched to their niche where possible.
 // More will be added as the additional client testimonials come in.
 // {{STEF: add the testimonials for the 4 new websites here once received.}}
-export const workTestimonials: Testimonial[] = [testimonials.piazza, testimonials.scott, testimonials.paul]
+export const workTestimonials: Testimonial[] = [testimonials.piazza, testimonials.scott, testimonials.paul, testimonials.esemenyuk]
