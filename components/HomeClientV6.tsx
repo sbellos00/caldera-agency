@@ -639,14 +639,16 @@ export default function HomeV6() {
             <p className="text-[var(--primary-blue)] text-sm font-medium tracking-widest uppercase text-center mb-4 scroll-fade">The Team</p>
             <h2 className="section-title text-center mb-16 md:mb-20 scroll-fade">The people behind the work</h2>
 
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 md:gap-10 max-w-4xl mx-auto">
+            {/* Three across on every breakpoint — the founders read as one row,
+                so phones get tighter gaps and smaller type rather than a stack. */}
+            <div className="grid grid-cols-3 gap-3 sm:gap-8 md:gap-10 max-w-4xl mx-auto">
               {team.map((member, i) => (
                 <div key={member.name} className="text-center scroll-fade" style={{ transitionDelay: `${i * 100}ms` }}>
-                  <div className="relative aspect-square rounded-2xl overflow-hidden mb-5 bg-white/5">
-                    <Image src={member.image} alt={member.name} fill className="object-cover" sizes="(max-width: 640px) 100vw, 300px" />
+                  <div className="relative aspect-square rounded-xl sm:rounded-2xl overflow-hidden mb-3 sm:mb-5 bg-white/5">
+                    <Image src={member.image} alt={member.name} fill className="object-cover" sizes="(max-width: 640px) 33vw, 300px" />
                   </div>
-                  <p className="text-lg font-medium tracking-tight text-white">{member.name}</p>
-                  <p className="text-sm text-white/50 mt-0.5">{member.role}</p>
+                  <p className="text-[13px] leading-snug sm:text-lg font-medium tracking-tight text-white">{member.name}</p>
+                  <p className="text-[11px] leading-snug sm:text-sm text-white/50 mt-1 sm:mt-0.5">{member.role}</p>
                 </div>
               ))}
             </div>
