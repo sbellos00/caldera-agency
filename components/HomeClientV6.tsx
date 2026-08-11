@@ -272,15 +272,11 @@ export default function HomeV6() {
     const textEl = cursorTextRef.current
     if (!cursor || !dot || !textEl) return
 
-    if (window.innerWidth <= 768) {
-      cursor.style.display = 'none'; dot.style.display = 'none'; textEl.style.display = 'none'
-      return
-    }
-
     let mouseX = 0, mouseY = 0, curX = 0, curY = 0, dotX = 0, dotY = 0
 
     const handleMouseMove = (e: MouseEvent) => { mouseX = e.clientX; mouseY = e.clientY }
-    document.addEventListener('mousemove', handleMouseMove)
+    const hasFinePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches
+    if (hasFinePointer) document.addEventListener('mousemove', handleMouseMove)
 
     // GSAP ticker for smooth trailing
     const update = () => {
@@ -295,7 +291,7 @@ export default function HomeV6() {
       textEl.style.left = dotX + 'px'
       textEl.style.top = dotY - 24 + 'px'
     }
-    gsap.ticker.add(update)
+    if (hasFinePointer) gsap.ticker.add(update)
 
     // Magnetic pull for interactive elements
     const magnetics = document.querySelectorAll('a, button, .feature-card, .portfolio-card')
@@ -311,7 +307,7 @@ export default function HomeV6() {
       cursor.style.opacity = '1'
       textEl.classList.remove('active')
     }
-    magnetics.forEach(el => { el.addEventListener('mouseenter', magnetEnter); el.addEventListener('mouseleave', magnetLeave) })
+    if (hasFinePointer) magnetics.forEach(el => { el.addEventListener('mouseenter', magnetEnter); el.addEventListener('mouseleave', magnetLeave) })
 
     // Scroll-fade observer
     const observer = new IntersectionObserver(entries => {
@@ -320,9 +316,11 @@ export default function HomeV6() {
     document.querySelectorAll('.scroll-fade').forEach(el => observer.observe(el))
 
     return () => {
-      document.removeEventListener('mousemove', handleMouseMove)
-      gsap.ticker.remove(update)
-      magnetics.forEach(el => { el.removeEventListener('mouseenter', magnetEnter); el.removeEventListener('mouseleave', magnetLeave) })
+      if (hasFinePointer) {
+        document.removeEventListener('mousemove', handleMouseMove)
+        gsap.ticker.remove(update)
+        magnetics.forEach(el => { el.removeEventListener('mouseenter', magnetEnter); el.removeEventListener('mouseleave', magnetLeave) })
+      }
       observer.disconnect()
     }
   }, [])
@@ -663,28 +661,39 @@ export default function HomeV6() {
 
             <div className="flex flex-col gap-8">
               {testimonials.map((t, i) => (
-                <div key={i} className="bg-[var(--cream)] rounded-2xl p-6 md:p-8 scroll-fade" style={{ transitionDelay: `${i * 100}ms` }}>
+                <div key={i} className="bg-[var(--cream)] rounded-2xl p-5 md:p-8 scroll-fade" style={{ transitionDelay: `${i * 100}ms` }}>
                   <div className="grid grid-cols-1 md:grid-cols-[1fr_180px] gap-6 md:gap-8">
                     {/* Left: quotes + attribution */}
                     <div className="flex flex-col">
+                      {/* On phones, lead with a compact identity row instead of
+                          placing a large portrait underneath the entire quote. */}
+                      <div className="flex items-center gap-3 mb-5 md:hidden">
+                        <div className="relative h-14 w-14 shrink-0 overflow-hidden rounded-xl">
+                          <Image src={t.image} alt={t.name} fill className="object-cover" style={{ objectPosition: t.imgPos }} sizes="56px" />
+                        </div>
+                        <div className="min-w-0">
+                          <p className="text-sm font-semibold tracking-tight text-[var(--black)]">{t.name}</p>
+                          <p className="text-xs leading-snug text-[var(--gray-medium)]">{t.role}</p>
+                        </div>
+                      </div>
                       {/* Pull quote */}
-                      <p className="text-[clamp(22px,3vw,32px)] font-light leading-snug tracking-tight text-[var(--black)] mb-4">
+                      <p className="text-xl md:text-[clamp(22px,3vw,32px)] font-light leading-snug tracking-tight text-[var(--black)] mb-4">
                         &ldquo;...{t.highlight}&rdquo;
                       </p>
                       {/* Full quote with left accent */}
-                      <div className="border-l-[3px] border-[var(--gray-medium)]/20 pl-5 mb-5">
-                        <p className="text-[15px] leading-relaxed text-[var(--gray-medium)]">
+                      <div className="border-l-2 md:border-l-[3px] border-[var(--gray-medium)]/20 pl-4 md:pl-5 md:mb-5">
+                        <p className="text-sm md:text-[15px] leading-relaxed text-[var(--gray-medium)]">
                           &ldquo;{t.quote}&rdquo;
                         </p>
                       </div>
                       {/* Attribution — moved here from the right column */}
-                      <div>
+                      <div className="hidden md:block">
                         <p className="text-sm text-[var(--gray-medium)]">{t.name}</p>
                         <p className="text-sm font-semibold tracking-tight">{t.role}</p>
                       </div>
                     </div>
                     {/* Right: photo only */}
-                    <div className="w-40 h-48 md:w-full md:h-full rounded-xl overflow-hidden relative">
+                    <div className="hidden md:block md:w-full md:h-full rounded-xl overflow-hidden relative">
                       <Image src={t.image} alt={t.name} fill className="object-cover" style={{ objectPosition: t.imgPos }} sizes="180px" />
                     </div>
                   </div>
