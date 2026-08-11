@@ -4,7 +4,6 @@ import React, { useEffect, useRef, useState, useCallback } from 'react'
 import dynamic from 'next/dynamic'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
@@ -242,7 +241,6 @@ export default function HomeV6() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const [showPreloader, setShowPreloader] = useState(true)
-  const router = useRouter()
   const lenisRef = useRef<Lenis | null>(null)
   const scrollContainerRef = useRef<HTMLDivElement>(null)
   const themedSectionRefs = useRef<(HTMLElement | null)[]>([])
@@ -266,16 +264,6 @@ export default function HomeV6() {
     window.addEventListener('scroll', handleScroll, { passive: true })
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
-
-  // The prototype section above the footer is the only form on this page. Scrolling has to
-  // go through Lenis: it owns the scroll position, so a native scrollIntoView gets undone
-  // on the next frame. `force` lets it work before Lenis is started.
-  const scrollToNearestForm = useCallback(() => {
-    const form = document.getElementById('prototype-form')
-    if (!form) { router.push('/contact'); return }
-    if (lenisRef.current) lenisRef.current.scrollTo(form, { offset: -120, force: true, duration: 1.4 })
-    else form.scrollIntoView({ behavior: 'smooth', block: 'center' })
-  }, [router])
 
   // Upgraded cursor with GSAP lerp + magnetic pull + text mode
   useEffect(() => {
@@ -408,14 +396,14 @@ export default function HomeV6() {
             caldera.agency
           </div>
           <div className="flex items-center gap-8">
-            <button onClick={scrollToNearestForm}
-              className={`hidden md:block group relative overflow-hidden px-6 py-3 rounded-lg text-sm tracking-tight transition-all duration-500 hover:scale-105 ${navDark ? 'bg-white text-[var(--black)]' : 'bg-[var(--black)] text-white'}`}>
+            <Link href="/contact"
+              className={`hidden md:block group relative overflow-hidden px-6 py-3 rounded-lg text-sm tracking-tight transition-all duration-500 hover:scale-105 no-underline ${navDark ? 'bg-white text-[var(--black)]' : 'bg-[var(--black)] text-white'}`}>
               <div className={`absolute inset-0 ${navDark ? 'bg-[var(--black)]' : 'bg-[var(--primary-blue)]'} transform -translate-x-full transition-transform duration-300 ease-out group-hover:translate-x-0`} />
               <span className="relative z-10 flex items-center gap-2 group-hover:text-white">
                 Get In Touch
                 <span className="transition-transform duration-300 group-hover:translate-x-0.5">&rarr;</span>
               </span>
-            </button>
+            </Link>
             <Menu onMenuToggle={setIsMenuOpen} dark={navDark} />
           </div>
         </div>
@@ -755,11 +743,11 @@ export default function HomeV6() {
 
             <div className="text-center mt-12 md:mt-20 scroll-fade">
               <p className="opacity-75 text-base md:text-lg mb-4 md:mb-6">Have a different question?</p>
-              <button onClick={scrollToNearestForm} className="inline-flex items-center gap-2 text-base md:text-lg relative pb-1 group">
+              <Link href="/contact" className="inline-flex items-center gap-2 text-base md:text-lg relative pb-1 group no-underline">
                 <span>Get in touch</span>
                 <span className="transition-transform duration-300 group-hover:translate-x-1">&rarr;</span>
                 <div className="absolute bottom-0 left-0 w-0 h-0.5 bg-current transition-[width] duration-300 group-hover:w-full" />
-              </button>
+              </Link>
             </div>
           </div>
         </section>
