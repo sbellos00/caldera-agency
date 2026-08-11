@@ -8,13 +8,16 @@ import Footer from '@/components/Footer'
 export default function ContactPage() {
   const cursorRef = useRef<HTMLDivElement>(null)
   const cursorDotRef = useRef<HTMLDivElement>(null)
-  const [formData, setFormData] = useState({ 
-    name: '', 
-    email: '', 
-    message: ''
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    message: '',
+    // Honeypot — hidden from real users, filled in by bots.
+    company: ''
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle')
+  const [errorMessage, setErrorMessage] = useState('')
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   useEffect(() => {
@@ -106,23 +109,29 @@ export default function ContactPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    if (isSubmitting) return
     setIsSubmitting(true)
+    setErrorMessage('')
 
     try {
       const response = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData)
+        body: JSON.stringify({ ...formData, source: 'contact-page' })
       })
 
       if (response.ok) {
         setSubmitStatus('success')
-        setFormData({ 
-          name: '', 
-          email: '', 
-          message: ''
+        setFormData({
+          name: '',
+          email: '',
+          message: '',
+          company: ''
         })
       } else {
+        // Surface the API's own reason so a misconfigured mailer isn't invisible.
+        const data = await response.json().catch(() => null)
+        setErrorMessage(data?.error || '')
         setSubmitStatus('error')
       }
     } catch (error) {
@@ -202,7 +211,7 @@ export default function ContactPage() {
                     <button
                       onClick={() => {
                         setSubmitStatus('idle')
-                        setFormData({ name: '', email: '', message: '' })
+                        setFormData({ name: '', email: '', message: '', company: '' })
                       }}
                       className="inline-flex items-center justify-center gap-3 bg-[var(--black)] text-white px-8 py-3 text-[15px] tracking-tight rounded-lg relative overflow-hidden transition-all duration-300 ease-out hover:scale-105 group"
                     >
@@ -262,10 +271,24 @@ export default function ContactPage() {
                       />
                     </div>
 
+                    {/* Honeypot — hidden from people and assistive tech, catnip for bots. */}
+                    <div aria-hidden="true" className="absolute left-[-9999px] w-px h-px overflow-hidden">
+                      <label htmlFor="contact-company">Company</label>
+                      <input
+                        id="contact-company"
+                        name="company"
+                        type="text"
+                        tabIndex={-1}
+                        autoComplete="off"
+                        value={formData.company}
+                        onChange={(e) => setFormData(prev => ({ ...prev, company: e.target.value }))}
+                      />
+                    </div>
+
                     {submitStatus === 'error' && (
                       <div className="bg-red-50 border border-red-200 rounded-xl p-6">
                         <p className="text-red-600">
-                          Something went wrong. Please try again or email us directly at contact@caldera.agency
+                          {errorMessage || 'Something went wrong. Please try again or email us directly at contact@caldera.agency'}
                         </p>
                       </div>
                     )}
