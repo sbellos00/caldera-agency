@@ -37,6 +37,8 @@ const nextConfig: NextConfig = {
       { source: '/blog/why-consultants-need-websites', destination: '/best-website-agency-for-consultants', permanent: true },
       { source: '/blog/do-consultants-need-a-website', destination: '/best-website-agency-for-consultants', permanent: true },
       { source: '/blog/best-website-builder-for-consultants', destination: '/best-website-agency-for-consultants', permanent: true },
+      // The v6 homepage preview is now the homepage itself.
+      { source: '/v6', destination: '/', permanent: false },
       // Retired standalone pages.
       { source: '/consultant-websites', destination: '/best-website-agency-for-consultants', permanent: true },
       { source: '/for/fractional-cfo', destination: '/best-website-agency-for-consultants', permanent: true },

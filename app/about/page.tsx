@@ -207,6 +207,40 @@ export default function AboutPage() {
         </div>
       </section>
 
+      {/* ─── Why Now ─── */}
+      <section className="py-24 md:py-32 px-8 md:px-16 relative overflow-hidden bg-[var(--black)] noise-overlay">
+        <div className="absolute inset-0 opacity-[0.03]" style={{
+          backgroundImage: `radial-gradient(circle at 1px 1px, white 1px, transparent 0)`,
+          backgroundSize: '60px 60px',
+        }} />
+
+        <div className="relative z-10 max-w-screen-lg mx-auto">
+          <p className="text-[var(--primary-blue)] text-sm font-medium tracking-widest uppercase text-center mb-12 scroll-fade">Why Now</p>
+
+          {/* Pull quote */}
+          <blockquote className="text-center mb-16 scroll-fade">
+            <p className="text-2xl md:text-4xl lg:text-5xl font-light leading-tight tracking-tight font-serif italic text-white/90 max-w-3xl mx-auto">
+              &ldquo;Everyone&apos;s presence is about to be equally fine, so distinct becomes the whole game.&rdquo;
+            </p>
+          </blockquote>
+
+          <div className="space-y-5 text-lg leading-relaxed text-white/70 max-w-2xl mx-auto">
+            <p className="scroll-fade">
+              Good enough design is available to everyone now. Most sites in any field read as fine, and they read as fine in the same way.
+            </p>
+            <p className="scroll-fade">
+              When everything reads as fine, fine is invisible. Good design has always had inherent value, and that value grows as everything becomes more generic.
+            </p>
+            <p className="scroll-fade">
+              Corporate brands hold their standard through a creative director who owns it. Big agencies staff and price for corporations, and freelancers execute tasks without owning the direction. Nobody offers that standard to a person.
+            </p>
+            <p className="scroll-fade text-white/90 font-medium">
+              That is the work we do.
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* ─── What We Built ─── */}
       <section className="py-24 md:py-32 px-8 md:px-16 bg-[var(--cream)]">
         {/* Grid pattern */}
@@ -338,6 +372,26 @@ export default function AboutPage() {
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* ─── Component Library ─── */}
+      <section className="py-24 md:py-32 px-8 md:px-16 bg-[var(--cream)] relative overflow-hidden">
+        <div className="pointer-events-none absolute inset-0 opacity-[0.03]" style={{
+          backgroundImage: `linear-gradient(var(--primary-blue) 1px, transparent 1px), linear-gradient(90deg, var(--primary-blue) 1px, transparent 1px)`,
+          backgroundSize: '60px 60px',
+        }} />
+        <div className="relative z-10 max-w-screen-md mx-auto text-center">
+          <div className="flex items-center justify-center gap-3 mb-6 scroll-fade">
+            <p className="text-[var(--primary-blue)] text-sm font-medium tracking-widest uppercase">The Component Library</p>
+            <span className="text-[10px] font-semibold tracking-widest uppercase bg-[var(--primary-blue)] text-white rounded-full px-3 py-1">Coming Soon</span>
+          </div>
+          <h2 className="section-title mb-6 scroll-fade">
+            A system of <span className="font-serif italic text-[var(--primary-blue)]">our own</span>
+          </h2>
+          <p className="text-base md:text-lg leading-relaxed text-[var(--gray-medium)] max-w-2xl mx-auto scroll-fade">
+            We are building a proprietary component library from the principles behind our client work: design borrowed from the industries where creativity matters most, applied to consulting. We will open it up publicly when it is ready.
+          </p>
         </div>
       </section>
 

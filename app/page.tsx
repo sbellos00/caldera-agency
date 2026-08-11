@@ -1,11 +1,11 @@
 import type { Metadata } from "next"
-import HomeClientV2 from "@/components/HomeClientV2"
+import HomeClientV6 from "@/components/HomeClientV6"
 import JsonLd from "@/components/JsonLd"
-import { professionalServiceSchema, faqSchema, homepageFaqs, testimonials, SITE_URL, SITE_NAME } from "@/lib/site"
+import { professionalServiceSchema, faqSchema, homeFaqs, testimonials, SITE_URL, SITE_NAME } from "@/lib/site"
 
 export const metadata: Metadata = {
   title: "Caldera | The Website Agency for Solo Consultants",
-  description: "Caldera is a done-for-you website agency for solo consultants. Share your LinkedIn and we handle the research, copy, design, and build, then show you a free prototype before you pay anything.",
+  description: "Caldera is a done-for-you website agency for solo consultants. Share your LinkedIn and we handle the research, copy, design, and build.",
   keywords: [
     "consultant website design",
     "authority website",
@@ -14,7 +14,6 @@ export const metadata: Metadata = {
     "solo consultant branding",
     "custom web design",
     "consultant lead generation",
-    "free website prototype",
     "linkedin website builder",
     "caldera agency"
   ],
@@ -26,7 +25,7 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: "/",
     title: "Caldera | The Website Agency for Solo Consultants",
-    description: "Caldera is a done-for-you website agency for solo consultants. Share your LinkedIn and we handle the research, copy, design, and build, then show you a free prototype before you pay anything.",
+    description: "Caldera is a done-for-you website agency for solo consultants. Share your LinkedIn and we handle the research, copy, design, and build.",
     siteName: "Caldera Agency",
     images: [
       {
@@ -40,7 +39,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Caldera | The Website Agency for Solo Consultants",
-    description: "Caldera is a done-for-you website agency for solo consultants. Share your LinkedIn and we handle the research, copy, design, and build, then show you a free prototype before you pay anything.",
+    description: "Caldera is a done-for-you website agency for solo consultants. Share your LinkedIn and we handle the research, copy, design, and build.",
     images: ["/og-image.jpg"],
   },
 }
@@ -67,9 +66,14 @@ export default function HomePage() {
   return (
     <>
       <JsonLd data={professionalServiceSchema} />
-      <JsonLd data={faqSchema(homepageFaqs)} />
+      <JsonLd data={faqSchema(homeFaqs)} />
       <JsonLd data={reviewSchema} />
-      <HomeClientV2 />
+      {/* Start the crowd sheet downloading with the document instead of after the
+          client chunk hydrates, so the crowd is already walking under the preloader.
+          The color sheet is deliberately not preloaded — peeps fall back to black
+          and white until it lands, and it would compete for the same bandwidth. */}
+      <link rel="preload" as="image" href="/images/peeps/open-peeps-sheet.png" fetchPriority="high" />
+      <HomeClientV6 />
     </>
   )
 }

@@ -146,10 +146,23 @@ export interface Faq {
   a: string
 }
 
-// Homepage FAQ. Answer-first and prompt-shaped for AI answer engines: each
-// question mirrors how people actually ask, and each answer opens with a direct,
-// quotable statement. Rendered on the homepage AND emitted as FAQPage schema from
-// app/page.tsx, so this is the single source of truth for both.
+// Homepage FAQ. Rendered by components/HomeClientV6 AND emitted as FAQPage
+// schema from app/page.tsx, so this is the single source of truth for both —
+// FAQ markup has to match what a visitor actually sees on the page.
+export const homeFaqs: Faq[] = [
+  { q: 'What if I don\'t have time for a big project?', a: 'We\'ve designed our process to be incredibly efficient. We handle all the technical and creative work, requiring less than two hours of your time to get everything launched.' },
+  { q: 'What if I\'m not happy at launch?', a: 'You review and approve the work at every milestone, and we keep iterating until you\'re proud to launch. Nothing goes live without your sign-off.' },
+  { q: 'Isn\'t this just another template site?', a: 'No. Every step is research-based and guides us towards designing the perfect website for you from scratch. All design and copy is consultant-specific and tailored to your positioning, built for consulting credibility—never generic.' },
+  { q: 'Do you build for other industries?', a: 'No. Consultants only. That\'s why our sites work.' },
+  { q: 'Will this bring leads?', a: 'No site guarantees leads. But without credibility, you lose by default. This site is built to open doors to RFPs, partnerships, and high-value deals.' },
+  { q: 'Who owns the site?', a: 'You own it, fully. No platform risk, no lock-in. We provide hosting, support, and maintenance to make your life easier, but you can take the full code and self-host anytime you wish.' },
+  { q: 'What if I need updates later?', a: 'Up to 4 post-launch development hours are included for free during the first month with your hosting plan, then 2 hours per month thereafter. Anything more is handled quickly by us at our standard rate.' },
+  { q: 'I was burned by agencies/freelancers before.', a: 'We understand your hesitation. That\'s why we operate with complete transparency. Our process is broken down into clear milestones, and you review and approve the work at every stage.' },
+]
+
+// The previous homepage's FAQ set. Answer-first and prompt-shaped for AI answer
+// engines. Still rendered by the retired components/HomeClientV2, which no longer
+// has a route — kept so the old page stays intact if we ever want it back.
 export const homepageFaqs: Faq[] = [
   {
     q: 'Do consultants need a website if they already have LinkedIn?',
