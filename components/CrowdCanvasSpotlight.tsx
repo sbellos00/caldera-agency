@@ -24,6 +24,8 @@ interface CrowdCanvasSpotlightProps {
 
 type Peep = {
   rect: number[]
+  baseWidth: number
+  baseHeight: number
   width: number
   height: number
   x: number
@@ -86,9 +88,15 @@ export default function CrowdCanvasSpotlight({
 
     const createPeep = ({ rect }: { rect: number[] }): Peep => {
       const peep: Peep = {
-        rect: [], width: 0, height: 0, x: 0, y: 0, anchorY: 0, scaleX: 1, walk: null,
+        rect: [], baseWidth: 0, baseHeight: 0, width: 0, height: 0, x: 0, y: 0, anchorY: 0, scaleX: 1, walk: null,
         color: false, colorIndex: 0,
-        setRect: (r: number[]) => { peep.rect = r; peep.width = r[2]; peep.height = r[3] },
+        setRect: (r: number[]) => {
+          peep.rect = r
+          peep.baseWidth = r[2]
+          peep.baseHeight = r[3]
+          peep.width = r[2]
+          peep.height = r[3]
+        },
         render: (ctx: CanvasRenderingContext2D) => {
           const useColor = peep.color && colorSheet && colorCell.w > 0
           const sheet = useColor ? colorSheet! : bwSheet
@@ -112,7 +120,12 @@ export default function CrowdCanvasSpotlight({
       peep.color = crowd.filter(p => p.color).length < coloredCount
       if (peep.color) peep.colorIndex = nextColorIndex()
       const direction = Math.random() > 0.5 ? 1 : -1
-      const offsetY = 100 - 250 * gsap.parseEase('power2.in')(Math.random())
+      // Keep the mobile crowd inside a tighter vertical band. The desktop range
+      // puts the nearest row mostly below the viewport and the back row too high
+      // once the sprites are scaled down, leaving heads at one edge and cropped
+      // characters at the other.
+      const depth = gsap.parseEase('power2.in')(Math.random())
+      const offsetY = stage.width < 640 ? 25 - 110 * depth : 100 - 250 * depth
       const startY = stage.height - peep.height + offsetY
       let startX: number, endX: number
       if (direction === 1) { startX = -peep.width; endX = stage.width; peep.scaleX = 1 }
@@ -182,10 +195,20 @@ export default function CrowdCanvasSpotlight({
       stage.height = h
       canvas.width = w * devicePixelRatio
       canvas.height = h * devicePixelRatio
+
+      // A full desktop-sized cast overwhelms a narrow screen. Scale the sprites
+      // and reduce the active cast together, keeping the hero lively without
+      // obscuring the headline or turning the lower half into a solid wall.
+      const scale = Math.min(1, Math.max(0.42, w / 900))
+      const activeCount = w < 640 ? Math.min(48, allPeeps.length) : allPeeps.length
+      allPeeps.forEach(p => {
+        p.width = p.baseWidth * scale
+        p.height = p.baseHeight * scale
+      })
       crowd.forEach(p => { p.walk?.kill(); p.color = false })
       crowd.length = 0
       availablePeeps.length = 0
-      availablePeeps.push(...allPeeps)
+      availablePeeps.push(...allPeeps.slice(0, activeCount))
       initCrowd()
     }
 
