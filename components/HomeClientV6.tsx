@@ -272,15 +272,11 @@ export default function HomeV6() {
     const textEl = cursorTextRef.current
     if (!cursor || !dot || !textEl) return
 
-    if (window.innerWidth <= 768) {
-      cursor.style.display = 'none'; dot.style.display = 'none'; textEl.style.display = 'none'
-      return
-    }
-
     let mouseX = 0, mouseY = 0, curX = 0, curY = 0, dotX = 0, dotY = 0
 
     const handleMouseMove = (e: MouseEvent) => { mouseX = e.clientX; mouseY = e.clientY }
-    document.addEventListener('mousemove', handleMouseMove)
+    const hasFinePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches
+    if (hasFinePointer) document.addEventListener('mousemove', handleMouseMove)
 
     // GSAP ticker for smooth trailing
     const update = () => {
@@ -295,7 +291,7 @@ export default function HomeV6() {
       textEl.style.left = dotX + 'px'
       textEl.style.top = dotY - 24 + 'px'
     }
-    gsap.ticker.add(update)
+    if (hasFinePointer) gsap.ticker.add(update)
 
     // Magnetic pull for interactive elements
     const magnetics = document.querySelectorAll('a, button, .feature-card, .portfolio-card')
@@ -311,7 +307,7 @@ export default function HomeV6() {
       cursor.style.opacity = '1'
       textEl.classList.remove('active')
     }
-    magnetics.forEach(el => { el.addEventListener('mouseenter', magnetEnter); el.addEventListener('mouseleave', magnetLeave) })
+    if (hasFinePointer) magnetics.forEach(el => { el.addEventListener('mouseenter', magnetEnter); el.addEventListener('mouseleave', magnetLeave) })
 
     // Scroll-fade observer
     const observer = new IntersectionObserver(entries => {
@@ -320,9 +316,11 @@ export default function HomeV6() {
     document.querySelectorAll('.scroll-fade').forEach(el => observer.observe(el))
 
     return () => {
-      document.removeEventListener('mousemove', handleMouseMove)
-      gsap.ticker.remove(update)
-      magnetics.forEach(el => { el.removeEventListener('mouseenter', magnetEnter); el.removeEventListener('mouseleave', magnetLeave) })
+      if (hasFinePointer) {
+        document.removeEventListener('mousemove', handleMouseMove)
+        gsap.ticker.remove(update)
+        magnetics.forEach(el => { el.removeEventListener('mouseenter', magnetEnter); el.removeEventListener('mouseleave', magnetLeave) })
+      }
       observer.disconnect()
     }
   }, [])

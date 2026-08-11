@@ -24,6 +24,8 @@ interface CrowdCanvasSpotlightProps {
 
 type Peep = {
   rect: number[]
+  baseWidth: number
+  baseHeight: number
   width: number
   height: number
   x: number
@@ -86,9 +88,15 @@ export default function CrowdCanvasSpotlight({
 
     const createPeep = ({ rect }: { rect: number[] }): Peep => {
       const peep: Peep = {
-        rect: [], width: 0, height: 0, x: 0, y: 0, anchorY: 0, scaleX: 1, walk: null,
+        rect: [], baseWidth: 0, baseHeight: 0, width: 0, height: 0, x: 0, y: 0, anchorY: 0, scaleX: 1, walk: null,
         color: false, colorIndex: 0,
-        setRect: (r: number[]) => { peep.rect = r; peep.width = r[2]; peep.height = r[3] },
+        setRect: (r: number[]) => {
+          peep.rect = r
+          peep.baseWidth = r[2]
+          peep.baseHeight = r[3]
+          peep.width = r[2]
+          peep.height = r[3]
+        },
         render: (ctx: CanvasRenderingContext2D) => {
           const useColor = peep.color && colorSheet && colorCell.w > 0
           const sheet = useColor ? colorSheet! : bwSheet
@@ -182,10 +190,20 @@ export default function CrowdCanvasSpotlight({
       stage.height = h
       canvas.width = w * devicePixelRatio
       canvas.height = h * devicePixelRatio
+
+      // A full desktop-sized cast overwhelms a narrow screen. Scale the sprites
+      // and reduce the active cast together, keeping the hero lively without
+      // obscuring the headline or turning the lower half into a solid wall.
+      const scale = Math.min(1, Math.max(0.42, w / 900))
+      const activeCount = w < 640 ? Math.min(48, allPeeps.length) : allPeeps.length
+      allPeeps.forEach(p => {
+        p.width = p.baseWidth * scale
+        p.height = p.baseHeight * scale
+      })
       crowd.forEach(p => { p.walk?.kill(); p.color = false })
       crowd.length = 0
       availablePeeps.length = 0
-      availablePeeps.push(...allPeeps)
+      availablePeeps.push(...allPeeps.slice(0, activeCount))
       initCrowd()
     }
 
