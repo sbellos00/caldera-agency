@@ -4,7 +4,6 @@ import React, { useEffect, useRef, useState, useCallback } from 'react'
 import dynamic from 'next/dynamic'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
@@ -22,13 +21,13 @@ const CrowdCanvasSpotlight = dynamic(() => import('@/components/CrowdCanvasSpotl
 
 /* ─── Preloader (Nitro stair-wipe) ─── */
 function Preloader() {
-  const text = 'Caldera Agency'
+  const text = 'caldera.agency'
   const words = text.split(' ')
   return (
     <motion.div className="fixed inset-0 z-[200]">
       <div className="absolute z-10 flex h-full w-full items-center justify-center px-6 text-center">
         <motion.h1
-          className="font-serif text-3xl sm:text-4xl md:text-5xl tracking-tight text-white"
+          className="caldera-logo text-5xl sm:text-6xl md:text-7xl font-medium tracking-tight text-white"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1, transition: { duration: 4 } }}
           exit={{ opacity: 0, transition: { duration: 0.6 } }}
@@ -242,7 +241,6 @@ export default function HomeV6() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const [showPreloader, setShowPreloader] = useState(true)
-  const router = useRouter()
   const lenisRef = useRef<Lenis | null>(null)
   const scrollContainerRef = useRef<HTMLDivElement>(null)
   const themedSectionRefs = useRef<(HTMLElement | null)[]>([])
@@ -266,16 +264,6 @@ export default function HomeV6() {
     window.addEventListener('scroll', handleScroll, { passive: true })
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
-
-  // The prototype section above the footer is the only form on this page. Scrolling has to
-  // go through Lenis: it owns the scroll position, so a native scrollIntoView gets undone
-  // on the next frame. `force` lets it work before Lenis is started.
-  const scrollToNearestForm = useCallback(() => {
-    const form = document.getElementById('prototype-form')
-    if (!form) { router.push('/contact'); return }
-    if (lenisRef.current) lenisRef.current.scrollTo(form, { offset: -120, force: true, duration: 1.4 })
-    else form.scrollIntoView({ behavior: 'smooth', block: 'center' })
-  }, [router])
 
   // Upgraded cursor with GSAP lerp + magnetic pull + text mode
   useEffect(() => {
@@ -408,14 +396,14 @@ export default function HomeV6() {
             caldera.agency
           </div>
           <div className="flex items-center gap-8">
-            <button onClick={scrollToNearestForm}
-              className={`hidden md:block group relative overflow-hidden px-6 py-3 rounded-lg text-sm tracking-tight transition-all duration-500 hover:scale-105 ${navDark ? 'bg-white text-[var(--black)]' : 'bg-[var(--black)] text-white'}`}>
+            <Link href="/contact"
+              className={`hidden md:block group relative overflow-hidden px-6 py-3 rounded-lg text-sm tracking-tight transition-all duration-500 hover:scale-105 no-underline ${navDark ? 'bg-white text-[var(--black)]' : 'bg-[var(--black)] text-white'}`}>
               <div className={`absolute inset-0 ${navDark ? 'bg-[var(--black)]' : 'bg-[var(--primary-blue)]'} transform -translate-x-full transition-transform duration-300 ease-out group-hover:translate-x-0`} />
               <span className="relative z-10 flex items-center gap-2 group-hover:text-white">
                 Get In Touch
                 <span className="transition-transform duration-300 group-hover:translate-x-0.5">&rarr;</span>
               </span>
-            </button>
+            </Link>
             <Menu onMenuToggle={setIsMenuOpen} dark={navDark} />
           </div>
         </div>
@@ -617,15 +605,15 @@ export default function HomeV6() {
         <section ref={el => { themedSectionRefs.current[1] = el }} id="features" className="relative">
           <div className="pt-8 pb-16 px-8 md:px-16 max-w-screen-xl mx-auto">
             <h2 className="section-title mb-12 md:mb-16 scroll-fade">
-              We make websites for consultants<br className="hidden md:block" /> who don&apos;t have time.
+              We help consulting businesses<br className="hidden md:block" /> build market-leading brands.
             </h2>
 
             {/* 3 equal cards */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-5">
               {[
-                { h: 'Creative direction, owned.', b: 'A creative director for your brand, the way corporate brands have one. The standard is held for you; your involvement happens at defined decision moments sized for a time-poor principal.' },
-                { h: 'A design system of your own.', b: 'A proprietary design system built for this market: principles borrowed from the industries where design and creativity matter most, applied to consulting. A system, so distinctiveness survives every new page, post, and deck.' },
-                { h: 'The standard, kept.', b: 'Every touchpoint, site, deck, proposals, social, brought inside the same system, so everything you publish reads as one brand. The standard is maintained and evolved month over month, so the brand keeps pace with the business.' },
+                { h: 'Full creative direction and branding', b: 'We dive deep into your business to uncover what makes your brand distinct, then translate it into a clear visual identity that keeps you consistent, recognizable, and unmistakably yours across every touchpoint.' },
+                { h: 'Design that isn\u2019t boring', b: 'We borrow from the industries that take design seriously, bringing ideas from fashion, editorial, architecture, and culture into a space that too often plays it safe. We believe great branding is a moat in any industry, and as \u201cgood enough\u201d design becomes increasingly accessible through AI, the opportunity for brands that truly stand out only gets bigger.' },
+                { h: 'A partnership beyond just a site', b: 'We work with ambitious businesses that want to reach the highest level and become leaders in their industry. Instead of working with every business that needs a website, we invest deeply in the few relationships we can handle at our highest standard, with the goal of growing alongside them over time.' },
               ].map((card, i) => (
                 <div key={i} className="feature-card bg-[var(--cream)] rounded-2xl p-7 md:p-8 relative overflow-hidden transition-all duration-400 cursor-pointer hover:scale-[1.02] hover:shadow-2xl scroll-fade group" style={{ transitionDelay: `${i * 100}ms` }}>
                   <div className="absolute inset-0 bg-gradient-to-br from-[var(--primary-blue)] to-[var(--blue-dark)] opacity-0 transition-opacity duration-400 group-hover:opacity-100" />
@@ -641,7 +629,7 @@ export default function HomeV6() {
               <div className="absolute inset-0 bg-gradient-to-br from-[var(--primary-blue)] to-[var(--blue-dark)] opacity-0 transition-opacity duration-400 group-hover:opacity-100" />
               <h3 className="text-xl md:text-2xl font-medium tracking-tight mb-3 relative z-10 group-hover:text-white">&ldquo;What if I don&apos;t like what you build?&rdquo;</h3>
               <p className="text-[15px] leading-relaxed text-[var(--gray-medium)] max-w-2xl mx-auto relative z-10 group-hover:text-white">
-                You approve the work at every milestone before we move on, and we keep iterating until it&apos;s right. Nothing launches until you&apos;re proud of it.
+                Every project starts with a prototype, so you can see the direction before we build the full site. From there, you approve the work at every milestone, and we keep iterating until it feels right. Nothing launches until you&apos;re proud of it.
               </p>
             </div>
           </div>
@@ -755,11 +743,11 @@ export default function HomeV6() {
 
             <div className="text-center mt-12 md:mt-20 scroll-fade">
               <p className="opacity-75 text-base md:text-lg mb-4 md:mb-6">Have a different question?</p>
-              <button onClick={scrollToNearestForm} className="inline-flex items-center gap-2 text-base md:text-lg relative pb-1 group">
+              <Link href="/contact" className="inline-flex items-center gap-2 text-base md:text-lg relative pb-1 group no-underline">
                 <span>Get in touch</span>
                 <span className="transition-transform duration-300 group-hover:translate-x-1">&rarr;</span>
                 <div className="absolute bottom-0 left-0 w-0 h-0.5 bg-current transition-[width] duration-300 group-hover:w-full" />
-              </button>
+              </Link>
             </div>
           </div>
         </section>
