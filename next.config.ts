@@ -39,6 +39,10 @@ const nextConfig: NextConfig = {
       { source: '/blog/best-website-builder-for-consultants', destination: '/best-website-agency-for-consultants', permanent: true },
       // The v6 homepage preview is now the homepage itself.
       { source: '/v6', destination: '/', permanent: false },
+      // /about is taken down while the positioning is being reworked. Temporary
+      // (307) on purpose — the URL is meant to come back, so it should stay in
+      // the index rather than being retired like the pages below.
+      { source: '/about', destination: '/', permanent: false },
       // Retired standalone pages.
       { source: '/consultant-websites', destination: '/best-website-agency-for-consultants', permanent: true },
       { source: '/for/fractional-cfo', destination: '/best-website-agency-for-consultants', permanent: true },

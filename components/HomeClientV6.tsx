@@ -703,7 +703,7 @@ export default function HomeV6() {
           </div>
         </section>
 
-        {/* ─── 8. FAQ — Dark gradient, 9 questions ─── */}
+        {/* ─── 8. FAQ — Dark gradient, 8 questions (5 shown, 3 behind "show more") ─── */}
         <section ref={el => { themedSectionRefs.current[4] = el }} id="faq" className="relative overflow-hidden">
           <div className="absolute inset-0 opacity-[0.03]" style={{
             backgroundImage: `radial-gradient(circle at 1px 1px, white 1px, transparent 0)`,
@@ -719,7 +719,7 @@ export default function HomeV6() {
               </div>
               <h2 className="section-title mb-4 md:mb-6 scroll-fade">Frequently Asked Questions</h2>
               <p className="text-lg md:text-xl leading-relaxed opacity-80 max-w-3xl mx-auto font-light scroll-fade px-4">
-                Clear answers to the questions most consultants ask before booking.
+                What consultants ask before they hand us their brand.
               </p>
             </div>
 

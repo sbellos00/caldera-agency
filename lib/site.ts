@@ -126,7 +126,7 @@ export function blogPostingSchema(post: {
     author: {
       '@type': 'Person',
       name: 'Stefanos Bellos',
-      url: `${SITE_URL}/about`,
+      url: SITE_URL,
       jobTitle: 'Founder, Caldera Agency',
     },
     publisher: {
@@ -149,15 +149,22 @@ export interface Faq {
 // Homepage FAQ. Rendered by components/HomeClientV6 AND emitted as FAQPage
 // schema from app/page.tsx, so this is the single source of truth for both —
 // FAQ markup has to match what a visitor actually sees on the page.
+//
+// Written against the creative-partnership positioning the homepage now carries:
+// we lead creative direction, we take few clients, and branding is the moat. The
+// first five render before the "show more" fold, so the questions that decide
+// whether someone keeps reading come first. Deliberately absent: "what if I'm not
+// happy at launch" (the objection card above the FAQ already answers it) and any
+// free/no-commitment framing (the prototype section stays quiet about that).
 export const homeFaqs: Faq[] = [
-  { q: 'What if I don\'t have time for a big project?', a: 'We\'ve designed our process to be incredibly efficient. We handle all the technical and creative work, requiring less than two hours of your time to get everything launched.' },
-  { q: 'What if I\'m not happy at launch?', a: 'You review and approve the work at every milestone, and we keep iterating until you\'re proud to launch. Nothing goes live without your sign-off.' },
-  { q: 'Isn\'t this just another template site?', a: 'No. Every step is research-based and guides us towards designing the perfect website for you from scratch. All design and copy is consultant-specific and tailored to your positioning, built for consulting credibility—never generic.' },
-  { q: 'Do you build for other industries?', a: 'No. Consultants only. That\'s why our sites work.' },
-  { q: 'Will this bring leads?', a: 'No site guarantees leads. But without credibility, you lose by default. This site is built to open doors to RFPs, partnerships, and high-value deals.' },
-  { q: 'Who owns the site?', a: 'You own it, fully. No platform risk, no lock-in. We provide hosting, support, and maintenance to make your life easier, but you can take the full code and self-host anytime you wish.' },
-  { q: 'What if I need updates later?', a: 'Up to 4 post-launch development hours are included for free during the first month with your hosting plan, then 2 hours per month thereafter. Anything more is handled quickly by us at our standard rate.' },
-  { q: 'I was burned by agencies/freelancers before.', a: 'We understand your hesitation. That\'s why we operate with complete transparency. Our process is broken down into clear milestones, and you review and approve the work at every stage.' },
+  { q: 'What do you actually do beyond building the site?', a: 'We own the creative direction. We study your practice and your market, decide how your brand should look and sound, then write, design, and build every page around that decision. The site is the deliverable. The direction is the work.' },
+  { q: 'Isn\'t this just another template site?', a: 'Nothing we ship starts from a template or a theme. We design from a blank page around your positioning, and we take cues from fashion, editorial, and architecture rather than from other consulting sites. If your site could carry a competitor\'s name, we got it wrong.' },
+  { q: 'How much of my time does this take?', a: 'We research you and build the first version before you lift a finger. After that your job is to react: what\'s right, what\'s wrong, what you would never say in a client meeting. We handle the research, the copy, the design, and the build, and most rounds of edits come back the same day.' },
+  { q: 'Do you take on every consultant who asks?', a: 'No. We keep the list short enough that all three of us work on your site personally. We would rather turn a project down than run it below our standard, so if we are not the right fit, we say so early.' },
+  { q: 'Why should a consultant care this much about design?', a: 'Good-enough design is available to everyone now, so most sites in your field read as fine, and they read as fine in the same way. Fine is invisible. Being distinct is the one advantage a competitor cannot buy off a shelf, and your site is where people decide what tier you belong in before they ever speak to you.' },
+  { q: 'Do you build for other industries?', a: 'No. Consultants only. It means we arrive with a point of view about your market instead of a discovery questionnaire.' },
+  { q: 'Who owns the site?', a: 'You do, fully. Your domain, your content, your code. We host, maintain, and support it so you never have to think about it, and you can take the entire codebase and self-host it whenever you like. No platform lock-in, nothing to untangle if you leave.' },
+  { q: 'What happens after launch?', a: 'We stay. Hosting, support, and maintenance are handled for the first year, with development hours included every month for the things that come up: a new offer, a new case study, a section that is not pulling its weight. Most of our clients\' sites look different a year in, because their practice does.' },
 ]
 
 // The previous homepage's FAQ set. Answer-first and prompt-shaped for AI answer

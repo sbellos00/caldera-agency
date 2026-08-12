@@ -2,7 +2,6 @@ import { NextRequest, NextResponse } from 'next/server'
 
 const MARKDOWN_PAGES: Record<string, string> = {
   '/': 'home',
-  '/about': 'about',
   '/work': 'work',
   '/process': 'process',
   '/contact': 'contact',
@@ -43,23 +42,8 @@ Caldera Agency builds websites exclusively for solo and independent consultants 
 
 - [Case Studies](${SITE}/work)
 - [Process](${SITE}/process)
-- [About](${SITE}/about)
 - [Contact](${SITE}/contact)
 - Email: contact@caldera.agency
-`
-}
-
-function aboutMarkdown() {
-  return `# About Caldera Agency
-
-Caldera Agency was founded by Stefanos Bellos, who spent thousands of hours at the Dialectica expert network connecting consultants with investors and global enterprises. That experience showed him that independent consultants consistently struggle with one thing: presenting themselves online with the same credibility they bring to their work.
-
-Caldera exists to solve that. We build websites exclusively for solo and independent consultants — fully custom, done-for-you sites that give you complete control of your personal brand and digital presence.
-
-## Contact
-
-- Email: contact@caldera.agency
-- Website: ${SITE}
 `
 }
 
@@ -126,7 +110,6 @@ Learn more at [${SITE}/best-website-agency-for-consultants](${SITE}/best-website
 
 const markdownGenerators: Record<string, () => string> = {
   home: homeMarkdown,
-  about: aboutMarkdown,
   work: workMarkdown,
   process: processMarkdown,
   contact: contactMarkdown,
@@ -155,5 +138,5 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/', '/about', '/work', '/process', '/contact', '/best-website-agency-for-consultants'],
+  matcher: ['/', '/work', '/process', '/contact', '/best-website-agency-for-consultants'],
 }
