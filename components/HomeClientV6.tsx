@@ -542,7 +542,7 @@ export default function HomeV6() {
                     </p>
                     <div className="mt-auto flex items-center gap-3">
                       <div className="w-11 h-11 rounded-xl flex-shrink-0 overflow-hidden relative">
-                        <Image src={t.image} alt={t.name} fill className="object-cover" style={{ objectPosition: t.imgPos }} sizes="44px" />
+                        <Image src={t.image} alt={t.name} fill className="object-cover scale-150" style={{ objectPosition: t.imgPos, transformOrigin: t.imgPos }} sizes="44px" />
                       </div>
                       <div className="min-w-0">
                         <p className="text-[12px] font-medium text-[var(--black)] truncate">{t.name}</p>
@@ -731,9 +731,9 @@ export default function HomeV6() {
                   <button onClick={() => setOpenFAQ(openFAQ === i ? null : i)}
                     className="w-full bg-white/10 backdrop-blur-sm hover:bg-white/20 border border-white/20 hover:border-white/30 rounded-xl md:rounded-2xl p-4 md:p-6 text-left transition-all duration-300 hover:shadow-2xl group">
                     <div className="flex items-center justify-between">
-                      <h3 className="text-base md:text-lg lg:text-xl font-normal pr-6 group-hover:text-white">{item.q}</h3>
+                      <h3 className="text-base md:text-lg lg:text-xl font-normal pr-6 group-hover:text-[var(--primary-blue)] transition-colors duration-300">{item.q}</h3>
                       <div className={`w-5 h-5 flex items-center justify-center transition-transform duration-300 ${openFAQ === i ? 'rotate-45' : ''}`}>
-                        <span className="text-xl font-light leading-none group-hover:text-white">+</span>
+                        <span className="text-xl font-light leading-none group-hover:text-[var(--primary-blue)] transition-colors duration-300">+</span>
                       </div>
                     </div>
                   </button>
