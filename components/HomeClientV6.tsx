@@ -542,7 +542,7 @@ export default function HomeV6() {
                     </p>
                     <div className="mt-auto flex items-center gap-3">
                       <div className="w-11 h-11 rounded-xl flex-shrink-0 overflow-hidden relative">
-                        <Image src={t.image} alt={t.name} fill className="object-cover scale-150" style={{ objectPosition: t.avatarPos ?? t.imgPos, transformOrigin: t.avatarPos ?? t.imgPos }} sizes="44px" />
+                        <Image src={t.image} alt={t.name} fill className="object-cover" style={{ objectPosition: 'top' }} sizes="44px" />
                       </div>
                       <div className="min-w-0">
                         <p className="text-[12px] font-medium text-[var(--black)] truncate">{t.name}</p>
