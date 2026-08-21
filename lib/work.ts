@@ -73,6 +73,14 @@ export const caseStudies: CaseStudy[] = [
     summary:
       'A one-page site: strategy, copy, design, and development, built to present her healthcare expertise, with the branding drawn from Azelia Labs, the lab she works with.',
   },
+  {
+    name: 'David Zurita',
+    role: 'Founder, DKZ Consulting',
+    url: 'https://www.dkzconsulting.com',
+    image: 'https://res.cloudinary.com/dxg4uslo6/image/upload/v1787295769/Screenshot_2026-08-21_at_10.02.11_AM_jpldtw.png',
+    summary:
+      'A one-page site for a construction and maintenance advisory practice in the rail industry. We handled the whole build: branding, strategy, design, development, and the logo animation.',
+  },
 ]
 
 // Real testimonials shown on the page. Matched to their niche where possible.
