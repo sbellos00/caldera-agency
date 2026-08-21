@@ -214,7 +214,7 @@ const testimonials = [
   { highlight: 'It has elevated how I position myself in every client conversation.', quote: 'Caldera Agency didn\'t just build me a website, they helped me formally launch my entrepreneurial practice with clarity and credibility. In a matter of days, Stefanos and his team translated my experience into a polished, enterprise-level site, delivered with remarkable speed and zero red tape. It has elevated how I position myself in every client conversation.', name: 'Mark S. Piazza', role: 'Fractional CFO & Financial Advisor', image: 'https://res.cloudinary.com/dawyrpt2m/image/upload/v1766602121/Piazza_Headshot_1_daetif.jpg', imgPos: 'center 30%' },
   { highlight: 'They work very efficiently, often turning around edits and new concepts in hours, with a sharp eye on every detail.', quote: 'My experience with the Caldera team has been great. They are very responsive, creative and were able to take my desired content and feedback to create an end product that far exceeded my expectations. They work very efficiently, often turning around edits and new concepts in hours, with a sharp eye on every detail. I highly recommend the team at Caldera.', name: 'Tim Scott', role: 'Founder, True North Supply Chain Advisory', image: 'https://res.cloudinary.com/dawyrpt2m/image/upload/v1767130093/unnamed_1_l4haxs.jpg', imgPos: 'center', avatarPos: 'center 70%' },
   { highlight: 'The experience felt like a true partnership, and the value of the service far exceeded the cost.', quote: 'I was initially drawn to Caldera Agency because, unlike most vendors who send generic outreach, they had clearly taken the time to understand my business. That attention to detail and spirit of customization carried through the entire engagement. The team was incredibly responsive and committed to getting every element right. We truly built the website together, collaborating on everything from the core structure to the smallest design adjustments and animations. Caldera met every specification I had and was always willing to refine details until the site reflected exactly what I envisioned. The experience felt like a true partnership, and the value of the service far exceeded the cost.', name: 'Dr. Ron Paul', role: 'Founder, Polaris Leadership Institute', image: 'https://res.cloudinary.com/dxg4uslo6/image/upload/v1772528728/polaris-blog-media-migrated/6400c361-9c59-41ac-9875-14d9039a750e_d6zwwx.jpg', imgPos: 'center 20%', avatarPos: 'center 55%' },
-  { highlight: 'It looks clean, professional, and truly reflects my work and vision.', quote: 'I just wanted to say thank you for the fantastic work on my website! I\'m very happy with how it turned out. It looks clean, professional, and truly reflects my work and vision. It was a pleasure working with you, and I would gladly recommend your services to others. Thank you again!', name: 'Ekaterina Semenyuk', role: 'Biosafety & Research Safety Consultant', image: 'https://res.cloudinary.com/dxg4uslo6/image/upload/v1784895183/Esemenyuk_tju264.jpg', imgPos: 'center' },
+  { highlight: 'It looks clean, professional, and truly reflects my work and vision.', quote: 'I just wanted to say thank you for the fantastic work on my website! I\'m very happy with how it turned out. It looks clean, professional, and truly reflects my work and vision. It was a pleasure working with you, and I would gladly recommend your services to others. Thank you again!', name: 'Ekaterina Semenyuk', role: 'Biosafety & Research Safety Consultant', image: 'https://res.cloudinary.com/dxg4uslo6/image/upload/v1784895183/Esemenyuk_tju264.jpg', imgPos: 'center 20%' },
 ]
 
 const team = [
@@ -224,9 +224,9 @@ const team = [
 ]
 
 // Case studies come from the shared /work data so the homepage stays in sync.
-// `hidden` entries are excluded there too. The two Azelia Labs branded sites and
-// DKZ Consulting are kept on /work but left off the homepage.
-const HOMEPAGE_EXCLUDED = ['Ekaterina Semenyuk', 'Sarah Ziegler', 'David Zurita']
+// `hidden` entries are excluded there too. The two Azelia Labs branded sites,
+// DKZ Consulting and True North are kept on /work but left off the homepage.
+const HOMEPAGE_EXCLUDED = ['Ekaterina Semenyuk', 'Sarah Ziegler', 'David Zurita', 'Tim Scott']
 const portfolioItems = caseStudies
   .filter(c => !c.hidden && c.url && c.image && !HOMEPAGE_EXCLUDED.includes(c.name))
   .map(c => ({ name: c.name, role: c.role, url: c.url as string, description: c.summary, image: c.image as string }))
@@ -594,6 +594,19 @@ export default function HomeV6() {
                   </div>
                 </a>
               ))}
+            </div>
+
+            {/* This section's theme is always dark, so the button inverts the
+                standard black CTA: white plate, blue slide-in on hover. */}
+            <div className="text-center mt-16 md:mt-20 scroll-fade">
+              <Link
+                href="/work"
+                className="group relative overflow-hidden inline-flex items-center gap-3 bg-white text-[var(--black)] px-8 py-4 text-[15px] tracking-tight no-underline rounded-lg transition-all duration-300 ease-out hover:scale-105"
+              >
+                <div className="absolute inset-0 bg-[var(--primary-blue)] transform -translate-x-full transition-transform duration-300 ease-out group-hover:translate-x-0" />
+                <span className="relative z-10 group-hover:text-white">See all our work</span>
+                <span className="relative z-10 transition-transform duration-300 group-hover:translate-x-1 group-hover:text-white">&rarr;</span>
+              </Link>
             </div>
 
           </div>
