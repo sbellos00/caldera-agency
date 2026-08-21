@@ -41,15 +41,6 @@ export const caseStudies: CaseStudy[] = [
       'A full website build for an HR consultant. Working from the palette and moodboard her brand designer supplied, we implemented the full vision across strategy, design, and development, built so her depth of work and her personality come through instantly.',
   },
   {
-    name: 'Tim Scott',
-    role: 'Founder, True North Supply Chain Advisory',
-    url: 'https://www.truenorthsupplychainadvisory.com',
-    image: 'https://res.cloudinary.com/dxg4uslo6/image/upload/v1782384510/Screenshot_2026-06-25_at_1.48.14_PM_yttpvr.png',
-    summary:
-      'A one-page site for a supply-chain advisory practice: strategy, design, and development.',
-    hidden: true,
-  },
-  {
     name: 'Ekaterina Semenyuk',
     role: 'Biosafety & Research Safety Consultant',
     url: 'https://esemenyuk.com',
@@ -63,7 +54,7 @@ export const caseStudies: CaseStudy[] = [
     url: 'https://www.nextspanconsulting.com',
     image: 'https://res.cloudinary.com/dxg4uslo6/image/upload/v1782384441/Screenshot_2026-06-25_at_1.46.45_PM_ase0fu.png',
     summary:
-      'A one-page site for his solo consulting company: strategy, copy, design, branding, and development.',
+      'A one-page site for his solo healthcare consulting company: strategy, copy, design, branding, and development.',
   },
   {
     name: 'Sarah Ziegler',
@@ -72,6 +63,22 @@ export const caseStudies: CaseStudy[] = [
     image: 'https://res.cloudinary.com/dxg4uslo6/image/upload/v1782384441/Screenshot_2026-06-25_at_1.45.41_PM_jkmplp.png',
     summary:
       'A one-page site: strategy, copy, design, and development, built to present her healthcare expertise, with the branding drawn from Azelia Labs, the lab she works with.',
+  },
+  {
+    name: 'David Zurita',
+    role: 'Founder, DKZ Consulting',
+    url: 'https://www.dkzconsulting.com',
+    image: 'https://res.cloudinary.com/dxg4uslo6/image/upload/v1787295769/Screenshot_2026-08-21_at_10.02.11_AM_jpldtw.png',
+    summary:
+      'A one-page site for a construction and maintenance advisory practice in the rail industry. We handled the whole build: branding, strategy, design, development, and the logo animation.',
+  },
+  {
+    name: 'Tim Scott',
+    role: 'Founder, True North Supply Chain Advisory',
+    url: 'https://www.truenorthsupplychainadvisory.com',
+    image: 'https://res.cloudinary.com/dxg4uslo6/image/upload/v1782384510/Screenshot_2026-06-25_at_1.48.14_PM_yttpvr.png',
+    summary:
+      'A one-page site for a supply-chain advisory practice: strategy, design, and development.',
   },
 ]
 
