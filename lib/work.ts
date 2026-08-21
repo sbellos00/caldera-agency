@@ -54,7 +54,7 @@ export const caseStudies: CaseStudy[] = [
     url: 'https://www.nextspanconsulting.com',
     image: 'https://res.cloudinary.com/dxg4uslo6/image/upload/v1782384441/Screenshot_2026-06-25_at_1.46.45_PM_ase0fu.png',
     summary:
-      'A one-page site for his solo consulting company: strategy, copy, design, branding, and development.',
+      'A one-page site for his solo healthcare consulting company: strategy, copy, design, branding, and development.',
   },
   {
     name: 'Sarah Ziegler',
