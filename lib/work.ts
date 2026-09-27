@@ -73,7 +73,7 @@ export const caseStudies: CaseStudy[] = [
       'A one-page site for a construction and maintenance advisory practice in the rail industry. We handled the whole build: branding, strategy, design, development, and the logo animation.',
   },
   {
-    name: 'Fran Dumont',
+    name: 'Francis Dumont',
     role: 'Founder, Fran Dumont Advisory',
     url: 'https://www.frandumontadvisory.com',
     image: 'https://res.cloudinary.com/dhduqssyx/image/upload/v1790523960/Screenshot_2026-09-27_at_6.45.04_PM_gtyqds.png',
