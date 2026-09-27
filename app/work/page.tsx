@@ -5,16 +5,16 @@ import { breadcrumbSchema, SITE_URL, SITE_NAME } from '@/lib/site'
 import { caseStudies, workTestimonials } from '@/lib/work'
 
 export const metadata: Metadata = {
-  title: 'Consultant Website Case Studies',
+  title: 'Consultant Website Case Studies | Caldera Agency',
   description:
-    'Examples of consultant websites Caldera has built, the live sites and what clients say. Done-for-you websites for fractional CFOs, coaches, HR, healthcare, and other consultants, each one built around their expertise.',
+    'Consultant websites built by Caldera Agency: fractional CFOs, leadership coaches, HR, healthcare and biosafety consultants, rail advisory, and supply chain strategy for pharmaceutical companies. See the live sites and what clients say.',
   alternates: { canonical: '/work' },
   openGraph: {
     type: 'website',
     url: '/work',
-    title: 'Consultant Website Case Studies',
+    title: 'Consultant Website Case Studies | Caldera Agency',
     description:
-      'Examples of consultant websites Caldera has built, the live sites and what clients say. Done-for-you websites for fractional CFOs, coaches, HR, healthcare, and other consultants, each one built around their expertise.',
+      'Consultant websites built by Caldera Agency: fractional CFOs, leadership coaches, HR, healthcare and biosafety consultants, rail advisory, and supply chain strategy for pharmaceutical companies. See the live sites and what clients say.',
     siteName: 'Caldera Agency',
     images: [{ url: '/og-image.jpg', width: 1200, height: 630, alt: 'Caldera Agency consultant website case studies' }],
   },
@@ -32,9 +32,13 @@ const itemListSchema = {
       item: {
         '@type': 'CreativeWork',
         name: `${label} website`,
+        description: c.summary,
         ...(c.url ? { url: c.url } : {}),
+        ...(c.image ? { image: c.image.startsWith('http') ? c.image : `${SITE_URL}${encodeURI(c.image)}` } : {}),
         creator: { '@id': `${SITE_URL}/#organization` },
-        ...(c.role ? { about: c.role } : {}),
+        genre: 'Consultant website',
+        keywords: `website for ${c.niche}, ${c.niche} website design, consultant website agency`,
+        about: c.niche,
       },
     }
   }),
