@@ -73,6 +73,14 @@ export const caseStudies: CaseStudy[] = [
       'A one-page site for a construction and maintenance advisory practice in the rail industry. We handled the whole build: branding, strategy, design, development, and the logo animation.',
   },
   {
+    name: 'Fran Dumont',
+    role: 'Founder, Fran Dumont Advisory',
+    url: 'https://www.frandumontadvisory.com',
+    image: 'https://res.cloudinary.com/dhduqssyx/image/upload/v1790523960/Screenshot_2026-09-27_at_6.45.04_PM_gtyqds.png',
+    summary:
+      'A one-page site for a supply chain strategy practice serving emerging pharmaceutical companies. We handled the whole build: branding, strategy, design, and development.',
+  },
+  {
     name: 'Tim Scott',
     role: 'Founder, True North Supply Chain Advisory',
     url: 'https://www.truenorthsupplychainadvisory.com',
