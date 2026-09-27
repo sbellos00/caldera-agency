@@ -225,8 +225,8 @@ const team = [
 
 // Case studies come from the shared /work data so the homepage stays in sync.
 // `hidden` entries are excluded there too. The two Azelia Labs branded sites,
-// DKZ Consulting and True North are kept on /work but left off the homepage.
-const HOMEPAGE_EXCLUDED = ['Ekaterina Semenyuk', 'Sarah Ziegler', 'David Zurita', 'Tim Scott']
+// DKZ Consulting, Fran Dumont Advisory and True North are kept on /work but left off the homepage.
+const HOMEPAGE_EXCLUDED = ['Ekaterina Semenyuk', 'Sarah Ziegler', 'David Zurita', 'Francis Dumont', 'Tim Scott']
 const portfolioItems = caseStudies
   .filter(c => !c.hidden && c.url && c.image && !HOMEPAGE_EXCLUDED.includes(c.name))
   .map(c => ({ name: c.name, role: c.role, url: c.url as string, description: c.summary, image: c.image as string }))

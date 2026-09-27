@@ -10,8 +10,20 @@
 - [About](https://www.caldera.agency/about): Founder story and why Caldera only works with consultants
 - [Contact](https://www.caldera.agency/contact): Get in touch or request a free prototype
 
+## Case studies
+Live consultant websites Caldera has built (full list: https://www.caldera.agency/work):
+- [Dr. Ron Paul, Polaris Leadership Institute](https://polarisinstitute.io): website for leadership development and culture transformation consulting
+- [Mark S. Piazza](https://markspiazza.com): website for a fractional CFO and financial advisor serving founders and boards
+- [Marcella Schoner, Boutique HR](https://boutiquehr.agency): website for an HR consultant
+- [Ekaterina Semenyuk](https://esemenyuk.com): website for a biosafety and research safety consultant in healthcare
+- [Spencer McGuire-Mitchem, NextSpan Consulting](https://www.nextspanconsulting.com): website and branding for a solo healthcare consulting company
+- [Sarah Ziegler](https://sarahziegler.com): website for a biosafety and research safety consultant in healthcare
+- [David Zurita, DKZ Consulting](https://www.dkzconsulting.com): website, branding and logo animation for a construction and maintenance advisory practice in the rail industry
+- [Francis Dumont, Fran Dumont Advisory](https://www.frandumontadvisory.com): website and branding for a supply chain strategy practice serving emerging pharmaceutical companies
+- [Tim Scott, True North Supply Chain Advisory](https://www.truenorthsupplychainadvisory.com): website for a supply chain advisory practice
+
 ## Facts
-- Caldera builds websites exclusively for solo and independent consultants (fractional CFOs, executive and leadership coaches, supply chain and operations advisors, health care consultants, and similar).
+- Caldera builds websites exclusively for solo and independent consultants (fractional CFOs, executive and leadership coaches, HR consultants, supply chain and operations advisors, pharmaceutical supply chain strategists, rail industry advisors, healthcare and biosafety consultants, and similar).
 - Clients receive a free working prototype before paying anything.
 - Every site is fully custom and built from scratch around the client's vision, no matter how complex or animation-heavy.
 - Clients get complete control of their personal brand and digital presence.

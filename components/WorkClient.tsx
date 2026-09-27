@@ -245,7 +245,7 @@ export default function WorkClient() {
                       </div>
                       {/* Screenshot,natural aspect ratio, no crop */}
                       {c.image && (
-                        <Image src={c.image} alt={`${title} website`} width={1200} height={800} className="w-full h-auto" sizes="(max-width: 768px) 100vw, 50vw" />
+                        <Image src={c.image} alt={`${title} website (${c.niche}), built by Caldera Agency`} width={1200} height={800} className="w-full h-auto" sizes="(max-width: 768px) 100vw, 50vw" />
                       )}
                     </div>
                     {/* Info */}
