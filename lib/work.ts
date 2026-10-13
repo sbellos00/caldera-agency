@@ -93,6 +93,15 @@ export const caseStudies: CaseStudy[] = [
       'A one-page site for a supply chain strategy practice serving emerging pharmaceutical companies. We handled the whole build: branding, strategy, design, and development.',
   },
   {
+    name: 'Michael D. Costello III',
+    role: 'Founder, Drone1 Consulting',
+    niche: 'drone consulting and drone services in New Jersey',
+    url: 'https://drone1consulting.com',
+    image: 'https://res.cloudinary.com/dhduqssyx/image/upload/v1791906972/Screenshot_2026-10-13_at_6.53.29_PM_nxi2f1.png',
+    summary:
+      'A five-page website for a drone consulting company based in New Jersey. We handled the whole build: branding, strategy, design, development, and the logo animation.',
+  },
+  {
     name: 'Tim Scott',
     role: 'Founder, True North Supply Chain Advisory',
     niche: 'supply chain advisory',

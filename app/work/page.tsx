@@ -7,14 +7,14 @@ import { caseStudies, workTestimonials } from '@/lib/work'
 export const metadata: Metadata = {
   title: 'Consultant Website Case Studies | Caldera Agency',
   description:
-    'Consultant websites built by Caldera Agency: fractional CFOs, leadership coaches, HR, healthcare and biosafety consultants, rail advisory, and supply chain strategy for pharmaceutical companies. See the live sites and what clients say.',
+    'Consultant websites built by Caldera Agency: fractional CFOs, leadership coaches, HR, healthcare and biosafety consultants, rail advisory, drone consulting, and supply chain strategy for pharmaceutical companies. See the live sites and what clients say.',
   alternates: { canonical: '/work' },
   openGraph: {
     type: 'website',
     url: '/work',
     title: 'Consultant Website Case Studies | Caldera Agency',
     description:
-      'Consultant websites built by Caldera Agency: fractional CFOs, leadership coaches, HR, healthcare and biosafety consultants, rail advisory, and supply chain strategy for pharmaceutical companies. See the live sites and what clients say.',
+      'Consultant websites built by Caldera Agency: fractional CFOs, leadership coaches, HR, healthcare and biosafety consultants, rail advisory, drone consulting, and supply chain strategy for pharmaceutical companies. See the live sites and what clients say.',
     siteName: 'Caldera Agency',
     images: [{ url: '/og-image.jpg', width: 1200, height: 630, alt: 'Caldera Agency consultant website case studies' }],
   },
