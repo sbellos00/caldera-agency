@@ -215,7 +215,7 @@ const testimonials = [
   { highlight: 'They work very efficiently, often turning around edits and new concepts in hours, with a sharp eye on every detail.', quote: 'My experience with the Caldera team has been great. They are very responsive, creative and were able to take my desired content and feedback to create an end product that far exceeded my expectations. They work very efficiently, often turning around edits and new concepts in hours, with a sharp eye on every detail. I highly recommend the team at Caldera.', name: 'Tim Scott', role: 'Founder, True North Supply Chain Advisory', image: 'https://res.cloudinary.com/dawyrpt2m/image/upload/v1767130093/unnamed_1_l4haxs.jpg', imgPos: 'center', avatarPos: 'center 70%' },
   { highlight: 'The experience felt like a true partnership, and the value of the service far exceeded the cost.', quote: 'I was initially drawn to Caldera Agency because, unlike most vendors who send generic outreach, they had clearly taken the time to understand my business. That attention to detail and spirit of customization carried through the entire engagement. The team was incredibly responsive and committed to getting every element right. We truly built the website together, collaborating on everything from the core structure to the smallest design adjustments and animations. Caldera met every specification I had and was always willing to refine details until the site reflected exactly what I envisioned. The experience felt like a true partnership, and the value of the service far exceeded the cost.', name: 'Dr. Ron Paul', role: 'Founder, Polaris Leadership Institute', image: 'https://res.cloudinary.com/dxg4uslo6/image/upload/v1772528728/polaris-blog-media-migrated/6400c361-9c59-41ac-9875-14d9039a750e_d6zwwx.jpg', imgPos: 'center 20%', avatarPos: 'center 55%' },
   { highlight: 'It looks clean, professional, and truly reflects my work and vision.', quote: 'I just wanted to say thank you for the fantastic work on my website! I\'m very happy with how it turned out. It looks clean, professional, and truly reflects my work and vision. It was a pleasure working with you, and I would gladly recommend your services to others. Thank you again!', name: 'Ekaterina Semenyuk', role: 'Biosafety & Research Safety Consultant', image: 'https://res.cloudinary.com/dxg4uslo6/image/upload/v1784895183/Esemenyuk_tju264.jpg', imgPos: 'center 20%' },
-  { highlight: 'I genuinely appreciate the attention to detail, communication, and willingness to incorporate my feedback throughout the process.', quote: 'Giannis and his team have been excellent to work with, and I genuinely appreciate the attention to detail, communication, and willingness to incorporate my feedback throughout the process.', name: 'Michael D. Costello III', role: 'Founder, Drone1 Consulting', image: 'https://res.cloudinary.com/dhduqssyx/image/upload/v1791912037/michael-costello_zwh0ao.avif', imgPos: 'center 20%' },
+  { highlight: 'The result is a modern, visually impressive, and highly professional website that I’m proud to have representing Drone 1 Consulting.', quote: 'Working with Giannis and the team at Caldera Agency has been an outstanding experience from beginning to end. When I approached Caldera, I had already developed the identity, vision, and professional service offerings for Drone 1 Consulting LLC. What I needed was a team that could take those ideas and translate them into a website that accurately reflected the professionalism, credibility, and capabilities of my company.\n\nGiannis and his team delivered exactly that. What impressed me most was their communication, attention to detail, and genuine commitment to understanding my vision. Throughout the development process, Giannis was responsive, patient, and receptive to feedback. He didn’t simply build a website. He took the time to understand the business, ask thoughtful questions, and make sure the finished product represented what I was trying to accomplish.\n\nThe result is a modern, visually impressive, and highly professional website that I’m proud to have representing Drone 1 Consulting. As a business owner, I particularly appreciated working with people who treated my project as something more than just another assignment. Their professionalism, creativity, and collaborative approach made the entire experience enjoyable.\n\nI would confidently recommend Giannis and Caldera Agency to anyone looking for a talented, reliable, and genuinely invested web development team. I look forward to working with them again as my businesses continue to grow.', name: 'Michael D. Costello III', role: 'Founder, Drone1 Consulting', image: 'https://res.cloudinary.com/dhduqssyx/image/upload/v1791912037/michael-costello_zwh0ao.avif', imgPos: 'center 20%' },
 ]
 
 const team = [
@@ -697,10 +697,12 @@ export default function HomeV6() {
                         &ldquo;...{t.highlight}&rdquo;
                       </p>
                       {/* Full quote with left accent */}
-                      <div className="border-l-2 md:border-l-[3px] border-[var(--gray-medium)]/20 pl-4 md:pl-5 md:mb-5">
-                        <p className="text-sm md:text-[15px] leading-relaxed text-[var(--gray-medium)]">
-                          &ldquo;{t.quote}&rdquo;
-                        </p>
+                      <div className="border-l-2 md:border-l-[3px] border-[var(--gray-medium)]/20 pl-4 md:pl-5 md:mb-5 space-y-3">
+                        {t.quote.split('\n\n').map((para, j, all) => (
+                          <p key={j} className="text-sm md:text-[15px] leading-relaxed text-[var(--gray-medium)]">
+                            {j === 0 && '\u201C'}{para}{j === all.length - 1 && '\u201D'}
+                          </p>
+                        ))}
                       </div>
                       {/* Attribution — moved here from the right column */}
                       <div className="hidden md:block">
@@ -709,7 +711,7 @@ export default function HomeV6() {
                       </div>
                     </div>
                     {/* Right: photo only */}
-                    <div className="hidden md:block md:w-full md:h-full rounded-xl overflow-hidden relative">
+                    <div className="hidden md:block md:w-full md:self-start md:aspect-[4/5] rounded-xl overflow-hidden relative">
                       <Image src={t.image} alt={t.name} fill className="object-cover" style={{ objectPosition: t.imgPos }} sizes="180px" />
                     </div>
                   </div>

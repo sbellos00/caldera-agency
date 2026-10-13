@@ -273,8 +273,12 @@ export default function BestWebsiteAgencyPage() {
             <div className="flex flex-col gap-6">
               {(['piazza', 'scott', 'paul', 'esemenyuk', 'costello'] as const).map((k) => (
                 <figure key={k} className={`${fade} bg-[var(--cream)] rounded-2xl p-7 md:p-9`}>
-                  <blockquote className="text-[var(--gray-dark)] leading-relaxed text-[16px] md:text-[17px] mb-4">
-                    &ldquo;{testimonials[k].body}&rdquo;
+                  <blockquote className="text-[var(--gray-dark)] leading-relaxed text-[16px] md:text-[17px] mb-4 space-y-3">
+                    {testimonials[k].body.split('\n\n').map((para, j, all) => (
+                      <p key={j}>
+                        {j === 0 && '\u201C'}{para}{j === all.length - 1 && '\u201D'}
+                      </p>
+                    ))}
                   </blockquote>
                   <figcaption className="text-sm">
                     <span className="font-semibold text-[var(--black)]">{testimonials[k].name}</span>

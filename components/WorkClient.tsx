@@ -283,8 +283,12 @@ export default function WorkClient() {
             <div className="flex flex-col gap-6">
               {workTestimonials.map((t) => (
                 <figure key={t.name} className="scroll-fade bg-[var(--cream)] rounded-2xl p-7 md:p-9 shadow-[0_8px_40px_rgba(0,0,0,0.04)]">
-                  <blockquote className="text-[var(--gray-dark)] leading-relaxed text-[16px] md:text-[17px] mb-4">
-                    &ldquo;{t.body}&rdquo;
+                  <blockquote className="text-[var(--gray-dark)] leading-relaxed text-[16px] md:text-[17px] mb-4 space-y-3">
+                    {t.body.split('\n\n').map((para, j, all) => (
+                      <p key={j}>
+                        {j === 0 && '\u201C'}{para}{j === all.length - 1 && '\u201D'}
+                      </p>
+                    ))}
                   </blockquote>
                   <figcaption className="text-sm">
                     <span className="font-semibold text-[var(--black)]">{t.name}</span>
