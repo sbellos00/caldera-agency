@@ -34,7 +34,7 @@ export const testimonials: Record<'piazza' | 'scott' | 'paul' | 'esemenyuk' | 'c
   paul: {
     name: 'Dr. Ron Paul',
     role: 'Founder, Polaris Leadership Institute',
-    body: 'I was initially drawn to Caldera Agency because, unlike most vendors who send generic outreach, they had clearly taken the time to understand my business. The team was incredibly responsive and committed to getting every element right. We truly built the website together. The experience felt like a true partnership, and the value of the service far exceeded the cost.',
+    body: 'I was initially drawn to Caldera Agency because, unlike most vendors who send generic outreach, they had clearly taken the time to understand my business. That attention to detail and spirit of customization carried through the entire engagement. The team was incredibly responsive and committed to getting every element right. We truly built the website together, collaborating on everything from the core structure to the smallest design adjustments and animations. Caldera met every specification I had and was always willing to refine details until the site reflected exactly what I envisioned. The experience felt like a true partnership, and the value of the service far exceeded the cost.',
   },
   esemenyuk: {
     name: 'Ekaterina Semenyuk',
