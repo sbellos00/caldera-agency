@@ -95,7 +95,7 @@ export const caseStudies: CaseStudy[] = [
   {
     name: 'Michael D. Costello III',
     role: 'Founder, Drone1 Consulting',
-    niche: 'drone consulting in New Jersey',
+    niche: 'drone consulting and drone services in New Jersey',
     url: 'https://drone1consulting.com',
     image: 'https://res.cloudinary.com/dhduqssyx/image/upload/v1791906972/Screenshot_2026-10-13_at_6.53.29_PM_nxi2f1.png',
     summary:
