@@ -19,8 +19,8 @@ export interface Testimonial {
 
 // The named, real testimonials shown on the site. Matched to niches where relevant:
 // Piazza → fractional CFO, Ron Paul → coaching, Tim Scott → advisory,
-// Esemenyuk → biosafety / research safety.
-export const testimonials: Record<'piazza' | 'scott' | 'paul' | 'esemenyuk', Testimonial> = {
+// Esemenyuk → biosafety / research safety, Costello → drone consulting.
+export const testimonials: Record<'piazza' | 'scott' | 'paul' | 'esemenyuk' | 'costello', Testimonial> = {
   piazza: {
     name: 'Mark S. Piazza',
     role: 'Fractional CFO & Financial Advisor',
@@ -40,6 +40,11 @@ export const testimonials: Record<'piazza' | 'scott' | 'paul' | 'esemenyuk', Tes
     name: 'Ekaterina Semenyuk',
     role: 'Biosafety & Research Safety Consultant',
     body: 'I just wanted to say thank you for the fantastic work on my website! I’m very happy with how it turned out. It looks clean, professional, and truly reflects my work and vision. It was a pleasure working with you, and I would gladly recommend your services to others. Thank you again!',
+  },
+  costello: {
+    name: 'Michael D. Costello III',
+    role: 'Founder, Drone1 Consulting',
+    body: 'Giannis and his team have been excellent to work with, and I genuinely appreciate the attention to detail, communication, and willingness to incorporate my feedback throughout the process.',
   },
 }
 

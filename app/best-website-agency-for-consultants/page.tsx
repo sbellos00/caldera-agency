@@ -271,7 +271,7 @@ export default function BestWebsiteAgencyPage() {
               What consultants say
             </h2>
             <div className="flex flex-col gap-6">
-              {(['piazza', 'scott', 'paul'] as const).map((k) => (
+              {(['piazza', 'scott', 'paul', 'esemenyuk', 'costello'] as const).map((k) => (
                 <figure key={k} className={`${fade} bg-[var(--cream)] rounded-2xl p-7 md:p-9`}>
                   <blockquote className="text-[var(--gray-dark)] leading-relaxed text-[16px] md:text-[17px] mb-4">
                     &ldquo;{testimonials[k].body}&rdquo;

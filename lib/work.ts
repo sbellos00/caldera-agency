@@ -115,4 +115,4 @@ export const caseStudies: CaseStudy[] = [
 // Real testimonials shown on the page. Matched to their niche where possible.
 // More will be added as the additional client testimonials come in.
 // {{STEF: add the testimonials for the 4 new websites here once received.}}
-export const workTestimonials: Testimonial[] = [testimonials.piazza, testimonials.scott, testimonials.paul, testimonials.esemenyuk]
+export const workTestimonials: Testimonial[] = [testimonials.piazza, testimonials.scott, testimonials.paul, testimonials.esemenyuk, testimonials.costello]
