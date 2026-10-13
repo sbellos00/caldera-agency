@@ -99,7 +99,7 @@ export const caseStudies: CaseStudy[] = [
     url: 'https://drone1consulting.com',
     image: 'https://res.cloudinary.com/dhduqssyx/image/upload/v1791906972/Screenshot_2026-10-13_at_6.53.29_PM_nxi2f1.png',
     summary:
-      'A five-page website for a drone consulting company based in New Jersey. We handled the whole build: branding, strategy, copy, design, development, and the logo animation.',
+      'A five-page website for a drone consulting company based in New Jersey. We handled the whole build: branding, strategy, design, development, and the logo animation.',
   },
   {
     name: 'Tim Scott',
