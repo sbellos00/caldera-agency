@@ -223,7 +223,8 @@ export default function WorkClient() {
             <p className="text-[var(--primary-blue)] text-sm font-medium tracking-widest uppercase text-center mb-4 scroll-fade">Selected work</p>
             <h2 className="section-title text-center mb-14 md:mb-16 scroll-fade">What it looks like</h2>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
+            {/* An odd last card sits centered at one column's width instead of leaving a gap beside it. */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 md:[&>*:last-child:nth-child(odd)]:col-span-2 md:[&>*:last-child:nth-child(odd)]:mx-auto md:[&>*:last-child:nth-child(odd)]:w-[calc(50%-1.5rem)]">
               {caseStudies.filter((c) => !c.hidden).map((c, i) => {
                 const title = c.name || hostLabel(c.url)
                 const Card = (
