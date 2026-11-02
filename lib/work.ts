@@ -46,6 +46,8 @@ export const caseStudies: CaseStudy[] = [
     image: 'https://res.cloudinary.com/dxg4uslo6/image/upload/v1782384519/Screenshot_2026-06-25_at_1.45.27_PM_fxxu6e.png',
     summary:
       'A full website build for an HR consultant. Working from the palette and moodboard her brand designer supplied, we implemented the full vision across strategy, design, and development, built so her depth of work and her personality come through instantly.',
+    // Her site is paused at her request, so the link would lead to an error page.
+    hidden: true,
   },
   {
     name: 'Ekaterina Semenyuk',
