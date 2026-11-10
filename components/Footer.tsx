@@ -2,7 +2,9 @@
 
 import Link from 'next/link'
 
-export default function Footer() {
+/** `basePath` keeps a funnel self-contained: the /landing pages pass "/landing"
+ *  so Work and Contact point at /landing/work and /landing/contact. */
+export default function Footer({ basePath = '' }: { basePath?: string } = {}) {
   const currentYear = new Date().getFullYear()
 
   return (
@@ -29,8 +31,8 @@ export default function Footer() {
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 pb-8 md:pb-12 border-t border-white/10 pt-6">
           <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-white/50">
             <a href="https://www.linkedin.com/company/caldera-agency" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors duration-300">LinkedIn</a>
-            <Link href="/work" className="hover:text-white transition-colors duration-300">Work</Link>
-            <Link href="/contact" className="hover:text-white transition-colors duration-300">Contact</Link>
+            <Link href={`${basePath}/work`} className="hover:text-white transition-colors duration-300">Work</Link>
+            <Link href={`${basePath}/contact`} className="hover:text-white transition-colors duration-300">Contact</Link>
             <Link href="/best-website-agency-for-consultants" className="hover:text-white transition-colors duration-300">Best Website Agency for Consultants</Link>
           </div>
           <a href="https://www.iubenda.com/privacy-policy/68538498" target="_blank" rel="noopener noreferrer" className="text-sm text-white/40 hover:text-white/70 transition-colors duration-300">
