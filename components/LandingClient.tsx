@@ -104,7 +104,8 @@ function PrototypeForm({ id, layout }: { id: string; layout: 'grid' | 'stack' })
   const { email, company, linkedin, trap, status, error, setEmail, setCompany, setLinkedin, setTrap, setStatus, setError } = useForm()
   const [processingIdx, setProcessingIdx] = useState(0)
 
-  const fieldClass = 'w-full px-5 py-3.5 md:py-4 rounded-lg bg-white border border-black/10 text-[16px] text-[var(--black)] placeholder:text-[var(--gray-medium)] focus:outline-none focus:border-[var(--primary-blue)] focus:ring-2 focus:ring-[var(--primary-blue)]/20 transition-all'
+  // Fields and button are the same height, so the grid reads as four equal cells.
+  const fieldClass = 'w-full h-14 px-5 rounded-lg bg-white border border-black/10 text-[16px] md:text-[15px] tracking-tight text-[var(--black)] placeholder:text-[var(--gray-medium)] focus:outline-none focus:border-[var(--primary-blue)] focus:ring-2 focus:ring-[var(--primary-blue)]/20 transition-all'
   const grid = layout === 'grid'
 
   const handleSubmit = useCallback(async (e: React.FormEvent) => {
@@ -204,10 +205,10 @@ function PrototypeForm({ id, layout }: { id: string; layout: 'grid' | 'stack' })
             onChange={e => { setLinkedin(e.target.value); setError('') }} placeholder="LinkedIn (optional)" className={fieldClass} />
         </div>
         <button type="submit" disabled={status === 'submitting'}
-          className="group relative overflow-hidden w-full px-8 py-3.5 md:py-4 text-[16px] font-medium bg-[var(--black)] text-white tracking-tight rounded-lg whitespace-nowrap transition-all duration-300 hover:scale-[1.03] disabled:opacity-60 disabled:hover:scale-100">
+          className="group relative overflow-hidden w-full h-14 px-8 text-[15px] bg-[var(--black)] text-white tracking-tight rounded-lg whitespace-nowrap transition-all duration-300 ease-out hover:scale-105 disabled:opacity-60 disabled:hover:scale-100">
           <div className="absolute inset-0 bg-[var(--primary-blue)] transform -translate-x-full transition-transform duration-300 ease-out group-hover:translate-x-0" />
-          <span className="relative z-10 inline-flex items-center justify-center gap-2">
-            {status === 'submitting' ? 'Sending...' : <>Get My Free Prototype <span className="transition-transform duration-300 group-hover:translate-x-0.5">&rarr;</span></>}
+          <span className="relative z-10 inline-flex items-center justify-center gap-3">
+            {status === 'submitting' ? 'Sending...' : <>Get My Free Prototype <span className="transition-transform duration-300 group-hover:translate-x-1">&rarr;</span></>}
           </span>
         </button>
       </div>
@@ -227,9 +228,14 @@ function PrototypeForm({ id, layout }: { id: string; layout: 'grid' | 'stack' })
 /* ─── Lead Magnet ─── */
 /* Two layouts of the same offer, each sized to fit inside one screen:
    LeadMagnetHero opens the page (centered), LeadMagnetClosing ends it (two columns). */
-const TOP_HEADLINE = 'Get your free custom website prototype before you invest.'
+// Headlines follow the homepage hero: light weight, tight tracking, and one
+// phrase in the blue serif italic.
+const Accent = ({ children }: { children: ReactNode }) => (
+  <span className="font-serif italic font-normal text-[var(--primary-blue)] whitespace-nowrap">{children}</span>
+)
+const TOP_HEADLINE = <>Get your free custom website <Accent>prototype</Accent> before you invest.</>
 const TOP_SUBLINE = 'Tell us who you are and where to send it. We\u2019ll research your practice, write the copy and design a working first version of your site in just a few days. You only move forward if you love it.'
-const CLOSING_HEADLINE = 'See What Your Website Could Look Like.'
+const CLOSING_HEADLINE = <>See What Your Website <Accent>Could Look Like.</Accent></>
 const CLOSING_SUBLINE = 'Leave your details and we\u2019ll start working on your prototype.'
 
 function mediaFor(names: string[]) {
@@ -242,9 +248,9 @@ function mediaFor(names: string[]) {
 // Hero stills: left, centre, right. Each keeps its own proportions, so nothing
 // is cropped. `ratio` is width / height of the file.
 const FAN_SHOTS = [
-  { name: 'NextSpan Consulting', src: '/landing/shots/hero-nextspan.webp', ratio: 1600 / 924 },
   { name: 'Polaris Leadership Institute', src: '/landing/shots/hero-polaris.webp', ratio: 1600 / 729 },
   { name: 'Vanai Consulting', src: '/landing/shots/hero-vanai.webp', ratio: 1600 / 922 },
+  { name: 'NextSpan Consulting', src: '/landing/shots/hero-nextspan.webp', ratio: 1600 / 924 },
 ]
 // The two recordings in the closing section.
 const CLOSING_VIDEOS = mediaFor(['Dr. Ron Paul', 'Francis Dumont'])
@@ -253,16 +259,16 @@ function ScreenshotFan() {
   const [left, centre, right] = FAN_SHOTS
   const frame = 'absolute overflow-hidden rounded-md md:rounded-xl border border-black/10 bg-white'
   return (
-    <div className="relative mx-auto aspect-[7/2]" style={{ width: 'min(100%, 104svh, 1080px)', perspective: '1400px' }}>
-      <div className={`${frame} left-0 top-1/2 w-[40%] shadow-[0_10px_40px_rgba(0,0,0,0.12)]`}
+    <div className="relative mx-auto aspect-[10/3]" style={{ width: 'min(100%, 104svh, 1080px)', perspective: '1400px' }}>
+      <div className={`${frame} left-0 top-1/2 w-[42%] shadow-[0_10px_40px_rgba(0,0,0,0.12)]`}
         style={{ aspectRatio: left.ratio, transform: 'translateY(-50%) rotateY(30deg)', transformOrigin: 'right center' }}>
         <Image src={left.src} alt={`${left.name} website`} fill className="object-cover" sizes="(max-width: 1024px) 44vw, 360px" />
       </div>
-      <div className={`${frame} right-0 top-1/2 w-[40%] shadow-[0_10px_40px_rgba(0,0,0,0.12)]`}
+      <div className={`${frame} right-0 top-1/2 w-[42%] shadow-[0_10px_40px_rgba(0,0,0,0.12)]`}
         style={{ aspectRatio: right.ratio, transform: 'translateY(-50%) rotateY(-30deg)', transformOrigin: 'left center' }}>
         <Image src={right.src} alt={`${right.name} website`} fill className="object-cover" sizes="(max-width: 1024px) 44vw, 360px" />
       </div>
-      <div className={`${frame} left-1/2 top-1/2 w-[56%] z-10 shadow-[0_20px_60px_rgba(0,0,0,0.25)]`}
+      <div className={`${frame} left-1/2 top-1/2 w-[50%] z-10 shadow-[0_20px_60px_rgba(0,0,0,0.25)]`}
         style={{ aspectRatio: centre.ratio, transform: 'translate(-50%, -50%)' }}>
         <Image src={centre.src} alt={`${centre.name} website`} fill priority className="object-cover" sizes="(max-width: 1024px) 66vw, 520px" />
       </div>
@@ -277,7 +283,7 @@ function LeadMagnetHero({ formId }: { formId: string }) {
     <div className="relative z-10 min-h-[100svh] flex flex-col justify-center px-5 md:px-12 lg:px-16 pt-[76px] md:pt-24 pb-6 md:pb-10">
       <div className="w-full max-w-screen-xl mx-auto text-center flex flex-col gap-5 md:gap-[clamp(16px,3.2svh,36px)]">
         <div>
-          <h1 className="scroll-fade mx-auto max-w-5xl text-[clamp(27px,min(4.6vw,7svh),64px)] font-semibold tracking-tight leading-[1.04] text-[var(--black)] mb-3 md:mb-4">
+          <h1 className="scroll-fade mx-auto max-w-5xl text-[clamp(29px,min(4.9vw,7.4svh),68px)] font-light tracking-[-0.035em] leading-[1.02] text-[var(--black)] mb-3 md:mb-4">
             {TOP_HEADLINE}
           </h1>
           <p className="scroll-fade mx-auto max-w-4xl text-[var(--gray-medium)] text-[14px] md:text-[17px] leading-relaxed">
@@ -324,7 +330,7 @@ function LeadMagnetClosing({ formId }: { formId: string }) {
         {/* Left: the offer and the form */}
         <div className="scroll-fade">
           <p className="hidden md:block text-[var(--primary-blue)] text-sm font-medium tracking-widest uppercase mb-[clamp(10px,2svh,20px)]">Your free prototype</p>
-          <h2 className="text-[clamp(26px,min(3.6vw,6.4svh),54px)] font-semibold tracking-tight leading-[1.05] text-[var(--black)] mb-2 md:mb-[clamp(10px,2svh,20px)]">
+          <h2 className="text-[clamp(28px,min(3.9vw,6.8svh),58px)] font-light tracking-[-0.035em] leading-[1.02] text-[var(--black)] mb-2 md:mb-[clamp(10px,2svh,20px)]">
             {CLOSING_HEADLINE}
           </h2>
           <p className="text-[var(--gray-medium)] text-[15px] md:text-[17px] leading-relaxed mb-3 md:mb-[clamp(16px,3svh,32px)] max-w-xl">
