@@ -9,9 +9,11 @@ import Lenis from 'lenis'
 import 'lenis/dist/lenis.css'
 import Menu from '@/components/Menu'
 import Footer from '@/components/Footer'
-import { caseStudies, workTestimonials } from '@/lib/work'
+import { caseStudies } from '@/lib/work'
 import { caseMedia, vanaiCase } from '@/lib/landingMedia'
 import CaseVideo from '@/components/CaseVideo'
+import { FormProvider, LeadMagnetHero } from '@/components/LandingLeadMagnet'
+import { homeTestimonials } from '@/lib/homeTestimonials'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -285,53 +287,64 @@ export default function LandingWorkClient() {
           </div>
         </section>
 
-        {/* Testimonials,white section with cream cards (paints its own background) */}
-        <section ref={el => { themedSectionRefs.current[1] = el }} className="bg-white py-24 md:py-32 px-8 md:px-16">
-          <div className="max-w-screen-lg mx-auto">
+        {/* Testimonials — the homepage's "What Our Clients Say" section, with each
+            client's photo (paints its own white background) */}
+        <section ref={el => { themedSectionRefs.current[1] = el }} className="bg-white text-[var(--black)] py-24 md:py-32 px-8">
+          <div className="max-w-screen-xl mx-auto">
             <p className="text-[var(--primary-blue)] text-sm font-medium tracking-widest uppercase text-center mb-4 scroll-fade">Testimonials</p>
-            <h2 className="section-title text-center mb-12 md:mb-16 scroll-fade text-[var(--black)]">What clients say</h2>
-            <div className="flex flex-col gap-6">
-              {workTestimonials.map((t) => (
-                <figure key={t.name} className="scroll-fade bg-[var(--cream)] rounded-2xl p-7 md:p-9 shadow-[0_8px_40px_rgba(0,0,0,0.04)]">
-                  <blockquote className="text-[var(--gray-dark)] leading-relaxed text-[16px] md:text-[17px] mb-4 space-y-3">
-                    {t.body.split('\n\n').map((para, j, all) => (
-                      <p key={j}>
-                        {j === 0 && '\u201C'}{para}{j === all.length - 1 && '\u201D'}
+            <h2 className="section-title text-center mb-16 md:mb-20 scroll-fade">What Our Clients Say</h2>
+
+            <div className="flex flex-col gap-8">
+              {homeTestimonials.map((t, i) => (
+                <div key={i} className="bg-[var(--cream)] rounded-2xl p-5 md:p-8 scroll-fade" style={{ transitionDelay: `${i * 100}ms` }}>
+                  <div className="grid grid-cols-1 md:grid-cols-[1fr_180px] gap-6 md:gap-8">
+                    {/* Left: quotes + attribution */}
+                    <div className="flex flex-col">
+                      {/* On phones, lead with a compact identity row instead of
+                          placing a large portrait underneath the entire quote. */}
+                      <div className="flex items-center gap-3 mb-5 md:hidden">
+                        <div className="relative h-14 w-14 shrink-0 overflow-hidden rounded-xl">
+                          <Image src={t.image} alt={t.name} fill className="object-cover" style={{ objectPosition: t.imgPos }} sizes="56px" />
+                        </div>
+                        <div className="min-w-0">
+                          <p className="text-sm font-semibold tracking-tight text-[var(--black)]">{t.name}</p>
+                          <p className="text-xs leading-snug text-[var(--gray-medium)]">{t.role}</p>
+                        </div>
+                      </div>
+                      {/* Pull quote */}
+                      <p className="text-xl md:text-[clamp(22px,3vw,32px)] font-light leading-snug tracking-tight text-[var(--black)] mb-4">
+                        &ldquo;...{t.highlight}&rdquo;
                       </p>
-                    ))}
-                  </blockquote>
-                  <figcaption className="text-sm">
-                    <span className="font-semibold text-[var(--black)]">{t.name}</span>
-                    <span className="text-[var(--gray-medium)]">, {t.role}</span>
-                  </figcaption>
-                </figure>
+                      {/* Full quote with left accent */}
+                      <div className="border-l-2 md:border-l-[3px] border-[var(--gray-medium)]/20 pl-4 md:pl-5 md:mb-5 space-y-3">
+                        {t.quote.split('\n\n').map((para, j, all) => (
+                          <p key={j} className="text-sm md:text-[15px] leading-relaxed text-[var(--gray-medium)]">
+                            {j === 0 && '\u201C'}{para}{j === all.length - 1 && '\u201D'}
+                          </p>
+                        ))}
+                      </div>
+                      {/* Attribution — moved here from the right column */}
+                      <div className="hidden md:block">
+                        <p className="text-sm text-[var(--gray-medium)]">{t.name}</p>
+                        <p className="text-sm font-semibold tracking-tight">{t.role}</p>
+                      </div>
+                    </div>
+                    {/* Right: photo only */}
+                    <div className="hidden md:block md:w-full md:self-start md:aspect-[4/5] rounded-xl overflow-hidden relative">
+                      <Image src={t.image} alt={t.name} fill className="object-cover" style={{ objectPosition: t.imgPos }} sizes="180px" />
+                    </div>
+                  </div>
+                </div>
               ))}
             </div>
           </div>
         </section>
 
-        {/* Closing CTA,light section (paints its own background) */}
-        <section ref={el => { themedSectionRefs.current[2] = el }} className="relative bg-white py-24 md:py-32 px-8 md:px-16 overflow-hidden">
-          <div className="pointer-events-none absolute inset-0 opacity-[0.03]" style={{
-            backgroundImage: `linear-gradient(var(--primary-blue) 1px, transparent 1px), linear-gradient(90deg, var(--primary-blue) 1px, transparent 1px)`,
-            backgroundSize: '60px 60px',
-          }} />
-          <div className="relative z-10 max-w-screen-lg mx-auto text-center">
-            <h2 className="text-[clamp(28px,4vw,52px)] font-light tracking-tight leading-tight mb-5 text-[var(--black)]">
-              Want to see <span className="font-serif italic text-[var(--primary-blue)]">yours</span>?
-            </h2>
-            <p className="text-[var(--gray-medium)] leading-relaxed max-w-2xl mx-auto mb-8">
-              Drop your LinkedIn and we will build a free working prototype of your website. No calls. No commitment. No homework.
-            </p>
-            <Link
-              href="/landing/contact"
-              className="group relative overflow-hidden inline-flex items-center gap-3 bg-[var(--black)] text-white px-8 py-4 text-[15px] tracking-tight no-underline rounded-lg transition-all duration-300 ease-out hover:scale-105"
-            >
-              <div className="absolute inset-0 bg-[var(--primary-blue)] transform -translate-x-full transition-transform duration-300 ease-out group-hover:translate-x-0"></div>
-              <span className="relative z-10 group-hover:text-white">Get your free prototype</span>
-              <span className="relative z-10 group-hover:text-white">&rarr;</span>
-            </Link>
-          </div>
+        {/* Contact — the opening section of /landing: offer, site stills and form */}
+        <section ref={el => { themedSectionRefs.current[2] = el }} id="contact" className="relative bg-[var(--cream)] text-[var(--black)] overflow-hidden">
+          <FormProvider>
+            <LeadMagnetHero formId="prototype-form" heading="h2" />
+          </FormProvider>
         </section>
 
         <Footer basePath="/landing" />
