@@ -69,56 +69,57 @@ function Preloader() {
    submission from either shows the confirmation in both. */
 type FormStatus = 'idle' | 'submitting' | 'processing' | 'success' | 'error'
 interface FormCtx {
-  step: 1 | 2; linkedin: string; email: string; company: string; status: FormStatus; error: string
-  setStep: (s: 1 | 2) => void; setLinkedin: (v: string) => void; setEmail: (v: string) => void
-  setCompany: (v: string) => void; setStatus: (s: FormStatus) => void; setError: (e: string) => void
+  email: string; company: string; linkedin: string; trap: string; status: FormStatus; error: string
+  setEmail: (v: string) => void; setCompany: (v: string) => void; setLinkedin: (v: string) => void
+  setTrap: (v: string) => void; setStatus: (s: FormStatus) => void; setError: (e: string) => void
 }
 const FormContext = createContext<FormCtx | null>(null)
 const useForm = () => { const c = useContext(FormContext); if (!c) throw new Error('useForm must be inside FormProvider'); return c }
 
 function FormProvider({ children }: { children: ReactNode }) {
-  const [step, setStep] = useState<1 | 2>(1)
-  const [linkedin, setLinkedin] = useState('')
   const [email, setEmail] = useState('')
-  // Honeypot — hidden from real users, filled in by bots.
   const [company, setCompany] = useState('')
+  const [linkedin, setLinkedin] = useState('')
+  // Honeypot — hidden from real users, filled in by bots.
+  const [trap, setTrap] = useState('')
   const [status, setStatus] = useState<FormStatus>('idle')
   const [error, setError] = useState('')
   return (
-    <FormContext.Provider value={{ step, linkedin, email, company, status, error, setStep, setLinkedin, setEmail, setCompany, setStatus, setError }}>
+    <FormContext.Provider value={{ email, company, linkedin, trap, status, error, setEmail, setCompany, setLinkedin, setTrap, setStatus, setError }}>
       {children}
     </FormContext.Provider>
   )
 }
 
 /* ─── Prototype Form ─── */
-/* Copy taken from the earlier production build's lead magnet (the "free prototype"
-   framing), wired to the current /api/prototype handling and honeypot. */
-const PROCESSING_MESSAGES = ['Analyzing your LinkedIn profile...', 'Preparing your prototype request...']
+/* Email + company name or website, with LinkedIn optional. Both required fields
+   are easy to type on a phone, and together they are enough to find the right
+   person: a business email's domain leads to the company, and with a Gmail
+   address the company name does the same job. */
+const PROCESSING_MESSAGES = ['Looking up your practice...', 'Preparing your prototype request...']
 
 function PrototypeForm({ id }: { id: string }) {
-  const { step, linkedin, email, company, status, error, setStep, setLinkedin, setEmail, setCompany, setStatus, setError } = useForm()
-  const [transitioning, setTransitioning] = useState(false)
+  const { email, company, linkedin, trap, status, error, setEmail, setCompany, setLinkedin, setTrap, setStatus, setError } = useForm()
   const [processingIdx, setProcessingIdx] = useState(0)
 
-  const inputClass = 'min-w-0 flex-[3] px-6 py-4 rounded-lg rounded-r-none bg-[var(--cream)] border-0 text-[15px] placeholder:text-[var(--gray-medium)] focus:outline-none transition-all'
+  const fieldClass = 'w-full px-5 py-4 rounded-lg bg-white border border-black/10 text-[16px] text-[var(--black)] placeholder:text-[var(--gray-medium)] focus:outline-none focus:border-[var(--primary-blue)] focus:ring-2 focus:ring-[var(--primary-blue)]/20 transition-all'
+  const labelClass = 'block text-left text-[13px] font-medium tracking-tight text-[var(--gray-dark)] mb-1.5'
 
-  const handleStep1 = useCallback(() => {
-    if (!linkedin.trim()) { setError('Please enter your LinkedIn URL.'); return }
-    setError(''); setTransitioning(true)
-    setTimeout(() => { setStep(2); setTransitioning(false) }, 200)
-  }, [linkedin, setError, setStep])
-
-  const handleStep2 = useCallback(async () => {
+  const handleSubmit = useCallback(async (e: React.FormEvent) => {
+    e.preventDefault()
     if (status === 'submitting') return
     if (!email.trim()) { setError('Please enter your email.'); return }
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { setError('Please enter a valid email address.'); return }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) { setError('Please enter a valid email address.'); return }
+    if (!company.trim()) { setError('Please enter your company name or website.'); return }
     setError(''); setStatus('submitting')
     // The API has no honeypot handling, so a filled trap short-circuits here:
     // the bot sees a success and nothing is sent.
-    if (company) { setStatus('processing'); return }
+    if (trap) { setStatus('processing'); return }
     try {
-      const res = await fetch('/api/prototype', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ linkedin, email }) })
+      const res = await fetch('/api/prototype', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: email.trim(), company: company.trim(), linkedin: linkedin.trim() }),
+      })
       if (res.ok) { setStatus('processing'); return }
       // Surface the API's own reason so a misconfigured mailer isn't invisible.
       const data = await res.json().catch(() => null)
@@ -128,7 +129,7 @@ function PrototypeForm({ id }: { id: string }) {
       setStatus('error')
       setError('Something went wrong. Please email us at contact@caldera.agency.')
     }
-  }, [email, linkedin, company, status, setError, setStatus])
+  }, [email, company, linkedin, trap, status, setError, setStatus])
 
   // Both form instances run this timer; only the first one to fire moves the
   // shared status on, the other then sees 'success' and stops.
@@ -179,110 +180,99 @@ function PrototypeForm({ id }: { id: string }) {
   }
 
   return (
-    <div id={id} className="w-full max-w-lg mx-auto">
-      <div className={`transition-all duration-200 ${transitioning ? 'opacity-0 translate-x-4' : 'opacity-100 translate-x-0'}`}>
-        {step === 1 ? (
-          <div className="flex flex-col gap-3">
-            {/* Unified input group — input and button as one connected element */}
-            <div className="flex flex-col sm:flex-row bg-[var(--cream)] rounded-lg overflow-hidden shadow-[0_2px_12px_rgba(0,0,0,0.06)]">
-              <input id={`${id}-linkedin`} type="url" value={linkedin} onChange={e => { setLinkedin(e.target.value); setError('') }}
-                aria-label="Your LinkedIn URL"
-                placeholder="Paste your LinkedIn URL" className={inputClass} onKeyDown={e => e.key === 'Enter' && handleStep1()} />
-              <button onClick={handleStep1}
-                className="group relative overflow-hidden flex-shrink-0 px-6 py-4 text-[14px] font-medium bg-[var(--black)] text-white tracking-tight transition-all duration-300 hover:scale-105 whitespace-nowrap rounded-lg sm:rounded-l-none">
-                <div className="absolute inset-0 bg-[var(--primary-blue)] transform -translate-x-full transition-transform duration-300 ease-out group-hover:translate-x-0" />
-                <span className="relative z-10 flex items-center gap-2 group-hover:text-white">Get Your Free Prototype <span className="transition-transform duration-300 group-hover:translate-x-0.5">&rarr;</span></span>
-              </button>
-            </div>
-            {error && <p className="text-red-500 text-sm text-center">{error}</p>}
-            <p className="text-[var(--gray-medium)] text-sm text-center mt-1">Free prototype. No calls. No commitment.</p>
-          </div>
-        ) : (
-          <div className="flex flex-col gap-3">
-            <p className="text-sm font-medium text-[var(--gray-dark)] text-center">Where should we send your prototype?</p>
-            <div className="flex flex-col sm:flex-row bg-[var(--cream)] rounded-lg overflow-hidden shadow-[0_2px_12px_rgba(0,0,0,0.06)]">
-              <input id={`${id}-email`} type="email" value={email} onChange={e => { setEmail(e.target.value); setError('') }}
-                aria-label="Your email"
-                placeholder="your@email.com" className={inputClass} onKeyDown={e => e.key === 'Enter' && handleStep2()} />
-              <button onClick={handleStep2} disabled={status === 'submitting'}
-                className="group relative overflow-hidden flex-shrink-0 px-6 py-4 text-[14px] font-medium bg-[var(--black)] text-white tracking-tight transition-all duration-300 hover:scale-105 disabled:opacity-60 disabled:hover:scale-100 whitespace-nowrap rounded-lg sm:rounded-l-none">
-                <div className="absolute inset-0 bg-[var(--primary-blue)] transform -translate-x-full transition-transform duration-300 ease-out group-hover:translate-x-0" />
-                <span className="relative z-10 group-hover:text-white">{status === 'submitting' ? 'Sending...' : 'Send My Free Prototype'}</span>
-              </button>
-            </div>
-            {/* Honeypot — hidden from people and assistive tech, catnip for bots. */}
-            <div aria-hidden="true" className="absolute left-[-9999px] w-px h-px overflow-hidden">
-              <label htmlFor={`${id}-company`}>Company</label>
-              <input id={`${id}-company`} name="company" type="text" tabIndex={-1} autoComplete="off"
-                value={company} onChange={e => setCompany(e.target.value)} />
-            </div>
-            {error && <p className="text-red-500 text-sm text-center">{error}</p>}
-            <div className="flex items-center justify-center gap-4">
-              <button onClick={() => { setTransitioning(true); setTimeout(() => { setStep(1); setTransitioning(false) }, 200) }}
-                className="text-sm underline underline-offset-4 transition-colors text-[var(--gray-medium)] hover:text-[var(--gray-dark)]">
-                &larr; Edit LinkedIn URL
-              </button>
-              <p className="text-sm text-[var(--gray-medium)]">You&apos;ll hear from us within 24 hours.</p>
-            </div>
-          </div>
-        )}
+    <form id={id} onSubmit={handleSubmit} noValidate className="w-full max-w-2xl mx-auto">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div>
+          <label htmlFor={`${id}-email`} className={labelClass}>Email</label>
+          <input id={`${id}-email`} type="email" inputMode="email" autoComplete="email" value={email}
+            onChange={e => { setEmail(e.target.value); setError('') }} placeholder="you@company.com" className={fieldClass} />
+        </div>
+        <div>
+          <label htmlFor={`${id}-company`} className={labelClass}>Company name or website</label>
+          <input id={`${id}-company`} type="text" autoComplete="organization" value={company}
+            onChange={e => { setCompany(e.target.value); setError('') }} placeholder="Kapos Consulting" className={fieldClass} />
+        </div>
+        <div className="sm:col-span-2">
+          <label htmlFor={`${id}-linkedin`} className={labelClass}>
+            LinkedIn <span className="font-normal text-[var(--gray-medium)]">(optional)</span>
+          </label>
+          <input id={`${id}-linkedin`} type="text" inputMode="url" autoComplete="off" value={linkedin}
+            onChange={e => { setLinkedin(e.target.value); setError('') }} placeholder="linkedin.com/in/yourname" className={fieldClass} />
+        </div>
+      </div>
+
+      {/* Honeypot — hidden from people and assistive tech, catnip for bots. */}
+      <div aria-hidden="true" className="absolute left-[-9999px] w-px h-px overflow-hidden">
+        <label htmlFor={`${id}-fax`}>Fax</label>
+        <input id={`${id}-fax`} name="fax" type="text" tabIndex={-1} autoComplete="off"
+          value={trap} onChange={e => setTrap(e.target.value)} />
+      </div>
+
+      {error && <p role="alert" className="text-red-500 text-sm text-center mt-4">{error}</p>}
+
+      <button type="submit" disabled={status === 'submitting'}
+        className="group relative overflow-hidden mt-6 w-full sm:w-auto sm:min-w-[320px] px-10 py-5 text-[16px] font-medium bg-[var(--black)] text-white tracking-tight rounded-lg transition-all duration-300 hover:scale-105 disabled:opacity-60 disabled:hover:scale-100">
+        <div className="absolute inset-0 bg-[var(--primary-blue)] transform -translate-x-full transition-transform duration-300 ease-out group-hover:translate-x-0" />
+        <span className="relative z-10 inline-flex items-center justify-center gap-2">
+          {status === 'submitting' ? 'Sending...' : <>Get My Free Prototype <span className="transition-transform duration-300 group-hover:translate-x-0.5">&rarr;</span></>}
+        </span>
+      </button>
+      <p className="text-[var(--gray-medium)] text-sm text-center mt-4">Free prototype. No calls. No commitment.</p>
+    </form>
+  )
+}
+
+/* ─── Lead Magnet ─── */
+/* Centered headline, a fan of three case-study screenshots, then the form.
+   Used for both section 3 and section 5, each with its own three screenshots. */
+function shotsFor(names: string[]) {
+  return names.flatMap(name => {
+    const c = caseStudies.find(s => s.name === name && !s.hidden && s.image)
+    return c ? [{ name: c.name, image: c.image as string }] : []
+  })
+}
+// Order is left, centre, right.
+const LEAD_SHOTS_TOP = shotsFor(['Mark S. Piazza', 'Dr. Ron Paul', 'Michael D. Costello III'])
+const LEAD_SHOTS_BOTTOM = shotsFor(['David Zurita', 'Spencer McGuire-Mitchem', 'Francis Dumont'])
+
+function ScreenshotFan({ shots }: { shots: { name: string; image: string }[] }) {
+  if (shots.length < 3) return null
+  const [left, centre, right] = shots
+  const frame = 'absolute overflow-hidden rounded-md md:rounded-xl border border-black/10 bg-white aspect-[16/10]'
+  return (
+    <div className="scroll-fade relative mx-auto w-full max-w-4xl aspect-[2/1] sm:aspect-[5/2] mb-12 md:mb-16" style={{ perspective: '1400px' }}>
+      <div className={`${frame} left-0 top-1/2 w-[40%] shadow-[0_10px_40px_rgba(0,0,0,0.10)]`}
+        style={{ transform: 'translateY(-50%) rotateY(32deg)', transformOrigin: 'right center' }}>
+        <Image src={left.image} alt={`${left.name} website`} fill className="object-cover object-top" sizes="(max-width: 768px) 40vw, 360px" />
+      </div>
+      <div className={`${frame} right-0 top-1/2 w-[40%] shadow-[0_10px_40px_rgba(0,0,0,0.10)]`}
+        style={{ transform: 'translateY(-50%) rotateY(-32deg)', transformOrigin: 'left center' }}>
+        <Image src={right.image} alt={`${right.name} website`} fill className="object-cover object-top" sizes="(max-width: 768px) 40vw, 360px" />
+      </div>
+      <div className={`${frame} left-1/2 top-1/2 w-[56%] z-10 shadow-[0_20px_60px_rgba(0,0,0,0.22)]`}
+        style={{ transform: 'translate(-50%, -50%)' }}>
+        <Image src={centre.image} alt={`${centre.name} website`} fill className="object-cover object-top" sizes="(max-width: 768px) 56vw, 500px" />
       </div>
     </div>
   )
 }
 
-/* ─── Lead Magnet ─── */
-/* Starting point: the second section of the earlier production build
-   ("Drop your LinkedIn. Get a website." + How It Works). Used for both section 3
-   and section 5 for now; the copy is expected to change. */
-const howItWorks = [
-  { icon: '01', h: 'We build first', b: 'We study your LinkedIn, positioning, and market, then build a working prototype before we ever talk.' },
-  { icon: '02', h: 'The prototype does the talking', b: 'Instead of briefs and questionnaires, we start with a working prototype. It proves what we can do and gives us both a concrete starting point.' },
-  { icon: '03', h: 'You review, we refine', b: 'Some clients take it nearly as-is. Others want big changes. We jump on a quick call to understand what you need and tailor our offer accordingly. Either way, there’s no homework for you, just send us whatever you have, we figure it out and come back with the next version.' },
-  { icon: '04', h: 'Launch', b: 'Your site goes live with 1 year of free hosting and support.' },
-]
-
-function LeadMagnet({ formId }: { formId: string }) {
+function LeadMagnet({ formId, shots }: { formId: string; shots: { name: string; image: string }[] }) {
   return (
-    <div className="relative z-10 px-8 md:px-12 lg:px-16 py-20 md:py-28 lg:py-32">
-      <div className="max-w-screen-xl mx-auto">
+    <div className="relative z-10 px-5 md:px-12 lg:px-16 py-20 md:py-28 lg:py-32">
+      <div className="max-w-screen-xl mx-auto text-center">
+        <h2 className="scroll-fade mx-auto max-w-5xl text-[clamp(32px,5.2vw,76px)] font-semibold tracking-tight leading-[1.02] text-[var(--black)] mb-5 md:mb-6">
+          Get your free website prototype, before you spend a dollar.
+        </h2>
+        <p className="scroll-fade mx-auto max-w-2xl text-[var(--gray-medium)] text-[16px] md:text-lg leading-relaxed mb-10 md:mb-14">
+          Tell us who you are and where to send it. We research your practice, write the copy and design
+          a working first version of your site. You only move forward if you love it.
+        </p>
 
-        {/* Two-column layout — left sells, right supports */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+        <ScreenshotFan shots={shots} />
 
-          {/* Left: CTA (dominant, 7 cols) */}
-          <div className="lg:col-span-7 scroll-fade">
-            <p className="text-[var(--primary-blue)] text-sm font-medium tracking-widest uppercase mb-5">Zero risk, zero commitment</p>
-            <h2 className="text-[clamp(28px,3.5vw,52px)] font-light tracking-tight leading-[0.95] mb-5 text-[var(--black)]">
-              Drop your LinkedIn.<br /><span className="font-medium">Get a website.</span>
-            </h2>
-            <p className="relative inline-block text-[var(--primary-blue)] md:text-[var(--black)] font-medium text-[16px] md:text-[17px] leading-relaxed mb-4">
-              We&apos;ll build your site before you spend a dollar.<span className="absolute bottom-0 left-0 w-full h-[2px] bg-[var(--primary-blue)] hidden md:block" />
-            </p>
-            <p className="text-[var(--gray-medium)] text-[15px] md:text-[16px] leading-relaxed mb-8">
-              Paste your LinkedIn URL, let us handle the rest. Give us 5 days to research your background, study your expertise, and write copy around it. We&apos;ll come back with a full one-page website tailored specifically to your positioning. No commitment, no calls. <span className="relative inline-block text-[var(--black)] font-medium">We move forward only if you love it<span className="absolute bottom-0 left-0 w-full h-[2px] bg-[var(--primary-blue)]" /></span>.
-            </p>
-            <PrototypeForm id={formId} />
-          </div>
-
-          {/* Right: How It Works (subordinate, 5 cols, smaller text, lighter) */}
-          <div className="lg:col-span-5 scroll-fade lg:pt-8">
-            <p className="text-[var(--gray-medium)] text-[11px] font-medium tracking-widest uppercase mb-5">How It Works</p>
-            <div className="flex flex-col gap-3">
-              {howItWorks.map((step, i) => (
-                <div key={step.icon} className="scroll-fade" style={{ transitionDelay: `${i * 80}ms` }}>
-                  <div className="flex items-start gap-4 text-[var(--black)]">
-                    <span className="text-[var(--primary-blue)]/40 font-[family-name:var(--font-bebas)] text-2xl leading-none flex-shrink-0 pt-0.5">{step.icon}</span>
-                    <div className="min-w-0">
-                      <h3 className="text-[14px] font-medium tracking-tight text-[var(--black)] mb-0.5">{step.h}</h3>
-                      <p className="text-[var(--gray-medium)] text-[13px] leading-relaxed">{step.b}</p>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
+        <div className="scroll-fade">
+          <PrototypeForm id={formId} />
         </div>
       </div>
     </div>
@@ -646,7 +636,7 @@ function Landing() {
 
         {/* ─── 4. Lead magnet (same as section 6 for now) ─── */}
         <section className="relative overflow-hidden">
-          <LeadMagnet formId="prototype-form" />
+          <LeadMagnet formId="prototype-form" shots={LEAD_SHOTS_TOP} />
         </section>
 
         {/* ─── 5. Case studies — 4 videos ─── */}
@@ -724,7 +714,7 @@ function Landing() {
         {/* ─── 6. Lead magnet ─── */}
         {/* Back to cream after the dark case studies, matching section 4. */}
         <section ref={el => { themedSectionRefs.current[1] = el }} id="contact" className="relative overflow-hidden">
-          <LeadMagnet formId="prototype-form-bottom" />
+          <LeadMagnet formId="prototype-form-bottom" shots={LEAD_SHOTS_BOTTOM} />
         </section>
 
         <Footer basePath="/landing" />

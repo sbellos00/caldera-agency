@@ -1,14 +1,29 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { Resend } from 'resend'
 
+// Everything from the form ends up inside an HTML email, so escape it first.
+function esc(value: unknown) {
+  return String(value ?? '').trim().slice(0, 500)
+    .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;')
+}
+
+// People type LinkedIn and website addresses without the https://.
+function asUrl(value: string) {
+  return /^https?:\/\//i.test(value) ? value : `https://${value}`
+}
+
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
-    const { linkedin, email } = body
+    // Two forms post here. The homepage sends LinkedIn + email; the /landing
+    // form sends email + company name or website, with LinkedIn optional.
+    const email = typeof body.email === 'string' ? body.email.trim() : ''
+    const linkedin = esc(body.linkedin)
+    const company = esc(body.company)
 
-    if (!linkedin || !email) {
+    if (!email || (!linkedin && !company)) {
       return NextResponse.json(
-        { error: 'LinkedIn URL and email are required' },
+        { error: 'Email and a company name, website or LinkedIn URL are required' },
         { status: 400 }
       )
     }
@@ -30,6 +45,7 @@ export async function POST(request: NextRequest) {
     }
 
     const resend = new Resend(process.env.RESEND_API_KEY)
+    const safeEmail = esc(email)
 
     const emailContent = `
       <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 600px; margin: 0 auto; background: #ffffff;">
@@ -39,12 +55,13 @@ export async function POST(request: NextRequest) {
         <div style="padding: 30px;">
           <div style="background: #f8f9fa; padding: 24px; border-radius: 12px; margin: 20px 0; border-left: 4px solid #0019ff;">
             <h3 style="margin-top: 0; color: #333; font-size: 18px; font-weight: 600;">Request Details</h3>
-            <p style="margin: 8px 0; color: #555;"><strong>LinkedIn:</strong> <a href="${linkedin}" style="color: #0019ff; text-decoration: none;" target="_blank">${linkedin}</a></p>
-            <p style="margin: 8px 0; color: #555;"><strong>Email:</strong> <a href="mailto:${email}" style="color: #0019ff; text-decoration: none;">${email}</a></p>
+            <p style="margin: 8px 0; color: #555;"><strong>Email:</strong> <a href="mailto:${safeEmail}" style="color: #0019ff; text-decoration: none;">${safeEmail}</a></p>
+            ${company ? `<p style="margin: 8px 0; color: #555;"><strong>Company / website:</strong> ${company}</p>` : ''}
+            <p style="margin: 8px 0; color: #555;"><strong>LinkedIn:</strong> ${linkedin ? `<a href="${asUrl(linkedin)}" style="color: #0019ff; text-decoration: none;" target="_blank">${linkedin}</a>` : 'Not provided'}</p>
           </div>
           <div style="text-align: center; margin: 30px 0;">
-            <a href="${linkedin}" style="background: #0019ff; color: white; padding: 12px 24px; text-decoration: none; border-radius: 8px; font-weight: 500; display: inline-block; margin-right: 8px;">View LinkedIn</a>
-            <a href="mailto:${email}" style="background: #333; color: white; padding: 12px 24px; text-decoration: none; border-radius: 8px; font-weight: 500; display: inline-block;">Reply</a>
+            ${linkedin ? `<a href="${asUrl(linkedin)}" style="background: #0019ff; color: white; padding: 12px 24px; text-decoration: none; border-radius: 8px; font-weight: 500; display: inline-block; margin-right: 8px;">View LinkedIn</a>` : ''}
+            <a href="mailto:${safeEmail}" style="background: #333; color: white; padding: 12px 24px; text-decoration: none; border-radius: 8px; font-weight: 500; display: inline-block;">Reply</a>
           </div>
         </div>
         <div style="background: #f8f9fa; padding: 20px; text-align: center; border-top: 1px solid #eee;">
@@ -58,6 +75,7 @@ export async function POST(request: NextRequest) {
       from: 'Caldera Agency <onboarding@resend.dev>',
       to: process.env.CONTACT_EMAIL || 'hello@caldera.agency',
       subject: `New Prototype Request`,
+      replyTo: email,
       html: emailContent,
     })
 
