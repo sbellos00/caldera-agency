@@ -6,7 +6,6 @@
 import React, { createContext, useContext, useEffect, useState, useCallback, type ReactNode } from 'react'
 import CaseVideo from '@/components/CaseVideo'
 import { caseMedia, vanaiCase } from '@/lib/landingMedia'
-import Link from 'next/link'
 
 /* ─── Form state ─── */
 /* The lead magnet appears twice on this page (sections 3 and 5). Both forms share
@@ -113,16 +112,11 @@ export function PrototypeForm({ id, layout }: { id: string; layout: 'grid' | 'st
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
           </svg>
         </div>
-        <h3 className="text-2xl font-medium tracking-tight mb-3">We&apos;re on it.</h3>
-        <p className="max-w-md mx-auto leading-relaxed mb-6 text-[var(--gray-medium)]">
-          We&apos;ll send your website preview and a full report of our design choices and strategy to your inbox within 24 hours.
+        <h3 className="text-2xl font-medium tracking-tight mb-5">We&apos;re on it.</h3>
+        <p className="text-sm font-medium tracking-tight text-[var(--black)] mb-2">What happens next?</p>
+        <p className="max-w-md mx-auto leading-relaxed text-[var(--gray-medium)]">
+          We&apos;ll review your details to make sure we have everything we need to start on your website prototype, and we&apos;ll get back to you shortly.
         </p>
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-3 text-sm text-[var(--gray-medium)]">
-          <span>What happens next?</span>
-          <Link href="/process" className="underline underline-offset-4 transition-colors text-[var(--primary-blue)] hover:text-[var(--blue-dark)]">
-            See our full process
-          </Link>
-        </div>
       </div>
     )
   }
