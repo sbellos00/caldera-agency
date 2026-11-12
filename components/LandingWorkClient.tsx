@@ -10,7 +10,7 @@ import 'lenis/dist/lenis.css'
 import Menu from '@/components/Menu'
 import Footer from '@/components/Footer'
 import { caseStudies, workTestimonials } from '@/lib/work'
-import { caseMedia } from '@/lib/landingMedia'
+import { caseMedia, vanaiCase } from '@/lib/landingMedia'
 import CaseVideo from '@/components/CaseVideo'
 
 gsap.registerPlugin(ScrollTrigger)
@@ -22,6 +22,12 @@ function hostLabel(url?: string) {
 
 // Duplicate of WorkClient for the /landing funnel. Links stay inside /landing
 // (logo -> /landing, contact -> /landing/contact). Variations to come.
+// The public case studies, with Vanai Consulting (landing-only for now) second.
+const visibleCases = caseStudies.filter((c) => !c.hidden)
+const landingCases: { name: string; role: string; url?: string; image?: string; summary: string; niche: string }[] = [
+  ...visibleCases.slice(0, 1), vanaiCase, ...visibleCases.slice(1),
+]
+
 export default function LandingWorkClient() {
   const cursorRef = useRef<HTMLDivElement>(null)
   const cursorDotRef = useRef<HTMLDivElement>(null)
@@ -229,9 +235,9 @@ export default function LandingWorkClient() {
 
             {/* An odd last card sits centered at one column's width instead of leaving a gap beside it. */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 md:[&>*:last-child:nth-child(odd)]:col-span-2 md:[&>*:last-child:nth-child(odd)]:mx-auto md:[&>*:last-child:nth-child(odd)]:w-[calc(50%-1.5rem)]">
-              {caseStudies.filter((c) => !c.hidden).map((c, i) => {
+              {landingCases.map((c, i) => {
                 const title = c.name || hostLabel(c.url)
-                const media = caseMedia[c.name]
+                const media = c.name === vanaiCase.name ? vanaiCase : caseMedia[c.name]
                 const Card = (
                   <>
                     {/* Browser frame */}

@@ -28,5 +28,16 @@ export const caseMedia: Record<string, CaseMedia> = {
   'Tim Scott': media('true-north-supply-chain'),
 }
 
-// Recorded as well, not a published case study yet.
-export const vanaiMedia = media('vanai-consulting')
+// Vanai Consulting is shown on the /landing pages only; it is not in the
+// shared case-study list yet, so it does not appear on / or /work.
+// {{STEF: role and summary are placeholders, and there is no live domain to
+// show yet (the site is on a Vercel preview address). Edit as needed.}}
+export const vanaiCase = {
+  name: 'Zi Mutize',
+  role: 'Founder, Vanai Consulting',
+  niche: 'strategic communications and storytelling for frontline employees',
+  url: undefined as string | undefined,
+  summary:
+    'A website for a strategic communications practice focused on frontline employees: branding, strategy, design, development, and the logo animation that opens the site.',
+  ...media('vanai-consulting'),
+}

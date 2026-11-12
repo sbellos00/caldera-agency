@@ -15,7 +15,7 @@ import VerticalCutReveal from '@/components/fancy/text/VerticalCutReveal'
 import Menu from '@/components/Menu'
 import Footer from '@/components/Footer'
 import { caseStudies } from '@/lib/work'
-import { caseMedia } from '@/lib/landingMedia'
+import { caseMedia, vanaiCase } from '@/lib/landingMedia'
 import CaseVideo from '@/components/CaseVideo'
 
 const CrowdCanvasSpotlight = dynamic(() => import('@/components/CrowdCanvasSpotlight'), { ssr: false })
@@ -100,7 +100,7 @@ function FormProvider({ children }: { children: ReactNode }) {
    address the company name does the same job. */
 const PROCESSING_MESSAGES = ['Looking up your practice...', 'Preparing your prototype request...']
 
-function PrototypeForm({ id, layout }: { id: string; layout: 'row' | 'stack' }) {
+function PrototypeForm({ id, layout }: { id: string; layout: 'row' | 'grid' }) {
   const { email, company, linkedin, trap, status, error, setEmail, setCompany, setLinkedin, setTrap, setStatus, setError } = useForm()
   const [processingIdx, setProcessingIdx] = useState(0)
 
@@ -181,11 +181,13 @@ function PrototypeForm({ id, layout }: { id: string; layout: 'row' | 'stack' }) 
     )
   }
 
+  // 'row' puts all four on one line; 'grid' is two by two: email and company
+  // on top, LinkedIn and the button underneath. Both stack on phones.
   // The placeholders double as the labels (kept for screen readers) so the
   // whole form stays short enough to sit inside one screen.
   return (
     <form id={id} onSubmit={handleSubmit} noValidate className={`w-full ${row ? 'max-w-5xl mx-auto' : 'max-w-xl'}`}>
-      <div className={row ? 'grid grid-cols-1 lg:grid-cols-[1fr_1fr_1fr_auto] gap-2.5 md:gap-3' : 'grid grid-cols-1 gap-2.5 md:gap-3'}>
+      <div className={row ? 'grid grid-cols-1 lg:grid-cols-[1fr_1fr_1fr_auto] gap-2.5 md:gap-3' : 'grid grid-cols-1 sm:grid-cols-2 gap-2.5 md:gap-3'}>
         <div>
           <label htmlFor={`${id}-email`} className="sr-only">Email</label>
           <input id={`${id}-email`} type="email" inputMode="email" autoComplete="email" value={email}
@@ -228,8 +230,10 @@ function PrototypeForm({ id, layout }: { id: string; layout: 'row' | 'stack' }) 
      and the form on one line.
    - LeadMagnetSplit (section 5): two columns, the offer and form on the left
      and site recordings playing on the right. */
-const HEADLINE = 'Get your free website prototype, before you spend a dollar.'
-const SUBLINE = 'Tell us who you are and where to send it. We research your practice, write the copy and design a working first version of your site. You only move forward if you love it.'
+const TOP_HEADLINE = 'Get your free custom website prototype before you invest.'
+const TOP_SUBLINE = 'Tell us who you are and where to send it. We\u2019ll research your practice, write the copy and design a working first version of your site in just a few days. You only move forward if you love it.'
+const SPLIT_HEADLINE = 'See What Your Website Could Look Like.'
+const SPLIT_SUBLINE = 'Leave your details and we\u2019ll start working on your prototype.'
 
 function mediaFor(names: string[]) {
   return names.flatMap(name => {
@@ -272,11 +276,11 @@ function LeadMagnetTop({ formId }: { formId: string }) {
     <div className="relative z-10 min-h-[100svh] flex flex-col justify-center px-5 md:px-12 lg:px-16 pt-24 pb-10 md:pb-12">
       <div className="w-full max-w-screen-xl mx-auto text-center flex flex-col gap-6 md:gap-[clamp(20px,3.5svh,40px)]">
         <div>
-          <h2 className="scroll-fade mx-auto max-w-5xl text-[clamp(28px,min(4.6vw,7.2svh),64px)] font-semibold tracking-tight leading-[1.04] text-[var(--black)] mb-3 md:mb-4">
-            {HEADLINE}
-          </h2>
+          <h1 className="scroll-fade mx-auto max-w-5xl text-[clamp(28px,min(4.6vw,7.2svh),64px)] font-semibold tracking-tight leading-[1.04] text-[var(--black)] mb-3 md:mb-4">
+            {TOP_HEADLINE}
+          </h1>
           <p className="scroll-fade mx-auto max-w-3xl text-[var(--gray-medium)] text-[14px] md:text-[17px] leading-relaxed">
-            {SUBLINE}
+            {TOP_SUBLINE}
           </p>
         </div>
 
@@ -309,19 +313,19 @@ function BrowserFrame({ url, children, className = '' }: { url?: string; childre
 function LeadMagnetSplit({ formId }: { formId: string }) {
   const [front, back] = SPLIT_VIDEOS
   return (
-    <div className="relative z-10 min-h-[100svh] flex flex-col justify-center px-5 md:px-12 lg:px-16 pt-20 md:pt-24 pb-8 md:pb-10">
-      <div className="w-full max-w-screen-xl mx-auto grid grid-cols-1 lg:grid-cols-[5fr_6fr] gap-5 lg:gap-16 items-center">
+    <div className="relative z-10 min-h-[100svh] flex flex-col justify-center px-5 md:px-12 lg:px-16 pt-[68px] md:pt-24 pb-5 md:pb-10">
+      <div className="w-full max-w-screen-xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-14 items-center">
 
         {/* Left: the offer and the form */}
         <div className="scroll-fade">
           <p className="hidden md:block text-[var(--primary-blue)] text-sm font-medium tracking-widest uppercase mb-[clamp(10px,2svh,20px)]">Your free prototype</p>
-          <h2 className="text-[clamp(28px,min(3.6vw,6.4svh),54px)] font-semibold tracking-tight leading-[1.05] text-[var(--black)] mb-4 md:mb-[clamp(10px,2svh,20px)]">
-            {HEADLINE}
+          <h2 className="text-[clamp(26px,min(3.3vw,6.2svh),50px)] font-semibold tracking-tight leading-[1.05] text-[var(--black)] mb-2 md:mb-[clamp(10px,2svh,20px)]">
+            {SPLIT_HEADLINE}
           </h2>
-          <p className="hidden md:block text-[var(--gray-medium)] text-[17px] leading-relaxed mb-[clamp(16px,3svh,32px)] max-w-xl">
-            {SUBLINE}
+          <p className="text-[var(--gray-medium)] text-[15px] md:text-[17px] leading-relaxed mb-3 md:mb-[clamp(16px,3svh,32px)] max-w-xl">
+            {SPLIT_SUBLINE}
           </p>
-          <PrototypeForm id={formId} layout="stack" />
+          <PrototypeForm id={formId} layout="grid" />
         </div>
 
         {/* Right: site recordings. On phones only the front one shows, above the form. */}
@@ -332,7 +336,7 @@ function LeadMagnetSplit({ formId }: { formId: string }) {
                 <CaseVideo src={back.video} poster={back.still} label={`${back.name} website walkthrough`} />
               </BrowserFrame>
             )}
-            <BrowserFrame url={front.url} className="shadow-[0_20px_60px_rgba(0,0,0,0.18)]">
+            <BrowserFrame url={front.url} className="w-[84%] mx-auto lg:w-auto shadow-[0_20px_60px_rgba(0,0,0,0.18)]">
               <CaseVideo src={front.video} poster={front.still} label={`${front.name} website walkthrough`} />
             </BrowserFrame>
           </div>
@@ -357,12 +361,17 @@ const testimonials = [
 // Four case studies, shown as screen recordings instead of screenshots.
 // Names, roles and descriptions come from the shared /work data; the recording
 // and its poster come from lib/landingMedia.
-const LANDING_CASES = ['Dr. Ron Paul', 'Mark S. Piazza', 'Michael D. Costello III', 'Spencer McGuire-Mitchem']
-const caseVideos = LANDING_CASES.flatMap(name => {
+const fromWork = (name: string) => {
   const c = caseStudies.find(s => s.name === name && !s.hidden && s.url)
   const m = caseMedia[name]
-  return c && m ? [{ name: c.name, role: c.role, url: c.url as string, description: c.summary, ...m }] : []
-})
+  return c && m ? [{ name: c.name, role: c.role, url: c.url as string | undefined, description: c.summary, ...m }] : []
+}
+const caseVideos = [
+  ...fromWork('Dr. Ron Paul'),
+  { name: vanaiCase.name, role: vanaiCase.role, url: vanaiCase.url, description: vanaiCase.summary, video: vanaiCase.video, still: vanaiCase.still },
+  ...fromWork('Michael D. Costello III'),
+  ...fromWork('Spencer McGuire-Mitchem'),
+]
 
 /* ─── Main Component ─── */
 export default function LandingClient() {
@@ -383,18 +392,29 @@ function Landing() {
   const lenisRef = useRef<Lenis | null>(null)
   const scrollContainerRef = useRef<HTMLDivElement>(null)
   const themedSectionRefs = useRef<(HTMLElement | null)[]>([])
+  const heroRef = useRef<HTMLElement | null>(null)
+  const [heroSeen, setHeroSeen] = useState(false)
 
-  // Preloader timeout + unlock scroll after hero animations
+  // Preloader timeout, then unlock scroll
   useEffect(() => {
     window.scrollTo(0, 0)
-    // Hide preloader after 2.8s
     const preloaderTimer = setTimeout(() => setShowPreloader(false), 2800)
-    // Start Lenis after hero animations finish (~2.8s preloader + 3.5s hero anims)
-    const scrollTimer = setTimeout(() => lenisRef.current?.start(), 6300)
+    const scrollTimer = setTimeout(() => lenisRef.current?.start(), 2900)
     return () => {
       clearTimeout(preloaderTimer)
       clearTimeout(scrollTimer)
     }
+  }, [])
+
+  // Start the hero's title animation the first time it is on screen.
+  useEffect(() => {
+    const el = heroRef.current
+    if (!el) return
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) { setHeroSeen(true); observer.disconnect() }
+    }, { threshold: 0.35 })
+    observer.observe(el)
+    return () => observer.disconnect()
   }, [])
 
   // Nav scroll detection
@@ -466,10 +486,10 @@ function Landing() {
 
   const [navDark, setNavDark] = useState(false)
 
-  // Scroll-based theme switching (sections 5-6)
+  // Scroll-based theme switching
   const scrollThemes = useRef([
-    { bg: 'rgb(0, 0, 0)', text: 'rgb(255, 255, 255)' },         // 5. Case study videos — dark
-    { bg: 'rgb(250, 248, 245)', text: 'rgb(0, 0, 0)' },         // 6. Lead magnet — back to cream
+    { bg: 'rgb(0, 0, 0)', text: 'rgb(255, 255, 255)' },         // 4. Case study videos — dark
+    { bg: 'rgb(250, 248, 245)', text: 'rgb(0, 0, 0)' },         // 5. Hero — back to cream
   ])
 
   useEffect(() => {
@@ -542,115 +562,14 @@ function Landing() {
         </div>
       </nav>
 
-      {/* ─── 2. Hero (fixed) — grid pattern ─── */}
-      <section className="fixed inset-0 h-screen flex flex-col z-0 bg-[var(--cream)]">
-        {/* Grid pattern */}
-        <div className="pointer-events-none absolute inset-0 opacity-[0.03]" style={{
-          backgroundImage: `linear-gradient(var(--primary-blue) 1px, transparent 1px), linear-gradient(90deg, var(--primary-blue) 1px, transparent 1px)`,
-          backgroundSize: '60px 60px',
-        }} />
-
-        {/* Hero content */}
-        <div className="relative z-10 flex-1 flex items-center justify-center px-4 pt-[5vh]">
-          <div className="text-center flex flex-col items-center w-full max-w-screen-2xl">
-            {/* Title — one line, revealed left to right */}
-            {/* Wait for preloader to finish before animating */}
-            {!showPreloader && (
-              <>
-                <div className="mb-6 flex flex-wrap items-baseline justify-center gap-x-[0.2em]" style={{ fontSize: 'clamp(36px, 5.5vw, 80px)', lineHeight: 0.95, fontWeight: 300, letterSpacing: '-0.04em', wordSpacing: '-0.04em' }}>
-                  <VerticalCutReveal
-                    splitBy="words"
-                    staggerDuration={0.08}
-                    staggerFrom="first"
-                    transition={{ type: 'spring', stiffness: 120, damping: 20, delay: 0.7 }}
-                    containerClassName=""
-                    wordLevelClassName="py-[0.1em] pr-[0.02em]"
-                    elementLevelClassName={'text-[var(--black)]'}
-                  >
-                    The website agency
-                  </VerticalCutReveal>
-                  <VerticalCutReveal
-                    splitBy="words"
-                    staggerDuration={0.08}
-                    staggerFrom="first"
-                    transition={{ type: 'spring', stiffness: 120, damping: 20, delay: 1.05 }}
-                    containerClassName=""
-                    wordLevelClassName="py-[0.1em] pr-[0.02em]"
-                    elementLevelClassName={'text-[var(--black)]'}
-                  >
-                    built for
-                  </VerticalCutReveal>
-                  <VerticalCutReveal
-                    splitBy="words"
-                    staggerDuration={0.08}
-                    staggerFrom="first"
-                    transition={{ type: 'spring', stiffness: 120, damping: 20, delay: 1.3 }}
-                    containerClassName="font-serif italic"
-                    wordLevelClassName="py-[0.1em] pr-[0.02em]"
-                    elementLevelClassName="text-[var(--primary-blue)] font-normal"
-                  >
-                    consultants
-                  </VerticalCutReveal>
-                </div>
-
-                <motion.p
-                  style={{ fontSize: 'clamp(1.25rem, 2.5vw, 2.25rem)' }}
-                  className="font-medium tracking-tight text-[var(--gray-medium)]"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ duration: 0.6, delay: 1.7 }}
-                >
-                  Consulting{' '}
-                  <span className={`relative inline-block ${'text-[var(--black)]'}`}>
-                    websites
-                    <motion.span
-                      className="absolute bottom-0 left-0 w-full h-[3px] bg-[var(--primary-blue)]"
-                      style={{ transformOrigin: 'left center' }}
-                      initial={{ scaleX: 0 }}
-                      animate={{ scaleX: 1 }}
-                      transition={{ duration: 0.7, delay: 2.1, ease: [0.22, 1, 0.36, 1] }}
-                    />
-                  </span>{' '}
-                  designed to{' '}
-                  <span className={`relative inline-block ${'text-[var(--black)]'}`}>
-                    stand out
-                    <motion.span
-                      className="absolute bottom-0 left-0 w-full h-[3px] bg-[var(--primary-blue)]"
-                      style={{ transformOrigin: 'left center' }}
-                      initial={{ scaleX: 0 }}
-                      animate={{ scaleX: 1 }}
-                      transition={{ duration: 0.7, delay: 2.5, ease: [0.22, 1, 0.36, 1] }}
-                    />
-                  </span>
-                </motion.p>
-              </>
-            )}
-          </div>
-        </div>
-
-        {/* Crowd — black & white peeps, a couple walking in color.
-            No reveal animation: it starts mid-walk behind the preloader, so the
-            hero opens on a crowd that is already there rather than one arriving. */}
-        <div className="relative z-10 h-[34vh] w-full shrink-0 sm:h-[38vh] md:h-[42vh]">
-          <CrowdCanvasSpotlight
-            src="/images/peeps/open-peeps-sheet.png"
-            colorSrc="/images/peeps/peeps-color-pool.webp"
-            rows={15}
-            cols={7}
-            colorCols={8}
-            colorRows={5}
-            colorCount={40}
-            coloredCount={2}
-          />
-        </div>
-
-      </section>
-
-      {/* Spacer */}
-      <div className="h-screen" aria-hidden="true" />
-
       {/* ─── All scrollable content ─── */}
       <div ref={scrollContainerRef} className="relative z-10 theme-container" style={{ backgroundColor: 'rgb(250, 248, 245)', color: 'rgb(0, 0, 0)', transition: 'background-color 400ms ease-out' }}>
+
+
+        {/* ─── 2. Lead magnet — the first thing on the page ─── */}
+        <section className="relative overflow-hidden">
+          <LeadMagnetTop formId="prototype-form" />
+        </section>
 
 
         {/* ─── 3. Positioning statement + all five testimonials ─── */}
@@ -693,12 +612,7 @@ function Landing() {
           </div>
         </section>
 
-        {/* ─── 4. Lead magnet — centered, with the screenshot fan ─── */}
-        <section className="relative overflow-hidden">
-          <LeadMagnetTop formId="prototype-form" />
-        </section>
-
-        {/* ─── 5. Case studies — 4 videos ─── */}
+        {/* ─── 4. Case studies — 4 videos ─── */}
         <section ref={el => { themedSectionRefs.current[0] = el }} className="py-24 md:py-32 px-8">
           <div className="max-w-screen-2xl mx-auto">
             <p className="text-[var(--primary-blue)] text-sm font-medium tracking-widest uppercase text-center mb-4 scroll-fade">Highlighted Work</p>
@@ -716,9 +630,11 @@ function Landing() {
                         <div className="w-2.5 h-2.5 rounded-full bg-white/20" />
                         <div className="w-2.5 h-2.5 rounded-full bg-white/20" />
                       </div>
-                      <div className="flex-1 ml-3">
-                        <div className="bg-white/10 rounded-md px-3 py-1 text-xs text-white/50 max-w-[200px] truncate">{item.url.replace(/^https?:\/\/(www\.)?/, '')}</div>
-                      </div>
+                      {item.url && (
+                        <div className="flex-1 ml-3">
+                          <div className="bg-white/10 rounded-md px-3 py-1 text-xs text-white/50 max-w-[200px] truncate">{item.url.replace(/^https?:\/\/(www\.)?/, '')}</div>
+                        </div>
+                      )}
                     </div>
                     {/* Screen recording of the live site */}
                     <div className="relative aspect-[16/9] bg-black">
@@ -751,10 +667,116 @@ function Landing() {
           </div>
         </section>
 
-        {/* ─── 6. Lead magnet ─── */}
+        {/* ─── 5. Hero — the homepage hero, now an in-flow section ─── */}
+        {/* Its title animates when it scrolls into view, not on page load. */}
+        <section ref={el => { themedSectionRefs.current[1] = el; heroRef.current = el }} className="relative h-[100svh] min-h-[560px] flex flex-col overflow-hidden bg-[var(--cream)]">
+          {/* Grid pattern */}
+          <div className="pointer-events-none absolute inset-0 opacity-[0.03]" style={{
+            backgroundImage: `linear-gradient(var(--primary-blue) 1px, transparent 1px), linear-gradient(90deg, var(--primary-blue) 1px, transparent 1px)`,
+            backgroundSize: '60px 60px',
+          }} />
+
+          {/* Hero content */}
+          <div className="relative z-10 flex-1 flex items-center justify-center px-4 pt-[5vh]">
+            <div className="text-center flex flex-col items-center w-full max-w-screen-2xl">
+              {/* Title — one line, revealed left to right */}
+              {/* Wait until the section is on screen before animating */}
+              {heroSeen && (
+                <>
+                  <div className="mb-6 flex flex-wrap items-baseline justify-center gap-x-[0.2em]" style={{ fontSize: 'clamp(36px, 5.5vw, 80px)', lineHeight: 0.95, fontWeight: 300, letterSpacing: '-0.04em', wordSpacing: '-0.04em' }}>
+                    <VerticalCutReveal
+                      splitBy="words"
+                      staggerDuration={0.08}
+                      staggerFrom="first"
+                      transition={{ type: 'spring', stiffness: 120, damping: 20, delay: 0.1 }}
+                      containerClassName=""
+                      wordLevelClassName="py-[0.1em] pr-[0.02em]"
+                      elementLevelClassName={'text-[var(--black)]'}
+                    >
+                      The website agency
+                    </VerticalCutReveal>
+                    <VerticalCutReveal
+                      splitBy="words"
+                      staggerDuration={0.08}
+                      staggerFrom="first"
+                      transition={{ type: 'spring', stiffness: 120, damping: 20, delay: 0.45 }}
+                      containerClassName=""
+                      wordLevelClassName="py-[0.1em] pr-[0.02em]"
+                      elementLevelClassName={'text-[var(--black)]'}
+                    >
+                      built for
+                    </VerticalCutReveal>
+                    <VerticalCutReveal
+                      splitBy="words"
+                      staggerDuration={0.08}
+                      staggerFrom="first"
+                      transition={{ type: 'spring', stiffness: 120, damping: 20, delay: 0.7 }}
+                      containerClassName="font-serif italic"
+                      wordLevelClassName="py-[0.1em] pr-[0.02em]"
+                      elementLevelClassName="text-[var(--primary-blue)] font-normal"
+                    >
+                      consultants
+                    </VerticalCutReveal>
+                  </div>
+
+                  <motion.p
+                    style={{ fontSize: 'clamp(1.25rem, 2.5vw, 2.25rem)' }}
+                    className="font-medium tracking-tight text-[var(--gray-medium)]"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.6, delay: 1.1 }}
+                  >
+                    Consulting{' '}
+                    <span className={`relative inline-block ${'text-[var(--black)]'}`}>
+                      websites
+                      <motion.span
+                        className="absolute bottom-0 left-0 w-full h-[3px] bg-[var(--primary-blue)]"
+                        style={{ transformOrigin: 'left center' }}
+                        initial={{ scaleX: 0 }}
+                        animate={{ scaleX: 1 }}
+                        transition={{ duration: 0.7, delay: 1.5, ease: [0.22, 1, 0.36, 1] }}
+                      />
+                    </span>{' '}
+                    designed to{' '}
+                    <span className={`relative inline-block ${'text-[var(--black)]'}`}>
+                      stand out
+                      <motion.span
+                        className="absolute bottom-0 left-0 w-full h-[3px] bg-[var(--primary-blue)]"
+                        style={{ transformOrigin: 'left center' }}
+                        initial={{ scaleX: 0 }}
+                        animate={{ scaleX: 1 }}
+                        transition={{ duration: 0.7, delay: 1.9, ease: [0.22, 1, 0.36, 1] }}
+                      />
+                    </span>
+                  </motion.p>
+                </>
+              )}
+            </div>
+          </div>
+
+          {/* Crowd — black & white peeps, a couple walking in color.
+              No reveal animation: it starts mid-walk behind the preloader, so the
+              hero opens on a crowd that is already there rather than one arriving. */}
+          <div className="relative z-10 h-[34vh] w-full shrink-0 sm:h-[38vh] md:h-[42vh]">
+            <CrowdCanvasSpotlight
+              src="/images/peeps/open-peeps-sheet.png"
+              colorSrc="/images/peeps/peeps-color-pool.webp"
+              rows={15}
+              cols={7}
+              colorCols={8}
+              colorRows={5}
+              colorCount={40}
+              coloredCount={2}
+            />
+          </div>
+
+        </section>
+
+
+        {/* ─── 6. Lead magnet, second layout ─── */}
         {/* Same offer as section 4 in a two-column layout with recordings.
-            Back to cream after the dark case studies. */}
-        <section ref={el => { themedSectionRefs.current[1] = el }} id="contact" className="relative overflow-hidden">
+            The hero above it already brought the page back to cream. */}
+        <section id="contact" className="relative overflow-hidden">
           <LeadMagnetSplit formId="prototype-form-bottom" />
         </section>
 
