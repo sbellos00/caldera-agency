@@ -47,9 +47,16 @@ export function PrototypeForm({ id, layout }: { id: string; layout: 'grid' | 'st
   const { email, company, linkedin, trap, status, error, setEmail, setCompany, setLinkedin, setTrap, setStatus, setError } = useForm()
   const [processingIdx, setProcessingIdx] = useState(0)
 
-  // Fields and button are the same height, so the grid reads as four equal cells.
-  const fieldClass = 'w-full h-14 px-5 rounded-lg bg-white border border-black/10 text-[16px] md:text-[15px] tracking-tight text-[var(--black)] placeholder:text-[var(--gray-medium)] focus:outline-none focus:border-[var(--primary-blue)] focus:ring-2 focus:ring-[var(--primary-blue)]/20 transition-all'
   const grid = layout === 'grid'
+  // Fields and button are the same height, so the grid reads as four equal cells.
+  // In the hero ('grid') they are larger and heavier, to pull the eye to the form:
+  // darker outline, soft shadow, medium-weight labels, and a blue button.
+  const fieldClass = grid
+    ? 'w-full h-[60px] px-5 rounded-lg bg-white border-[1.5px] border-black/30 shadow-[0_4px_18px_rgba(0,0,0,0.07)] text-[16px] font-medium tracking-tight text-[var(--black)] placeholder:text-[var(--gray-dark)] placeholder:font-medium focus:outline-none focus:border-[var(--primary-blue)] focus:ring-2 focus:ring-[var(--primary-blue)]/25 transition-all'
+    : 'w-full h-14 px-5 rounded-lg bg-white border border-black/10 text-[16px] md:text-[15px] tracking-tight text-[var(--black)] placeholder:text-[var(--gray-medium)] focus:outline-none focus:border-[var(--primary-blue)] focus:ring-2 focus:ring-[var(--primary-blue)]/20 transition-all'
+  const buttonClass = grid
+    ? 'h-[60px] text-[16px] font-medium bg-[var(--primary-blue)] shadow-[0_8px_26px_rgba(0,25,255,0.32)]'
+    : 'h-14 text-[15px] bg-[var(--black)]'
 
   const handleSubmit = useCallback(async (e: React.FormEvent) => {
     e.preventDefault()
@@ -130,7 +137,7 @@ export function PrototypeForm({ id, layout }: { id: string; layout: 'grid' | 'st
   // The placeholders double as the labels (kept for screen readers) so the
   // whole form stays short enough to sit inside one screen.
   return (
-    <form id={id} onSubmit={handleSubmit} noValidate className={`w-full ${grid ? 'max-w-2xl mx-auto' : 'max-w-xl mx-auto lg:mx-0'}`}>
+    <form id={id} onSubmit={handleSubmit} noValidate className={`w-full ${grid ? 'max-w-3xl mx-auto' : 'max-w-xl mx-auto lg:mx-0'}`}>
       <div className={grid ? 'grid grid-cols-1 sm:grid-cols-2 gap-2.5 md:gap-3' : 'grid grid-cols-1 gap-2.5 md:gap-3'}>
         <div>
           <label htmlFor={`${id}-email`} className="sr-only">Email</label>
@@ -148,8 +155,8 @@ export function PrototypeForm({ id, layout }: { id: string; layout: 'grid' | 'st
             onChange={e => { setLinkedin(e.target.value); setError('') }} placeholder="LinkedIn (optional)" className={fieldClass} />
         </div>
         <button type="submit" disabled={status === 'submitting'}
-          className="group relative overflow-hidden w-full h-14 px-8 text-[15px] bg-[var(--black)] text-white tracking-tight rounded-lg whitespace-nowrap transition-all duration-300 ease-out hover:scale-105 disabled:opacity-60 disabled:hover:scale-100">
-          <div className="absolute inset-0 bg-[var(--primary-blue)] transform -translate-x-full transition-transform duration-300 ease-out group-hover:translate-x-0" />
+          className={`group relative overflow-hidden w-full px-8 text-white tracking-tight rounded-lg whitespace-nowrap transition-all duration-300 ease-out hover:scale-105 disabled:opacity-60 disabled:hover:scale-100 ${buttonClass}`}>
+          <div className={`absolute inset-0 ${grid ? 'bg-[var(--black)]' : 'bg-[var(--primary-blue)]'} transform -translate-x-full transition-transform duration-300 ease-out group-hover:translate-x-0`} />
           <span className="relative z-10 inline-flex items-center justify-center gap-3">
             {status === 'submitting' ? 'Sending...' : <>Get My Free Prototype <span className="transition-transform duration-300 group-hover:translate-x-1">&rarr;</span></>}
           </span>
@@ -177,10 +184,12 @@ export const Accent = ({ children }: { children: ReactNode }) => (
 const TOP_HEADLINE = <>Get Your Free Custom Website <Accent>Prototype</Accent> Before You Invest.</>
 const TOP_SUBLINE = 'Tell us who you are and where to send it. We\u2019ll research your practice, write the copy and design a working first version of your site in just a few days. You only move forward if you love it.'
 // Hero recordings: left, centre, right. Each plays only while it is on screen.
+// They start at different points and run at slightly different speeds, so the
+// three never scroll in step.
 const FAN_VIDEOS = [
-  { name: 'DKZ Consulting', ...caseMedia['David Zurita'] },
-  { name: 'Drone1 Consulting', ...caseMedia['Michael D. Costello III'] },
-  { name: 'Vanai Consulting', video: vanaiCase.video, still: vanaiCase.still },
+  { name: 'DKZ Consulting', ...caseMedia['David Zurita'], startAt: 3.1, rate: 0.85 },
+  { name: 'Drone1 Consulting', ...caseMedia['Michael D. Costello III'], startAt: 0, rate: 1 },
+  { name: 'Vanai Consulting', video: vanaiCase.video, still: vanaiCase.still, startAt: 7.4, rate: 1.15 },
 ]
 
 function ScreenshotFan() {
@@ -192,15 +201,15 @@ function ScreenshotFan() {
     <div className="relative mx-auto aspect-[10/3]" style={{ width: 'min(100%, 104svh, 1080px)', perspective: '1400px' }}>
       <div className={`${frame} left-0 top-1/2 w-[42%] shadow-[0_10px_40px_rgba(0,0,0,0.12)]`}
         style={{ transform: 'translateY(-50%) rotateY(30deg)', transformOrigin: 'right center' }}>
-        <CaseVideo src={left.video} poster={left.still} label={`${left.name} website walkthrough`} />
+        <CaseVideo src={left.video} poster={left.still} label={`${left.name} website walkthrough`} startAt={left.startAt} rate={left.rate} />
       </div>
       <div className={`${frame} right-0 top-1/2 w-[42%] shadow-[0_10px_40px_rgba(0,0,0,0.12)]`}
         style={{ transform: 'translateY(-50%) rotateY(-30deg)', transformOrigin: 'left center' }}>
-        <CaseVideo src={right.video} poster={right.still} label={`${right.name} website walkthrough`} />
+        <CaseVideo src={right.video} poster={right.still} label={`${right.name} website walkthrough`} startAt={right.startAt} rate={right.rate} />
       </div>
       <div className={`${frame} left-1/2 top-1/2 w-[50%] z-10 shadow-[0_20px_60px_rgba(0,0,0,0.25)]`}
         style={{ transform: 'translate(-50%, -50%)' }}>
-        <CaseVideo src={centre.video} poster={centre.still} label={`${centre.name} website walkthrough`} />
+        <CaseVideo src={centre.video} poster={centre.still} label={`${centre.name} website walkthrough`} startAt={centre.startAt} rate={centre.rate} />
       </div>
     </div>
   )
@@ -210,7 +219,7 @@ function ScreenshotFan() {
    headline, subtext, three site recordings, then the two-by-two form. */
 export function LeadMagnetHero({ formId, heading: Heading = 'h1' }: { formId: string; heading?: 'h1' | 'h2' }) {
   return (
-    <div className="relative z-10 min-h-[100svh] flex flex-col justify-center px-5 md:px-12 lg:px-16 pt-[76px] md:pt-24 pb-6 md:pb-10">
+    <div className="relative z-10 min-h-[100svh] flex flex-col justify-center px-5 md:px-12 lg:px-16 pt-[76px] md:pt-[88px] pb-6 md:pb-8">
       <div className="w-full max-w-screen-xl mx-auto text-center flex flex-col gap-5 md:gap-[clamp(16px,3.2svh,36px)]">
         <div>
           <Heading className="scroll-fade mx-auto max-w-5xl text-[clamp(29px,min(4.9vw,7.4svh),68px)] font-light tracking-[-0.035em] leading-[1.02] text-[var(--black)] mb-3 md:mb-4">
