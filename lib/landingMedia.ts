@@ -5,7 +5,7 @@
 // Cloudinary upload was not possible. To serve them from Cloudinary instead,
 // replace each `video` path with its Cloudinary URL; nothing else changes.}}
 export interface CaseMedia {
-  /** Page-tour recording (mp4, 1280×720, silent). */
+  /** Page-tour recording (mp4, 1280×720, 60 fps, silent). */
   video: string
   /** Hero frame of the same site, used as the video poster and as a still. */
   still: string
