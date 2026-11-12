@@ -167,7 +167,7 @@ export default function LandingContactPage() {
                 <span className="transition-transform duration-300 group-hover:translate-x-0.5">→</span>
               </span>
             </Link>
-            <Menu onMenuToggle={setIsMenuOpen} />
+            <Menu onMenuToggle={setIsMenuOpen} basePath="/landing" />
           </div>
         </div>
       </nav>

@@ -6,9 +6,12 @@ import Link from 'next/link'
 interface MenuProps {
   onMenuToggle?: (isOpen: boolean) => void
   dark?: boolean
+  /** Prefix for the menu's links. The /landing pages pass "/landing" so Home,
+   *  Work and Contact stay inside that funnel; everywhere else it is empty. */
+  basePath?: string
 }
 
-export default function Menu({ onMenuToggle, dark = false }: MenuProps) {
+export default function Menu({ onMenuToggle, dark = false, basePath = '' }: MenuProps) {
   const [isOpen, setIsOpen] = useState(false)
 
   useEffect(() => {
@@ -82,7 +85,7 @@ export default function Menu({ onMenuToggle, dark = false }: MenuProps) {
             {/* Navigation Links */}
             <div className="space-y-6 md:space-y-8">
               <Link
-                href="/"
+                href={basePath || '/'}
                 onClick={closeMenu}
                 className="block text-white text-4xl md:text-6xl lg:text-7xl font-light tracking-tight no-underline relative group transition-all duration-300 hover:text-[var(--blue-light)]"
               >
@@ -93,7 +96,7 @@ export default function Menu({ onMenuToggle, dark = false }: MenuProps) {
               </Link>
 
               <Link
-                href="/work"
+                href={`${basePath}/work`}
                 onClick={closeMenu}
                 className="block text-white text-4xl md:text-6xl lg:text-7xl font-light tracking-tight no-underline relative group transition-all duration-300 hover:text-[var(--blue-light)]"
               >
@@ -104,7 +107,7 @@ export default function Menu({ onMenuToggle, dark = false }: MenuProps) {
               </Link>
 
               <Link
-                href="/contact"
+                href={`${basePath}/contact`}
                 onClick={closeMenu}
                 className="block text-white text-4xl md:text-6xl lg:text-7xl font-light tracking-tight no-underline relative group transition-all duration-300 hover:text-[var(--blue-light)]"
               >

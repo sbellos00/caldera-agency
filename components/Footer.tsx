@@ -33,7 +33,8 @@ export default function Footer({ basePath = '' }: { basePath?: string } = {}) {
             <a href="https://www.linkedin.com/company/caldera-agency" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors duration-300">LinkedIn</a>
             <Link href={`${basePath}/work`} className="hover:text-white transition-colors duration-300">Work</Link>
             <Link href={`${basePath}/contact`} className="hover:text-white transition-colors duration-300">Contact</Link>
-            <Link href="/best-website-agency-for-consultants" className="hover:text-white transition-colors duration-300">Best Website Agency for Consultants</Link>
+            {/* Left off the /landing pages, which keep visitors inside that funnel. */}
+            {!basePath && <Link href="/best-website-agency-for-consultants" className="hover:text-white transition-colors duration-300">Best Website Agency for Consultants</Link>}
           </div>
           <a href="https://www.iubenda.com/privacy-policy/68538498" target="_blank" rel="noopener noreferrer" className="text-sm text-white/40 hover:text-white/70 transition-colors duration-300">
             Privacy Policy

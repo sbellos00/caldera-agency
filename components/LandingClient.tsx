@@ -79,7 +79,7 @@ function mediaFor(names: string[]) {
   })
 }
 // The two recordings in the closing section.
-const CLOSING_VIDEOS = mediaFor(['Dr. Ron Paul', 'Francis Dumont'])
+const CLOSING_VIDEOS = mediaFor(['Dr. Ron Paul', 'David Zurita'])
 
 function BrowserFrame({ url, children, className = '', style }: { url?: string; children: ReactNode; className?: string; style?: React.CSSProperties }) {
   return (
@@ -346,7 +346,7 @@ function Landing() {
                 <span className="transition-transform duration-300 group-hover:translate-x-0.5">&rarr;</span>
               </span>
             </Link>
-            <Menu onMenuToggle={setIsMenuOpen} dark={navDark} />
+            <Menu onMenuToggle={setIsMenuOpen} dark={navDark} basePath="/landing" />
           </div>
         </div>
       </nav>

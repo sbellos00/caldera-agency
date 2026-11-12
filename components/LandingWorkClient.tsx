@@ -179,7 +179,7 @@ export default function LandingWorkClient() {
                 <span className="transition-transform duration-300 group-hover:translate-x-0.5">&rarr;</span>
               </span>
             </Link>
-            <Menu onMenuToggle={setIsMenuOpen} dark={navDark} />
+            <Menu onMenuToggle={setIsMenuOpen} dark={navDark} basePath="/landing" />
           </div>
         </div>
       </nav>
