@@ -186,7 +186,7 @@ function PrototypeForm({ id, layout }: { id: string; layout: 'row' | 'grid' }) {
   // The placeholders double as the labels (kept for screen readers) so the
   // whole form stays short enough to sit inside one screen.
   return (
-    <form id={id} onSubmit={handleSubmit} noValidate className={`w-full ${row ? 'max-w-5xl mx-auto' : 'max-w-xl'}`}>
+    <form id={id} onSubmit={handleSubmit} noValidate className={`w-full ${row ? 'max-w-5xl mx-auto' : 'max-w-xl mx-auto lg:mx-0'}`}>
       <div className={row ? 'grid grid-cols-1 lg:grid-cols-[1fr_1fr_1fr_auto] gap-2.5 md:gap-3' : 'grid grid-cols-1 sm:grid-cols-2 gap-2.5 md:gap-3'}>
         <div>
           <label htmlFor={`${id}-email`} className="sr-only">Email</label>
@@ -226,14 +226,11 @@ function PrototypeForm({ id, layout }: { id: string; layout: 'row' | 'grid' }) {
 
 /* ─── Lead Magnet ─── */
 /* Two layouts of the same offer, each sized to fit inside one screen:
-   - LeadMagnetTop (section 3): centered headline, a fan of three site stills,
-     and the form on one line.
-   - LeadMagnetSplit (section 5): two columns, the offer and form on the left
-     and site recordings playing on the right. */
+   LeadMagnetHero opens the page, LeadMagnetClosing ends it. */
 const TOP_HEADLINE = 'Get your free custom website prototype before you invest.'
 const TOP_SUBLINE = 'Tell us who you are and where to send it. We\u2019ll research your practice, write the copy and design a working first version of your site in just a few days. You only move forward if you love it.'
-const SPLIT_HEADLINE = 'See What Your Website Could Look Like.'
-const SPLIT_SUBLINE = 'Leave your details and we\u2019ll start working on your prototype.'
+const CLOSING_HEADLINE = 'See What Your Website Could Look Like.'
+const CLOSING_SUBLINE = 'Leave your details and we\u2019ll start working on your prototype.'
 
 function mediaFor(names: string[]) {
   return names.flatMap(name => {
@@ -242,61 +239,68 @@ function mediaFor(names: string[]) {
     return c && m ? [{ name: c.name, url: c.url, ...m }] : []
   })
 }
-// Order is left, centre, right.
-const FAN_SHOTS = mediaFor(['Mark S. Piazza', 'Spencer McGuire-Mitchem', 'David Zurita'])
-// Front recording first, then the one tucked behind it.
-const SPLIT_VIDEOS = mediaFor(['Dr. Ron Paul', 'Francis Dumont'])
+// Hero stills: left, centre, right. Each keeps its own proportions, so nothing
+// is cropped. `ratio` is width / height of the file.
+const FAN_SHOTS = [
+  { name: 'NextSpan Consulting', src: '/landing/shots/hero-nextspan.webp', ratio: 1600 / 924 },
+  { name: 'Polaris Leadership Institute', src: '/landing/shots/hero-polaris.webp', ratio: 1600 / 729 },
+  { name: 'Vanai Consulting', src: '/landing/shots/hero-vanai.webp', ratio: 1600 / 922 },
+]
+// The two recordings in the closing section.
+const CLOSING_VIDEOS = mediaFor(['Dr. Ron Paul', 'Francis Dumont'])
 
-function ScreenshotFan({ shots }: { shots: { name: string; still: string }[] }) {
-  if (shots.length < 3) return null
-  const [left, centre, right] = shots
-  const frame = 'absolute overflow-hidden rounded-md md:rounded-xl border border-black/10 bg-white aspect-[16/9]'
-  // The width follows the screen height, so the fan shrinks on short screens
-  // instead of pushing the form below the fold.
+function ScreenshotFan() {
+  const [left, centre, right] = FAN_SHOTS
+  const frame = 'absolute overflow-hidden rounded-md md:rounded-xl border border-black/10 bg-white'
   return (
-    <div className="scroll-fade relative mx-auto aspect-[10/3]" style={{ width: 'min(100%, 104svh, 1040px)', perspective: '1400px' }}>
-      <div className={`${frame} left-0 top-1/2 w-[38%] shadow-[0_10px_40px_rgba(0,0,0,0.10)]`}
-        style={{ transform: 'translateY(-50%) rotateY(30deg)', transformOrigin: 'right center' }}>
-        <Image src={left.still} alt={`${left.name} website`} fill className="object-cover object-top" sizes="(max-width: 768px) 40vw, 400px" />
+    <div className="relative w-full aspect-[9/4]" style={{ perspective: '1400px' }}>
+      <div className={`${frame} left-0 top-1/2 w-[48%] shadow-[0_10px_40px_rgba(0,0,0,0.12)]`}
+        style={{ aspectRatio: left.ratio, transform: 'translateY(-50%) rotateY(24deg)', transformOrigin: 'right center' }}>
+        <Image src={left.src} alt={`${left.name} website`} fill className="object-cover" sizes="(max-width: 1024px) 44vw, 360px" />
       </div>
-      <div className={`${frame} right-0 top-1/2 w-[38%] shadow-[0_10px_40px_rgba(0,0,0,0.10)]`}
-        style={{ transform: 'translateY(-50%) rotateY(-30deg)', transformOrigin: 'left center' }}>
-        <Image src={right.still} alt={`${right.name} website`} fill className="object-cover object-top" sizes="(max-width: 768px) 40vw, 400px" />
+      <div className={`${frame} right-0 top-1/2 w-[48%] shadow-[0_10px_40px_rgba(0,0,0,0.12)]`}
+        style={{ aspectRatio: right.ratio, transform: 'translateY(-50%) rotateY(-24deg)', transformOrigin: 'left center' }}>
+        <Image src={right.src} alt={`${right.name} website`} fill className="object-cover" sizes="(max-width: 1024px) 44vw, 360px" />
       </div>
-      <div className={`${frame} left-1/2 top-1/2 w-[53.33%] z-10 shadow-[0_20px_60px_rgba(0,0,0,0.22)]`}
-        style={{ transform: 'translate(-50%, -50%)' }}>
-        <Image src={centre.still} alt={`${centre.name} website`} fill className="object-cover object-top" sizes="(max-width: 768px) 56vw, 560px" />
+      <div className={`${frame} left-1/2 top-1/2 w-[58%] z-10 shadow-[0_20px_60px_rgba(0,0,0,0.25)]`}
+        style={{ aspectRatio: centre.ratio, transform: 'translate(-50%, -50%)' }}>
+        <Image src={centre.src} alt={`${centre.name} website`} fill priority className="object-cover" sizes="(max-width: 1024px) 66vw, 520px" />
       </div>
     </div>
   )
 }
 
-function LeadMagnetTop({ formId }: { formId: string }) {
+/* The page's opening section: the offer and the 2×2 form on the left, the
+   three site stills on the right. On phones it reads headline, stills, form. */
+function LeadMagnetHero({ formId }: { formId: string }) {
   return (
-    <div className="relative z-10 min-h-[100svh] flex flex-col justify-center px-5 md:px-12 lg:px-16 pt-24 pb-10 md:pb-12">
-      <div className="w-full max-w-screen-xl mx-auto text-center flex flex-col gap-6 md:gap-[clamp(20px,3.5svh,40px)]">
-        <div>
-          <h1 className="scroll-fade mx-auto max-w-5xl text-[clamp(28px,min(4.6vw,7.2svh),64px)] font-semibold tracking-tight leading-[1.04] text-[var(--black)] mb-3 md:mb-4">
+    <div className="relative z-10 min-h-[100svh] flex flex-col justify-center px-5 md:px-12 lg:px-16 pt-[76px] md:pt-24 pb-6 md:pb-10">
+      <div className="w-full max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-[5fr_6fr] gap-x-10 xl:gap-x-14 gap-y-5 lg:gap-y-[clamp(16px,3svh,32px)] items-center">
+        <div className="scroll-fade lg:col-start-1 lg:row-start-1 lg:self-end text-center lg:text-left">
+          <p className="hidden lg:block text-[var(--primary-blue)] text-sm font-medium tracking-widest uppercase mb-[clamp(10px,2svh,20px)]">Your free prototype</p>
+          <h1 className="text-[clamp(27px,min(3.3vw,6.2svh),50px)] font-semibold tracking-tight leading-[1.05] text-[var(--black)] mb-3 lg:mb-[clamp(10px,2svh,20px)]">
             {TOP_HEADLINE}
           </h1>
-          <p className="scroll-fade mx-auto max-w-3xl text-[var(--gray-medium)] text-[14px] md:text-[17px] leading-relaxed">
+          <p className="text-[var(--gray-medium)] text-[14px] md:text-[17px] leading-relaxed max-w-xl mx-auto lg:mx-0">
             {TOP_SUBLINE}
           </p>
         </div>
 
-        <ScreenshotFan shots={FAN_SHOTS} />
+        <div className="scroll-fade lg:col-start-2 lg:row-start-1 lg:row-span-2">
+          <ScreenshotFan />
+        </div>
 
-        <div className="scroll-fade">
-          <PrototypeForm id={formId} layout="row" />
+        <div className="scroll-fade lg:col-start-1 lg:row-start-2 lg:self-start">
+          <PrototypeForm id={formId} layout="grid" />
         </div>
       </div>
     </div>
   )
 }
 
-function BrowserFrame({ url, children, className = '' }: { url?: string; children: ReactNode; className?: string }) {
+function BrowserFrame({ url, children, className = '', style }: { url?: string; children: ReactNode; className?: string; style?: React.CSSProperties }) {
   return (
-    <div className={`overflow-hidden rounded-xl md:rounded-2xl border border-black/10 bg-[#111] ${className}`}>
+    <div className={`overflow-hidden rounded-xl md:rounded-2xl border border-black/10 bg-[#111] ${className}`} style={style}>
       <div className="flex items-center gap-2 px-3 md:px-4 py-2 md:py-2.5 bg-[#1b1b1b] border-b border-white/10">
         <div className="flex gap-1.5">
           <div className="w-2 h-2 md:w-2.5 md:h-2.5 rounded-full bg-white/20" />
@@ -310,38 +314,44 @@ function BrowserFrame({ url, children, className = '' }: { url?: string; childre
   )
 }
 
-function LeadMagnetSplit({ formId }: { formId: string }) {
-  const [front, back] = SPLIT_VIDEOS
+/* The closing section: the same offer, one thing under the other — headline,
+   two site recordings, then the form on one line. */
+function LeadMagnetClosing({ formId }: { formId: string }) {
+  const [first, second] = CLOSING_VIDEOS
+  // Each recording's width follows the screen height so the form stays in view.
+  const videoWidth = 'min(100%, 62svh)'
   return (
-    <div className="relative z-10 min-h-[100svh] flex flex-col justify-center px-5 md:px-12 lg:px-16 pt-[68px] md:pt-24 pb-5 md:pb-10">
-      <div className="w-full max-w-screen-xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-14 items-center">
-
-        {/* Left: the offer and the form */}
+    <div className="relative z-10 min-h-[100svh] flex flex-col justify-center px-5 md:px-12 lg:px-16 pt-[76px] md:pt-24 pb-6 md:pb-10">
+      <div className="w-full max-w-screen-xl mx-auto text-center flex flex-col gap-5 md:gap-[clamp(18px,3.2svh,36px)]">
         <div className="scroll-fade">
-          <p className="hidden md:block text-[var(--primary-blue)] text-sm font-medium tracking-widest uppercase mb-[clamp(10px,2svh,20px)]">Your free prototype</p>
-          <h2 className="text-[clamp(26px,min(3.3vw,6.2svh),50px)] font-semibold tracking-tight leading-[1.05] text-[var(--black)] mb-2 md:mb-[clamp(10px,2svh,20px)]">
-            {SPLIT_HEADLINE}
+          <h2 className="mx-auto max-w-4xl text-[clamp(27px,min(4.2vw,6.6svh),58px)] font-semibold tracking-tight leading-[1.05] text-[var(--black)] mb-2 md:mb-3">
+            {CLOSING_HEADLINE}
           </h2>
-          <p className="text-[var(--gray-medium)] text-[15px] md:text-[17px] leading-relaxed mb-3 md:mb-[clamp(16px,3svh,32px)] max-w-xl">
-            {SPLIT_SUBLINE}
+          <p className="mx-auto max-w-2xl text-[var(--gray-medium)] text-[15px] md:text-[17px] leading-relaxed">
+            {CLOSING_SUBLINE}
           </p>
-          <PrototypeForm id={formId} layout="grid" />
         </div>
 
-        {/* Right: site recordings. On phones only the front one shows, above the form. */}
-        {front && (
-          <div className="scroll-fade relative order-first lg:order-none lg:pb-[14%] lg:pl-[10%]">
-            {back && (
-              <BrowserFrame url={back.url} className="hidden lg:block absolute left-0 bottom-0 w-[58%] z-10 shadow-[0_20px_60px_rgba(0,0,0,0.30)]">
-                <CaseVideo src={back.video} poster={back.still} label={`${back.name} website walkthrough`} />
+        <div className="scroll-fade flex items-start justify-center gap-4 md:gap-6">
+          {first && (
+            <div className="w-[88%] md:w-1/2 flex md:justify-end justify-center">
+              <BrowserFrame url={first.url} className="w-full shadow-[0_20px_60px_rgba(0,0,0,0.18)]" style={{ maxWidth: videoWidth }}>
+                <CaseVideo src={first.video} poster={first.still} label={`${first.name} website walkthrough`} />
               </BrowserFrame>
-            )}
-            <BrowserFrame url={front.url} className="w-[84%] mx-auto lg:w-auto shadow-[0_20px_60px_rgba(0,0,0,0.18)]">
-              <CaseVideo src={front.video} poster={front.still} label={`${front.name} website walkthrough`} />
-            </BrowserFrame>
-          </div>
-        )}
+            </div>
+          )}
+          {second && (
+            <div className="hidden md:flex w-1/2 justify-start">
+              <BrowserFrame url={second.url} className="w-full shadow-[0_20px_60px_rgba(0,0,0,0.18)]" style={{ maxWidth: videoWidth }}>
+                <CaseVideo src={second.video} poster={second.still} label={`${second.name} website walkthrough`} />
+              </BrowserFrame>
+            </div>
+          )}
+        </div>
 
+        <div className="scroll-fade">
+          <PrototypeForm id={formId} layout="row" />
+        </div>
       </div>
     </div>
   )
@@ -568,7 +578,7 @@ function Landing() {
 
         {/* ─── 2. Lead magnet — the first thing on the page ─── */}
         <section className="relative overflow-hidden">
-          <LeadMagnetTop formId="prototype-form" />
+          <LeadMagnetHero formId="prototype-form" />
         </section>
 
 
@@ -667,120 +677,126 @@ function Landing() {
           </div>
         </section>
 
-        {/* ─── 5. Hero — the homepage hero, now an in-flow section ─── */}
-        {/* Its title animates when it scrolls into view, not on page load. */}
-        <section ref={el => { themedSectionRefs.current[1] = el; heroRef.current = el }} className="relative h-[100svh] min-h-[560px] flex flex-col overflow-hidden bg-[var(--cream)]">
-          {/* Grid pattern */}
-          <div className="pointer-events-none absolute inset-0 opacity-[0.03]" style={{
-            backgroundImage: `linear-gradient(var(--primary-blue) 1px, transparent 1px), linear-gradient(90deg, var(--primary-blue) 1px, transparent 1px)`,
-            backgroundSize: '60px 60px',
-          }} />
+        {/* Hero + what covers it. The hero is sticky inside this wrapper. */}
+        <div className="relative">
+          {/* ─── 5. Hero — the homepage hero, now an in-flow section ─── */}
+          {/* Its title animates when it scrolls into view. It then stays pinned, as on
+              the homepage, while the closing section slides up over it. */}
+          <section ref={el => { themedSectionRefs.current[1] = el; heroRef.current = el }} className="sticky top-0 z-0 h-[100svh] flex flex-col overflow-hidden bg-[var(--cream)]">
+            {/* Grid pattern */}
+            <div className="pointer-events-none absolute inset-0 opacity-[0.03]" style={{
+              backgroundImage: `linear-gradient(var(--primary-blue) 1px, transparent 1px), linear-gradient(90deg, var(--primary-blue) 1px, transparent 1px)`,
+              backgroundSize: '60px 60px',
+            }} />
 
-          {/* Hero content */}
-          <div className="relative z-10 flex-1 flex items-center justify-center px-4 pt-[5vh]">
-            <div className="text-center flex flex-col items-center w-full max-w-screen-2xl">
-              {/* Title — one line, revealed left to right */}
-              {/* Wait until the section is on screen before animating */}
-              {heroSeen && (
-                <>
-                  <div className="mb-6 flex flex-wrap items-baseline justify-center gap-x-[0.2em]" style={{ fontSize: 'clamp(36px, 5.5vw, 80px)', lineHeight: 0.95, fontWeight: 300, letterSpacing: '-0.04em', wordSpacing: '-0.04em' }}>
-                    <VerticalCutReveal
-                      splitBy="words"
-                      staggerDuration={0.08}
-                      staggerFrom="first"
-                      transition={{ type: 'spring', stiffness: 120, damping: 20, delay: 0.1 }}
-                      containerClassName=""
-                      wordLevelClassName="py-[0.1em] pr-[0.02em]"
-                      elementLevelClassName={'text-[var(--black)]'}
-                    >
-                      The website agency
-                    </VerticalCutReveal>
-                    <VerticalCutReveal
-                      splitBy="words"
-                      staggerDuration={0.08}
-                      staggerFrom="first"
-                      transition={{ type: 'spring', stiffness: 120, damping: 20, delay: 0.45 }}
-                      containerClassName=""
-                      wordLevelClassName="py-[0.1em] pr-[0.02em]"
-                      elementLevelClassName={'text-[var(--black)]'}
-                    >
-                      built for
-                    </VerticalCutReveal>
-                    <VerticalCutReveal
-                      splitBy="words"
-                      staggerDuration={0.08}
-                      staggerFrom="first"
-                      transition={{ type: 'spring', stiffness: 120, damping: 20, delay: 0.7 }}
-                      containerClassName="font-serif italic"
-                      wordLevelClassName="py-[0.1em] pr-[0.02em]"
-                      elementLevelClassName="text-[var(--primary-blue)] font-normal"
-                    >
-                      consultants
-                    </VerticalCutReveal>
-                  </div>
+            {/* Hero content */}
+            <div className="relative z-10 flex-1 flex items-center justify-center px-4 pt-[5vh]">
+              <div className="text-center flex flex-col items-center w-full max-w-screen-2xl">
+                {/* Title — one line, revealed left to right */}
+                {/* Wait until the section is on screen before animating */}
+                {heroSeen && (
+                  <>
+                    <div className="mb-6 flex flex-wrap items-baseline justify-center gap-x-[0.2em]" style={{ fontSize: 'clamp(36px, 5.5vw, 80px)', lineHeight: 0.95, fontWeight: 300, letterSpacing: '-0.04em', wordSpacing: '-0.04em' }}>
+                      <VerticalCutReveal
+                        splitBy="words"
+                        staggerDuration={0.08}
+                        staggerFrom="first"
+                        transition={{ type: 'spring', stiffness: 120, damping: 20, delay: 0.1 }}
+                        containerClassName=""
+                        wordLevelClassName="py-[0.1em] pr-[0.02em]"
+                        elementLevelClassName={'text-[var(--black)]'}
+                      >
+                        The website agency
+                      </VerticalCutReveal>
+                      <VerticalCutReveal
+                        splitBy="words"
+                        staggerDuration={0.08}
+                        staggerFrom="first"
+                        transition={{ type: 'spring', stiffness: 120, damping: 20, delay: 0.45 }}
+                        containerClassName=""
+                        wordLevelClassName="py-[0.1em] pr-[0.02em]"
+                        elementLevelClassName={'text-[var(--black)]'}
+                      >
+                        built for
+                      </VerticalCutReveal>
+                      <VerticalCutReveal
+                        splitBy="words"
+                        staggerDuration={0.08}
+                        staggerFrom="first"
+                        transition={{ type: 'spring', stiffness: 120, damping: 20, delay: 0.7 }}
+                        containerClassName="font-serif italic"
+                        wordLevelClassName="py-[0.1em] pr-[0.02em]"
+                        elementLevelClassName="text-[var(--primary-blue)] font-normal"
+                      >
+                        consultants
+                      </VerticalCutReveal>
+                    </div>
 
-                  <motion.p
-                    style={{ fontSize: 'clamp(1.25rem, 2.5vw, 2.25rem)' }}
-                    className="font-medium tracking-tight text-[var(--gray-medium)]"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ duration: 0.6, delay: 1.1 }}
-                  >
-                    Consulting{' '}
-                    <span className={`relative inline-block ${'text-[var(--black)]'}`}>
-                      websites
-                      <motion.span
-                        className="absolute bottom-0 left-0 w-full h-[3px] bg-[var(--primary-blue)]"
-                        style={{ transformOrigin: 'left center' }}
-                        initial={{ scaleX: 0 }}
-                        animate={{ scaleX: 1 }}
-                        transition={{ duration: 0.7, delay: 1.5, ease: [0.22, 1, 0.36, 1] }}
-                      />
-                    </span>{' '}
-                    designed to{' '}
-                    <span className={`relative inline-block ${'text-[var(--black)]'}`}>
-                      stand out
-                      <motion.span
-                        className="absolute bottom-0 left-0 w-full h-[3px] bg-[var(--primary-blue)]"
-                        style={{ transformOrigin: 'left center' }}
-                        initial={{ scaleX: 0 }}
-                        animate={{ scaleX: 1 }}
-                        transition={{ duration: 0.7, delay: 1.9, ease: [0.22, 1, 0.36, 1] }}
-                      />
-                    </span>
-                  </motion.p>
-                </>
-              )}
+                    <motion.p
+                      style={{ fontSize: 'clamp(1.25rem, 2.5vw, 2.25rem)' }}
+                      className="font-medium tracking-tight text-[var(--gray-medium)]"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ duration: 0.6, delay: 1.1 }}
+                    >
+                      Consulting{' '}
+                      <span className={`relative inline-block ${'text-[var(--black)]'}`}>
+                        websites
+                        <motion.span
+                          className="absolute bottom-0 left-0 w-full h-[3px] bg-[var(--primary-blue)]"
+                          style={{ transformOrigin: 'left center' }}
+                          initial={{ scaleX: 0 }}
+                          animate={{ scaleX: 1 }}
+                          transition={{ duration: 0.7, delay: 1.5, ease: [0.22, 1, 0.36, 1] }}
+                        />
+                      </span>{' '}
+                      designed to{' '}
+                      <span className={`relative inline-block ${'text-[var(--black)]'}`}>
+                        stand out
+                        <motion.span
+                          className="absolute bottom-0 left-0 w-full h-[3px] bg-[var(--primary-blue)]"
+                          style={{ transformOrigin: 'left center' }}
+                          initial={{ scaleX: 0 }}
+                          animate={{ scaleX: 1 }}
+                          transition={{ duration: 0.7, delay: 1.9, ease: [0.22, 1, 0.36, 1] }}
+                        />
+                      </span>
+                    </motion.p>
+                  </>
+                )}
+              </div>
             </div>
+
+            {/* Crowd — black & white peeps, a couple walking in color.
+                No reveal animation: it starts mid-walk behind the preloader, so the
+                hero opens on a crowd that is already there rather than one arriving. */}
+            <div className="relative z-10 h-[34vh] w-full shrink-0 sm:h-[38vh] md:h-[42vh]">
+              <CrowdCanvasSpotlight
+                src="/images/peeps/open-peeps-sheet.png"
+                colorSrc="/images/peeps/peeps-color-pool.webp"
+                rows={15}
+                cols={7}
+                colorCols={8}
+                colorRows={5}
+                colorCount={40}
+                coloredCount={2}
+              />
+            </div>
+
+          </section>
+
+
+          {/* ─── 6. Lead magnet, second layout ─── */}
+          {/* Same offer as section 4 in a two-column layout with recordings.
+              The hero above it already brought the page back to cream. */}
+          <section id="contact" className="relative z-10 overflow-hidden bg-[var(--cream)] shadow-[0_-20px_60px_rgba(0,0,0,0.08)]">
+            <LeadMagnetClosing formId="prototype-form-bottom" />
+          </section>
+
+          <div className="relative z-10">
+            <Footer basePath="/landing" />
           </div>
-
-          {/* Crowd — black & white peeps, a couple walking in color.
-              No reveal animation: it starts mid-walk behind the preloader, so the
-              hero opens on a crowd that is already there rather than one arriving. */}
-          <div className="relative z-10 h-[34vh] w-full shrink-0 sm:h-[38vh] md:h-[42vh]">
-            <CrowdCanvasSpotlight
-              src="/images/peeps/open-peeps-sheet.png"
-              colorSrc="/images/peeps/peeps-color-pool.webp"
-              rows={15}
-              cols={7}
-              colorCols={8}
-              colorRows={5}
-              colorCount={40}
-              coloredCount={2}
-            />
-          </div>
-
-        </section>
-
-
-        {/* ─── 6. Lead magnet, second layout ─── */}
-        {/* Same offer as section 4 in a two-column layout with recordings.
-            The hero above it already brought the page back to cream. */}
-        <section id="contact" className="relative overflow-hidden">
-          <LeadMagnetSplit formId="prototype-form-bottom" />
-        </section>
-
-        <Footer basePath="/landing" />
+        </div>
       </div>
 
     </>
