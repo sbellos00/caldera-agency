@@ -334,7 +334,7 @@ function LeadMagnetClosing({ formId }: { formId: string }) {
 
         <div className="scroll-fade flex items-start justify-center gap-4 md:gap-6">
           {first && (
-            <div className="w-[88%] md:w-1/2 flex md:justify-end justify-center">
+            <div className="w-[74%] md:w-1/2 flex md:justify-end justify-center">
               <BrowserFrame url={first.url} className="w-full shadow-[0_20px_60px_rgba(0,0,0,0.18)]" style={{ maxWidth: videoWidth }}>
                 <CaseVideo src={first.video} poster={first.still} label={`${first.name} website walkthrough`} />
               </BrowserFrame>
