@@ -10,6 +10,8 @@ import 'lenis/dist/lenis.css'
 import Menu from '@/components/Menu'
 import Footer from '@/components/Footer'
 import { caseStudies, workTestimonials } from '@/lib/work'
+import { caseMedia } from '@/lib/landingMedia'
+import CaseVideo from '@/components/CaseVideo'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -229,10 +231,11 @@ export default function LandingWorkClient() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 md:[&>*:last-child:nth-child(odd)]:col-span-2 md:[&>*:last-child:nth-child(odd)]:mx-auto md:[&>*:last-child:nth-child(odd)]:w-[calc(50%-1.5rem)]">
               {caseStudies.filter((c) => !c.hidden).map((c, i) => {
                 const title = c.name || hostLabel(c.url)
+                const media = caseMedia[c.name]
                 const Card = (
                   <>
                     {/* Browser frame */}
-                    <div className="relative rounded-2xl bg-white/10 border border-white/10 overflow-hidden mb-6 transition-all duration-500 group-hover:shadow-2xl group-hover:-translate-y-2">
+                    <div className="relative rounded-2xl bg-white/10 border border-white/10 overflow-hidden mb-6 ">
                       {/* Browser chrome */}
                       <div className="flex items-center gap-2 px-4 py-3 bg-white/5 border-b border-white/10">
                         <div className="flex gap-1.5">
@@ -246,30 +249,28 @@ export default function LandingWorkClient() {
                           </div>
                         )}
                       </div>
-                      {/* Screenshot,natural aspect ratio, no crop */}
-                      {c.image && (
+                      {/* Screen recording of the live site; the screenshot is the
+                          fallback for a case study that has no recording yet. */}
+                      {media ? (
+                        <div className="relative aspect-[16/9] bg-black">
+                          <CaseVideo src={media.video} poster={media.still} label={`${title} website walkthrough (${c.niche}), built by Caldera Agency`} />
+                        </div>
+                      ) : c.image && (
                         <Image src={c.image} alt={`${title} website (${c.niche}), built by Caldera Agency`} width={1200} height={800} className="w-full h-auto" sizes="(max-width: 768px) 100vw, 50vw" />
                       )}
                     </div>
                     {/* Info */}
-                    <div className="flex items-start justify-between">
-                      <div>
-                        {title && <h3 className="text-xl font-medium tracking-tight mb-1 text-white">{title}</h3>}
-                        {c.role && <p className="text-sm text-[var(--blue-light)] font-medium mb-2">{c.role}</p>}
-                        {c.summary && <p className="text-white/50 text-sm leading-relaxed">{c.summary}</p>}
-                      </div>
-                      {c.url && (
-                        <span className="text-white/30 group-hover:text-[var(--blue-light)] transition-all duration-300 group-hover:translate-x-1 mt-1 flex-shrink-0 ml-4">&rarr;</span>
-                      )}
+                    <div>
+                      {title && <h3 className="text-xl font-medium tracking-tight mb-1 text-white">{title}</h3>}
+                      {c.role && <p className="text-sm text-[var(--blue-light)] font-medium mb-2">{c.role}</p>}
+                      {c.summary && <p className="text-white/50 text-sm leading-relaxed">{c.summary}</p>}
                     </div>
                   </>
                 )
-                return c.url ? (
-                  <a key={c.url || i} href={c.url} target="_blank" rel="noopener noreferrer" className="scroll-fade group block no-underline" style={{ transitionDelay: `${(i % 2) * 100}ms` }}>
-                    {Card}
-                  </a>
-                ) : (
-                  <div key={c.url || i} className="scroll-fade group block">
+                // On the landing funnel the cards are not links: the recording
+                // shows the site, and visitors stay on the page.
+                return (
+                  <div key={c.url || i} className="scroll-fade" style={{ transitionDelay: `${(i % 2) * 100}ms` }}>
                     {Card}
                   </div>
                 )

@@ -15,6 +15,8 @@ import VerticalCutReveal from '@/components/fancy/text/VerticalCutReveal'
 import Menu from '@/components/Menu'
 import Footer from '@/components/Footer'
 import { caseStudies } from '@/lib/work'
+import { caseMedia } from '@/lib/landingMedia'
+import CaseVideo from '@/components/CaseVideo'
 
 const CrowdCanvasSpotlight = dynamic(() => import('@/components/CrowdCanvasSpotlight'), { ssr: false })
 
@@ -98,12 +100,12 @@ function FormProvider({ children }: { children: ReactNode }) {
    address the company name does the same job. */
 const PROCESSING_MESSAGES = ['Looking up your practice...', 'Preparing your prototype request...']
 
-function PrototypeForm({ id }: { id: string }) {
+function PrototypeForm({ id, layout }: { id: string; layout: 'row' | 'stack' }) {
   const { email, company, linkedin, trap, status, error, setEmail, setCompany, setLinkedin, setTrap, setStatus, setError } = useForm()
   const [processingIdx, setProcessingIdx] = useState(0)
 
-  const fieldClass = 'w-full px-5 py-4 rounded-lg bg-white border border-black/10 text-[16px] text-[var(--black)] placeholder:text-[var(--gray-medium)] focus:outline-none focus:border-[var(--primary-blue)] focus:ring-2 focus:ring-[var(--primary-blue)]/20 transition-all'
-  const labelClass = 'block text-left text-[13px] font-medium tracking-tight text-[var(--gray-dark)] mb-1.5'
+  const fieldClass = 'w-full px-5 py-3.5 md:py-4 rounded-lg bg-white border border-black/10 text-[16px] text-[var(--black)] placeholder:text-[var(--gray-medium)] focus:outline-none focus:border-[var(--primary-blue)] focus:ring-2 focus:ring-[var(--primary-blue)]/20 transition-all'
+  const row = layout === 'row'
 
   const handleSubmit = useCallback(async (e: React.FormEvent) => {
     e.preventDefault()
@@ -179,26 +181,33 @@ function PrototypeForm({ id }: { id: string }) {
     )
   }
 
+  // The placeholders double as the labels (kept for screen readers) so the
+  // whole form stays short enough to sit inside one screen.
   return (
-    <form id={id} onSubmit={handleSubmit} noValidate className="w-full max-w-2xl mx-auto">
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+    <form id={id} onSubmit={handleSubmit} noValidate className={`w-full ${row ? 'max-w-5xl mx-auto' : 'max-w-xl'}`}>
+      <div className={row ? 'grid grid-cols-1 lg:grid-cols-[1fr_1fr_1fr_auto] gap-2.5 md:gap-3' : 'grid grid-cols-1 gap-2.5 md:gap-3'}>
         <div>
-          <label htmlFor={`${id}-email`} className={labelClass}>Email</label>
+          <label htmlFor={`${id}-email`} className="sr-only">Email</label>
           <input id={`${id}-email`} type="email" inputMode="email" autoComplete="email" value={email}
-            onChange={e => { setEmail(e.target.value); setError('') }} placeholder="you@company.com" className={fieldClass} />
+            onChange={e => { setEmail(e.target.value); setError('') }} placeholder="Email" className={fieldClass} />
         </div>
         <div>
-          <label htmlFor={`${id}-company`} className={labelClass}>Company name or website</label>
+          <label htmlFor={`${id}-company`} className="sr-only">Company name or website</label>
           <input id={`${id}-company`} type="text" autoComplete="organization" value={company}
-            onChange={e => { setCompany(e.target.value); setError('') }} placeholder="Kapos Consulting" className={fieldClass} />
+            onChange={e => { setCompany(e.target.value); setError('') }} placeholder="Company name or website" className={fieldClass} />
         </div>
-        <div className="sm:col-span-2">
-          <label htmlFor={`${id}-linkedin`} className={labelClass}>
-            LinkedIn <span className="font-normal text-[var(--gray-medium)]">(optional)</span>
-          </label>
+        <div>
+          <label htmlFor={`${id}-linkedin`} className="sr-only">LinkedIn (optional)</label>
           <input id={`${id}-linkedin`} type="text" inputMode="url" autoComplete="off" value={linkedin}
-            onChange={e => { setLinkedin(e.target.value); setError('') }} placeholder="linkedin.com/in/yourname" className={fieldClass} />
+            onChange={e => { setLinkedin(e.target.value); setError('') }} placeholder="LinkedIn (optional)" className={fieldClass} />
         </div>
+        <button type="submit" disabled={status === 'submitting'}
+          className="group relative overflow-hidden w-full px-8 py-3.5 md:py-4 text-[16px] font-medium bg-[var(--black)] text-white tracking-tight rounded-lg whitespace-nowrap transition-all duration-300 hover:scale-[1.03] disabled:opacity-60 disabled:hover:scale-100">
+          <div className="absolute inset-0 bg-[var(--primary-blue)] transform -translate-x-full transition-transform duration-300 ease-out group-hover:translate-x-0" />
+          <span className="relative z-10 inline-flex items-center justify-center gap-2">
+            {status === 'submitting' ? 'Sending...' : <>Get My Free Prototype <span className="transition-transform duration-300 group-hover:translate-x-0.5">&rarr;</span></>}
+          </span>
+        </button>
       </div>
 
       {/* Honeypot — hidden from people and assistive tech, catnip for bots. */}
@@ -208,72 +217,127 @@ function PrototypeForm({ id }: { id: string }) {
           value={trap} onChange={e => setTrap(e.target.value)} />
       </div>
 
-      {error && <p role="alert" className="text-red-500 text-sm text-center mt-4">{error}</p>}
-
-      <button type="submit" disabled={status === 'submitting'}
-        className="group relative overflow-hidden mt-6 w-full sm:w-auto sm:min-w-[320px] px-10 py-5 text-[16px] font-medium bg-[var(--black)] text-white tracking-tight rounded-lg transition-all duration-300 hover:scale-105 disabled:opacity-60 disabled:hover:scale-100">
-        <div className="absolute inset-0 bg-[var(--primary-blue)] transform -translate-x-full transition-transform duration-300 ease-out group-hover:translate-x-0" />
-        <span className="relative z-10 inline-flex items-center justify-center gap-2">
-          {status === 'submitting' ? 'Sending...' : <>Get My Free Prototype <span className="transition-transform duration-300 group-hover:translate-x-0.5">&rarr;</span></>}
-        </span>
-      </button>
-      <p className="text-[var(--gray-medium)] text-sm text-center mt-4">Free prototype. No calls. No commitment.</p>
+      {error && <p role="alert" className={`text-red-500 text-sm mt-3 ${row ? 'text-center' : ''}`}>{error}</p>}
     </form>
   )
 }
 
 /* ─── Lead Magnet ─── */
-/* Centered headline, a fan of three case-study screenshots, then the form.
-   Used for both section 3 and section 5, each with its own three screenshots. */
-function shotsFor(names: string[]) {
+/* Two layouts of the same offer, each sized to fit inside one screen:
+   - LeadMagnetTop (section 3): centered headline, a fan of three site stills,
+     and the form on one line.
+   - LeadMagnetSplit (section 5): two columns, the offer and form on the left
+     and site recordings playing on the right. */
+const HEADLINE = 'Get your free website prototype, before you spend a dollar.'
+const SUBLINE = 'Tell us who you are and where to send it. We research your practice, write the copy and design a working first version of your site. You only move forward if you love it.'
+
+function mediaFor(names: string[]) {
   return names.flatMap(name => {
-    const c = caseStudies.find(s => s.name === name && !s.hidden && s.image)
-    return c ? [{ name: c.name, image: c.image as string }] : []
+    const c = caseStudies.find(s => s.name === name && !s.hidden)
+    const m = caseMedia[name]
+    return c && m ? [{ name: c.name, url: c.url, ...m }] : []
   })
 }
 // Order is left, centre, right.
-const LEAD_SHOTS_TOP = shotsFor(['Mark S. Piazza', 'Dr. Ron Paul', 'Michael D. Costello III'])
-const LEAD_SHOTS_BOTTOM = shotsFor(['David Zurita', 'Spencer McGuire-Mitchem', 'Francis Dumont'])
+const FAN_SHOTS = mediaFor(['Mark S. Piazza', 'Spencer McGuire-Mitchem', 'David Zurita'])
+// Front recording first, then the one tucked behind it.
+const SPLIT_VIDEOS = mediaFor(['Dr. Ron Paul', 'Francis Dumont'])
 
-function ScreenshotFan({ shots }: { shots: { name: string; image: string }[] }) {
+function ScreenshotFan({ shots }: { shots: { name: string; still: string }[] }) {
   if (shots.length < 3) return null
   const [left, centre, right] = shots
-  const frame = 'absolute overflow-hidden rounded-md md:rounded-xl border border-black/10 bg-white aspect-[16/10]'
+  const frame = 'absolute overflow-hidden rounded-md md:rounded-xl border border-black/10 bg-white aspect-[16/9]'
+  // The width follows the screen height, so the fan shrinks on short screens
+  // instead of pushing the form below the fold.
   return (
-    <div className="scroll-fade relative mx-auto w-full max-w-4xl aspect-[2/1] sm:aspect-[5/2] mb-12 md:mb-16" style={{ perspective: '1400px' }}>
-      <div className={`${frame} left-0 top-1/2 w-[40%] shadow-[0_10px_40px_rgba(0,0,0,0.10)]`}
-        style={{ transform: 'translateY(-50%) rotateY(32deg)', transformOrigin: 'right center' }}>
-        <Image src={left.image} alt={`${left.name} website`} fill className="object-cover object-top" sizes="(max-width: 768px) 40vw, 360px" />
+    <div className="scroll-fade relative mx-auto aspect-[10/3]" style={{ width: 'min(100%, 104svh, 1040px)', perspective: '1400px' }}>
+      <div className={`${frame} left-0 top-1/2 w-[38%] shadow-[0_10px_40px_rgba(0,0,0,0.10)]`}
+        style={{ transform: 'translateY(-50%) rotateY(30deg)', transformOrigin: 'right center' }}>
+        <Image src={left.still} alt={`${left.name} website`} fill className="object-cover object-top" sizes="(max-width: 768px) 40vw, 400px" />
       </div>
-      <div className={`${frame} right-0 top-1/2 w-[40%] shadow-[0_10px_40px_rgba(0,0,0,0.10)]`}
-        style={{ transform: 'translateY(-50%) rotateY(-32deg)', transformOrigin: 'left center' }}>
-        <Image src={right.image} alt={`${right.name} website`} fill className="object-cover object-top" sizes="(max-width: 768px) 40vw, 360px" />
+      <div className={`${frame} right-0 top-1/2 w-[38%] shadow-[0_10px_40px_rgba(0,0,0,0.10)]`}
+        style={{ transform: 'translateY(-50%) rotateY(-30deg)', transformOrigin: 'left center' }}>
+        <Image src={right.still} alt={`${right.name} website`} fill className="object-cover object-top" sizes="(max-width: 768px) 40vw, 400px" />
       </div>
-      <div className={`${frame} left-1/2 top-1/2 w-[56%] z-10 shadow-[0_20px_60px_rgba(0,0,0,0.22)]`}
+      <div className={`${frame} left-1/2 top-1/2 w-[53.33%] z-10 shadow-[0_20px_60px_rgba(0,0,0,0.22)]`}
         style={{ transform: 'translate(-50%, -50%)' }}>
-        <Image src={centre.image} alt={`${centre.name} website`} fill className="object-cover object-top" sizes="(max-width: 768px) 56vw, 500px" />
+        <Image src={centre.still} alt={`${centre.name} website`} fill className="object-cover object-top" sizes="(max-width: 768px) 56vw, 560px" />
       </div>
     </div>
   )
 }
 
-function LeadMagnet({ formId, shots }: { formId: string; shots: { name: string; image: string }[] }) {
+function LeadMagnetTop({ formId }: { formId: string }) {
   return (
-    <div className="relative z-10 px-5 md:px-12 lg:px-16 py-20 md:py-28 lg:py-32">
-      <div className="max-w-screen-xl mx-auto text-center">
-        <h2 className="scroll-fade mx-auto max-w-5xl text-[clamp(32px,5.2vw,76px)] font-semibold tracking-tight leading-[1.02] text-[var(--black)] mb-5 md:mb-6">
-          Get your free website prototype, before you spend a dollar.
-        </h2>
-        <p className="scroll-fade mx-auto max-w-2xl text-[var(--gray-medium)] text-[16px] md:text-lg leading-relaxed mb-10 md:mb-14">
-          Tell us who you are and where to send it. We research your practice, write the copy and design
-          a working first version of your site. You only move forward if you love it.
-        </p>
+    <div className="relative z-10 min-h-[100svh] flex flex-col justify-center px-5 md:px-12 lg:px-16 pt-24 pb-10 md:pb-12">
+      <div className="w-full max-w-screen-xl mx-auto text-center flex flex-col gap-6 md:gap-[clamp(20px,3.5svh,40px)]">
+        <div>
+          <h2 className="scroll-fade mx-auto max-w-5xl text-[clamp(28px,min(4.6vw,7.2svh),64px)] font-semibold tracking-tight leading-[1.04] text-[var(--black)] mb-3 md:mb-4">
+            {HEADLINE}
+          </h2>
+          <p className="scroll-fade mx-auto max-w-3xl text-[var(--gray-medium)] text-[14px] md:text-[17px] leading-relaxed">
+            {SUBLINE}
+          </p>
+        </div>
 
-        <ScreenshotFan shots={shots} />
+        <ScreenshotFan shots={FAN_SHOTS} />
 
         <div className="scroll-fade">
-          <PrototypeForm id={formId} />
+          <PrototypeForm id={formId} layout="row" />
         </div>
+      </div>
+    </div>
+  )
+}
+
+function BrowserFrame({ url, children, className = '' }: { url?: string; children: ReactNode; className?: string }) {
+  return (
+    <div className={`overflow-hidden rounded-xl md:rounded-2xl border border-black/10 bg-[#111] ${className}`}>
+      <div className="flex items-center gap-2 px-3 md:px-4 py-2 md:py-2.5 bg-[#1b1b1b] border-b border-white/10">
+        <div className="flex gap-1.5">
+          <div className="w-2 h-2 md:w-2.5 md:h-2.5 rounded-full bg-white/20" />
+          <div className="w-2 h-2 md:w-2.5 md:h-2.5 rounded-full bg-white/20" />
+          <div className="w-2 h-2 md:w-2.5 md:h-2.5 rounded-full bg-white/20" />
+        </div>
+        {url && <div className="ml-2 bg-white/10 rounded-md px-3 py-0.5 text-[10px] md:text-xs text-white/50 truncate">{url.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, '')}</div>}
+      </div>
+      <div className="relative aspect-[16/9]">{children}</div>
+    </div>
+  )
+}
+
+function LeadMagnetSplit({ formId }: { formId: string }) {
+  const [front, back] = SPLIT_VIDEOS
+  return (
+    <div className="relative z-10 min-h-[100svh] flex flex-col justify-center px-5 md:px-12 lg:px-16 pt-20 md:pt-24 pb-8 md:pb-10">
+      <div className="w-full max-w-screen-xl mx-auto grid grid-cols-1 lg:grid-cols-[5fr_6fr] gap-5 lg:gap-16 items-center">
+
+        {/* Left: the offer and the form */}
+        <div className="scroll-fade">
+          <p className="hidden md:block text-[var(--primary-blue)] text-sm font-medium tracking-widest uppercase mb-[clamp(10px,2svh,20px)]">Your free prototype</p>
+          <h2 className="text-[clamp(28px,min(3.6vw,6.4svh),54px)] font-semibold tracking-tight leading-[1.05] text-[var(--black)] mb-4 md:mb-[clamp(10px,2svh,20px)]">
+            {HEADLINE}
+          </h2>
+          <p className="hidden md:block text-[var(--gray-medium)] text-[17px] leading-relaxed mb-[clamp(16px,3svh,32px)] max-w-xl">
+            {SUBLINE}
+          </p>
+          <PrototypeForm id={formId} layout="stack" />
+        </div>
+
+        {/* Right: site recordings. On phones only the front one shows, above the form. */}
+        {front && (
+          <div className="scroll-fade relative order-first lg:order-none lg:pb-[14%] lg:pl-[10%]">
+            {back && (
+              <BrowserFrame url={back.url} className="hidden lg:block absolute left-0 bottom-0 w-[58%] z-10 shadow-[0_20px_60px_rgba(0,0,0,0.30)]">
+                <CaseVideo src={back.video} poster={back.still} label={`${back.name} website walkthrough`} />
+              </BrowserFrame>
+            )}
+            <BrowserFrame url={front.url} className="shadow-[0_20px_60px_rgba(0,0,0,0.18)]">
+              <CaseVideo src={front.video} poster={front.still} label={`${front.name} website walkthrough`} />
+            </BrowserFrame>
+          </div>
+        )}
+
       </div>
     </div>
   )
@@ -290,19 +354,14 @@ const testimonials = [
   { quote: 'What impressed me most was their communication, attention to detail, and genuine commitment to understanding my vision. The result is a modern, visually impressive, and highly professional website that I’m proud to have representing Drone 1 Consulting.', name: 'Michael D. Costello III', role: 'Founder, Drone1 Consulting', image: 'https://res.cloudinary.com/dhduqssyx/image/upload/v1791912037/michael-costello_zwh0ao.avif' },
 ]
 
-// Four case studies, shown as screen-recorded videos instead of screenshots.
-// Names, links, descriptions and posters come from the shared /work data.
-// {{STEF: drop each site's screen recording URL (mp4/webm, e.g. Cloudinary) into
-// `video`. Until one is set, that card shows the screenshot as a still.}}
-const LANDING_CASE_VIDEOS: { name: string; video?: string }[] = [
-  { name: 'Dr. Ron Paul', video: undefined },
-  { name: 'Mark S. Piazza', video: undefined },
-  { name: 'Michael D. Costello III', video: undefined },
-  { name: 'Spencer McGuire-Mitchem', video: undefined },
-]
-const caseVideos = LANDING_CASE_VIDEOS.flatMap(({ name, video }) => {
-  const c = caseStudies.find(s => s.name === name && !s.hidden && s.url && s.image)
-  return c ? [{ name: c.name, role: c.role, url: c.url as string, description: c.summary, poster: c.image as string, video }] : []
+// Four case studies, shown as screen recordings instead of screenshots.
+// Names, roles and descriptions come from the shared /work data; the recording
+// and its poster come from lib/landingMedia.
+const LANDING_CASES = ['Dr. Ron Paul', 'Mark S. Piazza', 'Michael D. Costello III', 'Spencer McGuire-Mitchem']
+const caseVideos = LANDING_CASES.flatMap(name => {
+  const c = caseStudies.find(s => s.name === name && !s.hidden && s.url)
+  const m = caseMedia[name]
+  return c && m ? [{ name: c.name, role: c.role, url: c.url as string, description: c.summary, ...m }] : []
 })
 
 /* ─── Main Component ─── */
@@ -634,9 +693,9 @@ function Landing() {
           </div>
         </section>
 
-        {/* ─── 4. Lead magnet (same as section 6 for now) ─── */}
+        {/* ─── 4. Lead magnet — centered, with the screenshot fan ─── */}
         <section className="relative overflow-hidden">
-          <LeadMagnet formId="prototype-form" shots={LEAD_SHOTS_TOP} />
+          <LeadMagnetTop formId="prototype-form" />
         </section>
 
         {/* ─── 5. Case studies — 4 videos ─── */}
@@ -647,10 +706,9 @@ function Landing() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
               {caseVideos.map((item, i) => (
-                <a key={item.name} href={item.url} target="_blank" rel="noopener noreferrer"
-                  className="portfolio-card group scroll-fade block" style={{ transitionDelay: `${(i % 2) * 100}ms` }}>
+                <div key={item.name} className="scroll-fade" style={{ transitionDelay: `${(i % 2) * 100}ms` }}>
                   {/* Browser frame */}
-                  <div className="relative rounded-2xl bg-white/10 border border-white/10 overflow-hidden mb-6 transition-all duration-500 group-hover:shadow-2xl group-hover:-translate-y-2">
+                  <div className="relative rounded-2xl bg-white/10 border border-white/10 overflow-hidden mb-6">
                     {/* Browser chrome */}
                     <div className="flex items-center gap-2 px-4 py-3 bg-white/5 border-b border-white/10">
                       <div className="flex gap-1.5">
@@ -659,39 +717,21 @@ function Landing() {
                         <div className="w-2.5 h-2.5 rounded-full bg-white/20" />
                       </div>
                       <div className="flex-1 ml-3">
-                        <div className="bg-white/10 rounded-md px-3 py-1 text-xs text-white/50 max-w-[200px]">{item.url.replace('https://', '')}</div>
+                        <div className="bg-white/10 rounded-md px-3 py-1 text-xs text-white/50 max-w-[200px] truncate">{item.url.replace(/^https?:\/\/(www\.)?/, '')}</div>
                       </div>
                     </div>
-                    {/* Screen recording — fixed 16:10 frame so all four cards line up.
-                        Falls back to the screenshot until a video is supplied. */}
-                    <div className="relative aspect-[16/10] bg-black">
-                      {item.video ? (
-                        <video
-                          src={item.video}
-                          poster={item.poster}
-                          className="absolute inset-0 h-full w-full object-cover object-top"
-                          autoPlay
-                          muted
-                          loop
-                          playsInline
-                          preload="metadata"
-                          aria-label={`${item.name} website walkthrough`}
-                        />
-                      ) : (
-                        <Image src={item.poster} alt={`${item.name} website`} fill className="object-cover object-top" sizes="(max-width: 768px) 100vw, 50vw" />
-                      )}
+                    {/* Screen recording of the live site */}
+                    <div className="relative aspect-[16/9] bg-black">
+                      <CaseVideo src={item.video} poster={item.still} label={`${item.name} website walkthrough`} />
                     </div>
                   </div>
                   {/* Info */}
-                  <div className="flex items-start justify-between">
-                    <div>
-                      <h3 className="text-xl font-medium tracking-tight mb-1 text-white">{item.name}</h3>
-                      <p className="text-sm text-[var(--primary-blue)] font-medium mb-2">{item.role}</p>
-                      <p className="text-white/50 text-sm leading-relaxed">{item.description}</p>
-                    </div>
-                    <span className="text-white/30 group-hover:text-[var(--primary-blue)] transition-all duration-300 group-hover:translate-x-1 mt-1 flex-shrink-0 ml-4">&rarr;</span>
+                  <div>
+                    <h3 className="text-xl font-medium tracking-tight mb-1 text-white">{item.name}</h3>
+                    <p className="text-sm text-[var(--primary-blue)] font-medium mb-2">{item.role}</p>
+                    <p className="text-white/50 text-sm leading-relaxed">{item.description}</p>
                   </div>
-                </a>
+                </div>
               ))}
             </div>
 
@@ -712,9 +752,10 @@ function Landing() {
         </section>
 
         {/* ─── 6. Lead magnet ─── */}
-        {/* Back to cream after the dark case studies, matching section 4. */}
+        {/* Same offer as section 4 in a two-column layout with recordings.
+            Back to cream after the dark case studies. */}
         <section ref={el => { themedSectionRefs.current[1] = el }} id="contact" className="relative overflow-hidden">
-          <LeadMagnet formId="prototype-form-bottom" shots={LEAD_SHOTS_BOTTOM} />
+          <LeadMagnetSplit formId="prototype-form-bottom" />
         </section>
 
         <Footer basePath="/landing" />
