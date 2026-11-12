@@ -79,7 +79,7 @@ function mediaFor(names: string[]) {
   })
 }
 // The two recordings in the closing section.
-const CLOSING_VIDEOS = mediaFor(['Dr. Ron Paul', 'David Zurita'])
+const CLOSING_VIDEOS = mediaFor(['Dr. Ron Paul', 'Spencer McGuire-Mitchem'])
 
 function BrowserFrame({ url, children, className = '', style }: { url?: string; children: ReactNode; className?: string; style?: React.CSSProperties }) {
   return (

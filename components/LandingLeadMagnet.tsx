@@ -1,10 +1,11 @@
 'use client'
 
 // The landing funnel's lead magnet: the prototype form, its shared state, and
-// the centered "hero" layout (headline, subtext, three site stills, 2×2 form).
+// the centered "hero" layout (headline, subtext, three site recordings, 2×2 form).
 // Used as the opening section of /landing and the contact section of /landing/work.
 import React, { createContext, useContext, useEffect, useState, useCallback, type ReactNode } from 'react'
-import Image from 'next/image'
+import CaseVideo from '@/components/CaseVideo'
+import { caseMedia, vanaiCase } from '@/lib/landingMedia'
 import Link from 'next/link'
 
 /* ─── Form state ─── */
@@ -173,38 +174,40 @@ export function PrototypeForm({ id, layout }: { id: string; layout: 'grid' | 'st
 export const Accent = ({ children }: { children: ReactNode }) => (
   <span className="font-serif italic font-normal text-[var(--primary-blue)] whitespace-nowrap">{children}</span>
 )
-const TOP_HEADLINE = <>Get your free custom website <Accent>prototype</Accent> before you invest.</>
+const TOP_HEADLINE = <>Get Your Free Custom Website <Accent>Prototype</Accent> Before You Invest.</>
 const TOP_SUBLINE = 'Tell us who you are and where to send it. We\u2019ll research your practice, write the copy and design a working first version of your site in just a few days. You only move forward if you love it.'
-// Hero stills: left, centre, right. Each keeps its own proportions, so nothing
-// is cropped. `ratio` is width / height of the file.
-const FAN_SHOTS = [
-  { name: 'Polaris Leadership Institute', src: '/landing/shots/hero-polaris.webp', ratio: 1600 / 729 },
-  { name: 'Vanai Consulting', src: '/landing/shots/hero-vanai.webp', ratio: 1600 / 922 },
-  { name: 'NextSpan Consulting', src: '/landing/shots/hero-nextspan.webp', ratio: 1600 / 924 },
+// Hero recordings: left, centre, right. Each plays only while it is on screen.
+const FAN_VIDEOS = [
+  { name: 'DKZ Consulting', ...caseMedia['David Zurita'] },
+  { name: 'Drone1 Consulting', ...caseMedia['Michael D. Costello III'] },
+  { name: 'Vanai Consulting', video: vanaiCase.video, still: vanaiCase.still },
 ]
+
 function ScreenshotFan() {
-  const [left, centre, right] = FAN_SHOTS
-  const frame = 'absolute overflow-hidden rounded-md md:rounded-xl border border-black/10 bg-white'
+  const [left, centre, right] = FAN_VIDEOS
+  const frame = 'absolute overflow-hidden rounded-md md:rounded-xl border border-black/10 bg-black aspect-[16/9]'
+  // The width follows the screen height, so the fan shrinks on short screens
+  // instead of pushing the form below the fold.
   return (
     <div className="relative mx-auto aspect-[10/3]" style={{ width: 'min(100%, 104svh, 1080px)', perspective: '1400px' }}>
       <div className={`${frame} left-0 top-1/2 w-[42%] shadow-[0_10px_40px_rgba(0,0,0,0.12)]`}
-        style={{ aspectRatio: left.ratio, transform: 'translateY(-50%) rotateY(30deg)', transformOrigin: 'right center' }}>
-        <Image src={left.src} alt={`${left.name} website`} fill className="object-cover" sizes="(max-width: 1024px) 44vw, 360px" />
+        style={{ transform: 'translateY(-50%) rotateY(30deg)', transformOrigin: 'right center' }}>
+        <CaseVideo src={left.video} poster={left.still} label={`${left.name} website walkthrough`} />
       </div>
       <div className={`${frame} right-0 top-1/2 w-[42%] shadow-[0_10px_40px_rgba(0,0,0,0.12)]`}
-        style={{ aspectRatio: right.ratio, transform: 'translateY(-50%) rotateY(-30deg)', transformOrigin: 'left center' }}>
-        <Image src={right.src} alt={`${right.name} website`} fill className="object-cover" sizes="(max-width: 1024px) 44vw, 360px" />
+        style={{ transform: 'translateY(-50%) rotateY(-30deg)', transformOrigin: 'left center' }}>
+        <CaseVideo src={right.video} poster={right.still} label={`${right.name} website walkthrough`} />
       </div>
       <div className={`${frame} left-1/2 top-1/2 w-[50%] z-10 shadow-[0_20px_60px_rgba(0,0,0,0.25)]`}
-        style={{ aspectRatio: centre.ratio, transform: 'translate(-50%, -50%)' }}>
-        <Image src={centre.src} alt={`${centre.name} website`} fill priority className="object-cover" sizes="(max-width: 1024px) 66vw, 520px" />
+        style={{ transform: 'translate(-50%, -50%)' }}>
+        <CaseVideo src={centre.video} poster={centre.still} label={`${centre.name} website walkthrough`} />
       </div>
     </div>
   )
 }
 
 /* The page's opening section, everything centered and one under the other:
-   headline, subtext, the three site stills, then the two-by-two form. */
+   headline, subtext, three site recordings, then the two-by-two form. */
 export function LeadMagnetHero({ formId, heading: Heading = 'h1' }: { formId: string; heading?: 'h1' | 'h2' }) {
   return (
     <div className="relative z-10 min-h-[100svh] flex flex-col justify-center px-5 md:px-12 lg:px-16 pt-[76px] md:pt-24 pb-6 md:pb-10">
