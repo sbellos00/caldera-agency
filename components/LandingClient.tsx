@@ -100,12 +100,12 @@ function FormProvider({ children }: { children: ReactNode }) {
    address the company name does the same job. */
 const PROCESSING_MESSAGES = ['Looking up your practice...', 'Preparing your prototype request...']
 
-function PrototypeForm({ id, layout }: { id: string; layout: 'row' | 'grid' }) {
+function PrototypeForm({ id, layout }: { id: string; layout: 'grid' | 'stack' }) {
   const { email, company, linkedin, trap, status, error, setEmail, setCompany, setLinkedin, setTrap, setStatus, setError } = useForm()
   const [processingIdx, setProcessingIdx] = useState(0)
 
   const fieldClass = 'w-full px-5 py-3.5 md:py-4 rounded-lg bg-white border border-black/10 text-[16px] text-[var(--black)] placeholder:text-[var(--gray-medium)] focus:outline-none focus:border-[var(--primary-blue)] focus:ring-2 focus:ring-[var(--primary-blue)]/20 transition-all'
-  const row = layout === 'row'
+  const grid = layout === 'grid'
 
   const handleSubmit = useCallback(async (e: React.FormEvent) => {
     e.preventDefault()
@@ -181,13 +181,13 @@ function PrototypeForm({ id, layout }: { id: string; layout: 'row' | 'grid' }) {
     )
   }
 
-  // 'row' puts all four on one line; 'grid' is two by two: email and company
-  // on top, LinkedIn and the button underneath. Both stack on phones.
+  // 'grid' is two by two: email and company on top, LinkedIn and the button
+  // underneath. 'stack' is one per row. Both stack on phones.
   // The placeholders double as the labels (kept for screen readers) so the
   // whole form stays short enough to sit inside one screen.
   return (
-    <form id={id} onSubmit={handleSubmit} noValidate className={`w-full ${row ? 'max-w-5xl mx-auto' : 'max-w-xl mx-auto lg:mx-0'}`}>
-      <div className={row ? 'grid grid-cols-1 lg:grid-cols-[1fr_1fr_1fr_auto] gap-2.5 md:gap-3' : 'grid grid-cols-1 sm:grid-cols-2 gap-2.5 md:gap-3'}>
+    <form id={id} onSubmit={handleSubmit} noValidate className={`w-full ${grid ? 'max-w-2xl mx-auto' : 'max-w-xl mx-auto lg:mx-0'}`}>
+      <div className={grid ? 'grid grid-cols-1 sm:grid-cols-2 gap-2.5 md:gap-3' : 'grid grid-cols-1 gap-2.5 md:gap-3'}>
         <div>
           <label htmlFor={`${id}-email`} className="sr-only">Email</label>
           <input id={`${id}-email`} type="email" inputMode="email" autoComplete="email" value={email}
@@ -219,14 +219,14 @@ function PrototypeForm({ id, layout }: { id: string; layout: 'row' | 'grid' }) {
           value={trap} onChange={e => setTrap(e.target.value)} />
       </div>
 
-      {error && <p role="alert" className={`text-red-500 text-sm mt-3 ${row ? 'text-center' : ''}`}>{error}</p>}
+      {error && <p role="alert" className={`text-red-500 text-sm mt-3 ${grid ? 'text-center' : ''}`}>{error}</p>}
     </form>
   )
 }
 
 /* ─── Lead Magnet ─── */
 /* Two layouts of the same offer, each sized to fit inside one screen:
-   LeadMagnetHero opens the page, LeadMagnetClosing ends it. */
+   LeadMagnetHero opens the page (centered), LeadMagnetClosing ends it (two columns). */
 const TOP_HEADLINE = 'Get your free custom website prototype before you invest.'
 const TOP_SUBLINE = 'Tell us who you are and where to send it. We\u2019ll research your practice, write the copy and design a working first version of your site in just a few days. You only move forward if you love it.'
 const CLOSING_HEADLINE = 'See What Your Website Could Look Like.'
@@ -253,16 +253,16 @@ function ScreenshotFan() {
   const [left, centre, right] = FAN_SHOTS
   const frame = 'absolute overflow-hidden rounded-md md:rounded-xl border border-black/10 bg-white'
   return (
-    <div className="relative w-full aspect-[9/4]" style={{ perspective: '1400px' }}>
-      <div className={`${frame} left-0 top-1/2 w-[48%] shadow-[0_10px_40px_rgba(0,0,0,0.12)]`}
-        style={{ aspectRatio: left.ratio, transform: 'translateY(-50%) rotateY(24deg)', transformOrigin: 'right center' }}>
+    <div className="relative mx-auto aspect-[7/2]" style={{ width: 'min(100%, 104svh, 1080px)', perspective: '1400px' }}>
+      <div className={`${frame} left-0 top-1/2 w-[40%] shadow-[0_10px_40px_rgba(0,0,0,0.12)]`}
+        style={{ aspectRatio: left.ratio, transform: 'translateY(-50%) rotateY(30deg)', transformOrigin: 'right center' }}>
         <Image src={left.src} alt={`${left.name} website`} fill className="object-cover" sizes="(max-width: 1024px) 44vw, 360px" />
       </div>
-      <div className={`${frame} right-0 top-1/2 w-[48%] shadow-[0_10px_40px_rgba(0,0,0,0.12)]`}
-        style={{ aspectRatio: right.ratio, transform: 'translateY(-50%) rotateY(-24deg)', transformOrigin: 'left center' }}>
+      <div className={`${frame} right-0 top-1/2 w-[40%] shadow-[0_10px_40px_rgba(0,0,0,0.12)]`}
+        style={{ aspectRatio: right.ratio, transform: 'translateY(-50%) rotateY(-30deg)', transformOrigin: 'left center' }}>
         <Image src={right.src} alt={`${right.name} website`} fill className="object-cover" sizes="(max-width: 1024px) 44vw, 360px" />
       </div>
-      <div className={`${frame} left-1/2 top-1/2 w-[58%] z-10 shadow-[0_20px_60px_rgba(0,0,0,0.25)]`}
+      <div className={`${frame} left-1/2 top-1/2 w-[56%] z-10 shadow-[0_20px_60px_rgba(0,0,0,0.25)]`}
         style={{ aspectRatio: centre.ratio, transform: 'translate(-50%, -50%)' }}>
         <Image src={centre.src} alt={`${centre.name} website`} fill priority className="object-cover" sizes="(max-width: 1024px) 66vw, 520px" />
       </div>
@@ -270,27 +270,26 @@ function ScreenshotFan() {
   )
 }
 
-/* The page's opening section: the offer and the 2×2 form on the left, the
-   three site stills on the right. On phones it reads headline, stills, form. */
+/* The page's opening section, everything centered and one under the other:
+   headline, subtext, the three site stills, then the two-by-two form. */
 function LeadMagnetHero({ formId }: { formId: string }) {
   return (
     <div className="relative z-10 min-h-[100svh] flex flex-col justify-center px-5 md:px-12 lg:px-16 pt-[76px] md:pt-24 pb-6 md:pb-10">
-      <div className="w-full max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-[5fr_6fr] gap-x-10 xl:gap-x-14 gap-y-5 lg:gap-y-[clamp(16px,3svh,32px)] items-center">
-        <div className="scroll-fade lg:col-start-1 lg:row-start-1 lg:self-end text-center lg:text-left">
-          <p className="hidden lg:block text-[var(--primary-blue)] text-sm font-medium tracking-widest uppercase mb-[clamp(10px,2svh,20px)]">Your free prototype</p>
-          <h1 className="text-[clamp(27px,min(3.3vw,6.2svh),50px)] font-semibold tracking-tight leading-[1.05] text-[var(--black)] mb-3 lg:mb-[clamp(10px,2svh,20px)]">
+      <div className="w-full max-w-screen-xl mx-auto text-center flex flex-col gap-5 md:gap-[clamp(16px,3.2svh,36px)]">
+        <div>
+          <h1 className="scroll-fade mx-auto max-w-5xl text-[clamp(27px,min(4.6vw,7svh),64px)] font-semibold tracking-tight leading-[1.04] text-[var(--black)] mb-3 md:mb-4">
             {TOP_HEADLINE}
           </h1>
-          <p className="text-[var(--gray-medium)] text-[14px] md:text-[17px] leading-relaxed max-w-xl mx-auto lg:mx-0">
+          <p className="scroll-fade mx-auto max-w-4xl text-[var(--gray-medium)] text-[14px] md:text-[17px] leading-relaxed">
             {TOP_SUBLINE}
           </p>
         </div>
 
-        <div className="scroll-fade lg:col-start-2 lg:row-start-1 lg:row-span-2">
+        <div className="scroll-fade">
           <ScreenshotFan />
         </div>
 
-        <div className="scroll-fade lg:col-start-1 lg:row-start-2 lg:self-start">
+        <div className="scroll-fade">
           <PrototypeForm id={formId} layout="grid" />
         </div>
       </div>
@@ -314,44 +313,40 @@ function BrowserFrame({ url, children, className = '', style }: { url?: string; 
   )
 }
 
-/* The closing section: the same offer, one thing under the other — headline,
-   two site recordings, then the form on one line. */
+/* The closing section: two columns, the offer and form on the left and two
+   site recordings on the right. On phones one recording sits above the text. */
 function LeadMagnetClosing({ formId }: { formId: string }) {
-  const [first, second] = CLOSING_VIDEOS
-  // Each recording's width follows the screen height so the form stays in view.
-  const videoWidth = 'min(100%, 62svh)'
+  const [front, back] = CLOSING_VIDEOS
   return (
-    <div className="relative z-10 min-h-[100svh] flex flex-col justify-center px-5 md:px-12 lg:px-16 pt-[76px] md:pt-24 pb-6 md:pb-10">
-      <div className="w-full max-w-screen-xl mx-auto text-center flex flex-col gap-5 md:gap-[clamp(18px,3.2svh,36px)]">
+    <div className="relative z-10 min-h-[100svh] flex flex-col justify-center px-5 md:px-12 lg:px-16 pt-[68px] md:pt-24 pb-5 md:pb-10">
+      <div className="w-full max-w-screen-xl mx-auto grid grid-cols-1 lg:grid-cols-[5fr_6fr] gap-4 lg:gap-16 items-center">
+
+        {/* Left: the offer and the form */}
         <div className="scroll-fade">
-          <h2 className="mx-auto max-w-4xl text-[clamp(27px,min(4.2vw,6.6svh),58px)] font-semibold tracking-tight leading-[1.05] text-[var(--black)] mb-2 md:mb-3">
+          <p className="hidden md:block text-[var(--primary-blue)] text-sm font-medium tracking-widest uppercase mb-[clamp(10px,2svh,20px)]">Your free prototype</p>
+          <h2 className="text-[clamp(26px,min(3.6vw,6.4svh),54px)] font-semibold tracking-tight leading-[1.05] text-[var(--black)] mb-2 md:mb-[clamp(10px,2svh,20px)]">
             {CLOSING_HEADLINE}
           </h2>
-          <p className="mx-auto max-w-2xl text-[var(--gray-medium)] text-[15px] md:text-[17px] leading-relaxed">
+          <p className="text-[var(--gray-medium)] text-[15px] md:text-[17px] leading-relaxed mb-3 md:mb-[clamp(16px,3svh,32px)] max-w-xl">
             {CLOSING_SUBLINE}
           </p>
+          <PrototypeForm id={formId} layout="stack" />
         </div>
 
-        <div className="scroll-fade flex items-start justify-center gap-4 md:gap-6">
-          {first && (
-            <div className="w-[74%] md:w-1/2 flex md:justify-end justify-center">
-              <BrowserFrame url={first.url} className="w-full shadow-[0_20px_60px_rgba(0,0,0,0.18)]" style={{ maxWidth: videoWidth }}>
-                <CaseVideo src={first.video} poster={first.still} label={`${first.name} website walkthrough`} />
+        {/* Right: site recordings. On phones only the front one shows, above the text. */}
+        {front && (
+          <div className="scroll-fade relative order-first lg:order-none lg:pb-[14%] lg:pl-[10%]">
+            {back && (
+              <BrowserFrame url={back.url} className="hidden lg:block absolute left-0 bottom-0 w-[58%] z-10 shadow-[0_20px_60px_rgba(0,0,0,0.30)]">
+                <CaseVideo src={back.video} poster={back.still} label={`${back.name} website walkthrough`} />
               </BrowserFrame>
-            </div>
-          )}
-          {second && (
-            <div className="hidden md:flex w-1/2 justify-start">
-              <BrowserFrame url={second.url} className="w-full shadow-[0_20px_60px_rgba(0,0,0,0.18)]" style={{ maxWidth: videoWidth }}>
-                <CaseVideo src={second.video} poster={second.still} label={`${second.name} website walkthrough`} />
-              </BrowserFrame>
-            </div>
-          )}
-        </div>
+            )}
+            <BrowserFrame url={front.url} className="w-[70%] mx-auto lg:w-auto shadow-[0_20px_60px_rgba(0,0,0,0.18)]">
+              <CaseVideo src={front.video} poster={front.still} label={`${front.name} website walkthrough`} />
+            </BrowserFrame>
+          </div>
+        )}
 
-        <div className="scroll-fade">
-          <PrototypeForm id={formId} layout="row" />
-        </div>
       </div>
     </div>
   )
@@ -787,7 +782,7 @@ function Landing() {
 
 
           {/* ─── 6. Lead magnet, second layout ─── */}
-          {/* Same offer as section 4 in a two-column layout with recordings.
+          {/* Same offer as the opening section, in a two-column layout with recordings.
               The hero above it already brought the page back to cream. */}
           <section id="contact" className="relative z-10 overflow-hidden bg-[var(--cream)] shadow-[0_-20px_60px_rgba(0,0,0,0.08)]">
             <LeadMagnetClosing formId="prototype-form-bottom" />
