@@ -48,15 +48,10 @@ export function PrototypeForm({ id, layout }: { id: string; layout: 'grid' | 'st
   const [processingIdx, setProcessingIdx] = useState(0)
 
   const grid = layout === 'grid'
-  // Fields and button are the same height, so the grid reads as four equal cells.
-  // In the hero ('grid') they are larger and heavier, to pull the eye to the form:
-  // darker outline, soft shadow, medium-weight labels, and a blue button.
-  const fieldClass = grid
-    ? 'w-full h-[60px] px-5 rounded-lg bg-white border-[1.5px] border-black/30 shadow-[0_4px_18px_rgba(0,0,0,0.07)] text-[16px] font-medium tracking-tight text-[var(--black)] placeholder:text-[var(--gray-dark)] placeholder:font-medium focus:outline-none focus:border-[var(--primary-blue)] focus:ring-2 focus:ring-[var(--primary-blue)]/25 transition-all'
-    : 'w-full h-14 px-5 rounded-lg bg-white border border-black/10 text-[16px] md:text-[15px] tracking-tight text-[var(--black)] placeholder:text-[var(--gray-medium)] focus:outline-none focus:border-[var(--primary-blue)] focus:ring-2 focus:ring-[var(--primary-blue)]/20 transition-all'
-  const buttonClass = grid
-    ? 'h-[60px] text-[16px] font-medium bg-[var(--primary-blue)] shadow-[0_8px_26px_rgba(0,25,255,0.32)]'
-    : 'h-14 text-[15px] bg-[var(--black)]'
+  // Fields and button are the same height, and deliberately heavy so the form
+  // pulls the eye: darker outline, soft shadow, medium-weight labels, blue button.
+  const fieldClass = 'w-full h-[60px] px-5 rounded-lg bg-white border-[1.5px] border-black/30 shadow-[0_4px_18px_rgba(0,0,0,0.07)] text-[16px] font-medium tracking-tight text-[var(--black)] placeholder:text-[var(--gray-dark)] placeholder:font-medium focus:outline-none focus:border-[var(--primary-blue)] focus:ring-2 focus:ring-[var(--primary-blue)]/25 transition-all'
+  const buttonClass = 'h-[60px] text-[16px] font-medium bg-[var(--primary-blue)] shadow-[0_8px_26px_rgba(0,25,255,0.32)]'
 
   const handleSubmit = useCallback(async (e: React.FormEvent) => {
     e.preventDefault()
@@ -156,7 +151,7 @@ export function PrototypeForm({ id, layout }: { id: string; layout: 'grid' | 'st
         </div>
         <button type="submit" disabled={status === 'submitting'}
           className={`group relative overflow-hidden w-full px-8 text-white tracking-tight rounded-lg whitespace-nowrap transition-all duration-300 ease-out hover:scale-105 disabled:opacity-60 disabled:hover:scale-100 ${buttonClass}`}>
-          <div className={`absolute inset-0 ${grid ? 'bg-[var(--black)]' : 'bg-[var(--primary-blue)]'} transform -translate-x-full transition-transform duration-300 ease-out group-hover:translate-x-0`} />
+          <div className={`absolute inset-0 bg-[var(--black)] transform -translate-x-full transition-transform duration-300 ease-out group-hover:translate-x-0`} />
           <span className="relative z-10 inline-flex items-center justify-center gap-3">
             {status === 'submitting' ? 'Sending...' : <>Get My Free Prototype <span className="transition-transform duration-300 group-hover:translate-x-1">&rarr;</span></>}
           </span>
