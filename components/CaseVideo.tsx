@@ -7,8 +7,10 @@ import { useEffect, useRef } from 'react'
  *  at once. The poster shows until then, and stays if motion is reduced.
  *
  *  `startAt` begins the first play that many seconds in, and `rate` changes
- *  the playback speed, so several recordings side by side do not move in step. */
-export default function CaseVideo({ src, poster, label, className = '', startAt = 0, rate = 1 }: { src: string; poster: string; label: string; className?: string; startAt?: number; rate?: number }) {
+ *  the playback speed, so several recordings side by side do not move in step.
+ *  `delay` holds the poster for that many seconds after the page loads before
+ *  the recording is allowed to start. */
+export default function CaseVideo({ src, poster, label, className = '', startAt = 0, rate = 1, delay = 0 }: { src: string; poster: string; label: string; className?: string; startAt?: number; rate?: number; delay?: number }) {
   const ref = useRef<HTMLVideoElement>(null)
 
   useEffect(() => {
@@ -20,13 +22,17 @@ export default function CaseVideo({ src, poster, label, className = '', startAt 
     // The file only loads on first play, so the offset is applied once its length is known.
     const seek = () => { if (startAt > 0 && startAt < video.duration) video.currentTime = startAt }
     video.addEventListener('loadedmetadata', seek, { once: true })
-    const observer = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting) video.play().catch(() => { /* autoplay refused: the poster stays */ })
+    // Play only when both are true: the recording is on screen, and the delay has passed.
+    let onScreen = false, released = delay <= 0
+    const sync = () => {
+      if (onScreen && released) video.play().catch(() => { /* autoplay refused: the poster stays */ })
       else video.pause()
-    }, { threshold: 0.25 })
+    }
+    const timer = released ? undefined : setTimeout(() => { released = true; sync() }, delay * 1000)
+    const observer = new IntersectionObserver(([entry]) => { onScreen = entry.isIntersecting; sync() }, { threshold: 0.25 })
     observer.observe(video)
-    return () => { observer.disconnect(); video.removeEventListener('loadedmetadata', seek) }
-  }, [startAt, rate])
+    return () => { observer.disconnect(); video.removeEventListener('loadedmetadata', seek); if (timer) clearTimeout(timer) }
+  }, [startAt, rate, delay])
 
   return (
     <video ref={ref} src={src} poster={poster} muted loop playsInline preload="none"

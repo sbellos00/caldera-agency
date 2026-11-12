@@ -98,28 +98,27 @@ function BrowserFrame({ url, children, className = '', style }: { url?: string; 
 }
 
 /* The closing section: two columns, the offer and form on the left and two
-   site recordings on the right. On phones one recording sits above the text. */
+   site recordings on the right. On phones it reads text, one recording, then the form. */
 function LeadMagnetClosing({ formId }: { formId: string }) {
   const [front, back] = CLOSING_VIDEOS
   return (
     <div className="relative z-10 min-h-[100svh] flex flex-col justify-center px-5 md:px-12 lg:px-16 pt-[68px] md:pt-24 pb-5 md:pb-10">
-      <div className="w-full max-w-screen-xl mx-auto grid grid-cols-1 lg:grid-cols-[5fr_6fr] gap-4 lg:gap-16 items-center">
+      <div className="w-full max-w-screen-xl mx-auto grid grid-cols-1 lg:grid-cols-[5fr_6fr] gap-x-16 gap-y-4 lg:gap-y-0 items-center">
 
-        {/* Left: the offer and the form */}
-        <div className="scroll-fade">
+        {/* The offer. On phones it comes first, above the recording. */}
+        <div className="scroll-fade lg:col-start-1 lg:row-start-1 lg:self-end">
           <p className="hidden md:block text-[var(--primary-blue)] text-sm font-medium tracking-widest uppercase mb-[clamp(10px,2svh,20px)]">Your free prototype</p>
           <h2 className="text-[clamp(28px,min(3.9vw,6.8svh),58px)] font-light tracking-[-0.035em] leading-[1.02] text-[var(--black)] mb-2 md:mb-[clamp(10px,2svh,20px)]">
             {CLOSING_HEADLINE}
           </h2>
-          <p className="text-[var(--gray-medium)] text-[15px] md:text-[17px] leading-relaxed mb-3 md:mb-[clamp(16px,3svh,32px)] max-w-xl">
+          <p className="text-[var(--gray-medium)] text-[15px] md:text-[17px] leading-relaxed lg:mb-[clamp(16px,3svh,32px)] max-w-xl">
             {CLOSING_SUBLINE}
           </p>
-          <PrototypeForm id={formId} layout="stack" />
         </div>
 
-        {/* Right: site recordings. On phones only the front one shows, above the text. */}
+        {/* Site recordings: beside the text on desktop, between text and form on phones (front one only). */}
         {front && (
-          <div className="scroll-fade relative order-first lg:order-none lg:pb-[14%] lg:pl-[10%]">
+          <div className="scroll-fade relative lg:col-start-2 lg:row-start-1 lg:row-span-2 lg:pb-[14%] lg:pl-[10%]">
             {back && (
               <BrowserFrame url={back.url} className="hidden lg:block absolute left-0 bottom-0 w-[58%] z-10 shadow-[0_20px_60px_rgba(0,0,0,0.30)]">
                 <CaseVideo src={back.video} poster={back.still} label={`${back.name} website walkthrough`} />
@@ -130,6 +129,10 @@ function LeadMagnetClosing({ formId }: { formId: string }) {
             </BrowserFrame>
           </div>
         )}
+
+        <div className="scroll-fade lg:col-start-1 lg:row-start-2 lg:self-start">
+          <PrototypeForm id={formId} layout="stack" />
+        </div>
 
       </div>
     </div>

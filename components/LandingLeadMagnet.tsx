@@ -178,13 +178,16 @@ export const Accent = ({ children }: { children: ReactNode }) => (
 )
 const TOP_HEADLINE = <>Get Your Free Custom Website <Accent>Prototype</Accent> Before You Invest.</>
 const TOP_SUBLINE = 'Tell us who you are and where to send it. We\u2019ll research your practice, write the copy and design a working first version of your site in just a few days. You only move forward if you love it.'
-// Hero recordings: left, centre, right. Each plays only while it is on screen.
-// They start at different points and run at slightly different speeds, so the
-// three never scroll in step.
+// Hero recordings: left, centre, right. They hold on their first frame for
+// HERO_VIDEO_DELAY seconds after the page loads, then play. The two at the
+// sides run much slower than the centre one, so the eye stays on the middle
+// and the three never scroll in step. Vanai skips its logo intro, which would
+// drag at this speed.
+const HERO_VIDEO_DELAY = 10
 const FAN_VIDEOS = [
-  { name: 'DKZ Consulting', ...caseMedia['David Zurita'], startAt: 3.1, rate: 0.85 },
+  { name: 'DKZ Consulting', ...caseMedia['David Zurita'], startAt: 0, rate: 0.4 },
   { name: 'Drone1 Consulting', ...caseMedia['Michael D. Costello III'], startAt: 0, rate: 1 },
-  { name: 'Vanai Consulting', video: vanaiCase.video, still: vanaiCase.still, startAt: 7.4, rate: 1.15 },
+  { name: 'Vanai Consulting', video: vanaiCase.video, still: vanaiCase.still, startAt: 4.6, rate: 0.45 },
 ]
 
 function ScreenshotFan() {
@@ -196,15 +199,15 @@ function ScreenshotFan() {
     <div className="relative mx-auto aspect-[10/3]" style={{ width: 'min(100%, 104svh, 1080px)', perspective: '1400px' }}>
       <div className={`${frame} left-0 top-1/2 w-[42%] shadow-[0_10px_40px_rgba(0,0,0,0.12)]`}
         style={{ transform: 'translateY(-50%) rotateY(30deg)', transformOrigin: 'right center' }}>
-        <CaseVideo src={left.video} poster={left.still} label={`${left.name} website walkthrough`} startAt={left.startAt} rate={left.rate} />
+        <CaseVideo src={left.video} poster={left.still} label={`${left.name} website walkthrough`} startAt={left.startAt} rate={left.rate} delay={HERO_VIDEO_DELAY} />
       </div>
       <div className={`${frame} right-0 top-1/2 w-[42%] shadow-[0_10px_40px_rgba(0,0,0,0.12)]`}
         style={{ transform: 'translateY(-50%) rotateY(-30deg)', transformOrigin: 'left center' }}>
-        <CaseVideo src={right.video} poster={right.still} label={`${right.name} website walkthrough`} startAt={right.startAt} rate={right.rate} />
+        <CaseVideo src={right.video} poster={right.still} label={`${right.name} website walkthrough`} startAt={right.startAt} rate={right.rate} delay={HERO_VIDEO_DELAY} />
       </div>
       <div className={`${frame} left-1/2 top-1/2 w-[50%] z-10 shadow-[0_20px_60px_rgba(0,0,0,0.25)]`}
         style={{ transform: 'translate(-50%, -50%)' }}>
-        <CaseVideo src={centre.video} poster={centre.still} label={`${centre.name} website walkthrough`} startAt={centre.startAt} rate={centre.rate} />
+        <CaseVideo src={centre.video} poster={centre.still} label={`${centre.name} website walkthrough`} startAt={centre.startAt} rate={centre.rate} delay={HERO_VIDEO_DELAY} />
       </div>
     </div>
   )
