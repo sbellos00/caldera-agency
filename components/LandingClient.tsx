@@ -358,13 +358,7 @@ function Landing() {
       <div ref={scrollContainerRef} className="relative z-10 theme-container" style={{ backgroundColor: 'rgb(250, 248, 245)', color: 'rgb(0, 0, 0)', transition: 'background-color 400ms ease-out' }}>
 
 
-        {/* ─── 2. Lead magnet — the first thing on the page ─── */}
-        <section className="relative overflow-hidden">
-          <LeadMagnetHero formId="prototype-form" />
-        </section>
-
-
-        {/* ─── 3. Positioning statement + all five testimonials ─── */}
+        {/* ─── 2. Positioning statement + all five testimonials ─── */}
         <section className="relative overflow-hidden">
 
           <div className="relative z-10 px-4 md:px-8 lg:px-12 py-20 md:py-28 lg:py-32">
@@ -402,6 +396,12 @@ function Landing() {
 
             </div>
           </div>
+        </section>
+
+
+        {/* ─── 3. Lead magnet ─── */}
+        <section className="relative overflow-hidden">
+          <LeadMagnetHero formId="prototype-form" />
         </section>
 
         {/* ─── 4. Case studies — 4 videos ─── */}
