@@ -253,7 +253,7 @@ export default function LandingWorkClient() {
                         </div>
                         {c.url && (
                           <div className="flex-1 ml-3">
-                            <div className="bg-white/10 rounded-md px-3 py-1 text-xs text-white/50 max-w-[200px] truncate">{hostLabel(c.url)}</div>
+                            <a href={c.url} target="_blank" rel="noopener noreferrer" className="block bg-white/10 rounded-md px-3 py-1 text-xs text-white/50 max-w-[200px] truncate no-underline transition-colors duration-300 hover:text-white hover:bg-white/20">{hostLabel(c.url)}</a>
                           </div>
                         )}
                       </div>
@@ -272,11 +272,17 @@ export default function LandingWorkClient() {
                       {title && <h3 className="text-xl font-medium tracking-tight mb-1 text-white">{title}</h3>}
                       {c.role && <p className="text-sm text-[var(--blue-light)] font-medium mb-2">{c.role}</p>}
                       {c.summary && <p className="text-white/50 text-sm leading-relaxed">{c.summary}</p>}
+                      {c.url && (
+                        <a href={c.url} target="_blank" rel="noopener noreferrer" className="group inline-flex items-center gap-1.5 mt-4 text-sm text-[var(--blue-light)] font-medium no-underline transition-colors duration-300 hover:text-white">
+                          {hostLabel(c.url)}
+                          <span className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5">&#8599;</span>
+                        </a>
+                      )}
                     </div>
                   </>
                 )
-                // On the landing funnel the cards are not links: the recording
-                // shows the site, and visitors stay on the page.
+                // The card itself is not a link (the recording has its own
+                // controls); the address bar and the URL under it open the live site.
                 return (
                   <div key={c.url || i} className="scroll-fade" style={{ transitionDelay: `${(i % 2) * 100}ms` }}>
                     {Card}
