@@ -10,7 +10,7 @@ import 'lenis/dist/lenis.css'
 import Menu from '@/components/Menu'
 import Footer from '@/components/Footer'
 import { caseStudies } from '@/lib/work'
-import { caseMedia, vanaiCase } from '@/lib/landingMedia'
+import { caseMedia } from '@/lib/landingMedia'
 import CaseVideo from '@/components/CaseVideo'
 import { FormProvider, LeadMagnetHero } from '@/components/LandingLeadMagnet'
 import { homeTestimonials } from '@/lib/homeTestimonials'
@@ -22,13 +22,11 @@ function hostLabel(url?: string) {
   return url ? url.replace(/^https?:\/\//, '').replace(/\/$/, '') : ''
 }
 
-// Duplicate of WorkClient for the /landing funnel. Links stay inside /landing
-// (logo -> /landing, contact -> /landing/contact). Variations to come.
-// The public case studies, with Vanai Consulting (landing-only for now) second.
-const visibleCases = caseStudies.filter((c) => !c.hidden)
-const landingCases: { name: string; role: string; url?: string; image?: string; summary: string; niche: string }[] = [
-  ...visibleCases.slice(0, 1), vanaiCase, ...visibleCases.slice(1),
-]
+// Duplicate of WorkClient for the /landing funnel. Links point to the main site
+// (logo -> /, contact -> /contact, menu + footer -> main pages). Variations to come.
+// The public case studies. Vanai Consulting is left out of the grid (no live
+// site yet) but still appears in the closing lead-magnet section.
+const landingCases = caseStudies.filter((c) => !c.hidden)
 
 export default function LandingWorkClient() {
   const cursorRef = useRef<HTMLDivElement>(null)
@@ -167,11 +165,11 @@ export default function LandingWorkClient() {
       {/* ─── Navbar ─── */}
       <nav className="fixed top-0 w-full z-[100] px-6 md:px-12 py-5 transition-all duration-500">
         <div className="flex justify-between items-center max-w-screen-2xl mx-auto">
-          <Link href="/landing" className={`text-3xl font-medium tracking-tight caldera-logo transition-colors duration-500 no-underline ${navDark ? 'text-white' : 'text-[var(--black)]'}`}>
+          <Link href="/" className={`text-3xl font-medium tracking-tight caldera-logo transition-colors duration-500 no-underline ${navDark ? 'text-white' : 'text-[var(--black)]'}`}>
             caldera.agency
           </Link>
           <div className="flex items-center gap-8">
-            <Link href="/landing/contact"
+            <Link href="/contact"
               className={`hidden md:block group relative overflow-hidden px-6 py-3 rounded-lg text-sm tracking-tight transition-all duration-500 hover:scale-105 no-underline ${navDark ? 'bg-white text-[var(--black)]' : 'bg-[var(--black)] text-white'}`}>
               <div className={`absolute inset-0 ${navDark ? 'bg-[var(--black)]' : 'bg-[var(--primary-blue)]'} transform -translate-x-full transition-transform duration-300 ease-out group-hover:translate-x-0`} />
               <span className="relative z-10 flex items-center gap-2 group-hover:text-white">
@@ -179,7 +177,7 @@ export default function LandingWorkClient() {
                 <span className="transition-transform duration-300 group-hover:translate-x-0.5">&rarr;</span>
               </span>
             </Link>
-            <Menu onMenuToggle={setIsMenuOpen} dark={navDark} basePath="/landing" />
+            <Menu onMenuToggle={setIsMenuOpen} dark={navDark} />
           </div>
         </div>
       </nav>
@@ -205,7 +203,7 @@ export default function LandingWorkClient() {
 
           <div className="flex flex-col sm:flex-row gap-4 scroll-fade">
             <Link
-              href="/landing/contact"
+              href="/contact"
               className="group relative overflow-hidden inline-flex items-center gap-3 bg-[var(--black)] text-white px-8 py-4 text-[15px] tracking-tight no-underline rounded-lg transition-all duration-300 ease-out hover:scale-105"
             >
               <div className="absolute inset-0 bg-[var(--primary-blue)] transform -translate-x-full transition-transform duration-300 ease-out group-hover:translate-x-0"></div>
@@ -239,7 +237,7 @@ export default function LandingWorkClient() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 md:[&>*:last-child:nth-child(odd)]:col-span-2 md:[&>*:last-child:nth-child(odd)]:mx-auto md:[&>*:last-child:nth-child(odd)]:w-[calc(50%-1.5rem)]">
               {landingCases.map((c, i) => {
                 const title = c.name || hostLabel(c.url)
-                const media = c.name === vanaiCase.name ? vanaiCase : caseMedia[c.name]
+                const media = caseMedia[c.name]
                 const Card = (
                   <>
                     {/* Browser frame */}
@@ -253,7 +251,7 @@ export default function LandingWorkClient() {
                         </div>
                         {c.url && (
                           <div className="flex-1 ml-3">
-                            <div className="bg-white/10 rounded-md px-3 py-1 text-xs text-white/50 max-w-[200px] truncate">{hostLabel(c.url)}</div>
+                            <a href={c.url} target="_blank" rel="noopener noreferrer" className="block bg-white/10 rounded-md px-3 py-1 text-xs text-white/50 max-w-[200px] truncate no-underline transition-colors duration-300 hover:text-white hover:bg-white/20">{hostLabel(c.url)}</a>
                           </div>
                         )}
                       </div>
@@ -272,11 +270,17 @@ export default function LandingWorkClient() {
                       {title && <h3 className="text-xl font-medium tracking-tight mb-1 text-white">{title}</h3>}
                       {c.role && <p className="text-sm text-[var(--blue-light)] font-medium mb-2">{c.role}</p>}
                       {c.summary && <p className="text-white/50 text-sm leading-relaxed">{c.summary}</p>}
+                      {c.url && (
+                        <a href={c.url} target="_blank" rel="noopener noreferrer" className="group inline-flex items-center gap-1.5 mt-4 text-sm text-[var(--blue-light)] font-medium no-underline transition-colors duration-300 hover:text-white">
+                          {hostLabel(c.url)}
+                          <span className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5">&#8599;</span>
+                        </a>
+                      )}
                     </div>
                   </>
                 )
-                // On the landing funnel the cards are not links: the recording
-                // shows the site, and visitors stay on the page.
+                // The card itself is not a link (the recording has its own
+                // controls); the address bar and the URL under it open the live site.
                 return (
                   <div key={c.url || i} className="scroll-fade" style={{ transitionDelay: `${(i % 2) * 100}ms` }}>
                     {Card}
@@ -347,7 +351,7 @@ export default function LandingWorkClient() {
           </FormProvider>
         </section>
 
-        <Footer basePath="/landing" />
+        <Footer />
       </div>
     </>
   )
