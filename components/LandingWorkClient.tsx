@@ -10,7 +10,7 @@ import 'lenis/dist/lenis.css'
 import Menu from '@/components/Menu'
 import Footer from '@/components/Footer'
 import { caseStudies } from '@/lib/work'
-import { caseMedia, vanaiCase } from '@/lib/landingMedia'
+import { caseMedia } from '@/lib/landingMedia'
 import CaseVideo from '@/components/CaseVideo'
 import { FormProvider, LeadMagnetHero } from '@/components/LandingLeadMagnet'
 import { homeTestimonials } from '@/lib/homeTestimonials'
@@ -24,11 +24,9 @@ function hostLabel(url?: string) {
 
 // Duplicate of WorkClient for the /landing funnel. Links point to the main site
 // (logo -> /, contact -> /contact, menu + footer -> main pages). Variations to come.
-// The public case studies, with Vanai Consulting (landing-only for now) second.
-const visibleCases = caseStudies.filter((c) => !c.hidden)
-const landingCases: { name: string; role: string; url?: string; image?: string; summary: string; niche: string }[] = [
-  ...visibleCases.slice(0, 1), vanaiCase, ...visibleCases.slice(1),
-]
+// The public case studies. Vanai Consulting is left out of the grid (no live
+// site yet) but still appears in the closing lead-magnet section.
+const landingCases = caseStudies.filter((c) => !c.hidden)
 
 export default function LandingWorkClient() {
   const cursorRef = useRef<HTMLDivElement>(null)
@@ -239,7 +237,7 @@ export default function LandingWorkClient() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 md:[&>*:last-child:nth-child(odd)]:col-span-2 md:[&>*:last-child:nth-child(odd)]:mx-auto md:[&>*:last-child:nth-child(odd)]:w-[calc(50%-1.5rem)]">
               {landingCases.map((c, i) => {
                 const title = c.name || hostLabel(c.url)
-                const media = c.name === vanaiCase.name ? vanaiCase : caseMedia[c.name]
+                const media = caseMedia[c.name]
                 const Card = (
                   <>
                     {/* Browser frame */}
